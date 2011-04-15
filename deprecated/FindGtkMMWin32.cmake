@@ -32,7 +32,7 @@ ENDIF (GTKPLUS_C_FLAG)
 FIND_PACKAGE(PkgConfig)
 
 IF(PKG_CONFIG_FOUND AND NOT MSVC)
-    message ("Still find package!")
+	message ("Still find package!")
     PKG_CHECK_MODULES(GtkMM gtkmm-2.4)
     IF (GtkMM_FOUND)
         MESSAGE(STATUS " pkg-config found gtkmm")
@@ -72,23 +72,21 @@ else(PKG_CONFIG_FOUND AND NOT MSVC)
     LIST(APPEND ALLSEARCHPATHS ${GTKMM_DIR}/lib)
 
     SET(HEADERTOSEARCH
-        "libglademm"
-        "libglademmconfig"
-        "gtkmmconfig"
-        "gtkmm"
-        "gdkmmconfig"
-        "gdkmm"
-        "pangomm"
-        "pangommconfig"
-        "cairomm/cairomm"
-        "atkmm"
-        "libxml++config"
-        "libxml++/libxml++"
-        "glibmmconfig"
-        "glibmm"
-        "sigc++config"
-        "sigc++/sigc++"
-        "freetype/config/ftheader"
+	    "libglademm"
+	    "libglademmconfig"
+	    "gtkmmconfig"
+	    "gtkmm"
+	    "gdkmmconfig"
+	    "gdkmm"
+	    "pangomm"
+	    "cairomm/cairomm"
+	    "atkmm"
+	    "libxml++config"
+	    "libxml++/libxml++"
+	    "glibmmconfig"
+	    "glibmm"
+	    "sigc++config"
+	    "sigc++/sigc++"
     )
 
     # only new
@@ -111,14 +109,12 @@ else(PKG_CONFIG_FOUND AND NOT MSVC)
 
     FOREACH (i ${HEADERTOSEARCH})
         SET (GTKMM_TMP GTKMM_TMP-NOTFOUND CACHE INTERNAL "")
-        message("matching ${i}")
         FIND_PATH(GTKMM_TMP ${i}.h PATHS ${ALLSEARCHPATHS} PATH_SUFFIXES include)
-        message("--> ${GTKMM_TMP}")
         IF (GTKMM_TMP)
-            LIST(APPEND GTKMM_INCLUDE_DIRS ${GTKMM_TMP})
+	        LIST(APPEND GTKMM_INCLUDE_DIRS ${GTKMM_TMP})
         ELSE (GTKMM_TMP)
-            SET(GtkMM_FOUND FALSE)
-            MESSAGE("Path for ${i}.h not found, GtkMM doesn't seem to be available")
+	        SET(GtkMM_FOUND FALSE)
+	        MESSAGE("Path for ${i}.h not found, GtkMM doesn't seem to be available")
         ENDIF (GTKMM_TMP)
     ENDFOREACH (i)
     LIST(APPEND GTKMM_INCLUDE_DIRS ${GTKPLUS_INCLUDE_DIR})
@@ -139,15 +135,15 @@ else(PKG_CONFIG_FOUND AND NOT MSVC)
 
     #### MM specific libraries, all here except gthread, see later
     SET(LIBTOSEARCH 
-        "xml++"
-        "atkmm"
-        "glademm"
-        "gtkmm"
-        "gdkmm"
-        "pangomm"
-        "glibmm"
-        "sigc"
-        "cairomm"
+	    "xml++"
+	    "atkmm"
+	    "glademm"
+	    "gtkmm"
+	    "gdkmm"
+	    "pangomm"
+	    "glibmm"
+	    "sigc"
+	    "cairomm"
     )
     # new version
     IF (GTKMMVER EQUAL "2.14.3")
@@ -187,7 +183,7 @@ else(PKG_CONFIG_FOUND AND NOT MSVC)
     FIND_LIBRARY(GTKMM_TMP_REL NAMES gthread-2.0 PATHS ${GTKMM_DIR}/lib)
     IF (GTKMM_TMP_REL)
         LIST(APPEND GTKMM_LIBRARIES optimized ${GTKMM_TMP_REL})
-        LIST(APPEND GTKMM_LIBRARIES debug ${GTKMM_TMP_REL})
+	    LIST(APPEND GTKMM_LIBRARIES debug ${GTKMM_TMP_REL})
     ELSE (GTKMM_TMP_REL)
         SET(GtkMM_FOUND FALSE)
         MESSAGE("Library gthread not found, GtkMM doesn't seem to be available")
@@ -199,13 +195,13 @@ else(PKG_CONFIG_FOUND AND NOT MSVC)
     SET (GTKMM_TMP_DBG GTKMM_TMP_REL-NOTFOUND CACHE INTERNAL "")
     SET (GTKMM_TMP_REL GTKMM_TMP_DBG-NOTFOUND CACHE INTERNAL "")
     SET (GTKMM_TMP GTKMM_TMP-NOTFOUND CACHE INTERNAL "")
-    
+	
     set(GTKMM_C_FLAGS /wd4250 /wd4520)
-    
+	
     set(GtkMM_LIBRARIES ${GTKMM_LIBRARIES} CACHE STRING "Libraries for GtkMM")
     set(GtkMM_INCLUDE_DIRS ${GTKMM_INCLUDE_DIRS} CACHE STRING "Include directories for GtkMM")
     set(GtkMM_C_FLAGS ${GTKMM_C_FLAGS} CACHE STRING "C flags for GtkMM")
-    
+
     ### For now we propagate this value. Much better version check 
     # can be done by checking gtkmmconfig.h, which defines 
     # GTKMM_MAJOR_VERSION and GTK_MINOR_VERSION
