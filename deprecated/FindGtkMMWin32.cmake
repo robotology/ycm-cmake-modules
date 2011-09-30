@@ -1,117 +1,234 @@
-#
-# Searches and hopefully finds gtk on windows -- by nat.
-
 # Copyright: (C) 2009 RobotCub Consortium
-# Authors: Lorenzo Natale
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
+# Authors: Giorgio Metta, Lorenzo Natale
+# CopyPolicy: Released under the terms of the GNU GPL v2.0.
 
-# Assumes that the environment variable GTK_BASEPATH is set to the place
-# where GTK libs have been unpacked/installed. This is the default 
-# behavior of glade for win32, users that want to install gtk manually
-# must define GTK_BASEPATH accordingly.
+#
+# Searches and hopefully finds gtkmm on windows -- by alessandro and giorgio.
+# Assumes that the environment variable GTKMM_BASEPATH is set to the place
+# where GTKMM libs have been unpacked/installed. Users that want to install 
+# gtkmm manually must define GTKMM_BASEPATH accordingly.
 #
 # Creates:
-# GTKMM_INCLUDE_DIR   - Directories to include to use GTK
-# GTKMM_LIBRARIES     - Files to link against to use GTK
-# GTKMM_FOUND         - If false, don't try to use GTK
-# GTKMM_GL_FOUND      - If false, don't try to use GTK's GL features
+# GtkMM_INCLUDE_DIRS   - Directories to include to use GTKMM
+# GtkMM_LIBRARIES      - Files to link against to use GTKMM
+# GtkMM_C_FLAGS        - Flags to pass to the C/C++ compiler for GTKMM.
+# GtkMM_FOUND          - If false, don't try to use GTKMM
+# GtkMM_VERSION        - version info
+# GtkMM_MAJOR_VERSION  - major version
+# GtkMM_MINOR_VERSION  - minor version
 
-FIND_PACKAGE(GtkWin32)
+## Added version info -- for now fake 14/04/11 Lorenzo Natale
 
-# header files
-FIND_PATH(GTKMM_gtkmm_INCLUDE_PATH gtkmm.h $ENV{GTK_BASEPATH}/include/gtkmm-2.4)
-FIND_PATH(GTKMM_glibmm_INCLUDE_PATH glibmm.h $ENV{GTK_BASEPATH}/include/glibmm-2.4)
-FIND_PATH(GTKMM_gdkmm_INCLUDE_PATH gdkmm.h $ENV{GTK_BASEPATH}/include/gdkmm-2.4)
-FIND_PATH(GTKMM_cairomm_INCLUDE_PATH cairomm/cairomm.h $ENV{GTK_BASEPATH}/include/cairomm-1.0)
-FIND_PATH(GTKMM_sigc_INCLUDE_PATH sigc++/sigc++.h $ENV{GTK_BASEPATH}/include/sigc++-2.0)
-FIND_PATH(GTKMM_atkmm_INCLUDE_PATH atkmm.h $ENV{GTK_BASEPATH}/include/atkmm-1.6)
-FIND_PATH(GTKMM_giomm_INCLUDE_PATH giomm.h $ENV{GTK_BASEPATH}/include/giomm-2.4)
-FIND_PATH(GTKMM_pangomm_INCLUDE_PATH pangomm.h $ENV{GTK_BASEPATH}/include/pangomm-1.4)
+# prerequisite
+FIND_PACKAGE(GtkPlus REQUIRED)
+IF (NOT GtkPlus_FOUND)
+    MESSAGE(SEND_ERROR "GtkPlus was not found but GtkMM requires GtkPlus.")
+ENDIF (NOT GtkPlus_FOUND)
 
-FIND_PATH(GTKMM_gtkmm-config_INCLUDE_PATH gtkmmconfig.h $ENV{GTK_BASEPATH}/lib/gtkmm-2.4/include)
-FIND_PATH(GTKMM_gdkmm-config_INCLUDE_PATH gdkmmconfig.h $ENV{GTK_BASEPATH}/lib/gdkmm-2.4/include)
-FIND_PATH(GTKMM_glibmm-config_INCLUDE_PATH glibmmconfig.h $ENV{GTK_BASEPATH}/lib/glibmm-2.4/include)
-FIND_PATH(GTKMM_sigc-config_INCLUDE_PATH sigc++config.h $ENV{GTK_BASEPATH}/lib/sigc++-2.0/include)
-FIND_PATH(GTKMM_giomm-config_INCLUDE_PATH giommconfig.h $ENV{GTK_BASEPATH}/lib/giomm-2.4/include)
+IF (GTKPLUS_C_FLAG)
+	LIST(APPEND GTKMM_C_FLAGS ${GTKPLUS_C_FLAGS})
+ENDIF (GTKPLUS_C_FLAG)
 
-# libraries
+FIND_PACKAGE(PkgConfig)
 
-FIND_LIBRARY( GTKMM_gtkmm_LIBRARY
-  NAMES  gtkmm-vc90-2_4
-  PATHS $ENV{GTK_BASEPATH}/lib)
+IF(PKG_CONFIG_FOUND AND NOT WIN32)
+    PKG_CHECK_MODULES(GtkMM gtkmm-2.4)
+    IF (GtkMM_FOUND)
+        MESSAGE(STATUS " pkg-config found gtkmm")
+    ELSE (GtkMM_FOUND)
+        MESSAGE(STATUS " pkg-config could not find gtkmm")
+    ENDIF (GtkMM_FOUND)
 
-FIND_LIBRARY( GTKMM_glibmm_LIBRARY
-  NAMES  glibmm-vc90-2_4
-  PATHS $ENV{GTK_BASEPATH}/lib)
+else(PKG_CONFIG_FOUND AND NOT WIN32)
+    SET(GTKMM_DIR $ENV{GTKMM_BASEPATH})
 
-FIND_LIBRARY( GTKMM_gdkmm_LIBRARY
-  NAMES gdkmm-vc90-2_4 
-  PATHS $ENV{GTK_BASEPATH}/lib)
- 
-FIND_LIBRARY( GTKMM_cairomm_LIBRARY
-  NAMES  cairomm-vc90-1_0
-  PATHS $ENV{GTK_BASEPATH}/lib)
+    # new vs. old style libraries detection (sort of fuzzy, temporary).
+    # still uses a strict "find" which tests for a list of header files to 
+    # be present and available. We might be able to relax this and just
+    # glob everything under $GTKMM_DIR/lib $GTKMM/include
+    #
+    FILE(GLOB PATHGIOMM ${GTKMM_DIR}/lib/giomm*)
+    IF (PATHGIOMM)
+        SET (GTKMMVER "2.14.3")
+    ELSE (PATHGIOMM)
+        SET (GTKMMVER "2.8.x")
+    ENDIF (PATHGIOMM)
 
-FIND_LIBRARY( GTKMM_atkmm_LIBRARY
-  NAMES  atkmm-vc90-1_6
-  PATHS $ENV{GTK_BASEPATH}/lib)
+    FILE(GLOB ALLSEARCHPATHS ${GTKMM_DIR}/include/*)
+    FILE(GLOB TMPSP ${GTKMM_DIR}/lib/*)
+    LIST(APPEND ALLSEARCHPATHS ${TMPSP})
 
-FIND_LIBRARY( GTKMM_giomm_LIBRARY
-  NAMES  giomm-vc90-d-2_4
-  PATHS $ENV{GTK_BASEPATH}/lib)
+    FOREACH (i ${ALLSEARCHPATHS})
+        IF (IS_DIRECTORY ${i})
+    #        MESSAGE("${i}") # testing!
+        ELSE (IS_DIRECTORY ${i})
+            LIST (REMOVE_ITEM ALLSEARCHPATHS ${i})
+        ENDIF(IS_DIRECTORY ${i})
+    ENDFOREACH (i)
 
-FIND_LIBRARY( GTKMM_pangomm_LIBRARY
-  NAMES  pangomm-vc90-d-1_4
-  PATHS $ENV{GTK_BASEPATH}/lib)
+    # complete the list
+    LIST(APPEND ALLSEARCHPATHS ${GTKMM_DIR}/include)
+    LIST(APPEND ALLSEARCHPATHS ${GTKMM_DIR}/lib)
 
-FIND_LIBRARY( GTKMM_sigc_LIBRARY
-  NAMES  sigc-vc90-2_0
-  PATHS $ENV{GTK_BASEPATH}/lib)
+    SET(HEADERTOSEARCH
+        "libglademm"
+        "libglademmconfig"
+        "gtkmmconfig"
+        "gtkmm"
+        "gdkmmconfig"
+        "gdkmm"
+        "pangomm"
+        "cairomm/cairomm"
+        "atkmm"
+        "libxml++config"
+        "libxml++/libxml++"
+        "glibmmconfig"
+        "glibmm"
+        "sigc++config"
+        "sigc++/sigc++"
 
-# GTKMM_INCLUDE_DIR   - Directories to include to use GTK
-# GTKMM_LINK_FLAGS    - Files to link against to use GTK
-# GTKMM_FOUND         - If false, don't try to use GTK
-# GTKMM_GL_FOUND      - If false, don't try to use GTK's GL features
-# check only gtk include and library... lazy behavior
-IF(GTKMM_gtkmm_INCLUDE_PATH AND GTKMM_cairomm_INCLUDE_PATH
-	AND GTKMM_glibmm_INCLUDE_PATH AND GTKMM_gdkmm_INCLUDE_PATH	
-	AND GTKMM_glibmm-config_INCLUDE_PATH AND GTKMM_gdkmm-config_INCLUDE_PATH
-	AND GTKMM_sigc_INCLUDE_PATH AND GTKMM_sigc-config_INCLUDE_PATH
-	AND GTKMM_atkmm_INCLUDE_PATH AND GTKMM_giomm_INCLUDE_PATH
-	AND GTKMM_pangomm_INCLUDE_PATH AND GTKMM_gtkmm-config_INCLUDE_PATH 
-	AND GTKMM_giomm-config_INCLUDE_PATH	
+     )
+
+    set(OPTIONAL_HEADERTOSEARCH
+            "pangommconfig"
+            "freetype/config/ftheader"
+    )
+                   
+    # only new
+    IF (GTKMMVER EQUAL "2.14.3")
+        SET(HEADERTOSEARCH ${HEADERTOSEARCH} "giomm")
+    ENDIF (GTKMMVER EQUAL "2.14.3")
+
+    # old
+    IF (GTKMMVER EQUAL "2.8.x")
+        SET(HEADERTOSEARCH 
+            ${HEADERTOSEARCH}
+    #
+        )
+    ENDIF (GTKMMVER EQUAL "2.8.x")
+
+    # optimistic :)
+    SET(GtkMM_FOUND TRUE)
+    SET(GTKMM_INCLUDE_DIRS ${GTKMM_DIR}/include)
+    #MARK_AS_ADVANCED(FORCE GTKMM_TMP)
+
+    FOREACH (i ${HEADERTOSEARCH})
+        SET (GTKMM_TMP GTKMM_TMP-NOTFOUND CACHE INTERNAL "")
+        FIND_PATH(GTKMM_TMP ${i}.h PATHS ${ALLSEARCHPATHS} PATH_SUFFIXES include)
+        IF (GTKMM_TMP)
+            LIST(APPEND GTKMM_INCLUDE_DIRS ${GTKMM_TMP})
+        ELSE (GTKMM_TMP)
+            SET(GtkMM_FOUND FALSE)
+            MESSAGE("FindGtkMMWin32: ${i}.h not found, GtkMM is not available")
+        ENDIF (GTKMM_TMP)
+    ENDFOREACH (i)
+    LIST(APPEND GTKMM_INCLUDE_DIRS ${GTKPLUS_INCLUDE_DIR})
+
+    FOREACH (i ${OPTIONAL_HEADERTOSEARCH})
+        SET (GTKMM_TMP GTKMM_TMP-NOTFOUND CACHE INTERNAL "")
+        FIND_PATH(GTKMM_TMP ${i}.h PATHS ${ALLSEARCHPATHS} PATH_SUFFIXES include)
+        IF (GTKMM_TMP)
+            LIST(APPEND GTKMM_INCLUDE_DIRS ${GTKMM_TMP})
+        ENDIF (GTKMM_TMP)
+    ENDFOREACH (i)
+    
+    LIST(APPEND GTKMM_INCLUDE_DIRS ${GTKPLUS_INCLUDE_DIR})
+    
+    IF (MSVC_VERSION EQUAL 1400)
+        SET(REGEX_GTKMM "[-](vc80[-])?")
+    ELSE (MSVC_VERSION EQUAL 1400)
+        IF (MSVC_VERSION EQUAL 1500 OR MSVC_VERSION EQUAL 1600)
+            SET(REGEX_GTKMM "[-](vc90[-])?")
+        ELSE (MSVC_VERSION EQUAL 1500 OR MSVC_VERSION EQUAL 1600)
+            MESSAGE("Sorry, this version of FindGtkMMWin32.cmake does not yet support your version of Visual Studio")
+            SET(GtkMM_FOUND FALSE)
+        ENDIF (MSVC_VERSION EQUAL 1500 OR MSVC_VERSION EQUAL 1600)
+    ENDIF (MSVC_VERSION EQUAL 1400)
+
+    # I'd like to search for an unspecified version and pattern of library name (new format vs. old format)
+    FILE(GLOB ALL_GTK_LIBS ${GTKMM_DIR}/lib/*.lib)
+
+    #### MM specific libraries, all here except gthread, see later
+    SET(LIBTOSEARCH 
+        "xml++"
+        "atkmm"
+        "glademm"
+        "gtkmm"
+        "gdkmm"
+        "pangomm"
+        "glibmm"
+        "sigc"
+        "cairomm"
+    )
+    # new version
+    IF (GTKMMVER EQUAL "2.14.3")
+        SET(LIBTOSEARCH ${LIBTOSEARCH} "giomm")
+    ENDIF (GTKMMVER EQUAL "2.14.3")
+
+    FOREACH (i ${LIBTOSEARCH})
+        SET (GTKMM_TMP_REL GTKMM_TMP-NOTFOUND CACHE INTERNAL "")
+        SET (GTKMM_TMP_DBG GTKMM_TMP-NOTFOUND CACHE INTERNAL "")
+        
+        STRING(REPLACE "++" "[+][+]" j ${i})
+        STRING(REGEX MATCHALL "${j}${REGEX_GTKMM}([0-9]([_]|[.])[0-9])+" LINK_LIBRARIES_WITH_PREFIX "${ALL_GTK_LIBS}")
+        STRING(REGEX MATCHALL "(${j}${REGEX_GTKMM}([d][-])+([0-9]([_]|[.])[0-9])+)|(${j}([0-9]([_]|[.])[0-9])+([d])+)" LINK_LIBRARIES_WITH_PREFIX_DEBUG1 "${ALL_GTK_LIBS}")
+        STRING(REGEX MATCHALL "${j}${REGEX_GTKMM}([0-9]([_]|[.])[0-9][d])+" LINK_LIBRARIES_WITH_PREFIX_DEBUG2 "${ALL_GTK_LIBS}")
+        SET(LINK_LIBRARIES_WITH_PREFIX_DEBUG ${LINK_LIBRARIES_WITH_PREFIX_DEBUG1} ${LINK_LIBRARIES_WITH_PREFIX_DEBUG2})
+        
+        FIND_LIBRARY(GTKMM_TMP_REL NAMES ${LINK_LIBRARIES_WITH_PREFIX} PATHS ${GTKMM_DIR}/lib)
+        IF (GTKMM_TMP_REL)
+			#LIST(APPEND GTKMM_LIBRARIES optimized ${GTKMM_TMP_REL})
+			LIST(APPEND GTKMM_LIBRARIES ${GTKMM_TMP_REL})
+        ELSE (GTKMM_TMP_REL)
+            SET(GtkMM_FOUND FALSE)
+            MESSAGE("Library ${i} optimized version not found, GtkMM doesn't seem to be available")
+        ENDIF (GTKMM_TMP_REL)
+    	
+        FIND_LIBRARY(GTKMM_TMP_DBG NAMES ${LINK_LIBRARIES_WITH_PREFIX_DEBUG} PATHS ${GTKMM_DIR}/lib)
+        IF (GTKMM_TMP_DBG)
+            LIST(APPEND GTKMM_LIBRARIES debug ${GTKMM_TMP_DBG})
+        ELSE (GTKMM_TMP_DBG)
+            SET(GtkMM_FOUND FALSE)
+            MESSAGE("Library ${i} debug version not found, GtkMM doesn't seem to be available")
+        ENDIF (GTKMM_TMP_DBG)
+    ENDFOREACH (i)
+
+    ############### gthread does not have debug version
+    ### I'll use gtk_tmp_rel variable for convenience
+    SET (GTKMM_TMP_REL GTKMM_TMP-NOTFOUND CACHE INTERNAL "")
+    FIND_LIBRARY(GTKMM_TMP_REL NAMES gthread-2.0 PATHS ${GTKMM_DIR}/lib)
+    IF (GTKMM_TMP_REL)
+		#LIST(APPEND GTKMM_LIBRARIES optimized ${GTKMM_TMP_REL})
+		LIST(APPEND GTKMM_LIBRARIES ${GTKMM_TMP_REL})
+		LIST(APPEND GTKMM_LIBRARIES debug ${GTKMM_TMP_REL})
+    ELSE (GTKMM_TMP_REL)
+        SET(GtkMM_FOUND FALSE)
+        MESSAGE("Library gthread not found, GtkMM doesn't seem to be available")
+    ENDIF (GTKMM_TMP_REL)
+
+    # complete list of link flags.
+    LIST(APPEND GTKMM_LIBRARIES ${GTKPLUS_LINK_FLAGS})
+    # MESSAGE("${GTKMM_LIBRARIES}")
+    SET (GTKMM_TMP_DBG GTKMM_TMP_REL-NOTFOUND CACHE INTERNAL "")
+    SET (GTKMM_TMP_REL GTKMM_TMP_DBG-NOTFOUND CACHE INTERNAL "")
+    SET (GTKMM_TMP GTKMM_TMP-NOTFOUND CACHE INTERNAL "")
 	
-	AND GTKMM_gtkmm_LIBRARY AND GTKMM_glibmm_LIBRARY
-	AND GTKMM_cairomm_LIBRARY AND GTKMM_gdkmm_LIBRARY
-	AND GTKMM_atkmm_LIBRARY AND GTKMM_pangomm_LIBRARY
-	AND GTKMM_giomm_LIBRARY AND GTKMM_sigc_LIBRARY)
-
-	SET(GtKMM_FOUND TRUE)
+    set(GTKMM_C_FLAGS /wd4250 /wd4520)
 	
-	SET(GTKMM_INCLUDE_DIR ${GTKMM_gtkmm_INCLUDE_PATH} 
-	  ${GTKMM_cairomm_INCLUDE_PATH}
-	  ${GTKMM_glibmm_INCLUDE_PATH}
-	  ${GTKMM_gdkmm_INCLUDE_PATH}
-	  ${GTKMM_glibmm-config_INCLUDE_PATH}
-	  ${GTKMM_gdkmm-config_INCLUDE_PATH}
-	  ${GTKMM_sigc_INCLUDE_PATH}
-	  ${GTKMM_sigc-config_INCLUDE_PATH}
-	  ${GTKMM_pangomm_INCLUDE_PATH}
-	  ${GTKMM_atkmm_INCLUDE_PATH}
-	  ${GTKMM_giomm_INCLUDE_PATH}
-	  ${GTKMM_gtkmm-config_INCLUDE_PATH}
-	  ${GTKMM_giomm-config_INCLUDE_PATH}
-	  ${GTKPLUS_INCLUDE_DIR})
-  
-  SET(GTKMM_LINK_FLAGS ${GTKMM_gtkmm_LIBRARY}
-	  ${GTKMM_gdkmm_LIBRARY}
-	  ${GTKMM_glibmm_LIBRARY}
-	  ${GTKMM_cairomm_LIBRARY}
-	  ${GTKMM_pangomm_LIBRARY}
-	  ${GTKMM_atkmm_LIBRARY}
-	  ${GTKMM_giomm_LIBRARY}
-	  ${GTKMM_sigc_LIBRARY}
-	  ${GTKPLUS_LINK_FLAGS})
- 
-ENDIF()
+    set(GtkMM_LIBRARIES ${GTKMM_LIBRARIES} CACHE STRING "Libraries for GtkMM")
+    set(GtkMM_INCLUDE_DIRS ${GTKMM_INCLUDE_DIRS} CACHE STRING "Include directories for GtkMM")
+    set(GtkMM_C_FLAGS ${GTKMM_C_FLAGS} CACHE STRING "C flags for GtkMM")
+
+    ### For now we propagate this value. Much better version check 
+    # can be done by checking gtkmmconfig.h, which defines 
+    # GTKMM_MAJOR_VERSION and GTK_MINOR_VERSION
+    set(GtkMM_VERSION ${GTKMMVER})
+    
+    ## split into major and minor
+    string(REPLACE "." ";" GTKMM_VERSION_LIST ${GtkMM_VERSION})
+
+    list(GET GTKMM_VERSION_LIST 0 GtkMM_VERSION_MAJOR)
+    list(GET GTKMM_VERSION_LIST 1 GtkMM_VERSION_MINOR)
+
+endif(PKG_CONFIG_FOUND AND NOT WIN32)
 
