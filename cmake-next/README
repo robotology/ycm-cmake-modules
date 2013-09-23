@@ -1,0 +1,25 @@
+The files in this folder and its subfolder come from CMake git
+repository:
+
+  git://cmake.org/cmake.git
+
+These files were imported exactly as they are on the original
+repository, in order to have the new features and bugfix available in
+newer releases with older cmake releases.
+
+                      DO NOT MODIFY OR FORK THEM!
+
+If you find a bug or need a new feature in one of those files, please
+consider fixing them upstream and importing the latest revision of the
+file when your patch is merged.
+
+To refresh the files, update cmake repository (in ${CMAKE_DIR} folder)
+and run from this directory:
+
+  for file in `find . -type f | grep -v "README\|CMakeLists.txt"`; do cp ${CMAKE_DIR}/${file} ./${file}; done
+
+Then update this file with:
+
+  sed -i "s/\(^Latest imported commit:\)  [0-9a-f]\+$/\1  `cd ${CMAKE_DIR}; git rev-parse HEAD`/g" README
+
+Latest imported commit:  6d1444feacb1c2d621b776ac61412f92ff0a1c34
