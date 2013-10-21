@@ -7,6 +7,7 @@ check_required_components(YCM)
 
 list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/modules")
 list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/find-modules")
+list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/build-modules")
 
 if(CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8)
     list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-2.8.8")

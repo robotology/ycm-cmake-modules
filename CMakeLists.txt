@@ -11,6 +11,7 @@ set(YCM_INSTALL_MODULE_DIR "${CMAKE_INSTALL_PREFIX}/share/YCM")
 
 add_subdirectory(modules)
 add_subdirectory(find-modules)
+add_subdirectory(build-modules)
 add_subdirectory(deprecated)
 add_subdirectory(cmake-next)
 
