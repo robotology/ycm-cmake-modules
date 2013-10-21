@@ -29,7 +29,9 @@ set(YCM_CMAKE_NEXT_FILES Modules/FindGTK2.cmake
                          Modules/FindPackageMessage.cmake
                          Modules/CMakeParseArguments.cmake
                          Modules/SelectLibraryConfigurations.cmake
-                         Modules/FindFreetype.cmake)
+                         Modules/FindFreetype.cmake
+                         Modules/FindPkgConfig.cmake
+                         Modules/ExternalProject.cmake)
 # always installed
 install(FILES ${YCM_CMAKE_NEXT_FILES}
         DESTINATION share/YCM/cmake-next/Modules)
