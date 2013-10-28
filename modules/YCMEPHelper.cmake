@@ -348,14 +348,14 @@ macro(YCM_BOOTSTRAP)
             message(FATAL_ERROR "Cannot clone YCM repository (${_result})")
         endif()
 
-        message(STATUS "Performing update step for 'YCM'")
-        execute_process(COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-gitupdate.cmake
-                        OUTPUT_QUIET
-                        ERROR_QUIET
-                        RESULT_VARIABLE _result)
-        if(_result)
-            message(FATAL_ERROR "Cannot update YCM repository")
-        endif()
+#         message(STATUS "Performing update step for 'YCM'")
+#         execute_process(COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-gitupdate.cmake
+#                         OUTPUT_QUIET
+#                         ERROR_QUIET
+#                         RESULT_VARIABLE _result)
+#         if(_result)
+#             message(FATAL_ERROR "Cannot update YCM repository")
+#         endif()
 
         message(STATUS "Performing configure step for 'YCM'")
         file(READ ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-cfgcmd.txt _cmd)
