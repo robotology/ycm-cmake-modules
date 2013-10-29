@@ -6,9 +6,9 @@ find_or_build_package(TinyXML QUIET)
 find_or_build_package(GooCanvas QUIET)
 
 ycm_ep_helper(YARP TYPE GIT
-                   STYLE FILE                          # STYLE GITHUB
-                   REPOSITORY file:///opt/iit/src/yarp # robotology/yarp.git
-                   TAG externalProject                 # master
+                   STYLE GITHUB
+                   REPOSITORY robotology/yarp.git
+                   TAG master
                    DEPENDS TinyXML
                            GooCanvas
                    CMAKE_CACHE_ARGS -DCREATE_IDLS:BOOL=ON
