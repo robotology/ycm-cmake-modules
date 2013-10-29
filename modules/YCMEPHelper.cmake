@@ -334,7 +334,7 @@ endmacro()
 macro(YCM_BOOTSTRAP)
     ycm_ep_helper(YCM TYPE GIT
                       STYLE GITHUB
-                      REPOSITORY drdanz/yarp-cmake-modules.git # robotology-playground/ycm.git
+                      REPOSITORY robotology/ycm.git
                       TAG master)
 
     if(NOT DEFINED YCM_BOOTSTRAPPED)
