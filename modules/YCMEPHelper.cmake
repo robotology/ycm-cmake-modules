@@ -270,6 +270,11 @@ macro(YCM_EP_HELPER _name)
             set(_setup_devel_cmd ${_setup_devel_cmd}
                                  COMMAND ${GIT_EXECUTABLE} config --local user.email ${YCM_GIT_${_${_name}_STYLE}_COMMIT_EMAIL})
         endif()
+
+        if("${_${_name}_STYLE}" STREQUAL "GITLAB_ICUB_ORG")
+            set(_setup_devel_cmd ${_setup_devel_cmd}
+                                 COMMAND ${GIT_EXECUTABLE} config --local http.sslverify false)
+        endif()
     elseif("${_${_name}_TYPE}" STREQUAL "SVN")
         # FIXME Implement SVN
         message(FATAL_ERROR "NOT YET IMPLEMENTED")
@@ -291,8 +296,7 @@ macro(YCM_EP_HELPER _name)
 
     if(_setup_devel_cmd)
         externalproject_add_step(${_name} setup-development
-                                 COMMAND ${GIT_EXECUTABLE} config --local user.name ${${_name}_COMMIT_NAME}
-                                 COMMAND ${GIT_EXECUTABLE} config --local user.email ${${_name}_COMMIT_EMAIL}
+                                 ${_setup_devel_cmd}
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                                  COMMENT "Performing setup-development step for '${_name}'"
                                  DEPENDEES download
