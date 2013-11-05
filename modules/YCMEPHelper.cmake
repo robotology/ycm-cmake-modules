@@ -1,12 +1,27 @@
 # YCM_EP_HELPER(<name>
 #    [DOCS]
-#   #--Git arguments-----------
+#    [TYPE <type>]
 #    [STYLE <style>]
 #    [REPOSITORY <repo>]
+#   #--Git only arguments-----------
+#    [TAG <tag>]
+#   #--Svn only arguments-----------
+#    [REVISION <revision>]
+#    [USERNAME <username>]
+#    [PASSWORD <password>]
+#    [TRUST_CERT <0|1>]
 #   #--CMake arguments---------
 #    [CMAKE_ARGS]
 #    [CMAKE_CACHE_ARGS]
 #    [DEPENDS]
+#    [DOWNLOAD_COMMAND]
+#    [UPDATE_COMMAND]
+#    [PATCH_COMMAND]
+#    [CONFIGURE_COMMAND]
+#    [BUILD_COMMAND]
+#    [INSTALL_COMMAND]
+#    [TEST_COMMAND]
+#    )
 #
 # YCM_BOOTSTRAP()
 #
@@ -123,7 +138,8 @@ macro(_YCM_SETUP_GIT)
 
 
         # TYPE GIT STYLE NONE
-        set(YCM_GIT_NONE_BASE_ADDRESS "" CACHE INTERNAL "Address to use for local git repositories")
+        set(YCM_GIT_NONE_BASE_ADDRESS "" CACHE INTERNAL "Address to use for other git repositories")
+
 
         set(YCM_GIT_SETUP 1 CACHE INTERNAL "")
     endif()
@@ -131,18 +147,24 @@ endmacro()
 
 ################################################################################
 # Setup SVN
-# FIXME TODO
 
 macro(_YCM_SETUP_SVN)
     if(NOT DEFINED YCM_SETUP_SVN)
-        find_package(Svn QUIET)
-        if(NOT SVN_EXECUTABLE)
+        find_package(Subversion QUIET)
+        if(NOT Subversion_SVN_EXECUTABLE)
             message(FATAL_ERROR "Please install Svn")
         endif()
+
+
+        # TYPE SVN STYLE SOURCEFORGE
+        set(YCM_SVN_SOURCEFORGE_USERNAME "" CACHE STRING "Username to use for sourceforge svn repositories")
+        set(YCM_SVN_SOURCEFORGE_PASSWORD "" CACHE STRING "Password to use for sourceforge svn repositories")
+        set(YCM_SVN_SOURCEFORGE_BASE_ADDRESS "https://svn.code.sf.net/p/" CACHE INTERNAL "Address to use for sourceforge svn repositories")
+        mark_as_advanced(YCM_SVN_SOURCEFORGE_USERNAME YCM_SVN_SOURCEFORGE_PASSWORD)
+
+
+        set(YCM_SVN_SETUP 1 CACHE INTERNAL "")
     endif()
-
-    message(FATAL_ERROR "NOT YET IMPLEMENTED")
-
 endmacro()
 
 ################################################################################
@@ -160,7 +182,11 @@ macro(YCM_EP_HELPER _name)
     set(_oneValueArgs TYPE
                       STYLE
                       REPOSITORY
-                      TAG)
+                      TAG         # GIT only
+                      REVISION    # SVN only
+                      USERNAME    # SVN only
+                      PASSWORD    # SVN only
+                      TRUST_CERT) # SVN only
     set(_multiValueArgs CMAKE_ARGS
                         CMAKE_CACHE_ARGS
                         DEPENDS
@@ -256,7 +282,7 @@ macro(YCM_EP_HELPER _name)
 
         list(APPEND ${_name}_REPOSITORY_ARGS GIT_REPOSITORY ${YCM_GIT_${_${_name}_STYLE}_BASE_ADDRESS}${_${_name}_REPOSITORY})
 
-        if(_${_name}_TAG)
+        if(DEFINED _${_name}_TAG)
             list(APPEND ${_name}_REPOSITORY_ARGS GIT_TAG ${_${_name}_TAG})
         endif()
 
@@ -276,10 +302,22 @@ macro(YCM_EP_HELPER _name)
                                  COMMAND ${GIT_EXECUTABLE} config --local http.sslverify false)
         endif()
     elseif("${_${_name}_TYPE}" STREQUAL "SVN")
-        # FIXME Implement SVN
-        message(FATAL_ERROR "NOT YET IMPLEMENTED")
         # Specific setup for SVN
         _ycm_setup_svn()
+
+        list(APPEND ${_name}_REPOSITORY_ARGS SVN_REPOSITORY ${YCM_SVN_${_${_name}_STYLE}_BASE_ADDRESS}${_${_name}_REPOSITORY})
+
+        if(YCM_SVN_${_${_name}_STYLE}_USERNAME)
+            list(APPEND ${_name}_REPOSITORY_ARGS SVN_USERNAME ${YCM_SVN_${_${_name}_STYLE}_USERNAME})
+        endif()
+
+        if(YCM_SVN_${_${_name}_STYLE}_PASSWORD)
+            list(APPEND ${_name}_REPOSITORY_ARGS SVN_PASSWORD ${YCM_SVN_${_${_name}_STYLE}_PASSWORD})
+        endif()
+
+        if(DEFINED _${_name}_TRUST_CERT)
+            list(APPEND ${_name}_REPOSITORY_ARGS SVN_TRUST_CERT ${_${_name}_TRUST_CERT})
+        endif()
     endif()
 
     externalproject_add(${_name}
