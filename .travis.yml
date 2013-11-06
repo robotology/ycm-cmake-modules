@@ -8,6 +8,8 @@ before_script:
   - cmake --version
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake .. -DCMAKE_INSTALL_PREFIX=$(pwd)/../install
 
-script: make
+script:
+  - make
+  - make install
