@@ -8,11 +8,11 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8)
     message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.8. You can remove this.")
 endif()
 
-set(YCM_CMAKE_2_8_8_FILES Modues/CMakePackageConfigHelpers.cmake)
+set(YCM_CMAKE_2_8_8_FILES Modules/CMakePackageConfigHelpers.cmake)
 if(CMAKE_VERSION VERSION_LESS 2.8.8)
     # We assume that the user won't downgrade his cmake, therefore it's not
     # necessary to install these files
-    install(FILES ${YCM_CMAKE_NEXT_FILES}
+    install(FILES ${YCM_CMAKE_2_8_8_FILES}
             DESTINATION share/YCM/cmake-2.8.8/Modules)
 endif()
 
