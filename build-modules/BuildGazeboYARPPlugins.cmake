@@ -12,4 +12,5 @@ ycm_ep_helper(GazeboYARPPlugins TYPE GIT
                                 REPOSITORY EnricoMingo/gazebo_yarp_plugins.git
                                 TAG master
                                 DEPENDS YARP
-                                        ICUB)
+                                        ICUB
+                                INSTALL_COMMAND "")
