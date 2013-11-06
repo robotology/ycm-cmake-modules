@@ -30,25 +30,25 @@ endif()
 include(MacroUninstallTarget)
 
 # YCMConfigVersion.cmake file (same for build tree and intall)
-write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/YCMConfigVersion.cmake
+write_basic_package_version_file(${CMAKE_BINARY_DIR}/YCMConfigVersion.cmake
                                  VERSION ${YCM_VERSION}
                                  COMPATIBILITY AnyNewerVersion)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/YCMConfigVersion.cmake
+install(FILES ${CMAKE_BINARY_DIR}/YCMConfigVersion.cmake
         DESTINATION ${YCM_INSTALL_MODULE_DIR}/cmake)
 
 # YCMConfig.cmake (build tree)
 set(PACKAGE_YCM_MODULE_DIR "${CMAKE_SOURCE_DIR}/cmake")
-configure_package_config_file(YCMConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/YCMConfig.cmake
-                              INSTALL_DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+configure_package_config_file(YCMConfig.cmake.in ${CMAKE_BINARY_DIR}/YCMConfig.cmake
+                              INSTALL_DESTINATION ${CMAKE_BINARY_DIR}
                               PATH_VARS YCM_BUILD_MODULE_DIR)
 
 # YCMConfig.cmake (installed)
 set(PACKAGE_YCM_MODULE_DIR "${YCM_INSTALL_MODULE_DIR}")
-configure_package_config_file(YCMConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/YCMConfigInstall.cmake
+configure_package_config_file(YCMConfig.cmake.in ${CMAKE_BINARY_DIR}/YCMConfigInstall.cmake
                               INSTALL_DESTINATION ${YCM_INSTALL_MODULE_DIR}
                               PATH_VARS YCM_INSTALL_MODULE_DIR)
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/YCMConfigInstall.cmake
+install(FILES ${CMAKE_BINARY_DIR}/YCMConfigInstall.cmake
         DESTINATION ${YCM_INSTALL_MODULE_DIR}/cmake
         RENAME YCMConfig.cmake)
 
