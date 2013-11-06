@@ -17,7 +17,16 @@ add_subdirectory(cmake-next)
 
 list(APPEND CMAKE_MODULE_PATH "${YCM_BUILD_MODULE_DIR}/modules")
 
-include(CMakePackageConfigHelpers)
+# CMakePackageConfigHelpers is not available in CMake 2.8.7
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8)
+    # Just a reminder to remove this when we change cmake version
+    message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.8. You can remove this.")
+endif()
+if(CMAKE_VERSION VERSION_LESS 2.8.8)
+    include(${CMAKE_SOURCE_DIR}/cmake-next/CMakePackageConfigHelpers.cmake)
+else()
+    include(CMakePackageConfigHelpers)
+endif()
 include(MacroUninstallTarget)
 
 # YCMConfigVersion.cmake file (same for build tree and intall)
