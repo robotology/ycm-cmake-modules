@@ -5,9 +5,9 @@ compiler:
   - clang
 
 before_script:
-  - sudo apt-get install -y cmake
+  - cmake --version
   - mkdir build
   - cd build
-  - cmake ./..
+  - cmake ..
 
 script: make
