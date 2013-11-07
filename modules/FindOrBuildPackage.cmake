@@ -24,7 +24,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
     set(_oneValueArgs )
     set(_multiValueArgs )
 
-    cmake_parse_arguments(_${_PGK} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" ${ARGN})
+    cmake_parse_arguments(_${_PGK} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
 # Arguments for the find_package command
 # REQUIRED and QUIET will be set when necessary

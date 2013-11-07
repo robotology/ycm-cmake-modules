@@ -87,7 +87,7 @@ macro(INCLUDE_URL _remotefile)
                       ${_includeOneValueArgs})
     set(_multiValueArgs )
 
-    cmake_parse_arguments(_IU "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" ${ARGN})
+    cmake_parse_arguments(_IU "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
     if(DEFINED _IU_UNPARSED_ARGUMENTS)
         message(FATAL_ERROR "Unknown arguments:\n  ${_IU_UNPARSED_ARGUMENTS}\n")

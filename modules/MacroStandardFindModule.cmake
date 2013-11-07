@@ -57,7 +57,7 @@ include(MacroExtractVersion)
 
 macro(MACRO_STANDARD_FIND_MODULE _name _pkgconfig_name)
     string(TOUPPER ${_name} _NAME)
-    cmake_parse_arguments(_OPT_${_NAME} "NOT_REQUIRED;SKIP_CMAKE_CONFIG;SKIP_PKG_CONFIG" "" "" ${ARGN})
+    cmake_parse_arguments(_OPT_${_NAME} "NOT_REQUIRED;SKIP_CMAKE_CONFIG;SKIP_PKG_CONFIG" "" "" "${ARGN}")
 
     # Try to use CMake Config file to locate the package
     if(NOT _OPT_${_NAME}_SKIP_CMAKE_CONFIG)
