@@ -214,12 +214,16 @@ macro(_pkg_check_modules_internal _is_required _is_silent _prefix)
     # Save the PKG_CONFIG_PATH environment variable, and add paths from
     # the CMAKE_PREFIX_PATH variable
     set(_pkgconfig_path $ENV{PKG_CONFIG_PATH})
-    file(TO_CMAKE_PATH ${_pkgconfig_path} _new_pkgconfig_path)
+    if(NOT "x${_pkgconfig_path}" STREQUAL "x")
+        file(TO_CMAKE_PATH "${_pkgconfig_path}" _new_pkgconfig_path)
+    endif()
     foreach(_dir ${CMAKE_PREFIX_PATH})
       list(APPEND _new_pkgconfig_path "${_dir}/lib/pkgconfig")
     endforeach()
-    file(TO_NATIVE_PATH ${_new_pkgconfig_path} _new_pkgconfig_path)
-    set(ENV{PKG_CONFIG_PATH} ${_new_pkgconfig_path})
+    if(NOT "x${_new_pkgconfig_path}" STREQUAL "x")
+        file(TO_NATIVE_PATH "${_new_pkgconfig_path}" _new_pkgconfig_path)
+        set(ENV{PKG_CONFIG_PATH} ${_new_pkgconfig_path})
+    endif()
 
     # iterate through module list and check whether they exist and match the required version
     foreach (_pkg_check_modules_pkg ${_pkg_check_modules_list})
