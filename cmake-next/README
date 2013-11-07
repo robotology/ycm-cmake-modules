@@ -1,25 +1,26 @@
-The files in this folder and its subfolder come from CMake git
+Files in this folder and its subfolder originally come from CMake git
 repository:
 
   git://cmake.org/cmake.git
 
-These files were imported exactly as they are on the original
-repository, in order to have the new features and bugfix available in
-newer releases with older cmake releases.
+They contain some patch or modification to fix some bugs or to add some
+new features that are planned to be reviewed by CMake developers and
+eventually merged in CMake repository.
 
-                      DO NOT MODIFY OR FORK THEM!
+                                WARNING
 
-If you find a bug or need a new feature in one of those files, please
-consider fixing them upstream and importing the latest revision of the
-file when your patch is merged.
+During this process these files are subject to change, therefore they
+shouldn't be considered "stable". If you use some new feature in these
+files, you should be aware that they might not be available in next YCM
+or CMake releases.
 
-To refresh the files, update cmake repository (in ${CMAKE_DIR} folder)
-and run from this directory:
 
-  for file in `find . -type f | grep -v "README\|CMakeLists.txt"`; do cp ${CMAKE_DIR}/${file} ./${file}; done
+CMake files included by these files using
+  include(${CMAKE_CURRENT_LIST_DIR}/<module>.cmake)
+are also modified to use
+  include(<module>)
+in order not to require all the dependencies.
 
-Then update this file with:
 
-  sed -i "s/\(^Latest imported commit:\)  [0-9a-f]\+$/\1  `cd ${CMAKE_DIR}; git rev-parse HEAD`/g" README
-
-Latest imported commit:  6d1444feacb1c2d621b776ac61412f92ff0a1c34
+These files are distributed under the OSI-approved BSD License;
+see accompanying file Copyright.txt for details.

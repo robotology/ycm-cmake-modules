@@ -9,10 +9,41 @@ list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/modules")
 list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/find-modules")
 list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/build-modules")
 
-if(CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8)
-    list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-2.8.8")
+# "Newer files should be appended appended earlier in case of
+# files with the same name, therefore the order is
+#  - proposed
+#  - next
+#  - old releases (newer releases first)
+option(YCM_USE_CMAKE_PROPOSED "Use files including unmerged cmake patches" OFF)
+mark_as_advanced(YCM_USE_CMAKE_PROPOSED)
+if(YCM_USE_CMAKE_PROPOSED)
+    list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-proposed/Modules")
 endif()
-# Always appended
-list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-next")
 
-list(APPEND CMAKE_MODULE_PATH ${YCM_MODULE_PATH})
+option(YCM_USE_CMAKE_NEXT "Use files from unreleased cmake" ON)
+mark_as_advanced(YCM_USE_CMAKE_NEXT)
+if(YCM_USE_CMAKE_NEXT)
+    list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-next/Modules")
+endif()
+
+if(EXISTS "${YCM_MODULE_DIR}/cmake-2.8.12"
+   AND CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.12
+   AND CMAKE_VERSION VERSION_LESS 2.8.12)
+    option(YCM_USE_CMAKE_2_8_12 "Use files from cmake 2.8.12" ON)
+    mark_as_advanced(YCM_USE_CMAKE_2_8_12)
+    if(YCM_USE_CMAKE_2_8_12)
+        list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-2.8.12/Modules")
+    endif()
+endif()
+
+if(EXISTS "${YCM_MODULE_DIR}/cmake-2.8.8"
+   AND CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8
+   AND CMAKE_VERSION VERSION_LESS 2.8.8)
+    option(YCM_USE_CMAKE_2_8_8 "Use files from cmake 2.8.8" ON)
+    mark_as_advanced(YCM_USE_CMAKE_2_8_8)
+    if(YCM_USE_CMAKE_2_8_8)
+        list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-2.8.8/Modules")
+    endif()
+endif()
+
+list(APPEND CMAKE_MODULE_PATH "${YCM_MODULE_PATH}")
