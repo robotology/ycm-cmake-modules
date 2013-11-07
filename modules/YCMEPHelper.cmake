@@ -31,6 +31,13 @@
 # Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
+
+if(DEFINED __YCMEPHELPER_INCLUDED)
+  return()
+endif()
+set(__YCMEPHELPER_INCLUDED TRUE)
+
+
 include(CMakeParseArguments)
 include(ExternalProject)
 

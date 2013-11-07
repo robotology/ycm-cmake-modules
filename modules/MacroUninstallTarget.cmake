@@ -16,6 +16,13 @@
 #          Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
+
+if(DEFINED __MACROUNINSTALLTARGET_INCLUDED)
+  return()
+endif()
+set(__MACROUNINSTALLTARGET_INCLUDED TRUE)
+
+
 macro(MACRO_UNINSTALL_TARGET PKG)
 
 set(_filename ${CMAKE_CURRENT_BINARY_DIR}/${PKG}ConfigUninstall.cmake)

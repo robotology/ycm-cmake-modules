@@ -14,6 +14,13 @@
 # Author: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
+
+if(DEFINED __MACROEXTRACTVERSION_INCLUDED)
+  return()
+endif()
+set(__MACROEXTRACTVERSION_INCLUDED TRUE)
+
+
 macro(MACRO_EXTRACT_VERSION _name)
     if("x${ARG2}" STREQUAL "xREVERSE_NAME")
         set(_reverse 1)

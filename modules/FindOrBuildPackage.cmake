@@ -5,6 +5,12 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
 
+if(DEFINED __FINDORBUILDPACKAGE_INCLUDED)
+  return()
+endif()
+set(__FINDORBUILDPACKAGE_INCLUDED TRUE)
+
+
 include(CMakeParseArguments)
 include(CMakeDependentOption)
 include(MacroExtractVersion)

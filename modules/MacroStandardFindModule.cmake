@@ -44,6 +44,12 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
 
+if(DEFINED __MACROSTANDARDFINDMODULE_INCLUDED)
+  return()
+endif()
+set(__MACROSTANDARDFINDMODULE_INCLUDED TRUE)
+
+
 include(FindPackageHandleStandardArgs)
 include(CMakeParseArguments)
 include(SelectLibraryConfigurations)

@@ -55,6 +55,12 @@
 #  License text for the above reference.)
 
 
+if(DEFINED __INCLUDEURL_INCLUDED)
+  return()
+endif()
+set(__INCLUDEURL_INCLUDED TRUE)
+
+
 include(CMakeParseArguments)
 
 macro(INCLUDE_URL _remotefile)
