@@ -60,14 +60,23 @@
 
 # let's skip module mode, and see if a OpenCVConfig.cmake file is around
 # this searches in system directories and ${OpenCV_DIR}
+
+include(FindPackageHandleStandardArgs)
+
+set(_OpenCV_FIND_QUIETLY ${OpenCV_FIND_QUIETLY})
 find_package(OpenCV QUIET NO_MODULE)
+set(OpenCV_FIND_QUIETLY ${_OpenCV_FIND_QUIETLY})
+
 if(OpenCV_FOUND)
     set(OpenCV_CONFIG_MODE true)
-
+    find_package_handle_standard_args(OpenCV DEFAULT_MSG OpenCV_CONFIG)
     ## OpenCVConfig.cmake sets OpenCV_LIBS OpenCV_INCLUDE_DIRS
     ## but we need OpenCV_LIBRARIES
-    set(OpenCV_LIBRARIES ${OpenCV_LIBS})
+    if(NOT DEFINED OpenCV_LIBRARIES)
+        set(OpenCV_LIBRARIES ${OpenCV_LIBS})
+    endif()
 endif()
+
 
 ### If the above failed continues with traditional search method
 ## To keep backward compatibility we keep the whole script
@@ -479,10 +488,6 @@ if(NOT OpenCV_FOUND)
     set(OpenCV_FOUND ${OPENCV_FOUND})
     set(OpenCV_INCLUDE_DIR ${OPENCV_INCLUDE_DIR})
     set(OpenCV_LIBS ${OPENCV_LIBRARIES})
-    if(OpenCV_FOUND)
-        mark_as_advanced(OpenCV_DIR)
-    endif(OpenCV_FOUND)
-
 endif(NOT OpenCV_FOUND)
 
 
@@ -521,14 +526,12 @@ set(OpenCV_INCLUDE_DIRS ${OpenCV_INCLUDE_DIR})
 set(OPENCV_LIBRARIES ${OpenCV_LIBS})
 set(OPENCV_INCLUDE_DIR ${OpenCV_INCLUDE_DIR})
 
-endif(NOT OpenCV_CONFIG_MODE)
-
-include(FindPackageHandleStandardArgs)
 # Not all version of OpenCV set OpenCV_INCLUDE_DIRS, removing it from required arguments
 # Lorenzo Natale March 2011. See notes on top of file.
 # find_package_handle_standard_args(OpenCV DEFAULT_MSG OpenCV_LIBRARIES OpenCV_INCLUDE_DIRS)
 find_package_handle_standard_args(OpenCV DEFAULT_MSG OpenCV_LIBRARIES)
 
+endif(NOT OpenCV_CONFIG_MODE)
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)
