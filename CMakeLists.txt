@@ -23,7 +23,7 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8)
     message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.8. You can remove this.")
 endif()
 if(CMAKE_VERSION VERSION_LESS 2.8.8)
-    list(APPEND CMAKE_MODULE_PATH "${YCM_BUILD_MODULE_DIR}/cmake-next/cmake-2.8.8/Modules") # For CMakePackageConfigHelpers.cmake
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}/cmake-next/cmake-2.8.8/Modules") # For CMakePackageConfigHelpers.cmake
 endif()
 
 include(CMakePackageConfigHelpers)
