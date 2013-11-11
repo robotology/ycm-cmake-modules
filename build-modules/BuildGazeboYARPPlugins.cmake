@@ -9,7 +9,7 @@ find_package(gazebo)
 
 ycm_ep_helper(GazeboYARPPlugins TYPE GIT
                                 STYLE GITHUB
-                                REPOSITORY EnricoMingo/gazebo_yarp_plugins.git
+                                REPOSITORY robotology/gazebo_yarp_plugins.git
                                 TAG master
                                 DEPENDS YARP
                                         ICUB
