@@ -76,12 +76,12 @@ endif()
 
 
 ################################################################################
-# Files not yet available in current CMake release (2.8.12)
+# Files not yet available in current CMake release (2.8.12.1)
 
 # Latest revision tested
 set(_ref 6d1444feacb1c2d621b776ac61412f92ff0a1c34)
 
-if(NOT CMAKE_VERSION VERSION_LESS 2.8.13)
+if(NOT CMAKE_VERSION VERSION_LESS 3.0.0)
     # Just a reminder to update files when a new cmake version is released
     message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
 endif()
