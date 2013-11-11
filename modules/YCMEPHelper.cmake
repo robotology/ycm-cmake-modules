@@ -37,12 +37,12 @@ if(DEFINED __YCMEPHELPER_INCLUDED)
 endif()
 set(__YCMEPHELPER_INCLUDED TRUE)
 
-
 include(CMakeParseArguments)
 include(ExternalProject)
 
 set_property(DIRECTORY PROPERTY EP_STEP_TARGETS update configure)
 set_property(DIRECTORY PROPERTY EP_SOURCE_DIR_PRESERVE TRUE)
+set_property(DIRECTORY PROPERTY CMAKE_PARSE_ARGUMENTS_DEFAULT_SKIP_EMPTY FALSE)
 
 if(NOT TARGET update-all)
     add_custom_target(update-all)
@@ -205,7 +205,7 @@ macro(YCM_EP_HELPER _name)
                         INSTALL_COMMAND
                         TEST_COMMAND)
 
-    cmake_parse_arguments(_${_name} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" ${ARGN})
+    cmake_parse_arguments(_${_name} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
     if(NOT DEFINED _${_name}_TYPE)
         message(FATAL_ERROR "Missing TYPE argument")
@@ -275,7 +275,7 @@ macro(YCM_EP_HELPER _name)
                   TEST)
         if(DEFINED _${_name}_${_step}_COMMAND)
             string(CONFIGURE "${_${_name}_${_step}_COMMAND}" _${_name}_${_step}_COMMAND @ONLY)
-            list(APPEND ${_name}_COMMAND_ARGS ${_step}_COMMAND ${_${_name}_${_step}_COMMAND})
+            list(APPEND ${_name}_COMMAND_ARGS ${_step}_COMMAND "${_${_name}_${_step}_COMMAND}")
         endif()
     endforeach()
 
@@ -327,13 +327,16 @@ macro(YCM_EP_HELPER _name)
         endif()
     endif()
 
-    externalproject_add(${_name}
-                        ${${_name}_REPOSITORY_ARGS}
-                        ${${_name}_DIR_ARGS}
-                        ${${_name}_CMAKE_ARGS}
-                        ${${_name}_DEPENDS_ARGS}
-                        ${${_name}_COMMAND_ARGS})
-    set_property(TARGET ${proj} PROPERTY FOLDER ${_name})
+    unset(${_name}_ARGS)
+    foreach(_arg IN LISTS ${_name}_REPOSITORY_ARGS
+                          ${_name}_DIR_ARGS
+                          ${_name}_CMAKE_ARGS
+                          ${_name}_DEPENDS_ARGS
+                          ${_name}_COMMAND_ARGS)
+        list(APPEND ${_name}_ARGS "${_arg}")
+    endforeach()
+    externalproject_add(${_name} "${${_name}_ARGS}")
+    set_property(TARGET ${_name} PROPERTY FOLDER ${_name})
 
     if(TARGET update-all AND TARGET ${_name}-update)
         add_dependencies(update-all ${_name}-update)
