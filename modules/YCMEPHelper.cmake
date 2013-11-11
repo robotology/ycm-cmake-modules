@@ -266,7 +266,7 @@ macro(YCM_EP_HELPER _name)
         set(${_name}_DEPENDS_ARGS DEPENDS ${_${_name}_DEPENDS_ARGS})
     endif()
 
-    set(${_name}_COMMAND_ARGS )
+    unset(${_name}_COMMAND_ARGS)
     foreach(_step DOWNLOAD
                   UPDATE PATCH
                   CONFIGURE
@@ -280,8 +280,8 @@ macro(YCM_EP_HELPER _name)
     endforeach()
 
     # Repository variables
-    set(${_name}_REPOSITORY_ARGS )
-    set(_setup_devel_cmd )
+    unset(${_name}_REPOSITORY_ARGS)
+    unset(_setup_devel_cmd)
 
     if("${_${_name}_TYPE}" STREQUAL "GIT")
         # Specific setup for GIT
@@ -294,7 +294,7 @@ macro(YCM_EP_HELPER _name)
         endif()
 
         if(YCM_GIT_${_${_name}_STYLE}_COMMIT_NAME)
-            set(${_name}_COMMIT_NAME )
+            unset(${_name}_COMMIT_NAME)
             set(_setup_devel_cmd ${_setup_devel_cmd}
                                  COMMAND ${GIT_EXECUTABLE} config --local user.name ${YCM_GIT_${_${_name}_STYLE}_COMMIT_NAME})
         endif()
