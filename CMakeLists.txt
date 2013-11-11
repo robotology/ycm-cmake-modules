@@ -23,10 +23,10 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8)
     message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.8. You can remove this.")
 endif()
 if(CMAKE_VERSION VERSION_LESS 2.8.8)
-    include(${CMAKE_SOURCE_DIR}/cmake-next/Modules/CMakePackageConfigHelpers.cmake)
-else()
-    include(CMakePackageConfigHelpers)
+    list(APPEND CMAKE_MODULE_PATH "${YCM_BUILD_MODULE_DIR}/cmake-next/cmake-2.8.8/Modules") # For CMakePackageConfigHelpers.cmake
 endif()
+
+include(CMakePackageConfigHelpers)
 include(MacroUninstallTarget)
 
 # YCMConfigVersion.cmake file (same for build tree and intall)
