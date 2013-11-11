@@ -273,6 +273,15 @@ macro(YCM_EP_HELPER _name)
                   BUILD
                   INSTALL
                   TEST)
+        if(CMAKE_VERSION VERSION_LESS 3.0.0)
+            # HACK: set(var "" PARENT_SCOPE) before CMake 3.0.0 did not set an empty string, but
+            # instead unset the variable.
+            # Therefore after cmake_parse_arguments, even if the variables are defined, they are not
+            # set.
+            if("${ARGN}" MATCHES ";?${_step}_COMMAND;"  AND  NOT DEFINED _${_name}_${_step}_COMMAND)
+                set(_${_name}_${_step}_COMMAND "")
+            endif()
+        endif()
         if(DEFINED _${_name}_${_step}_COMMAND)
             string(CONFIGURE "${_${_name}_${_step}_COMMAND}" _${_name}_${_step}_COMMAND @ONLY)
             list(APPEND ${_name}_COMMAND_ARGS ${_step}_COMMAND "${_${_name}_${_step}_COMMAND}")
