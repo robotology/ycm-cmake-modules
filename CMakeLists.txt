@@ -27,7 +27,6 @@ if(CMAKE_VERSION VERSION_LESS 2.8.8)
 endif()
 
 include(CMakePackageConfigHelpers)
-include(MacroUninstallTarget)
 
 # YCMConfigVersion.cmake file (same for build tree and intall)
 write_basic_package_version_file(${CMAKE_BINARY_DIR}/YCMConfigVersion.cmake
@@ -52,4 +51,4 @@ install(FILES ${CMAKE_BINARY_DIR}/YCMConfigInstall.cmake
         DESTINATION ${YCM_INSTALL_MODULE_DIR}/cmake
         RENAME YCMConfig.cmake)
 
-macro_uninstall_target(YCM)
+include(AddUninstallTarget)

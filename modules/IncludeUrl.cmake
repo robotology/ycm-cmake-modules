@@ -1,24 +1,31 @@
+#.rst:
+# IncludeUrl
+# ----------
+#
 # Download a file from given url and include it.
 #
-# INCLUDE_URL(<url>                 # Url to be downloaded
-#    [DESTINATION <destination>     # Where the file will be saved
-#    [DOWNLOAD_ONCE]                # Download the file only once
-#    [DOWNLOAD_ALWAYS]              # Download the file every time
-#   #--Download arguments-----------
-#    [INACTIVITY_TIMEOUT <timeout>] # Timeout after <timeout> seconds of inactivity
-#    [TIMEOUT <timeout>]            # Timeout after <timeout> seconds
-#    [STATUS <status>]              # Download status variable
-#    [LOG <log>]                    # Download log variable
-#    [SHOW_PROGRESS]                # Show download progress
-#    [EXPECTED_HASH <ALGO=value>]   # Verify downloaded file's hash
-#    [EXPECTED_MD5 <sum>]           # Short-hand for "EXPECTED_HASH MD5=sum"
-#    [TLS_VERIFY <on|off>]          # Check certificates
-#    [TLS_CAINFO <file>]            # Custom Certificate Authority file
-#   #--Include arguments------------
-#    [OPTIONAL]                     # Do not fail file cannot be included
-#    [RESULT_VARIABLE <variable>]   # The local path for the file included
-#    [NO_POLICY_SCOPE]              # Do not manage a new policy entry
-#    )
+#
+# ::
+#
+#  include_url(<url>                 # Url to be downloaded
+#     [DESTINATION <destination>     # Where the file will be saved
+#     [DOWNLOAD_ONCE]                # Download the file only once
+#     [DOWNLOAD_ALWAYS]              # Download the file every time
+#    #--Download arguments-----------
+#     [INACTIVITY_TIMEOUT <timeout>] # Timeout after <timeout> seconds of inactivity
+#     [TIMEOUT <timeout>]            # Timeout after <timeout> seconds
+#     [STATUS <status>]              # Download status variable
+#     [LOG <log>]                    # Download log variable
+#     [SHOW_PROGRESS]                # Show download progress
+#     [EXPECTED_HASH <ALGO=value>]   # Verify downloaded file's hash
+#     [EXPECTED_MD5 <sum>]           # Short-hand for "EXPECTED_HASH MD5=sum"
+#     [TLS_VERIFY <on|off>]          # Check certificates
+#     [TLS_CAINFO <file>]            # Custom Certificate Authority file
+#    #--Include arguments------------
+#     [OPTIONAL]                     # Do not fail file cannot be included
+#     [RESULT_VARIABLE <variable>]   # The local path for the file included
+#     [NO_POLICY_SCOPE]              # Do not manage a new policy entry
+#     )
 #
 # Download a file from given url and include it. If DESTINATION is specified,
 # the file is saved at the given location with the original file name, if
@@ -42,7 +49,7 @@
 
 #=============================================================================
 # Copyright 2013  iCub Facility, Istituto Italiano di Tecnologia
-#                 @author Daniele E. Domenichelli <daniele.domenichelli@iit.it>
+#     @author Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 #
 # Distributed under the OSI-approved BSD License (the "License");
 # see accompanying file Copyright.txt for details.
@@ -55,10 +62,10 @@
 #  License text for the above reference.)
 
 
-if(DEFINED __INCLUDEURL_INCLUDED)
+if(DEFINED __INCLUDE_URL_INCLUDED)
   return()
 endif()
-set(__INCLUDEURL_INCLUDED TRUE)
+set(__INCLUDE_URL_INCLUDED TRUE)
 
 
 include(CMakeParseArguments)

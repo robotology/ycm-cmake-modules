@@ -1,8 +1,8 @@
-set(YCM_MODULES FindOrBuildPackage.cmake
+set(YCM_MODULES AddUninstallTarget.cmake
+                ExtractVersion.cmake
+                FindOrBuildPackage.cmake
                 IncludeUrl.cmake
-                MacroExtractVersion.cmake
-                MacroStandardFindModule.cmake
-                MacroUninstallTarget.cmake
+                StandardFindModule.cmake
                 YCMEPHelper.cmake)
 
 install(FILES ${YCM_MODULES}
