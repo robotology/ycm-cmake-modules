@@ -74,7 +74,7 @@ set(__STANDARD_FIND_MODULE_INCLUDED TRUE)
 include(FindPackageHandleStandardArgs)
 include(CMakeParseArguments)
 include(SelectLibraryConfigurations)
-include(MacroExtractVersion)
+include(ExtractVersion)
 
 macro(STANDARD_FIND_MODULE _name _pkgconfig_name)
     string(TOUPPER ${_name} _NAME)
@@ -159,7 +159,7 @@ macro(STANDARD_FIND_MODULE _name _pkgconfig_name)
 
     # Extract version numbers
     if(${_name}_FOUND)
-        macro_extract_version(${_name})
+        extract_version(${_name})
     endif()
 
 
