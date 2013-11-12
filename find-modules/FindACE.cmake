@@ -21,8 +21,8 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
 
-include(MacroStandardFindModule)
-macro_standard_find_module(ACE ACE SKIP_CMAKE_CONFIG NOT_REQUIRED)
+include(StandardFindModule)
+standard_find_module(ACE ACE SKIP_CMAKE_CONFIG NOT_REQUIRED)
 
 
 if(ACE_FOUND)

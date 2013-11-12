@@ -13,7 +13,7 @@ set(__FINDORBUILDPACKAGE_INCLUDED TRUE)
 
 include(CMakeParseArguments)
 include(CMakeDependentOption)
-include(MacroExtractVersion)
+include(ExtractVersion)
 
 function(FIND_OR_BUILD_PACKAGE _pkg)
     string(TOUPPER "${_pkg}" _PKG)
@@ -69,7 +69,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
         set(${_PGK}_BUILD_QUIETLY ${_${_PGK}_QUIET})
         if(DEFINED ${_${_PGK}_VERSION})
             set(${_PKG}_BUILD_VERSION ${_${_PGK}_VERSION})
-            macro_extract_version(${_PGK}_BUILD REVERSE_NAME)
+            extract_version(${_PGK}_BUILD REVERSE_NAME)
         endif()
 
         # Include the Build recipe
