@@ -20,9 +20,9 @@
 # Support gtkplus from gtkmm x64, search also using GTKMM64_BASEPATH (this variable is set by the installer).
 #
 
-if(NOT YARP_NO_DEPRECATED)
-include(${YARP_MODULE_DIR}/YarpDeprecatedWarning.cmake)
-yarp_deprecated_warning("FindGtkWin32.cmake is deprecated. Use FindGTK2 from CMake instead.")
+if(NOT YCM_NO_DEPRECATED)
+include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
+ycm_deprecated_warning("FindGtkWin32.cmake is deprecated. Use FindGTK2 from CMake instead.")
 
 
 # first check GTKMM64
@@ -131,4 +131,4 @@ if (GTK_gdk_pixbuf_INCLUDE_PATH)
 endif()
 
 
-endif(NOT YARP_NO_DEPRECATED)
+endif(NOT YCM_NO_DEPRECATED)

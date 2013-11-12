@@ -17,9 +17,9 @@
 # Split GTKMM_VERSION into GtkMM_VERSION_MAJOR and GtkMM_VERSION_MAJOR
 
 
-if(NOT YARP_NO_DEPRECATED)
-include(${YARP_MODULE_DIR}/YarpDeprecatedWarning.cmake)
-yarp_deprecated_warning("FindGtkMMUnix.cmake is deprecated. Use FindGTK2 from CMake instead.")
+if(NOT YCM_NO_DEPRECATED)
+include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
+ycm_deprecated_warning("FindGtkMMUnix.cmake is deprecated. Use FindGTK2 from CMake instead.")
 
 
 FIND_PACKAGE(PkgConfig)
@@ -105,4 +105,4 @@ ELSE (GTHREAD_FOUND)
 ENDIF (GTHREAD_FOUND)
 
 
-endif(NOT YARP_NO_DEPRECATED)
+endif(NOT YCM_NO_DEPRECATED)

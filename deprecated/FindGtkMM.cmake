@@ -3,9 +3,9 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
 
-if(NOT YARP_NO_DEPRECATED)
-include(${YARP_MODULE_DIR}/YarpDeprecatedWarning.cmake)
-yarp_deprecated_warning("FindGtkMM.cmake is deprecated. Use FindGTK2 from CMake instead.")
+if(NOT YCM_NO_DEPRECATED)
+include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
+ycm_deprecated_warning("FindGtkMM.cmake is deprecated. Use FindGTK2 from CMake instead.")
 
 
 if(UNIX)
@@ -21,4 +21,4 @@ if(COMMAND set_package_properties)
 endif()
 
 
-endif(NOT YARP_NO_DEPRECATED)
+endif(NOT YCM_NO_DEPRECATED)

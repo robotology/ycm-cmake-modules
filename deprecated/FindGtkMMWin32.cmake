@@ -25,9 +25,9 @@
 #           version of GTKMM you use, update to newer version (e.g. 2.22).
 
 
-if(NOT YARP_NO_DEPRECATED)
-include(${YARP_MODULE_DIR}/YarpDeprecatedWarning.cmake)
-yarp_deprecated_warning("FindGtkMMWin32.cmake is deprecated. Use FindGTK2 from CMake instead.")
+if(NOT YCM_NO_DEPRECATED)
+include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
+ycm_deprecated_warning("FindGtkMMWin32.cmake is deprecated. Use FindGTK2 from CMake instead.")
 
 
 # prerequisite
@@ -253,4 +253,4 @@ else(PKG_CONFIG_FOUND AND NOT WIN32)
 endif(PKG_CONFIG_FOUND AND NOT WIN32)
 
 
-endif(NOT YARP_NO_DEPRECATED)
+endif(NOT YCM_NO_DEPRECATED)
