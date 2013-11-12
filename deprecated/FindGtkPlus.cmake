@@ -24,10 +24,10 @@
 # Lorenzo Natale 14/05/2010
 
 
-
-if(NOT YCM_NO_DEPRECATED)
 include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
 ycm_deprecated_warning("FindGtkPlus.cmake is deprecated. Use FindGTK2 from CMake instead.")
+
+if(NOT YCM_NO_DEPRECATED)
 
 
 # first check if we are using msvc

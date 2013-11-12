@@ -20,9 +20,11 @@
 # Support gtkplus from gtkmm x64, search also using GTKMM64_BASEPATH (this variable is set by the installer).
 #
 
-if(NOT YCM_NO_DEPRECATED)
+
 include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
 ycm_deprecated_warning("FindGtkWin32.cmake is deprecated. Use FindGTK2 from CMake instead.")
+
+if(NOT YCM_NO_DEPRECATED)
 
 
 # first check GTKMM64

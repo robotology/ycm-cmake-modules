@@ -3,9 +3,10 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
 
-if(NOT YCM_NO_DEPRECATED)
 include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
 ycm_deprecated_warning("FindGtkMM.cmake is deprecated. Use FindGTK2 from CMake instead.")
+
+if(NOT YCM_NO_DEPRECATED)
 
 
 if(UNIX)

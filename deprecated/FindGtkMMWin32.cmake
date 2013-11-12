@@ -25,9 +25,10 @@
 #           version of GTKMM you use, update to newer version (e.g. 2.22).
 
 
-if(NOT YCM_NO_DEPRECATED)
 include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
 ycm_deprecated_warning("FindGtkMMWin32.cmake is deprecated. Use FindGTK2 from CMake instead.")
+
+if(NOT YCM_NO_DEPRECATED)
 
 
 # prerequisite
