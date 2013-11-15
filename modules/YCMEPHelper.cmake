@@ -317,11 +317,6 @@ macro(YCM_EP_HELPER _name)
             set(_setup_devel_cmd ${_setup_devel_cmd}
                                  COMMAND ${GIT_EXECUTABLE} config --local user.email ${YCM_GIT_${_${_name}_STYLE}_COMMIT_EMAIL})
         endif()
-
-        if("${_${_name}_STYLE}" STREQUAL "GITLAB_ICUB_ORG")
-            set(_setup_devel_cmd ${_setup_devel_cmd}
-                                 COMMAND ${GIT_EXECUTABLE} config --local http.sslverify false)
-        endif()
     elseif("${_${_name}_TYPE}" STREQUAL "SVN")
         # Specific setup for SVN
         _ycm_setup_svn()
