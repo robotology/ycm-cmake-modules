@@ -213,6 +213,11 @@ macro(YCM_EP_HELPER _name)
     if(NOT "x${_${_name}_TYPE}" MATCHES "^x(GIT|SVN)$")
         message(FATAL_ERROR "Unsupported VCS TYPE:\n  ${_${_name}_TYPE}\n")
     endif()
+    if("${_${_name}_TYPE}" STREQUAL "GIT")
+      # TODO Check GIT arguments
+    elseif("${_${_name}_TYPE}" STREQUAL "SVN")
+      # TODO Check SVN arguments
+    endif()
 
     if(NOT DEFINED _${_name}_STYLE)
         message(FATAL_ERROR "Missing STYLE argument")
