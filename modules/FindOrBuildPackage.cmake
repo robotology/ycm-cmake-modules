@@ -5,10 +5,10 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
 
-if(DEFINED __FINDORBUILDPACKAGE_INCLUDED)
+if(DEFINED __FIND_OR_BUILD_PACKAGE_INCLUDED)
   return()
 endif()
-set(__FINDORBUILDPACKAGE_INCLUDED TRUE)
+set(__FIND_OR_BUILD_PACKAGE_INCLUDED TRUE)
 
 
 include(CMakeParseArguments)
