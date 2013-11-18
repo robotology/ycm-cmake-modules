@@ -19,6 +19,10 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
     string(TOUPPER "${_pkg}" _PKG)
     string(REGEX REPLACE "[^A-Z0-9]" "_" _PKG "${_PKG}")
 
+    if(${HAVE_${_PKG}})
+        return()
+    endif()
+
 # Check arguments
     set(_options REQUIRED QUIET)
     set(_oneValueArgs )
