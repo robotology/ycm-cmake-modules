@@ -21,6 +21,7 @@ macro(_YCM_CMAKE_NEXT_DOWNLOAD _ref _dir _files)
             file(DOWNLOAD "${_src}" "${_dest}"
                  EXPECTED_HASH SHA1=${_sha1})
         endif()
+        set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${_dest})
     endforeach()
     file(WRITE ${_dir}/README
 "Files in this folder and its subfolder come from CMake git repository
