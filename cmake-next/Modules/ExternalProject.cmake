@@ -538,11 +538,11 @@ execute_process(
   WORKING_DIRECTORY \"${work_dir}\"
   RESULT_VARIABLE error_code
   OUTPUT_VARIABLE head_sha
+  OUTPUT_STRIP_TRAILING_WHITESPACE
   )
 if(error_code)
   message(FATAL_ERROR \"Failed to get the hash for HEAD\")
 endif()
-
 execute_process(
   COMMAND \"${git_EXECUTABLE}\" show-ref ${git_tag}
   WORKING_DIRECTORY \"${work_dir}\"
@@ -563,6 +563,7 @@ execute_process(
   WORKING_DIRECTORY \"${work_dir}\"
   RESULT_VARIABLE error_code
   OUTPUT_VARIABLE tag_sha
+  OUTPUT_STRIP_TRAILING_WHITESPACE
   )
 
 # Is the hash checkout out that we want?
