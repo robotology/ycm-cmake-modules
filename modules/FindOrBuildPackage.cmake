@@ -105,6 +105,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
     endif()
 
     # Display errors/messages
+    set(_runFind 0)
     if(NOT HAVE_${_PKG})
         if(${_${_PKG}_REQUIRED})
             message(SEND_ERROR "Cannot find or build package ${_pkg}")
@@ -119,7 +120,6 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
         else()
             message(STATUS "Package ${_pkg} not found. Will be downloaded and built.")
         endif()
-    else()
     endif()
 
     if(_runFind)
