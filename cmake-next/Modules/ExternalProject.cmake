@@ -1700,7 +1700,7 @@ Update to Mercurial >= 2.1.1.
   ExternalProject_Add_Step(${name} update
     COMMENT ${comment}
     COMMAND ${cmd}
-#    ALWAYS ${always}
+    ALWAYS ${always}
     WORKING_DIRECTORY ${work_dir}
     DEPENDEES download
     ${log}
