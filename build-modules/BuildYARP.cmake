@@ -3,6 +3,10 @@ include(YCMEPHelper)
 include(FindOrBuildPackage)
 
 find_or_build_package(TinyXML QUIET)
+if(COMMAND set_package_properties)
+    set_package_properties(TinyXML PROPERTIES PURPOSE "Used by YARP")
+endif()
+
 #find_or_build_package(GooCanvas QUIET)
 
 ycm_ep_helper(YARP TYPE GIT
