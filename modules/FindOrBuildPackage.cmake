@@ -131,6 +131,6 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
         find_package(${_pkg} ${ARGN})
     endif()
 
-    set(HAVE_SYSTEM_${_PKG} ${HAVE_SYSTEM_${_PKG}} PARENT_SCOPE)
-    set(HAVE_${_PKG} ${HAVE_${_PKG}} PARENT_SCOPE)
+    set(HAVE_SYSTEM_${_PKG} "${HAVE_SYSTEM_${_PKG}}" PARENT_SCOPE)
+    set(HAVE_${_PKG} "${HAVE_${_PKG}}" PARENT_SCOPE)
 endfunction()
