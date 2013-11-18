@@ -58,3 +58,9 @@ if(EXISTS "${YCM_MODULE_DIR}/deprecated")
 endif()
 
 list(APPEND CMAKE_MODULE_PATH "${YCM_MODULE_PATH}")
+
+
+if(COMMAND set_package_properties)
+    set_package_properties(YCM PROPERTIES DESCRIPTION "A collection of CMake modules and utilities for YARP and friends"
+                                          URL "https://github.com/robotology/ycm")
+endif()
