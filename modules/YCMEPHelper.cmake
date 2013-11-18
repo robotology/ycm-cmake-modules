@@ -263,7 +263,10 @@ macro(YCM_EP_HELPER _name)
 
     foreach(_dep ${_${_name}_DEPENDS})
         if(TARGET ${_dep})
-            set(_${_name}_DEPENDS_ARGS ${_${_name}_DEPENDS_ARGS} ${_dep})
+            get_property(is_ep TARGET ${_dep} PROPERTY _EP_IS_EXTERNAL_PROJECT)
+            if(is_ep)
+                set(_${_name}_DEPENDS_ARGS ${_${_name}_DEPENDS_ARGS} ${_dep})
+            endif()
         endif()
     endforeach()
 
