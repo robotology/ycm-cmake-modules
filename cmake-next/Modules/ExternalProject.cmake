@@ -578,13 +578,83 @@ if(error_code OR is_remote_ref OR NOT (\"\${tag_sha}\" STREQUAL \"\${head_sha}\"
   endif()
 
   if(is_remote_ref)
+    # Check if stash is needed
+    execute_process(
+      COMMAND \"${git_EXECUTABLE}\" status --porcelain
+      WORKING_DIRECTORY \"${work_dir}\"
+      RESULT_VARIABLE error_code
+      OUTPUT_VARIABLE repo_status
+      )
+    if(error_code)
+      message(FATAL_ERROR \"Failed to get the status\")
+    endif()
+    string(LENGTH \"\${repo_status}\" need_stash)
+
+    # If not in clean state, stash changes in order to be able to be able to
+    # perform git pull --rebase
+    if(need_stash)
+      execute_process(
+        COMMAND \"${git_EXECUTABLE}\" stash --all --quiet
+        WORKING_DIRECTORY \"${work_dir}\"
+        RESULT_VARIABLE error_code
+        )
+      if(error_code)
+        message(FATAL_ERROR \"Failed to stash changes\")
+      endif()
+    endif()
+
+    # Pull changes from the remote branch
     execute_process(
       COMMAND \"${git_EXECUTABLE}\" pull --rebase origin ${git_tag}
       WORKING_DIRECTORY \"${work_dir}\"
       RESULT_VARIABLE error_code
       )
     if(error_code)
-      message(FATAL_ERROR \"Failed to rebase in: '${work_dir}/${src_name}'\")
+      # Rebase failed: Restore previous state.
+      execute_process(
+        COMMAND \"${git_EXECUTABLE}\" rebase --abort
+        WORKING_DIRECTORY \"${work_dir}\"
+      )
+      if(need_stash)
+        execute_process(
+          COMMAND \"${git_EXECUTABLE}\" stash pop --index --quiet
+          WORKING_DIRECTORY \"${work_dir}\"
+          )
+      endif()
+      message(FATAL_ERROR \"\\nFailed to rebase in: '${work_dir}/${src_name}'.\\nYou will have to resolve the conflicts manually\")
+    endif()
+
+    if(need_stash)
+      execute_process(
+        COMMAND \"${git_EXECUTABLE}\" stash pop --index --quiet
+        WORKING_DIRECTORY \"${work_dir}\"
+        RESULT_VARIABLE error_code
+        )
+      if(error_code)
+        # Stash pop --index failed: Try again dropping the index
+        execute_process(
+          COMMAND \"${git_EXECUTABLE}\" reset --hard --quiet
+          WORKING_DIRECTORY \"${work_dir}\"
+          RESULT_VARIABLE error_code
+          )
+        execute_process(
+          COMMAND \"${git_EXECUTABLE}\" stash pop --quiet
+          WORKING_DIRECTORY \"${work_dir}\"
+          RESULT_VARIABLE error_code
+          )
+        if(error_code)
+          # Stash pop failed: Restore previous state.
+          execute_process(
+            COMMAND \"${git_EXECUTABLE}\" reset --hard --quiet \${head_sha}
+            WORKING_DIRECTORY \"${work_dir}\"
+          )
+          execute_process(
+            COMMAND \"${git_EXECUTABLE}\" stash pop --index --quiet
+            WORKING_DIRECTORY \"${work_dir}\"
+          )
+          message(FATAL_ERROR \"\\nFailed to unstash changes in: '${work_dir}/${src_name}'.\\nYou will have to resolve the conflicts manually\")
+        endif()
+      endif()
     endif()
   else()
     execute_process(
