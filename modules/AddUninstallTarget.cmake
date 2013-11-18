@@ -55,7 +55,7 @@ foreach(file \${files})
             OUTPUT_VARIABLE rm_out
             RESULT_VARIABLE rm_retval)
         if(NOT \"\${rm_retval}\" EQUAL 0)
-            message(FATAL_ERROR \"Problem when removing \"\$ENV{DESTDIR}\${file}\"\")
+            message(FATAL_ERROR \"Problem when removing \\\"\$ENV{DESTDIR}\${file}\\\"\")
         endif()
     else()
         message(STATUS \"File \\\"\$ENV{DESTDIR}\${file}\\\" does not exist.\")
