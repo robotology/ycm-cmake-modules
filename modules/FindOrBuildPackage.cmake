@@ -24,11 +24,11 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
     set(_oneValueArgs )
     set(_multiValueArgs )
 
-    cmake_parse_arguments(_${_PGK} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
+    cmake_parse_arguments(_${_PKG} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
 # Arguments for the find_package command
 # REQUIRED and QUIET will be set when necessary
-    set(_findArgs ${_${_PGK}_UNPARSED_ARGUMENTS})
+    set(_findArgs ${_${_PKG}_UNPARSED_ARGUMENTS})
 
 # Preliminary find_package to enable/disable USE_SYSTEM_${_PKG} option
     find_package(${_pkg} ${_findArgs} QUIET)
@@ -58,18 +58,18 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
                      VERSION_PATCH
                      VERSION_TWEAK
                      VERSION_COUNT)
-            unset(_${_PGK}_BUILD_${_var})
-            if(DEFINED ${_PGK}_BUILD_${_var})
-                set(_${_PGK}_BUILD_${_var} ${_PGK}_BUILD_${_var})
-                unset(${_PGK}_BUILD_${_var})
+            unset(_${_PKG}_BUILD_${_var})
+            if(DEFINED ${_PKG}_BUILD_${_var})
+                set(_${_PKG}_BUILD_${_var} ${_PKG}_BUILD_${_var})
+                unset(${_PKG}_BUILD_${_var})
             endif()
         endforeach()
 
-        set(${_PGK}_BUILD_REQUIRED ${_${_PGK}_REQUIRED})
-        set(${_PGK}_BUILD_QUIETLY ${_${_PGK}_QUIET})
-        if(DEFINED ${_${_PGK}_VERSION})
-            set(${_PKG}_BUILD_VERSION ${_${_PGK}_VERSION})
-            extract_version(${_PGK}_BUILD REVERSE_NAME)
+        set(${_PKG}_BUILD_REQUIRED ${_${_PKG}_REQUIRED})
+        set(${_PKG}_BUILD_QUIETLY ${_${_PKG}_QUIET})
+        if(DEFINED ${_${_PKG}_VERSION})
+            set(${_PKG}_BUILD_VERSION ${_${_PKG}_VERSION})
+            extract_version(${_PKG}_BUILD REVERSE_NAME)
         endif()
 
         # Include the Build recipe
@@ -95,25 +95,25 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
                      VERSION_PATCH
                      VERSION_TWEAK
                      VERSION_COUNT)
-            if(DEFINED _${_PGK}_BUILD_${_var})
-                set(${_PGK}_BUILD_${_var} _${_PGK}_BUILD_${_var})
+            if(DEFINED _${_PKG}_BUILD_${_var})
+                set(${_PKG}_BUILD_${_var} _${_PKG}_BUILD_${_var})
             else()
-                unset(${_PGK}_BUILD_${_var})
+                unset(${_PKG}_BUILD_${_var})
             endif()
-            unset(_${_PGK}_BUILD_${_var})
+            unset(_${_PKG}_BUILD_${_var})
         endforeach()
     endif()
 
     # Display errors/messages
     if(NOT HAVE_${_PKG})
-        if(${_${_PGK}_REQUIRED})
+        if(${_${_PKG}_REQUIRED})
             message(SEND_ERROR "Cannot find or build package ${_pkg}")
             set(_runFind 1)
-        elseif(NOT ${_${_PGK}_QUIET})
+        elseif(NOT ${_${_PKG}_QUIET})
             message(STATUS "Cannot find or build package ${_pkg}")
             set(_runFind 1)
         endif()
-    elseif(NOT ${_${_PGK}_QUIET})
+    elseif(NOT ${_${_PKG}_QUIET})
         if(USE_SYSTEM_${_PKG})
             set(_runFind 1)
         else()
