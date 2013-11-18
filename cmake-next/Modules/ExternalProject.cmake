@@ -576,13 +576,24 @@ if(error_code OR is_remote_ref OR NOT (\"\${tag_sha}\" STREQUAL \"\${head_sha}\"
     message(FATAL_ERROR \"Failed to fetch repository '${git_repository}'\")
   endif()
 
-  execute_process(
-    COMMAND \"${git_EXECUTABLE}\" checkout ${git_tag}
-    WORKING_DIRECTORY \"${work_dir}\"
-    RESULT_VARIABLE error_code
-    )
-  if(error_code)
-    message(FATAL_ERROR \"Failed to checkout tag: '${git_tag}'\")
+  if(is_remote_ref)
+    execute_process(
+      COMMAND \"${git_EXECUTABLE}\" pull --rebase origin ${git_tag}
+      WORKING_DIRECTORY \"${work_dir}\"
+      RESULT_VARIABLE error_code
+      )
+    if(error_code)
+      message(FATAL_ERROR \"Failed to rebase: 'origin ${git_tag}'\")
+    endif()
+  else()
+    execute_process(
+      COMMAND \"${git_EXECUTABLE}\" checkout ${git_tag}
+      WORKING_DIRECTORY \"${work_dir}\"
+      RESULT_VARIABLE error_code
+      )
+    if(error_code)
+      message(FATAL_ERROR \"Failed to checkout tag: '${git_tag}'\")
+    endif()
   endif()
 
   execute_process(
