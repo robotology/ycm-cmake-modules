@@ -583,7 +583,7 @@ if(error_code OR is_remote_ref OR NOT (\"\${tag_sha}\" STREQUAL \"\${head_sha}\"
       RESULT_VARIABLE error_code
       )
     if(error_code)
-      message(FATAL_ERROR \"Failed to rebase: 'origin ${git_tag}'\")
+      message(FATAL_ERROR \"Failed to rebase in: '${work_dir}/${src_name}'\")
     endif()
   else()
     execute_process(
