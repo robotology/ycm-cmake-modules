@@ -182,6 +182,7 @@ macro(YCM_EP_HELPER _name)
 
     # Adding target twice is not allowed
     if(TARGET ${_name})
+        message(WARNING "Failed to add target ${_name}. A target with the same name already exists.")
         return()
     endif()
 
