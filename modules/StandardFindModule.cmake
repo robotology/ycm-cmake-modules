@@ -88,7 +88,7 @@ macro(STANDARD_FIND_MODULE _name _pkgconfig_name)
         mark_as_advanced(${_name}_DIR)
 
         if(${_name}_FOUND)
-            find_package_handle_standard_args(${_name} DEFAULT_MSG ${_name}_CONFIG)
+            find_package_handle_standard_args(${_name} CONFIG_MODE)
         endif()
     endif()
 
