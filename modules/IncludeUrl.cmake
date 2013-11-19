@@ -27,25 +27,29 @@
 #     [NO_POLICY_SCOPE]              # Do not manage a new policy entry
 #     )
 #
-# Download a file from given url and include it. If DESTINATION is specified,
-# the file is saved at the given location with the original file name, if
-# <destination> is a directory, or with the given file name, if <destination> is
-# a file name. If not specified it will be saved with the original filename in
-# ${CMAKE_BINARY_DIR}/CMakeFiles.
+# Download a file from given url and include it.  If ``DESTINATION`` is
+# specified, the file is saved at the given location with the original
+# file name, if ``<destination>`` is a directory, or with the given file
+# name, if ``<destination>`` is a file name.  If not specified it will
+# be saved with the original filename in
+# ``${CMAKE_BINARY_DIR}/CMakeFiles``.
 #
-# If the DOWNLOAD_ONCE option is specified, the file is not downloaded if the
-# file already exists. Normally the file is downloaded at every CMake execution,
-# but no error is raised if the download fails if a version of the file already
-# exists, unless the DOWNLOAD_ALWAYS.
+# If the ``DOWNLOAD_ONCE`` option is specified, the file is not
+# downloaded if the file already exists.  Normally the file is
+# downloaded at every CMake execution, but no error is raised if the
+# download fails if a version of the file already exists, unless the
+# ``DOWNLOAD_ALWAYS``.
 #
-# The arguments INACTIVITY_TIMEOUT, TIMEOUT, STATUS, LOG, SHOW_PROGRESS,
-# EXPECTED_HASH, EXPECTED_MD5, TLS_VERIFY, and TLS_CAINFO are passed to the
-# "file(DOWNLOAD)" command. See the documentation of the "file" command for a
-# detailed description of these arguments.
+# The arguments ``INACTIVITY_TIMEOUT``, ``TIMEOUT``, ``STATUS``,
+# ``LOG``, ``SHOW_PROGRESS``, ``EXPECTED_HASH``, ``EXPECTED_MD5``,
+# ``TLS_VERIFY``, and ``TLS_CAINFO`` are passed to the
+# ``file(DOWNLOAD)`` command.  See the documentation of the ``file()``
+# command for a detailed description of these arguments.
 #
-# The arguments OPTIONAL, RESULT_VARIABLE, and NO_POLICY_SCOPE are passed to the
-# "include" command. See the documentation of the "include" command for a
-# detailed description of these arguments.
+# The arguments ``OPTIONAL``, ``RESULT_VARIABLE``, and
+# ``NO_POLICY_SCOPE`` are passed to the ``include()`` command.  See the
+# documentation of the ``include()`` command for a detailed description
+# of these arguments.
 
 #=============================================================================
 # Copyright 2013  iCub Facility, Istituto Italiano di Tecnologia
