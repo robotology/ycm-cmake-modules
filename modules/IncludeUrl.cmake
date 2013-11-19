@@ -74,7 +74,9 @@ set(__INCLUDE_URL_INCLUDED TRUE)
 
 include(CMakeParseArguments)
 
-function(INCLUDE_URL _remotefile)
+# This must be a macro and not a function in order not to enclose in a
+# new scope the variables added by the included files.
+macro(INCLUDE_URL _remotefile)
 
     set(_downloadOptions SHOW_PROGRESS)
     set(_downloadOneValueArgs INACTIVITY_TIMEOUT
@@ -168,11 +170,11 @@ function(INCLUDE_URL _remotefile)
 
         # Set the LOG and the STATUS variables if requested by the user
         if(DEFINED _IU_LOG)
-            set(${_IU_LOG} ${${_IU_LOG}} PARENT_SCOPE)
+            set(${_IU_LOG} ${${_IU_LOG}})
         endif()
 
         if(DEFINED _IU_STATUS)
-            set(${_IU_STATUS} ${_downloadResult} PARENT_SCOPE)
+            set(${_IU_STATUS} ${_downloadResult})
         endif()
 
         list(GET _downloadResult 0 _downloadResult_0)
@@ -201,7 +203,7 @@ function(INCLUDE_URL _remotefile)
 
     # Set the RESULT_VARIABLE variable if requested by the user
     if(DEFINED _IU_RESULT_VARIABLE)
-        set(${_IU_RESULT_VARIABLE} ${${_IU_RESULT_VARIABLE}} PARENT_SCOPE)
+        set(${_IU_RESULT_VARIABLE} ${${_IU_RESULT_VARIABLE}})
     endif()
 
-endfunction()
+endmacro()
