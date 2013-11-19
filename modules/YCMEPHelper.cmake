@@ -37,32 +37,61 @@ if(DEFINED __YCMEPHELPER_INCLUDED)
 endif()
 set(__YCMEPHELPER_INCLUDED TRUE)
 
-include(CMakeParseArguments)
-include(ExternalProject)
 
-set_property(DIRECTORY PROPERTY EP_STEP_TARGETS configure)
-set_property(DIRECTORY PROPERTY EP_INDEPENDENT_STEP_TARGETS update)
-set_property(DIRECTORY PROPERTY EP_SOURCE_DIR_PRESERVE TRUE)
-set_property(DIRECTORY PROPERTY CMAKE_PARSE_ARGUMENTS_DEFAULT_SKIP_EMPTY FALSE)
+########################################################################
+# Internal macro to include files from cmake-next.
+# If YCM was not found, we are bootstrapping, therefore we need to
+# download and use these modules instead of the ones found by cmake
 
-if(NOT TARGET update-all)
-    add_custom_target(update-all)
-endif()
-
-if(NOT TARGET status-all)
-    add_custom_target(status-all)
-endif()
-
-if(NOT TARGET fetch-all)
-    add_custom_target(fetch-all)
-endif()
-
-if(NOT TARGET pull-all)
-    add_custom_target(pull-all)
-endif()
+macro(_ycm_include module)
+    if(YCM_FOUND)
+        include(${module})
+    else()
+        # We assume that YCMEPHelper was included using include_url, or that at
+        # least the IncludeUrl command exists.
+        if(NOT COMMAND include_url)
+            include(IncludeUrl)
+        endif()
+        include_url(https://raw.github.com/robotology/ycm/HEAD/cmake-next/Modules/${module}.cmake)
+    endif()
+endmacro()
 
 
-################################################################################
+########################################################################
+# Generic setup. Will be called by including this file if we are using
+# an installed version, or by ycm_bootstrap if we are bootstrapping
+
+unset(__YCM_SETUP_CALLED CACHE)
+macro(_YCM_SETUP)
+    if(DEFINED __YCM_SETUP_CALLED)
+        return()
+    endif()
+    set(__YCM_SETUP_CALLED 1 CACHE INTERNAL "")
+
+    set_property(DIRECTORY PROPERTY EP_STEP_TARGETS configure)
+    set_property(DIRECTORY PROPERTY EP_INDEPENDENT_STEP_TARGETS update)
+    set_property(DIRECTORY PROPERTY EP_SOURCE_DIR_PRESERVE TRUE)
+    set_property(DIRECTORY PROPERTY CMAKE_PARSE_ARGUMENTS_DEFAULT_SKIP_EMPTY FALSE)
+
+    if(NOT TARGET update-all)
+        add_custom_target(update-all)
+    endif()
+
+    if(NOT TARGET status-all)
+        add_custom_target(status-all)
+    endif()
+
+    if(NOT TARGET fetch-all)
+        add_custom_target(fetch-all)
+    endif()
+
+    if(NOT TARGET pull-all)
+        add_custom_target(pull-all)
+    endif()
+endmacro()
+
+
+########################################################################
 # Setup GIT
 
 unset(__YCM_GIT_SETUP_CALLED CACHE)
@@ -154,15 +183,15 @@ macro(_YCM_SETUP_GIT)
 
 endmacro()
 
-################################################################################
+########################################################################
 # Setup SVN
 
-unset(__YCM_GIT_SETUP_CALLED)
+unset(__YCM_SVN_SETUP_CALLED)
 macro(_YCM_SETUP_SVN)
-    if(DEFINED __YCM_GIT_SETUP_CALLED)
+    if(DEFINED __YCM_SVN_SETUP_CALLED)
         return()
     endif()
-    set(__YCM_GIT_SETUP_CALLED 1 CACHE INTERNAL "")
+    set(__YCM_SVN_SETUP_CALLED 1 CACHE INTERNAL "")
 
     find_package(Subversion QUIET)
     if(NOT Subversion_SVN_EXECUTABLE)
@@ -176,7 +205,7 @@ macro(_YCM_SETUP_SVN)
     mark_as_advanced(YCM_SVN_SOURCEFORGE_USERNAME YCM_SVN_SOURCEFORGE_PASSWORD)
 endmacro()
 
-################################################################################
+########################################################################
 # YCM_EP_HELPER
 
 macro(YCM_EP_HELPER _name)
@@ -395,7 +424,7 @@ macro(YCM_EP_HELPER _name)
 endmacro()
 
 
-################################################################################
+########################################################################
 # YCM_BOOTSTRAP
 
 macro(YCM_BOOTSTRAP)
@@ -471,15 +500,18 @@ macro(YCM_BOOTSTRAP)
     # Reset YCM_DIR variable so that next find_package will fail to locate the package and this will be kept updated
     set(YCM_DIR "YCM_DIR-NOTFOUND" CACHE PATH "The directory containing a CMake configuration file for YCM." FORCE)
 
-    # Include ExternalProject and CMakeParseArguments again in order to use the
-    # ones from YCM with the new features, instead of the old version
-    # distributed with CMake.
-    if(NOT CMAKE_VERSION VERSION_LESS 3.0.0)
-        # Just a reminder to update files when a new cmake version is released
-        message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
-    endif()
-    unset(__CMAKE_PARSE_ARGUMENTS_INCLUDED)
-    include(CMakeParseArguments)
-    include(ExternalProject)
+    _ycm_setup()
+
 endmacro()
 
+
+########################################################################
+# Main
+
+_ycm_include(CMakeParseArguments)
+_ycm_include(ExternalProject)
+
+# If YCM was not found _ycm_found will be called by ycm_bootstrap()
+if(YCM_FOUND)
+    _ycm_setup()
+endif()
