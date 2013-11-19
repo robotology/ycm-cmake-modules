@@ -434,7 +434,7 @@ endfunction()
 # YCM_BOOTSTRAP
 
 unset(__YCM_BOOTSTRAPPED_CALLED CACHE)
-function(YCM_BOOTSTRAP)
+macro(YCM_BOOTSTRAP)
     if(DEFINED __YCM_BOOTSTRAPPED_CALLED)
         return()
     endif()
@@ -507,7 +507,7 @@ function(YCM_BOOTSTRAP)
     # Reset YCM_DIR variable so that next find_package will fail to locate the package and this will be kept updated
     set(YCM_DIR "YCM_DIR-NOTFOUND" CACHE PATH "The directory containing a CMake configuration file for YCM." FORCE)
 
-endfunction()
+endmacro()
 
 
 ########################################################################
