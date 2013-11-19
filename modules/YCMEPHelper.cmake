@@ -65,12 +65,12 @@ endif()
 ################################################################################
 # Setup GIT
 
+unset(__YCM_GIT_SETUP_CALLED CACHE)
 macro(_YCM_SETUP_GIT)
-
-    if(DEFINED YCM_GIT_SETUP)
+    if(DEFINED __YCM_GIT_SETUP_CALLED)
         return()
     endif()
-    set(YCM_GIT_SETUP 1 CACHE INTERNAL "")
+    set(__YCM_GIT_SETUP_CALLED 1 CACHE INTERNAL "")
 
     find_package(Git QUIET)
     if(NOT GIT_EXECUTABLE)
@@ -157,11 +157,12 @@ endmacro()
 ################################################################################
 # Setup SVN
 
+unset(__YCM_GIT_SETUP_CALLED)
 macro(_YCM_SETUP_SVN)
-    if(DEFINED YCM_SETUP_SVN)
+    if(DEFINED __YCM_GIT_SETUP_CALLED)
         return()
     endif()
-    set(YCM_SVN_SETUP 1 CACHE INTERNAL "")
+    set(__YCM_GIT_SETUP_CALLED 1 CACHE INTERNAL "")
 
     find_package(Subversion QUIET)
     if(NOT Subversion_SVN_EXECUTABLE)
@@ -398,11 +399,10 @@ endmacro()
 # YCM_BOOTSTRAP
 
 macro(YCM_BOOTSTRAP)
-    if(DEFINED YCM_BOOTSTRAPPED)
+    if(DEFINED __YCM_BOOTSTRAPPED_CALLED)
         return()
     endif()
-    set(YCM_BOOTSTRAPPED 1 CACHE INTERNAL "")
-
+    set(__YCM_BOOTSTRAPPED_CALLED TRUE CACHE INTERNAL "")
 
     ycm_ep_helper(YCM TYPE GIT
                       STYLE GITHUB
@@ -478,9 +478,8 @@ macro(YCM_BOOTSTRAP)
         # Just a reminder to update files when a new cmake version is released
         message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
     endif()
-    include(ExternalProject)
     unset(__CMAKE_PARSE_ARGUMENTS_INCLUDED)
     include(CMakeParseArguments)
-
+    include(ExternalProject)
 endmacro()
 
