@@ -453,9 +453,9 @@ macro(YCM_BOOTSTRAP)
     set(__YCM_BOOTSTRAPPED_CALLED TRUE CACHE INTERNAL "")
 
     if(${ARGC} EQUAL 0)
-        set(_verbose_args )
+        set(_quiet_args OUTPUT_QUIET ERROR_QUIET)
     elseif(${ARGC} EQUAL 1  AND  "${ARGV0}" STREQUAL "VERBOSE")
-        set(_verbose_args OUTPUT_QUIET ERROR_QUIET)
+        set(_quiet_args )
     else()
         message(FATAL_ERROR "Unknown argument ${ARGN}")
     endif()
@@ -468,7 +468,7 @@ macro(YCM_BOOTSTRAP)
 
     message(STATUS "Performing download step (git clone) for 'YCM'")
     execute_process(COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-gitclone.cmake
-                    ${_verbose_args}
+                    ${_quiet_args}
                     RESULT_VARIABLE _result)
     if(_result)
         message(FATAL_ERROR "Cannot clone YCM repository (${_result})")
@@ -476,7 +476,7 @@ macro(YCM_BOOTSTRAP)
 
     message(STATUS "Performing update step for 'YCM'")
     execute_process(COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-gitupdate.cmake
-                    ${_verbose_args}
+                    ${_quiet_args}
                     RESULT_VARIABLE _result)
     if(_result)
         message(FATAL_ERROR "Cannot update YCM repository")
@@ -488,7 +488,7 @@ macro(YCM_BOOTSTRAP)
     string(REGEX REPLACE "^cmd='(.+)'" "\\1" _cmd "${_cmd}")
     execute_process(COMMAND ${_cmd}
                     WORKING_DIRECTORY ${YCM_BINARY_DIR}
-                    ${_verbose_args}
+                    ${_quiet_args}
                     RESULT_VARIABLE _result)
     if(_result)
         message(FATAL_ERROR "Cannot configure YCM repository")
@@ -497,7 +497,7 @@ macro(YCM_BOOTSTRAP)
     message(STATUS "Performing uninstall step for 'YCM'")
     execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target uninstall
                     WORKING_DIRECTORY ${YCM_BINARY_DIR}
-                    ${_verbose_args}
+                    ${_quiet_args}
                     RESULT_VARIABLE _result)
     # If uninstall fails, YCM was not previously installed,
     # therefore do not fail with error
@@ -505,7 +505,7 @@ macro(YCM_BOOTSTRAP)
     message(STATUS "Performing build step for 'YCM'")
     execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR}
                     WORKING_DIRECTORY ${YCM_BINARY_DIR}
-                    ${_verbose_args}
+                    ${_quiet_args}
                     RESULT_VARIABLE _result)
     if(_result)
         message(FATAL_ERROR "Cannot build YCM")
@@ -514,7 +514,7 @@ macro(YCM_BOOTSTRAP)
     message(STATUS "Performing install step for 'YCM'")
     execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target install
                     WORKING_DIRECTORY ${YCM_BINARY_DIR}
-                    ${_verbose_args}
+                    ${_quiet_args}
                     RESULT_VARIABLE _result)
     if(_result)
         message(FATAL_ERROR "Cannot install YCM")
