@@ -70,7 +70,7 @@ set(__INCLUDE_URL_INCLUDED TRUE)
 
 include(CMakeParseArguments)
 
-macro(INCLUDE_URL _remotefile)
+function(INCLUDE_URL _remotefile)
 
     set(_downloadOptions SHOW_PROGRESS)
     set(_downloadOneValueArgs INACTIVITY_TIMEOUT
@@ -162,15 +162,19 @@ macro(INCLUDE_URL _remotefile)
         message(STATUS "Downloading ${_filename}")
         file(DOWNLOAD ${_remotefile} ${_localfile} ${_downloadArgs})
 
-        # Set the status variable if requested by the user
+        # Set the LOG and the STATUS variables if requested by the user
+        if(DEFINED _IU_LOG)
+            set(${_IU_LOG} ${${_IU_LOG}} PARENT_SCOPE)
+        endif()
+
         if(DEFINED _IU_STATUS)
-            set(${_IU_STATUS} ${_downloadResult})
+            set(${_IU_STATUS} ${_downloadResult} PARENT_SCOPE)
         endif()
 
         list(GET _downloadResult 0 _downloadResult_0)
-        if(_downloadResult_0)
+        if(NOT _downloadResult_0 EQUAL 0)
             list(GET _downloadResult 1 _downloadResult_1)
-            set(_message "Downloading ${_filename} - FAIL: ${_downloadResult_1}")
+            set(_message "Downloading ${_filename} - ERROR ${_downloadResult_0}: ${_downloadResult_1}")
             if(_shouldFail OR NOT EXISTS ${_tmpFile})
                 message(FATAL_ERROR ${_message})
             else()
@@ -190,4 +194,10 @@ macro(INCLUDE_URL _remotefile)
     endif()
 
     include(${_localfile} ${_includeArgs})
-endmacro()
+
+    # Set the RESULT_VARIABLE variable if requested by the user
+    if(DEFINED _IU_RESULT_VARIABLE)
+        set(${_IU_RESULT_VARIABLE} ${${_IU_RESULT_VARIABLE}} PARENT_SCOPE)
+    endif()
+
+endfunction()
