@@ -67,112 +67,112 @@ endif()
 
 macro(_YCM_SETUP_GIT)
 
-    if(NOT DEFINED YCM_GIT_SETUP)
-        find_package(Git QUIET)
-        if(NOT GIT_EXECUTABLE)
-            message(FATAL_ERROR "Please install Git")
-        endif()
-
-        execute_process(COMMAND ${GIT_EXECUTABLE} config --get user.name
-                        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-                        RESULT_VARIABLE _error_code
-                        OUTPUT_VARIABLE _output_name
-                        OUTPUT_STRIP_TRAILING_WHITESPACE)
-        if(NOT NON_INTERACTIVE_BUILD AND _error_code)
-            message(FATAL_ERROR "Failed to get name to use for git commits. Please set it with \"git config --global user.name Firstname Lastname\"")
-        endif()
-
-        execute_process(COMMAND ${GIT_EXECUTABLE} config --get user.email
-                        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-                        RESULT_VARIABLE _error_code
-                        OUTPUT_VARIABLE _output_email
-                        OUTPUT_STRIP_TRAILING_WHITESPACE)
-        if(NOT NON_INTERACTIVE_BUILD AND _error_code)
-            message(FATAL_ERROR "Failed to get name to use for git commits. Please set it with \"git config --global user.email name@example.com\"")
-        endif()
-
-        set(YCM_GIT_COMMIT_NAME "${_output_name}" CACHE STRING "Name to use for git commits")
-        set(YCM_GIT_COMMIT_EMAIL "${_output_email}" CACHE STRING "Email address to use for git commits")
-        mark_as_advanced(YCM_GIT_COMMIT_NAME YCM_GIT_COMMIT_EMAIL)
-
-
-        # TYPE GIT STYLE GITHUB
-        set(YCM_GIT_GITHUB_USERNAME "" CACHE STRING "Username to use for github git repositories")
-        set(YCM_GIT_GITHUB_COMMIT_NAME "" CACHE STRING "Name to use for git commits for github git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
-        set(YCM_GIT_GITHUB_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for github git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-        set(YCM_GIT_GITHUB_BASE_ADDRESS "https://github.com/" CACHE STRING "Address to use for github git repositories")
-        set_property(CACHE YCM_GIT_GITHUB_BASE_ADDRESS PROPERTY STRINGS "https://github.com/" "git://github.com/" "ssh://git@github.com/" "github:")
-        mark_as_advanced(YCM_GIT_GITHUB_USERNAME YCM_GIT_GITHUB_COMMIT_NAME YCM_GIT_GITHUB_COMMIT_EMAIL YCM_GIT_GITHUB_BASE_ADDRESS)
-
-
-        # TYPE GIT STYLE KDE
-        set(YCM_GIT_KDE_USERNAME "" CACHE STRING "Username to use for kde git repositories")
-        set(YCM_GIT_KDE_COMMIT_NAME "" CACHE STRING "Name to use for git commits for kde git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
-        set(YCM_GIT_KDE_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for kde git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-        set(YCM_GIT_KDE_BASE_ADDRESS "git://anongit.kde.org/" CACHE STRING "Address to use for kde git repositories")
-        set_property(CACHE YCM_GIT_KDE_BASE_ADDRESS PROPERTY STRINGS "git://anongit.kde.org/" "ssh://git@git.kde.org/" "kde:")
-        mark_as_advanced(YCM_GIT_KDE_USERNAME YCM_GIT_KDE_COMMIT_NAME YCM_GIT_KDE_COMMIT_EMAIL YCM_GIT_KDE_BASE_ADDRESS)
-
-
-        # TYPE GIT STYLE GNOME
-        set(YCM_GIT_GNOME_USERNAME "" CACHE STRING "Username to use for gnome git repositories")
-        set(YCM_GIT_GNOME_COMMIT_NAME "" CACHE STRING "Name to use for git commits for gnome git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
-        set(YCM_GIT_GNOME_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for gnome git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-        set(YCM_GIT_GNOME_BASE_ADDRESS "git://git.gnome.org/" CACHE STRING "Address to use for gnome git repositories")
-        set_property(CACHE YCM_GIT_GNOME_BASE_ADDRESS PROPERTY STRINGS "git://git.gnome.org/" "ssh://git@git.gnome.org/" "gnome:")
-        mark_as_advanced(YCM_GIT_GNOME_USERNAME YCM_GIT_GNOME_COMMIT_NAME YCM_GIT_GNOME_COMMIT_EMAIL YCM_GIT_GNOME_BASE_ADDRESS)
-
-
-        # TYPE GIT STYLE SOURCEFORGE
-        set(YCM_GIT_SOURCEFORGE_USERNAME "" CACHE STRING "Username to use for sourceforge git repositories")
-        set(YCM_GIT_SOURCEFORGE_COMMIT_NAME "" CACHE STRING "Name to use for git commits for sourceforge git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
-        set(YCM_GIT_SOURCEFORGE_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for sourceforge git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-        set(YCM_GIT_SOURCEFORGE_BASE_ADDRESS "git://git.code.sf.net/p/" CACHE STRING "Address to use for sourceforge git repositories")
-        set_property(CACHE YCM_GIT_SOURCEFORGE_BASE_ADDRESS PROPERTY STRINGS "git://git.code.sf.net/p/" "ssh://${YCM_GIT_SOURCEFORGE_USERNAME}@git.code.sf.net/p/" "sf:")
-        mark_as_advanced(YCM_GIT_SOURCEFORGE_USERNAME YCM_GIT_SOURCEFORGE_COMMIT_NAME YCM_GIT_SOURCEFORGE_COMMIT_EMAIL YCM_GIT_SOURCEFORGE_BASE_ADDRESS)
-
-
-        # TYPE GIT STYLE GITLAB_ICUB_ORG
-        set(YCM_GIT_GITLAB_ICUB_ORG_USERNAME "" CACHE STRING "Username to use for IIT iCub Facility Gitlab git repositories")
-        set(YCM_GIT_GITLAB_ICUB_ORG_COMMIT_NAME "" CACHE STRING "Name to use for git commits for IIT iCub Facility Gitlab git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
-        set(YCM_GIT_GITLAB_ICUB_ORG_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for IIT iCub Facility Gitlab git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-        set(YCM_GIT_GITLAB_ICUB_ORG_BASE_ADDRESS "https://gitlab.icub.org/" CACHE STRING "Address to use for IIT iCub Facility Gitlab git repositories")
-        set_property(CACHE YCM_GIT_GITLAB_ICUB_ORG_BASE_ADDRESS PROPERTY STRINGS "https://gitlab.icub.org/" "git://gitlab.icub.org/" "ssh://git@gitlab.icub.org/" "icub:")
-        mark_as_advanced(YCM_GIT_GITLAB_ICUB_ORG_USERNAME YCM_GIT_GITLAB_ICUB_ORG_COMMIT_NAME YCM_GIT_GITLAB_ICUB_ORG_COMMIT_EMAIL YCM_GIT_GITLAB_ICUB_ORG_BASE_ADDRESS)
-
-
-        # TYPE GIT STYLE LOCAL
-        set(YCM_GIT_LOCAL_BASE_ADDRESS "" CACHE INTERNAL "Address to use for local git repositories")
-
-
-        # TYPE GIT STYLE NONE
-        set(YCM_GIT_NONE_BASE_ADDRESS "" CACHE INTERNAL "Address to use for other git repositories")
-
-
-        set(YCM_GIT_SETUP 1 CACHE INTERNAL "")
+    if(DEFINED YCM_GIT_SETUP)
+        return()
     endif()
+    set(YCM_GIT_SETUP 1 CACHE INTERNAL "")
+
+    find_package(Git QUIET)
+    if(NOT GIT_EXECUTABLE)
+        message(FATAL_ERROR "Please install Git")
+    endif()
+
+    execute_process(COMMAND ${GIT_EXECUTABLE} config --get user.name
+                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+                    RESULT_VARIABLE _error_code
+                    OUTPUT_VARIABLE _output_name
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(NOT NON_INTERACTIVE_BUILD AND _error_code)
+        message(FATAL_ERROR "Failed to get name to use for git commits. Please set it with \"git config --global user.name Firstname Lastname\"")
+    endif()
+
+    execute_process(COMMAND ${GIT_EXECUTABLE} config --get user.email
+                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+                    RESULT_VARIABLE _error_code
+                    OUTPUT_VARIABLE _output_email
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(NOT NON_INTERACTIVE_BUILD AND _error_code)
+        message(FATAL_ERROR "Failed to get name to use for git commits. Please set it with \"git config --global user.email name@example.com\"")
+    endif()
+
+    set(YCM_GIT_COMMIT_NAME "${_output_name}" CACHE STRING "Name to use for git commits")
+    set(YCM_GIT_COMMIT_EMAIL "${_output_email}" CACHE STRING "Email address to use for git commits")
+    mark_as_advanced(YCM_GIT_COMMIT_NAME YCM_GIT_COMMIT_EMAIL)
+
+
+    # TYPE GIT STYLE GITHUB
+    set(YCM_GIT_GITHUB_USERNAME "" CACHE STRING "Username to use for github git repositories")
+    set(YCM_GIT_GITHUB_COMMIT_NAME "" CACHE STRING "Name to use for git commits for github git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
+    set(YCM_GIT_GITHUB_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for github git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
+    set(YCM_GIT_GITHUB_BASE_ADDRESS "https://github.com/" CACHE STRING "Address to use for github git repositories")
+    set_property(CACHE YCM_GIT_GITHUB_BASE_ADDRESS PROPERTY STRINGS "https://github.com/" "git://github.com/" "ssh://git@github.com/" "github:")
+    mark_as_advanced(YCM_GIT_GITHUB_USERNAME YCM_GIT_GITHUB_COMMIT_NAME YCM_GIT_GITHUB_COMMIT_EMAIL YCM_GIT_GITHUB_BASE_ADDRESS)
+
+
+    # TYPE GIT STYLE KDE
+    set(YCM_GIT_KDE_USERNAME "" CACHE STRING "Username to use for kde git repositories")
+    set(YCM_GIT_KDE_COMMIT_NAME "" CACHE STRING "Name to use for git commits for kde git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
+    set(YCM_GIT_KDE_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for kde git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
+    set(YCM_GIT_KDE_BASE_ADDRESS "git://anongit.kde.org/" CACHE STRING "Address to use for kde git repositories")
+    set_property(CACHE YCM_GIT_KDE_BASE_ADDRESS PROPERTY STRINGS "git://anongit.kde.org/" "ssh://git@git.kde.org/" "kde:")
+    mark_as_advanced(YCM_GIT_KDE_USERNAME YCM_GIT_KDE_COMMIT_NAME YCM_GIT_KDE_COMMIT_EMAIL YCM_GIT_KDE_BASE_ADDRESS)
+
+
+    # TYPE GIT STYLE GNOME
+    set(YCM_GIT_GNOME_USERNAME "" CACHE STRING "Username to use for gnome git repositories")
+    set(YCM_GIT_GNOME_COMMIT_NAME "" CACHE STRING "Name to use for git commits for gnome git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
+    set(YCM_GIT_GNOME_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for gnome git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
+    set(YCM_GIT_GNOME_BASE_ADDRESS "git://git.gnome.org/" CACHE STRING "Address to use for gnome git repositories")
+    set_property(CACHE YCM_GIT_GNOME_BASE_ADDRESS PROPERTY STRINGS "git://git.gnome.org/" "ssh://git@git.gnome.org/" "gnome:")
+    mark_as_advanced(YCM_GIT_GNOME_USERNAME YCM_GIT_GNOME_COMMIT_NAME YCM_GIT_GNOME_COMMIT_EMAIL YCM_GIT_GNOME_BASE_ADDRESS)
+
+
+    # TYPE GIT STYLE SOURCEFORGE
+    set(YCM_GIT_SOURCEFORGE_USERNAME "" CACHE STRING "Username to use for sourceforge git repositories")
+    set(YCM_GIT_SOURCEFORGE_COMMIT_NAME "" CACHE STRING "Name to use for git commits for sourceforge git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
+    set(YCM_GIT_SOURCEFORGE_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for sourceforge git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
+    set(YCM_GIT_SOURCEFORGE_BASE_ADDRESS "git://git.code.sf.net/p/" CACHE STRING "Address to use for sourceforge git repositories")
+    set_property(CACHE YCM_GIT_SOURCEFORGE_BASE_ADDRESS PROPERTY STRINGS "git://git.code.sf.net/p/" "ssh://${YCM_GIT_SOURCEFORGE_USERNAME}@git.code.sf.net/p/" "sf:")
+    mark_as_advanced(YCM_GIT_SOURCEFORGE_USERNAME YCM_GIT_SOURCEFORGE_COMMIT_NAME YCM_GIT_SOURCEFORGE_COMMIT_EMAIL YCM_GIT_SOURCEFORGE_BASE_ADDRESS)
+
+
+    # TYPE GIT STYLE GITLAB_ICUB_ORG
+    set(YCM_GIT_GITLAB_ICUB_ORG_USERNAME "" CACHE STRING "Username to use for IIT iCub Facility Gitlab git repositories")
+    set(YCM_GIT_GITLAB_ICUB_ORG_COMMIT_NAME "" CACHE STRING "Name to use for git commits for IIT iCub Facility Gitlab git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
+    set(YCM_GIT_GITLAB_ICUB_ORG_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for IIT iCub Facility Gitlab git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
+    set(YCM_GIT_GITLAB_ICUB_ORG_BASE_ADDRESS "https://gitlab.icub.org/" CACHE STRING "Address to use for IIT iCub Facility Gitlab git repositories")
+    set_property(CACHE YCM_GIT_GITLAB_ICUB_ORG_BASE_ADDRESS PROPERTY STRINGS "https://gitlab.icub.org/" "git://gitlab.icub.org/" "ssh://git@gitlab.icub.org/" "icub:")
+    mark_as_advanced(YCM_GIT_GITLAB_ICUB_ORG_USERNAME YCM_GIT_GITLAB_ICUB_ORG_COMMIT_NAME YCM_GIT_GITLAB_ICUB_ORG_COMMIT_EMAIL YCM_GIT_GITLAB_ICUB_ORG_BASE_ADDRESS)
+
+
+    # TYPE GIT STYLE LOCAL
+    set(YCM_GIT_LOCAL_BASE_ADDRESS "" CACHE INTERNAL "Address to use for local git repositories")
+
+
+    # TYPE GIT STYLE NONE
+    set(YCM_GIT_NONE_BASE_ADDRESS "" CACHE INTERNAL "Address to use for other git repositories")
+
 endmacro()
 
 ################################################################################
 # Setup SVN
 
 macro(_YCM_SETUP_SVN)
-    if(NOT DEFINED YCM_SETUP_SVN)
-        find_package(Subversion QUIET)
-        if(NOT Subversion_SVN_EXECUTABLE)
-            message(FATAL_ERROR "Please install Svn")
-        endif()
-
-
-        # TYPE SVN STYLE SOURCEFORGE
-        set(YCM_SVN_SOURCEFORGE_USERNAME "" CACHE STRING "Username to use for sourceforge svn repositories")
-        set(YCM_SVN_SOURCEFORGE_PASSWORD "" CACHE STRING "Password to use for sourceforge svn repositories")
-        set(YCM_SVN_SOURCEFORGE_BASE_ADDRESS "https://svn.code.sf.net/p/" CACHE INTERNAL "Address to use for sourceforge svn repositories")
-        mark_as_advanced(YCM_SVN_SOURCEFORGE_USERNAME YCM_SVN_SOURCEFORGE_PASSWORD)
-
-
-        set(YCM_SVN_SETUP 1 CACHE INTERNAL "")
+    if(DEFINED YCM_SETUP_SVN)
+        return()
     endif()
+    set(YCM_SVN_SETUP 1 CACHE INTERNAL "")
+
+    find_package(Subversion QUIET)
+    if(NOT Subversion_SVN_EXECUTABLE)
+        message(FATAL_ERROR "Please install Svn")
+    endif()
+
+    # TYPE SVN STYLE SOURCEFORGE
+    set(YCM_SVN_SOURCEFORGE_USERNAME "" CACHE STRING "Username to use for sourceforge svn repositories")
+    set(YCM_SVN_SOURCEFORGE_PASSWORD "" CACHE STRING "Password to use for sourceforge svn repositories")
+    set(YCM_SVN_SOURCEFORGE_BASE_ADDRESS "https://svn.code.sf.net/p/" CACHE INTERNAL "Address to use for sourceforge svn repositories")
+    mark_as_advanced(YCM_SVN_SOURCEFORGE_USERNAME YCM_SVN_SOURCEFORGE_PASSWORD)
 endmacro()
 
 ################################################################################
@@ -398,70 +398,72 @@ endmacro()
 # YCM_BOOTSTRAP
 
 macro(YCM_BOOTSTRAP)
+    if(DEFINED YCM_BOOTSTRAPPED)
+        return()
+    endif()
+    set(YCM_BOOTSTRAPPED 1 CACHE INTERNAL "")
+
+
     ycm_ep_helper(YCM TYPE GIT
                       STYLE GITHUB
                       REPOSITORY robotology/ycm.git
                       TAG master)
 
-    if(NOT DEFINED YCM_BOOTSTRAPPED)
 
-        message(STATUS "Performing download step (git clone) for 'YCM'")
-        execute_process(COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-gitclone.cmake
-                        OUTPUT_QUIET
-                        ERROR_QUIET
-                        RESULT_VARIABLE _result)
-        if(_result)
-            message(FATAL_ERROR "Cannot clone YCM repository (${_result})")
-        endif()
+    message(STATUS "Performing download step (git clone) for 'YCM'")
+    execute_process(COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-gitclone.cmake
+                    OUTPUT_QUIET
+                    ERROR_QUIET
+                    RESULT_VARIABLE _result)
+    if(_result)
+        message(FATAL_ERROR "Cannot clone YCM repository (${_result})")
+    endif()
 
-#         message(STATUS "Performing update step for 'YCM'")
-#         execute_process(COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-gitupdate.cmake
-#                         OUTPUT_QUIET
-#                         ERROR_QUIET
-#                         RESULT_VARIABLE _result)
-#         if(_result)
-#             message(FATAL_ERROR "Cannot update YCM repository")
-#         endif()
+#     message(STATUS "Performing update step for 'YCM'")
+#     execute_process(COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-gitupdate.cmake
+#                     OUTPUT_QUIET
+#                     ERROR_QUIET
+#                     RESULT_VARIABLE _result)
+#     if(_result)
+#         message(FATAL_ERROR "Cannot update YCM repository")
+#     endif()
 
-        message(STATUS "Performing configure step for 'YCM'")
-        file(READ ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-cfgcmd.txt _cmd)
-        string(STRIP "${_cmd}" _cmd)
-        string(REGEX REPLACE "^cmd='(.+)'" "\\1" _cmd "${_cmd}")
-        execute_process(COMMAND ${_cmd}
-                        WORKING_DIRECTORY ${YCM_BINARY_DIR}
-                        OUTPUT_QUIET
-                        RESULT_VARIABLE _result)
-        if(_result)
-            message(FATAL_ERROR "Cannot configure YCM repository")
-        endif()
+    message(STATUS "Performing configure step for 'YCM'")
+    file(READ ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-cfgcmd.txt _cmd)
+    string(STRIP "${_cmd}" _cmd)
+    string(REGEX REPLACE "^cmd='(.+)'" "\\1" _cmd "${_cmd}")
+    execute_process(COMMAND ${_cmd}
+                    WORKING_DIRECTORY ${YCM_BINARY_DIR}
+                    OUTPUT_QUIET
+                    RESULT_VARIABLE _result)
+    if(_result)
+        message(FATAL_ERROR "Cannot configure YCM repository")
+    endif()
 
-        message(STATUS "Performing uninstall step for 'YCM'")
-        execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target uninstall
-                        WORKING_DIRECTORY ${YCM_BINARY_DIR}
-                        OUTPUT_QUIET
-                        RESULT_VARIABLE _result)
-        # If uninstall fails, YCM was not previously installed,
-        # therefore do not fail with error
+    message(STATUS "Performing uninstall step for 'YCM'")
+    execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target uninstall
+                    WORKING_DIRECTORY ${YCM_BINARY_DIR}
+                    OUTPUT_QUIET
+                    RESULT_VARIABLE _result)
+    # If uninstall fails, YCM was not previously installed,
+    # therefore do not fail with error
 
-        message(STATUS "Performing build step for 'YCM'")
-        execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR}
-                        WORKING_DIRECTORY ${YCM_BINARY_DIR}
-                        OUTPUT_QUIET
-                        RESULT_VARIABLE _result)
-        if(_result)
-            message(FATAL_ERROR "Cannot build YCM")
-        endif()
+    message(STATUS "Performing build step for 'YCM'")
+    execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR}
+                    WORKING_DIRECTORY ${YCM_BINARY_DIR}
+                    OUTPUT_QUIET
+                    RESULT_VARIABLE _result)
+    if(_result)
+        message(FATAL_ERROR "Cannot build YCM")
+    endif()
 
-        message(STATUS "Performing install step for 'YCM'")
-        execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target install
-                        WORKING_DIRECTORY ${YCM_BINARY_DIR}
-                        OUTPUT_QUIET
-                        RESULT_VARIABLE _result)
-        if(_result)
-            message(FATAL_ERROR "Cannot install YCM")
-        endif()
-
-        set(YCM_BOOTSTRAPPED 1 CACHE INTERNAL "")
+    message(STATUS "Performing install step for 'YCM'")
+    execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target install
+                    WORKING_DIRECTORY ${YCM_BINARY_DIR}
+                    OUTPUT_QUIET
+                    RESULT_VARIABLE _result)
+    if(_result)
+        message(FATAL_ERROR "Cannot install YCM")
     endif()
 
     # Find the package, so that can be used now.
