@@ -471,5 +471,16 @@ macro(YCM_BOOTSTRAP)
     # Reset YCM_DIR variable so that next find_package will fail to locate the package and this will be kept updated
     set(YCM_DIR "YCM_DIR-NOTFOUND" CACHE PATH "The directory containing a CMake configuration file for YCM." FORCE)
 
+    # Include ExternalProject and CMakeParseArguments again in order to use the
+    # ones from YCM with the new features, instead of the old version
+    # distributed with CMake.
+    if(NOT CMAKE_VERSION VERSION_LESS 3.0.0)
+        # Just a reminder to update files when a new cmake version is released
+        message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+    endif()
+    include(ExternalProject)
+    unset(__CMAKE_PARSE_ARGUMENTS_INCLUDED)
+    include(CMakeParseArguments)
+
 endmacro()
 
