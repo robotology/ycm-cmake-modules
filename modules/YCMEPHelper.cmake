@@ -427,6 +427,18 @@ function(YCM_EP_HELPER _name)
 #     externalproject_add_steptargets(${_name} pull)
 #     add_dependencies(pull-all ${_name}-pull)
 
+
+    # Set some useful variables in parent scope
+    foreach(_d PREFIX
+              SOURCE_DIR
+              DOWNLOAD_DIR
+              BINARY_DIR
+              INSTALL_DIR
+              TMP_DIR
+              STAMP_DIR)
+        set(${_name}_${_d} ${${_name}_${_d}} PARENT_SCOPE)
+    endforeach()
+
 endfunction()
 
 
