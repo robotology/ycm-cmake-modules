@@ -42,8 +42,10 @@ set(__YCMEPHELPER_INCLUDED TRUE)
 # Internal macro to include files from cmake-next.
 # If YCM was not found, we are bootstrapping, therefore we need to
 # download and use these modules instead of the ones found by cmake
+# This must be a macro and not a function in order not to enclose in a
+# new scope the variables added by the included files.
 
-macro(_ycm_include module)
+macro(_YCM_INCLUDE module shasum)
     if(YCM_FOUND)
         include(${module})
     else()
@@ -52,17 +54,23 @@ macro(_ycm_include module)
         if(NOT COMMAND include_url)
             include(IncludeUrl)
         endif()
-        include_url(https://raw.github.com/robotology/ycm/HEAD/cmake-next/Modules/${module}.cmake)
+        include_url(https://raw.github.com/robotology/ycm/HEAD/cmake-next/Modules/${module}.cmake
+                    EXPECTED_HASH SHA1=${shasum}
+                    STATUS _download_status)
+        if(NOT _download_status EQUAL 0)
+            list(GET 0 _download_status _download_status_0)
+            list(GET 1 _download_status _download_status_1)
+            message(FATAL_ERROR "Download failed with ${_download_status_0}: ${_download_status_1}")
+        endif()
     endif()
 endmacro()
 
 
 ########################################################################
-# Generic setup. Will be called by including this file if we are using
-# an installed version, or by ycm_bootstrap if we are bootstrapping
+# Generic setup.
 
 unset(__YCM_SETUP_CALLED CACHE)
-macro(_YCM_SETUP)
+function(_YCM_SETUP)
     if(DEFINED __YCM_SETUP_CALLED)
         return()
     endif()
@@ -88,14 +96,14 @@ macro(_YCM_SETUP)
     if(NOT TARGET pull-all)
         add_custom_target(pull-all)
     endif()
-endmacro()
+endfunction()
 
 
 ########################################################################
 # Setup GIT
 
 unset(__YCM_GIT_SETUP_CALLED CACHE)
-macro(_YCM_SETUP_GIT)
+function(_YCM_SETUP_GIT)
     if(DEFINED __YCM_GIT_SETUP_CALLED)
         return()
     endif()
@@ -181,13 +189,13 @@ macro(_YCM_SETUP_GIT)
     # TYPE GIT STYLE NONE
     set(YCM_GIT_NONE_BASE_ADDRESS "" CACHE INTERNAL "Address to use for other git repositories")
 
-endmacro()
+endfunction()
 
 ########################################################################
 # Setup SVN
 
-unset(__YCM_SVN_SETUP_CALLED)
-macro(_YCM_SETUP_SVN)
+unset(__YCM_SVN_SETUP_CALLED CACHE)
+function(_YCM_SETUP_SVN)
     if(DEFINED __YCM_SVN_SETUP_CALLED)
         return()
     endif()
@@ -203,19 +211,17 @@ macro(_YCM_SETUP_SVN)
     set(YCM_SVN_SOURCEFORGE_PASSWORD "" CACHE STRING "Password to use for sourceforge svn repositories")
     set(YCM_SVN_SOURCEFORGE_BASE_ADDRESS "https://svn.code.sf.net/p/" CACHE INTERNAL "Address to use for sourceforge svn repositories")
     mark_as_advanced(YCM_SVN_SOURCEFORGE_USERNAME YCM_SVN_SOURCEFORGE_PASSWORD)
-endmacro()
+endfunction()
 
 ########################################################################
 # YCM_EP_HELPER
 
-macro(YCM_EP_HELPER _name)
-
+function(YCM_EP_HELPER _name)
     # Adding target twice is not allowed
     if(TARGET ${_name})
         message(WARNING "Failed to add target ${_name}. A target with the same name already exists.")
         return()
     endif()
-
     # Check arguments
     set(_options )
     set(_oneValueArgs TYPE
@@ -328,7 +334,7 @@ macro(YCM_EP_HELPER _name)
         endif()
     endforeach()
 
-    # Repository variables
+   # Repository variables
     unset(${_name}_REPOSITORY_ARGS)
     unset(_setup_devel_cmd)
 
@@ -342,7 +348,7 @@ macro(YCM_EP_HELPER _name)
             list(APPEND ${_name}_REPOSITORY_ARGS GIT_TAG ${_YH_${_name}_TAG})
         endif()
 
-        if(YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_NAME)
+       if(YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_NAME)
             unset(${_name}_COMMIT_NAME)
             set(_setup_devel_cmd ${_setup_devel_cmd}
                                  COMMAND ${GIT_EXECUTABLE} config --local user.name ${YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_NAME})
@@ -351,7 +357,7 @@ macro(YCM_EP_HELPER _name)
         if(YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_EMAIL)
             set(_setup_devel_cmd ${_setup_devel_cmd}
                                  COMMAND ${GIT_EXECUTABLE} config --local user.email ${YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_EMAIL})
-        endif()
+       endif()
     elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
         # Specific setup for SVN
         _ycm_setup_svn()
@@ -421,13 +427,14 @@ macro(YCM_EP_HELPER _name)
 #     externalproject_add_steptargets(${_name} pull)
 #     add_dependencies(pull-all ${_name}-pull)
 
-endmacro()
+endfunction()
 
 
 ########################################################################
 # YCM_BOOTSTRAP
 
-macro(YCM_BOOTSTRAP)
+unset(__YCM_BOOTSTRAPPED_CALLED CACHE)
+function(YCM_BOOTSTRAP)
     if(DEFINED __YCM_BOOTSTRAPPED_CALLED)
         return()
     endif()
@@ -500,18 +507,14 @@ macro(YCM_BOOTSTRAP)
     # Reset YCM_DIR variable so that next find_package will fail to locate the package and this will be kept updated
     set(YCM_DIR "YCM_DIR-NOTFOUND" CACHE PATH "The directory containing a CMake configuration file for YCM." FORCE)
 
-    _ycm_setup()
-
-endmacro()
+endfunction()
 
 
 ########################################################################
 # Main
 
-_ycm_include(CMakeParseArguments)
-_ycm_include(ExternalProject)
+_ycm_include(CMakeParseArguments  dfd3671b9168a8e31738d903b88cf66c7f83e1fa)
+_ycm_include(ExternalProject      ffdf109e69b8fe167379cf8cc43039c2f2c22936)
 
 # If YCM was not found _ycm_found will be called by ycm_bootstrap()
-if(YCM_FOUND)
-    _ycm_setup()
-endif()
+_ycm_setup()
