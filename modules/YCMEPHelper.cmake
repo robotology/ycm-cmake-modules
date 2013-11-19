@@ -205,25 +205,25 @@ macro(YCM_EP_HELPER _name)
                         INSTALL_COMMAND
                         TEST_COMMAND)
 
-    cmake_parse_arguments(_${_name} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
+    cmake_parse_arguments(_YH_${_name} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
-    if(NOT DEFINED _${_name}_TYPE)
+    if(NOT DEFINED _YH_${_name}_TYPE)
         message(FATAL_ERROR "Missing TYPE argument")
     endif()
-    if(NOT "x${_${_name}_TYPE}" MATCHES "^x(GIT|SVN)$")
-        message(FATAL_ERROR "Unsupported VCS TYPE:\n  ${_${_name}_TYPE}\n")
+    if(NOT "x${_YH_${_name}_TYPE}" MATCHES "^x(GIT|SVN)$")
+        message(FATAL_ERROR "Unsupported VCS TYPE:\n  ${_YH_${_name}_TYPE}\n")
     endif()
-    if("${_${_name}_TYPE}" STREQUAL "GIT")
+    if("${_YH_${_name}_TYPE}" STREQUAL "GIT")
       # TODO Check GIT arguments
-    elseif("${_${_name}_TYPE}" STREQUAL "SVN")
+    elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
       # TODO Check SVN arguments
     endif()
 
-    if(NOT DEFINED _${_name}_STYLE)
+    if(NOT DEFINED _YH_${_name}_STYLE)
         message(FATAL_ERROR "Missing STYLE argument")
     endif()
 
-    if(NOT DEFINED _${_name}_REPOSITORY)
+    if(NOT DEFINED _YH_${_name}_REPOSITORY)
         message(FATAL_ERROR "Missing REPOSITORY argument")
     endif()
 
@@ -253,25 +253,25 @@ macro(YCM_EP_HELPER _name)
                             "-DCMAKE_SKIP_RPATH:PATH=\"${CMAKE_SKIP_RPATH}\""
                             "-DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}")
 
-    if(_${_name}_CMAKE_ARGS)
-        list(APPEND ${_name}_CMAKE_ARGS ${_${_name}_CMAKE_ARGS})
+    if(_YH_${_name}_CMAKE_ARGS)
+        list(APPEND ${_name}_CMAKE_ARGS ${_YH_${_name}_CMAKE_ARGS})
     endif()
 
-    if(_${_name}_CMAKE_CACHE_ARGS)
-        list(APPEND ${_name}_CMAKE_ARGS CMAKE_CACHE_ARGS ${_${_name}_CMAKE_CACHE_ARGS})
+    if(_YH_${_name}_CMAKE_CACHE_ARGS)
+        list(APPEND ${_name}_CMAKE_ARGS CMAKE_CACHE_ARGS ${_YH_${_name}_CMAKE_CACHE_ARGS})
     endif()
 
-    foreach(_dep ${_${_name}_DEPENDS})
+    foreach(_dep ${_YH_${_name}_DEPENDS})
         if(TARGET ${_dep})
             get_property(is_ep TARGET ${_dep} PROPERTY _EP_IS_EXTERNAL_PROJECT)
             if(is_ep)
-                set(_${_name}_DEPENDS_ARGS ${_${_name}_DEPENDS_ARGS} ${_dep})
+                set(_YH_${_name}_DEPENDS_ARGS ${_YH_${_name}_DEPENDS_ARGS} ${_dep})
             endif()
         endif()
     endforeach()
 
-    if(_${_name}_DEPENDS_ARGS)
-        set(${_name}_DEPENDS_ARGS DEPENDS ${_${_name}_DEPENDS_ARGS})
+    if(_YH_${_name}_DEPENDS_ARGS)
+        set(${_name}_DEPENDS_ARGS DEPENDS ${_YH_${_name}_DEPENDS_ARGS})
     endif()
 
     unset(${_name}_COMMAND_ARGS)
@@ -286,13 +286,13 @@ macro(YCM_EP_HELPER _name)
             # instead unset the variable.
             # Therefore after cmake_parse_arguments, even if the variables are defined, they are not
             # set.
-            if("${ARGN}" MATCHES ";?${_step}_COMMAND;"  AND  NOT DEFINED _${_name}_${_step}_COMMAND)
-                set(_${_name}_${_step}_COMMAND "")
+            if("${ARGN}" MATCHES ";?${_step}_COMMAND;"  AND  NOT DEFINED _YH_${_name}_${_step}_COMMAND)
+                set(_YH_${_name}_${_step}_COMMAND "")
             endif()
         endif()
-        if(DEFINED _${_name}_${_step}_COMMAND)
-            string(CONFIGURE "${_${_name}_${_step}_COMMAND}" _${_name}_${_step}_COMMAND @ONLY)
-            list(APPEND ${_name}_COMMAND_ARGS ${_step}_COMMAND "${_${_name}_${_step}_COMMAND}")
+        if(DEFINED _YH_${_name}_${_step}_COMMAND)
+            string(CONFIGURE "${_YH_${_name}_${_step}_COMMAND}" _YH_${_name}_${_step}_COMMAND @ONLY)
+            list(APPEND ${_name}_COMMAND_ARGS ${_step}_COMMAND "${_YH_${_name}_${_step}_COMMAND}")
         endif()
     endforeach()
 
@@ -300,42 +300,42 @@ macro(YCM_EP_HELPER _name)
     unset(${_name}_REPOSITORY_ARGS)
     unset(_setup_devel_cmd)
 
-    if("${_${_name}_TYPE}" STREQUAL "GIT")
+    if("${_YH_${_name}_TYPE}" STREQUAL "GIT")
         # Specific setup for GIT
         _ycm_setup_git()
 
-        list(APPEND ${_name}_REPOSITORY_ARGS GIT_REPOSITORY ${YCM_GIT_${_${_name}_STYLE}_BASE_ADDRESS}${_${_name}_REPOSITORY})
+        list(APPEND ${_name}_REPOSITORY_ARGS GIT_REPOSITORY ${YCM_GIT_${_YH_${_name}_STYLE}_BASE_ADDRESS}${_YH_${_name}_REPOSITORY})
 
-        if(DEFINED _${_name}_TAG)
-            list(APPEND ${_name}_REPOSITORY_ARGS GIT_TAG ${_${_name}_TAG})
+        if(DEFINED _YH_${_name}_TAG)
+            list(APPEND ${_name}_REPOSITORY_ARGS GIT_TAG ${_YH_${_name}_TAG})
         endif()
 
-        if(YCM_GIT_${_${_name}_STYLE}_COMMIT_NAME)
+        if(YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_NAME)
             unset(${_name}_COMMIT_NAME)
             set(_setup_devel_cmd ${_setup_devel_cmd}
-                                 COMMAND ${GIT_EXECUTABLE} config --local user.name ${YCM_GIT_${_${_name}_STYLE}_COMMIT_NAME})
+                                 COMMAND ${GIT_EXECUTABLE} config --local user.name ${YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_NAME})
         endif()
 
-        if(YCM_GIT_${_${_name}_STYLE}_COMMIT_EMAIL)
+        if(YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_EMAIL)
             set(_setup_devel_cmd ${_setup_devel_cmd}
-                                 COMMAND ${GIT_EXECUTABLE} config --local user.email ${YCM_GIT_${_${_name}_STYLE}_COMMIT_EMAIL})
+                                 COMMAND ${GIT_EXECUTABLE} config --local user.email ${YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_EMAIL})
         endif()
-    elseif("${_${_name}_TYPE}" STREQUAL "SVN")
+    elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
         # Specific setup for SVN
         _ycm_setup_svn()
 
-        list(APPEND ${_name}_REPOSITORY_ARGS SVN_REPOSITORY ${YCM_SVN_${_${_name}_STYLE}_BASE_ADDRESS}${_${_name}_REPOSITORY})
+        list(APPEND ${_name}_REPOSITORY_ARGS SVN_REPOSITORY ${YCM_SVN_${_YH_${_name}_STYLE}_BASE_ADDRESS}${_YH_${_name}_REPOSITORY})
 
-        if(YCM_SVN_${_${_name}_STYLE}_USERNAME)
-            list(APPEND ${_name}_REPOSITORY_ARGS SVN_USERNAME ${YCM_SVN_${_${_name}_STYLE}_USERNAME})
+        if(YCM_SVN_${_YH_${_name}_STYLE}_USERNAME)
+            list(APPEND ${_name}_REPOSITORY_ARGS SVN_USERNAME ${YCM_SVN_${_YH_${_name}_STYLE}_USERNAME})
         endif()
 
-        if(YCM_SVN_${_${_name}_STYLE}_PASSWORD)
-            list(APPEND ${_name}_REPOSITORY_ARGS SVN_PASSWORD ${YCM_SVN_${_${_name}_STYLE}_PASSWORD})
+        if(YCM_SVN_${_YH_${_name}_STYLE}_PASSWORD)
+            list(APPEND ${_name}_REPOSITORY_ARGS SVN_PASSWORD ${YCM_SVN_${_YH_${_name}_STYLE}_PASSWORD})
         endif()
 
-        if(DEFINED _${_name}_TRUST_CERT)
-            list(APPEND ${_name}_REPOSITORY_ARGS SVN_TRUST_CERT ${_${_name}_TRUST_CERT})
+        if(DEFINED _YH_${_name}_TRUST_CERT)
+            list(APPEND ${_name}_REPOSITORY_ARGS SVN_TRUST_CERT ${_YH_${_name}_TRUST_CERT})
         endif()
     endif()
 
