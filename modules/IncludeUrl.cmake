@@ -177,14 +177,52 @@ macro(INCLUDE_URL _remotefile)
             set(${_IU_STATUS} ${_downloadResult})
         endif()
 
+        unset(_error_message)
         list(GET _downloadResult 0 _downloadResult_0)
         if(NOT _downloadResult_0 EQUAL 0)
             list(GET _downloadResult 1 _downloadResult_1)
-            set(_message "Downloading ${_filename} - ERROR ${_downloadResult_0}: ${_downloadResult_1}")
-            if(_shouldFail OR NOT EXISTS ${_tmpFile})
-                message(FATAL_ERROR ${_message})
+            set(_error_message "Downloading ${_filename} - ERROR ${_downloadResult_0}: ${_downloadResult_1}")
+
+        # BUG in CMake 2.8.12.1
+        # CMake 2.8.12.1 or less does not give a fatal error if hash
+        # of the downloaded file is wrong.
+        # A new check is required in order not to include a "faulty"
+        # file (it could be a security issue).
+        elseif(DEFINED _IU_EXPECTED_HASH  OR  DEFINED _IU_EXPECTED_MD5)
+            if(DEFINED _IU_EXPECTED_HASH)
+                if("${_IU_EXPECTED_HASH}" MATCHES "^(.+)=([0-9a-fA-F]+)$")
+                    set(_algo ${CMAKE_MATCH_1})
+                    set(_expected_hash ${CMAKE_MATCH_2})
+                else()
+                    message(FATAL_ERROR "include_url EXPECTED_HASH expects ALGO=value but got: ${_IU_EXPECTED_HASH}")
+                endif()
+                if(NOT ${_algo} MATCHES "^(MD5|SHA1|SHA224|SHA256|SHA384|SHA512)$")
+                    message(FATAL_ERROR "include_url EXPECTED_HASH given unknown ALGO: ${_algo}")
+                endif()
+            elseif(DEFINED _IU_EXPECTED_MD5)
+                set(_algo MD5)
+                set(_expected_hash ${_IU_EXPECTED_MD5})
+            endif()
+
+            file(${_algo} ${_localfile} _hash)
+            if(NOT "${_hash}" STREQUAL "${_expected_hash}")
+                set(_error_message
+"include_url HASH mismatch
+  for file: [${_localfile}]
+    expected hash: [${_expected_hash}]
+      actual hash: [${_hash}]
+")
+                # Remove the file to be sure that we'll never include
+                #the faulty file
+                file(REMOVE ${_localfile})
+            endif()
+        endif()
+
+        if(DEFINED _error_message)
+            if(_shouldFail  OR  NOT EXISTS ${_tmpFile})
+                message(FATAL_ERROR ${_error_message})
             else()
-                message(STATUS ${_message})
+                message(STATUS ${_error_message})
             endif()
         else()
             message(STATUS "Downloading ${_filename} - SUCCESS")
