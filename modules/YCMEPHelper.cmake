@@ -522,8 +522,17 @@ macro(YCM_BOOTSTRAP)
 
     # Find the package, so that can be used now.
     find_package(YCM PATHS ${YCM_INSTALL_DIR} NO_DEFAULT_PATH)
+
     # Reset YCM_DIR variable so that next find_package will fail to locate the package and this will be kept updated
     set(YCM_DIR "YCM_DIR-NOTFOUND" CACHE PATH "The directory containing a CMake configuration file for YCM." FORCE)
+
+    # Trick FeatureSummary to believe that YCM was not found
+    get_property(_packages_found GLOBAL PROPERTY PACKAGES_FOUND)
+    get_property(_packages_not_found GLOBAL PROPERTY PACKAGES_NOT_FOUND)
+    list(REMOVE_ITEM _packages_found YCM)
+    list(APPEND _packages_not_found YCM)
+    set_property(GLOBAL PROPERTY PACKAGES_FOUND ${_packages_found})
+    set_property(GLOBAL PROPERTY PACKAGES_NOT_FOUND ${_packages_not_found})
 
 endmacro()
 
