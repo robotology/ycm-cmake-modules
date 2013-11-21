@@ -38,43 +38,97 @@ endif()
 set(__YCMEPHELPER_INCLUDED TRUE)
 
 
+
 ########################################################################
+# Hashes of YCM files to be checked
+
+set(_ycm_CMakeParseArguments_sha1sum dfd3671b9168a8e31738d903b88cf66c7f83e1fa)
+set(_ycm_ExternalProject_sha1sum     ffdf109e69b8fe167379cf8cc43039c2f2c22936)
+set(_ycm_IncludeUrl_sha1sum          fba1bb25efae0691792617b70deb7de05bfd35d4)
+set(_ycm_YCMBootstrap_sha1sum        a475b65727461d29c7429c8007ca7c7e88bdd75f)
+
+
+########################################################################
+# _YCM_INCLUDE
+#
 # Internal macro to include files from cmake-next.
 # If YCM was not found, we are bootstrapping, therefore we need to
 # download and use these modules instead of the ones found by cmake
 # This must be a macro and not a function in order not to enclose in a
 # new scope the variables added by the included files.
 
-macro(_YCM_INCLUDE module shasum)
+macro(_YCM_INCLUDE _module)
     if(YCM_FOUND)
-        include(${module})
+        include(${_module})
     else()
         # We assume that YCMEPHelper was included using include_url, or that at
         # least the IncludeUrl command exists.
         if(NOT COMMAND include_url)
             include(IncludeUrl)
         endif()
-        include_url(https://raw.github.com/robotology/ycm/HEAD/cmake-next/Modules/${module}.cmake
-                    EXPECTED_HASH SHA1=${shasum}
+        include_url(${YCM_BOOTSTRAP_BASE_ADDRESS}/cmake-next/Modules/${_module}.cmake
+                    EXPECTED_HASH SHA1=${_ycm_${_module}_sha1sum}
                     STATUS _download_status)
         if(NOT _download_status EQUAL 0)
             list(GET 0 _download_status _download_status_0)
             list(GET 1 _download_status _download_status_1)
             message(FATAL_ERROR "Download failed with ${_download_status_0}: ${_download_status_1}")
         endif()
+
+        unset(_download_status)
+        unset(_download_status_0)
+        unset(_download_status_1)
     endif()
 endmacro()
 
 
 ########################################################################
-# Generic setup.
+# _YCM_BOOTSTRAP_HASH_CHECK
+#
+# Internal function to check if a module in user repository is updated
+# at the latest version and eventually print an AUTHOR_WARNING.
+#
+# if the variable YCM_BOOTSTRAP_SKIP_HASH_CHECK is set it does nothing
 
-unset(__YCM_SETUP_CALLED CACHE)
-function(_YCM_SETUP)
+function(_YCM_BOOTSTRAP_HASH_CHECK _module)
+    if(YCM_BOOTSTRAP_SKIP_HASH_CHECK)
+        return()
+    endif()
+
+    # FIXME is there a way to find the module without including it?
+    include(${_module} RESULT_VARIABLE _module_file OPTIONAL)
+    if(_module_file)
+        file(SHA1 ${_module_file} _module_sha1sum)
+        if(NOT "${_module_sha1sum}" STREQUAL "${_ycm_${_module}_sha1sum}")
+            message(AUTHOR_WARNING
+"YCM_BOOTSTRAP HASH mismatch
+  for file: [${_module_file}]
+    expected hash: [${_ycm_${_module}_sha1sum}]
+      actual hash: [${_module_sha1sum}]
+Perhaps it is outdated or you have local modification. Please consider upgrading it, or contributing your changes to YCM.
+")
+        endif()
+    endif()
+endfunction()
+
+
+
+########################################################################
+# _YCM_SETUP
+#
+# Internal function to perform generic setup.
+# This must be a macro and not a function in order not to enclose in a
+# new scope the variables added by the included files.
+
+unset(__YCM_SETUP_CALLED)
+macro(_YCM_SETUP)
     if(DEFINED __YCM_SETUP_CALLED)
         return()
     endif()
-    set(__YCM_SETUP_CALLED 1 CACHE INTERNAL "")
+    set(__YCM_SETUP_CALLED 1)
+
+    _ycm_include(CMakeParseArguments)
+    _ycm_include(ExternalProject)
 
     set_property(DIRECTORY PROPERTY EP_STEP_TARGETS configure)
     set_property(DIRECTORY PROPERTY EP_INDEPENDENT_STEP_TARGETS update)
@@ -96,11 +150,18 @@ function(_YCM_SETUP)
     if(NOT TARGET pull-all)
         add_custom_target(pull-all)
     endif()
-endfunction()
+
+    if(NOT YCM_FOUND) # Useless if we don't need to bootstrap
+        set(YCM_BOOTSTRAP_BASE_ADDRESS "https://raw.github.com/robotology/ycm/HEAD/" CACHE STRING "Base address of YCM repository")
+        mark_as_advanced(YCM_BOOTSTRAP_BASE_ADDRESS)
+    endif()
+endmacro()
 
 
 ########################################################################
-# Setup GIT
+# _YCM_SETUP_GIT
+#
+# Internal function to perform GIT setup.
 
 unset(__YCM_GIT_SETUP_CALLED CACHE)
 function(_YCM_SETUP_GIT)
@@ -191,8 +252,11 @@ function(_YCM_SETUP_GIT)
 
 endfunction()
 
+
 ########################################################################
-# Setup SVN
+# _YCM_SETUP_SVN
+#
+# Internal function to perform SVN setup.
 
 unset(__YCM_SVN_SETUP_CALLED CACHE)
 function(_YCM_SETUP_SVN)
@@ -213,8 +277,11 @@ function(_YCM_SETUP_SVN)
     mark_as_advanced(YCM_SVN_SOURCEFORGE_USERNAME YCM_SVN_SOURCEFORGE_PASSWORD)
 endfunction()
 
+
 ########################################################################
 # YCM_EP_HELPER
+#
+# Helper function to add a repository using ExternalProject
 
 function(YCM_EP_HELPER _name)
     # Adding target twice is not allowed
@@ -443,21 +510,27 @@ endfunction()
 
 
 ########################################################################
-# YCM_BOOTSTRAP([VERBOSE])
+# YCM_BOOTSTRAP
+#
+# Bootstrap YCM.
+#
+# If the variable YCM_BOOTSTRAP_VERBOSE is set it prints all the output
+# from the commands executed.
 
 unset(__YCM_BOOTSTRAPPED_CALLED CACHE)
 macro(YCM_BOOTSTRAP)
-    if(DEFINED __YCM_BOOTSTRAPPED_CALLED)
+    if(YCM_FOUND  OR  DEFINED __YCM_BOOTSTRAPPED_CALLED)
         return()
     endif()
     set(__YCM_BOOTSTRAPPED_CALLED TRUE CACHE INTERNAL "")
 
-    if(${ARGC} EQUAL 0)
+    _ycm_bootstrap_hash_check(IncludeUrl)
+    _ycm_bootstrap_hash_check(YCMBootstrap)
+
+    if(NOT YCM_BOOTSTRAP_VERBOSE)
         set(_quiet_args OUTPUT_QUIET ERROR_QUIET)
-    elseif(${ARGC} EQUAL 1  AND  "${ARGV0}" STREQUAL "VERBOSE")
-        set(_quiet_args )
     else()
-        message(FATAL_ERROR "Unknown argument ${ARGN}")
+        set(_quiet_args )
     endif()
 
     ycm_ep_helper(YCM TYPE GIT
@@ -546,8 +619,4 @@ endmacro()
 ########################################################################
 # Main
 
-_ycm_include(CMakeParseArguments  dfd3671b9168a8e31738d903b88cf66c7f83e1fa)
-_ycm_include(ExternalProject      ffdf109e69b8fe167379cf8cc43039c2f2c22936)
-
-# If YCM was not found _ycm_found will be called by ycm_bootstrap()
 _ycm_setup()
