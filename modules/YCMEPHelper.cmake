@@ -534,6 +534,12 @@ macro(YCM_BOOTSTRAP)
     set_property(GLOBAL PROPERTY PACKAGES_FOUND ${_packages_found})
     set_property(GLOBAL PROPERTY PACKAGES_NOT_FOUND ${_packages_not_found})
 
+    # Cleanup used variables
+    unset(_quiet_args)
+    unset(_result)
+    unset(_packages_found)
+    unset(_packages_not_found)
+
 endmacro()
 
 
