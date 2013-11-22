@@ -69,8 +69,12 @@ macro(_YCM_INCLUDE _module)
         if(NOT COMMAND include_url)
             include(IncludeUrl)
         endif()
+        unset(_expected_hash_args)
+        if(NOT YCM_SKIP_HASH_CHECK)
+            set(_expected_hash_args EXPECTED_HASH SHA1=${_ycm_${_module}_sha1sum})
+        endif()
         include_url(${YCM_BOOTSTRAP_BASE_ADDRESS}/cmake-next/Modules/${_module}.cmake
-                    EXPECTED_HASH SHA1=${_ycm_${_module}_sha1sum}
+                    ${_expected_hash_args}
                     STATUS _download_status)
         if(NOT _download_status EQUAL 0)
             list(GET 0 _download_status _download_status_0)
@@ -78,6 +82,7 @@ macro(_YCM_INCLUDE _module)
             message(FATAL_ERROR "Download failed with ${_download_status_0}: ${_download_status_1}")
         endif()
 
+        unset(_expected_hash_args)
         unset(_download_status)
         unset(_download_status_0)
         unset(_download_status_1)
@@ -86,15 +91,15 @@ endmacro()
 
 
 ########################################################################
-# _YCM_BOOTSTRAP_HASH_CHECK
+# _YCM_HASH_CHECK
 #
 # Internal function to check if a module in user repository is updated
 # at the latest version and eventually print an AUTHOR_WARNING.
 #
-# if the variable YCM_BOOTSTRAP_SKIP_HASH_CHECK is set it does nothing
+# if the variable YCM_SKIP_HASH_CHECK is set it does nothing
 
-function(_YCM_BOOTSTRAP_HASH_CHECK _module)
-    if(YCM_BOOTSTRAP_SKIP_HASH_CHECK)
+function(_YCM_HASH_CHECK _module)
+    if(YCM_SKIP_HASH_CHECK)
         return()
     endif()
 
@@ -527,8 +532,8 @@ macro(YCM_BOOTSTRAP)
     endif()
     set(__YCM_BOOTSTRAPPED_CALLED TRUE CACHE INTERNAL "")
 
-    _ycm_bootstrap_hash_check(IncludeUrl)
-    _ycm_bootstrap_hash_check(YCMBootstrap)
+    _ycm_hash_check(IncludeUrl)
+    _ycm_hash_check(YCMBootstrap)
 
     if(NOT YCM_BOOTSTRAP_VERBOSE)
         set(_quiet_args OUTPUT_QUIET ERROR_QUIET)
