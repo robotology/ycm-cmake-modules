@@ -1,4 +1,4 @@
-# TemplateExe
+# fakebot
 include(YCMEPHelper)
 include(FindOrBuildPackage)
 
