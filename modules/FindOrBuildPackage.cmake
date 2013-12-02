@@ -37,7 +37,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
 # Preliminary find_package to enable/disable USE_SYSTEM_${_PKG} option
     find_package(${_pkg} ${_findArgs} QUIET)
     if(${_pkg}_FOUND OR ${_PKG}_FOUND)
-        set(HAVE_SYSTEM_${PKG} 1)
+        set(HAVE_SYSTEM_${_PKG} 1)
     endif()
     cmake_dependent_option(USE_SYSTEM_${_PKG} "Use system installed ${_pkg}" ON "HAVE_SYSTEM_${_PKG}" OFF)
     mark_as_advanced(USE_SYSTEM_${_PKG})
