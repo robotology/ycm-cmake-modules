@@ -9,7 +9,8 @@ set(YCM_BUILD_MODULES BuildECM.cmake
                       BuildTinyXML.cmake
                       BuildYARP.cmake
                       BuildICUB.cmake
-                      BuildGazeboYARPPlugins.cmake)
+                      BuildGazeboYARPPlugins.cmake
+                      Buildfakebot.cmake)
 
 install(FILES ${YCM_BUILD_MODULES}
         DESTINATION share/YCM/build-modules)
