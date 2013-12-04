@@ -43,7 +43,7 @@ set(__YCMEPHELPER_INCLUDED TRUE)
 # Hashes of YCM files to be checked
 
 # Files downloaded during YCM bootstrap
-set(_ycm_CMakeParseArguments_sha1sum dfd3671b9168a8e31738d903b88cf66c7f83e1fa)
+set(_ycm_CMakeParseArguments_sha1sum 0c4d3f7ed248145cbeb67cbd6fd7190baf2e4517)
 set(_ycm_ExternalProject_sha1sum     be64095220920640c536b5f29bd01cf12fb5134e)
 
 # Files in all projects that need to bootstrap YCM
