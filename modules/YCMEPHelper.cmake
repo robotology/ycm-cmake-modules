@@ -347,8 +347,8 @@ function(YCM_EP_HELPER _name)
     set(${_name}_DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/external)
     set(${_name}_BINARY_DIR ${CMAKE_BINARY_DIR}/external/${_name})
     set(${_name}_INSTALL_DIR ${CMAKE_BINARY_DIR}/install) # TODO Use a cached variable for installation outside build directory
-    set(${_name}_TMP_DIR ${CMAKE_BINARY_DIR}/external/${_name}/CMakeFiles/CMakeTmp)
-    set(${_name}_STAMP_DIR ${CMAKE_BINARY_DIR}/external/${_name}/CMakeFiles/)
+    set(${_name}_TMP_DIR ${CMAKE_BINARY_DIR}/external/${_name}/${CMAKE_FILES_DIRECTORY}/CMakeTmp)
+    set(${_name}_STAMP_DIR ${CMAKE_BINARY_DIR}/external/${_name}/${CMAKE_FILES_DIRECTORY})
 
     set(${_name}_DIR_ARGS PREFIX ${${_name}_PREFIX}
                           SOURCE_DIR ${${_name}_SOURCE_DIR}
@@ -548,7 +548,7 @@ macro(YCM_BOOTSTRAP)
 
 
     message(STATUS "Performing download step (git clone) for 'YCM'")
-    execute_process(COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-gitclone.cmake
+    execute_process(COMMAND ${CMAKE_COMMAND} -P ${YCM_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/CMakeTmp/YCM-gitclone.cmake
                     ${_quiet_args}
                     RESULT_VARIABLE _result)
     if(_result)
@@ -556,7 +556,7 @@ macro(YCM_BOOTSTRAP)
     endif()
 
     message(STATUS "Performing update step for 'YCM'")
-    execute_process(COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-gitupdate.cmake
+    execute_process(COMMAND ${CMAKE_COMMAND} -P ${YCM_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/CMakeTmp/YCM-gitupdate.cmake
                     ${_quiet_args}
                     RESULT_VARIABLE _result)
     if(_result)
@@ -564,7 +564,7 @@ macro(YCM_BOOTSTRAP)
     endif()
 
     message(STATUS "Performing configure step for 'YCM'")
-    file(READ ${CMAKE_BINARY_DIR}/external/YCM/CMakeFiles/CMakeTmp/YCM-cfgcmd.txt _cmd)
+    file(READ ${YCM_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/CMakeTmp/YCM-cfgcmd.txt _cmd)
     string(STRIP "${_cmd}" _cmd)
     string(REGEX REPLACE "^cmd='(.+)'" "\\1" _cmd "${_cmd}")
     execute_process(COMMAND ${_cmd}
