@@ -40,7 +40,7 @@ endmacro()
 
 
 ################################################################################
-# Files not available in CMake 2.8.7
+# Files not available or containing bugs in CMake 2.8.7
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8)
     # Just a reminder to remove this when we change cmake version
     message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.8. You can remove this.")
@@ -58,7 +58,7 @@ endif()
 
 
 ################################################################################
-# Files not available in CMake 2.8.11.2
+# Files not available or containing bugs in CMake 2.8.11.2
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.12)
     # Just a reminder to remove this when we change cmake version
     message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.12. You can remove this.")
@@ -77,7 +77,7 @@ endif()
 
 
 ################################################################################
-# Files not yet available in current CMake release (2.8.12.1)
+# Files not yet available or containing bugs in current CMake release (2.8.12.1)
 
 # Latest revision tested
 set(_ref 6d1444feacb1c2d621b776ac61412f92ff0a1c34)
