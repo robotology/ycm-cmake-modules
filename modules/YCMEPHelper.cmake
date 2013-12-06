@@ -3,6 +3,7 @@
 #    [TYPE <type>]
 #    [STYLE <style>]
 #    [REPOSITORY <repo>]
+#    [EXCLUDE_FROM_ALL <0|1>]
 #   #--Git only arguments-----------
 #    [TAG <tag>]
 #   #--Svn only arguments-----------
@@ -302,6 +303,7 @@ function(YCM_EP_HELPER _name)
     set(_oneValueArgs TYPE
                       STYLE
                       REPOSITORY
+                      EXCLUDE_FROM_ALL
                       TAG         # GIT only
                       REVISION    # SVN only
                       USERNAME    # SVN only
@@ -339,6 +341,7 @@ function(YCM_EP_HELPER _name)
     if(NOT DEFINED _YH_${_name}_REPOSITORY)
         message(FATAL_ERROR "Missing REPOSITORY argument")
     endif()
+
 
 
     # Generic variables
@@ -409,7 +412,14 @@ function(YCM_EP_HELPER _name)
         endif()
     endforeach()
 
-   # Repository variables
+
+    unset(${_name}_EXTRA_ARGS})
+    if(DEFINED _YH_${_name}_EXCLUDE_FROM_ALL)
+        list(APPEND ${_name}_EXTRA_ARGS EXCLUDE_FROM_ALL ${_YH_${_name}_EXCLUDE_FROM_ALL})
+    endif()
+
+
+    # Repository dependent variables
     unset(${_name}_REPOSITORY_ARGS)
     unset(_setup_devel_cmd)
 
@@ -452,12 +462,14 @@ function(YCM_EP_HELPER _name)
         endif()
     endif()
 
+
     unset(${_name}_ARGS)
     foreach(_arg IN LISTS ${_name}_REPOSITORY_ARGS
                           ${_name}_DIR_ARGS
                           ${_name}_CMAKE_ARGS
                           ${_name}_DEPENDS_ARGS
-                          ${_name}_COMMAND_ARGS)
+                          ${_name}_COMMAND_ARGS
+                          ${_name}_EXTRA_ARGS)
         list(APPEND ${_name}_ARGS "${_arg}")
     endforeach()
     externalproject_add(${_name} "${${_name}_ARGS}")
