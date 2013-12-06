@@ -16,6 +16,7 @@
 #    [LIST_SEPARATOR sep]        # Sep to be replaced by ; in cmd lines
 #    [TMP_DIR dir]               # Directory to store temporary files
 #    [STAMP_DIR dir]             # Directory to store step timestamps
+#    [EXCLUDE_FROM_ALL 1]        # The "all" target does not depend on this
 #   #--Download step--------------
 #    [DOWNLOAD_NAME fname]       # File name to store (if not end of URL)
 #    [DOWNLOAD_DIR dir]          # Directory to store downloaded files
@@ -125,7 +126,7 @@
 #    [DEPENDERS steps...]    # Steps that depend on this step
 #    [DEPENDS files...]      # Files on which this step depends
 #    [ALWAYS 1]              # No stamp file, step always runs
-#    [EXCLUDE_FROM_ALL 1]    # Main target does not depend on this step
+#    [EXCLUDE_FROM_MAIN 1]   # Main target does not depend on this step
 #    [WORKING_DIRECTORY dir] # Working directory for command
 #    [LOG 1]                 # Wrap step in script to log output
 #    )
@@ -1277,8 +1278,9 @@ function(ExternalProject_Add_Step name step)
 
   _ep_parse_arguments(ExternalProject_Add_Step
                       ${name} _EP_${step}_ "${ARGN}")
-  get_property(exclude_from_all TARGET ${name} PROPERTY _EP_${step}_EXCLUDE_FROM_ALL)
-  if(NOT exclude_from_all)
+
+  get_property(exclude_from_main TARGET ${name} PROPERTY _EP_${step}_EXCLUDE_FROM_MAIN)
+  if(NOT exclude_from_main)
     add_custom_command(APPEND
       OUTPUT ${complete_stamp_file}
       DEPENDS ${stamp_file}
@@ -2025,7 +2027,17 @@ function(ExternalProject_Add name)
   set(cmf_dir ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles)
   set(complete_stamp_file "${cmf_dir}${cfgdir}/${name}-complete")
 
-  add_custom_target(${name} ALL DEPENDS ${complete_stamp_file})
+  # _ep_parse_arguments requires that the target already exists,
+  # therefore must be called after add_custom_command
+  list(FIND ARGN EXCLUDE_FROM_ALL exclude_from_all_index)
+  if(NOT exclude_from_all_index EQUAL -1)
+    math(EXPR exclude_from_all_index "${exclude_from_all_index} + 1")
+    list(GET ARGN ${exclude_from_all_index} exclude_from_all)
+  endif()
+  if(NOT exclude_from_all)
+    set(all ALL)
+  endif()
+  add_custom_target(${name} ${all} DEPENDS ${complete_stamp_file})
   set_property(TARGET ${name} PROPERTY _EP_IS_EXTERNAL_PROJECT 1)
   set_property(TARGET ${name} PROPERTY LABELS ${name})
   _ep_parse_arguments(ExternalProject_Add ${name} _EP_ "${ARGN}")
