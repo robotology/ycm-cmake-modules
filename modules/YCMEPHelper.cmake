@@ -556,7 +556,8 @@ macro(YCM_BOOTSTRAP)
     ycm_ep_helper(YCM TYPE GIT
                       STYLE GITHUB
                       REPOSITORY robotology/ycm.git
-                      TAG master)
+                      TAG master
+                      EXCLUDE_FROM_ALL 1)
 
 
     message(STATUS "Performing download step (git clone) for 'YCM'")
