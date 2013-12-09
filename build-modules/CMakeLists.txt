@@ -6,6 +6,7 @@ set(YCM_BUILD_MODULES BuildECM.cmake
                       BuildGooCanvas.cmake
                       BuildTemplateExe.cmake
                       BuildTemplateLib.cmake
+                      BuildTemplateRf.cmake
                       BuildTinyXML.cmake
                       BuildYARP.cmake
                       BuildICUB.cmake
