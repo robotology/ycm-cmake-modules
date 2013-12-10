@@ -2,6 +2,7 @@
 #    [DOCS]
 #    [TYPE <type>]
 #    [STYLE <style>]
+#    [COMPONENT <component>] (default = "external")
 #    [REPOSITORY <repo>]
 #    [EXCLUDE_FROM_ALL <0|1>]
 #   #--Git only arguments-----------
@@ -302,6 +303,7 @@ function(YCM_EP_HELPER _name)
     set(_options )
     set(_oneValueArgs TYPE
                       STYLE
+                      COMPONENT
                       REPOSITORY
                       EXCLUDE_FROM_ALL
                       TAG         # GIT only
@@ -342,16 +344,20 @@ function(YCM_EP_HELPER _name)
         message(FATAL_ERROR "Missing REPOSITORY argument")
     endif()
 
-
+    if(NOT DEFINED _YH_${_name}_COMPONENT)
+        set(_YH_${_name}_COMPONENT external)
+#     elseif(NOT "x${_YH_${_name}_COMPONENT}" MATCHES "^x(external|documentation)$")
+#         message(WARNING "Unknown component:\n  ${_YH_${_name}_COMPONENT}\n")
+    endif()
 
     # Generic variables
-    set(${_name}_PREFIX ${CMAKE_BINARY_DIR}/external)
-    set(${_name}_SOURCE_DIR ${CMAKE_SOURCE_DIR}/external/${_name})
-    set(${_name}_DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/external)
-    set(${_name}_BINARY_DIR ${CMAKE_BINARY_DIR}/external/${_name})
+    set(${_name}_PREFIX ${CMAKE_BINARY_DIR}/${_YH_${_name}_COMPONENT})
+    set(${_name}_SOURCE_DIR ${CMAKE_SOURCE_DIR}/${_YH_${_name}_COMPONENT}/${_name})
+    set(${_name}_DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/${_YH_${_name}_COMPONENT})
+    set(${_name}_BINARY_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_COMPONENT}/${_name})
     set(${_name}_INSTALL_DIR ${CMAKE_BINARY_DIR}/install) # TODO Use a cached variable for installation outside build directory
-    set(${_name}_TMP_DIR ${CMAKE_BINARY_DIR}/external/${_name}/${CMAKE_FILES_DIRECTORY}/CMakeTmp)
-    set(${_name}_STAMP_DIR ${CMAKE_BINARY_DIR}/external/${_name}/${CMAKE_FILES_DIRECTORY})
+    set(${_name}_TMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_COMPONENT}/${_name}/${CMAKE_FILES_DIRECTORY}/CMakeTmp)
+    set(${_name}_STAMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_COMPONENT}/${_name}/${CMAKE_FILES_DIRECTORY})
 
     set(${_name}_DIR_ARGS PREFIX ${${_name}_PREFIX}
                           SOURCE_DIR ${${_name}_SOURCE_DIR}
@@ -412,6 +418,16 @@ function(YCM_EP_HELPER _name)
         endif()
     endforeach()
 
+    unset(${_name}_COMPONENT_ARGS)
+    if("${_YH_${_name}_COMPONENT}" STREQUAL "documentation")
+        set(${_name}_COMPONENT_ARGS CONFIGURE_COMMAND ""
+                                    BUILD_COMMAND ""
+                                    INSTALL_COMMAND ""
+                                    STEP_TARGETS ""
+                                    INDEPENDENT_STEP_TARGETS "")
+    endif()
+
+
 
     unset(${_name}_EXTRA_ARGS})
     if(DEFINED _YH_${_name}_EXCLUDE_FROM_ALL)
@@ -469,6 +485,7 @@ function(YCM_EP_HELPER _name)
                           ${_name}_CMAKE_ARGS
                           ${_name}_DEPENDS_ARGS
                           ${_name}_COMMAND_ARGS
+                          ${_name}_COMPONENT_ARGS
                           ${_name}_EXTRA_ARGS)
         list(APPEND ${_name}_ARGS "${_arg}")
     endforeach()
