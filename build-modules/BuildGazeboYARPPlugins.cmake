@@ -17,3 +17,10 @@ ycm_ep_helper(GazeboYARPPlugins TYPE GIT
                                 DEPENDS YARP
                                         ICUB
                                 INSTALL_COMMAND "")
+
+ycm_ep_helper(gazebo_yarp_plugins.wiki TYPE GIT
+                                       STYLE GITHUB
+                                       COMPONENT documentation
+                                       REPOSITORY robotology/gazebo_yarp_plugins.wiki.git
+                                       TAG master
+                                       EXCLUDE_FROM_ALL 1)
