@@ -8,6 +8,7 @@ set(YCM_MODULES AddUninstallTarget.cmake
                 IncludeUrl.cmake
                 InstallBasicPackageFiles.cmake
                 StandardFindModule.cmake
+                YCMDefaultDirs.cmake
                 YCMEPHelper.cmake)
 
 install(FILES ${YCM_MODULES}
