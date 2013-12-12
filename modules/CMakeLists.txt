@@ -6,6 +6,7 @@ set(YCM_MODULES AddUninstallTarget.cmake
                 ExtractVersion.cmake
                 FindOrBuildPackage.cmake
                 IncludeUrl.cmake
+                InstallBasicPackageFiles.cmake
                 StandardFindModule.cmake
                 YCMEPHelper.cmake)
 
