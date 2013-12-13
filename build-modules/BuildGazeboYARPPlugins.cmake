@@ -20,7 +20,7 @@ ycm_ep_helper(GazeboYARPPlugins TYPE GIT
 
 ycm_ep_helper(gazebo_yarp_plugins.wiki TYPE GIT
                                        STYLE GITHUB
-                                       COMPONENT documentation
                                        REPOSITORY robotology/gazebo_yarp_plugins.wiki.git
                                        TAG master
+                                       COMPONENT documentation
                                        EXCLUDE_FROM_ALL 1)
