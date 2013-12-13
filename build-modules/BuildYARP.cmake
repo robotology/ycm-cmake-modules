@@ -38,4 +38,4 @@ ycm_ep_helper(YARP TYPE GIT
                                     -DYARP_CLEAN_API:BOOL=ON
                                     -DYARP_COMPILE_TESTS:BOOL=OFF
                                     -DCREATE_GYARPBUILDER:BOOL=ON
-                                    -DYARP_COMPILE_EXPERIMENTAL_WRAP:BOOL=ON)
+                                    -DYARP_COMPILE_EXPERIMENTAL_WRAPPERS:BOOL=ON)
