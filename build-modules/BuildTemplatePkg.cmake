@@ -1,4 +1,4 @@
-# TemplateLib
+# TemplatePkg
 include(YCMEPHelper)
 
 ycm_ep_helper(TemplatePkg TYPE GIT
