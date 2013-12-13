@@ -35,7 +35,6 @@ ycm_ep_helper(YARP TYPE GIT
                                     -DENABLE_yarpcar_rossrv_carrier:BOOL=ON
                                     -DENABLE_yarpmod_fakebot:BOOL=ON
                                     -DENABLE_yarpmod_opencv_grabber:BOOL=OFF
-                                    -DUSE_PORT_AUTHENTICATION:BOOL=ON
                                     -DYARP_CLEAN_API:BOOL=ON
                                     -DYARP_COMPILE_TESTS:BOOL=OFF
                                     -DCREATE_GYARPBUILDER:BOOL=ON
