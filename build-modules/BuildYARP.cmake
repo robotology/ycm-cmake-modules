@@ -38,4 +38,5 @@ ycm_ep_helper(YARP TYPE GIT
                                     -DUSE_PORT_AUTHENTICATION:BOOL=ON
                                     -DYARP_CLEAN_API:BOOL=ON
                                     -DYARP_COMPILE_TESTS:BOOL=OFF
-                                    -DCREATE_GYARPBUILDER:BOOL=ON)
+                                    -DCREATE_GYARPBUILDER:BOOL=ON
+                                    -DYARP_COMPILE_EXPERIMENTAL_WRAP:BOOL=ON)
