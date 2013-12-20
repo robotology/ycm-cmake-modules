@@ -11,6 +11,7 @@ set(YCM_BUILD_MODULES BuildECM.cmake
                       BuildYARP.cmake
                       BuildICUB.cmake
                       BuildGazeboYARPPlugins.cmake
+                      BuildComanSimulator.cmake
                       Buildfakebot.cmake)
 
 install(FILES ${YCM_BUILD_MODULES}
