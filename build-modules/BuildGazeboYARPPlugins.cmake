@@ -15,7 +15,6 @@ ycm_ep_helper(GazeboYARPPlugins TYPE GIT
                                 REPOSITORY robotology/gazebo_yarp_plugins.git
                                 TAG master
                                 DEPENDS YARP
-                                        ICUB
                                 INSTALL_COMMAND "")
 
 ycm_ep_helper(gazebo_yarp_plugins.wiki TYPE GIT
