@@ -79,7 +79,7 @@ endif()
 # Files not yet available or containing bugs in current CMake release (2.8.12.1)
 
 # Latest revision tested
-set(_ref 4e4951c9fcd312a1a3d799afbbc926c56a4accf2)
+set(_ref 0d2318dedd4c80a85b3b3e337148a9e4f7629549)
 
 if(NOT CMAKE_VERSION VERSION_LESS 3.0.0)
     # Just a reminder to update files when a new cmake version is released
@@ -93,7 +93,8 @@ set(_files Copyright.txt                               84889816c71a04e30e715b89f
            Modules/SelectLibraryConfigurations.cmake   4d1ee73df6dadcb2e51f12059cf48f5e9165bb1e  # Used by FindGTK2
            Modules/CMakeParseArguments.cmake           00c393ca7dfd7f9ea9d1a5dc99702dcaffd289af  # Used by FindGTK2
            Modules/FindPackageHandleStandardArgs.cmake 6f694a4c8de523b14ce1dbc44c3f5942fc467fc1  # Used by FindGTK2
-           Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195) # Used by FindPackageHandleStandardArgs
+           Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195  # Used by FindPackageHandleStandardArgs
+           Modules/GNUInstallDirs.cmake                af110b1c08d2ae909dd12b3dff3b8f9ed0f1c335)
 _ycm_cmake_next_download(${_ref} ${CMAKE_CURRENT_BINARY_DIR}/cmake-next ${_files})
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-next
         DESTINATION share/YCM)
