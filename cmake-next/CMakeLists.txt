@@ -68,7 +68,6 @@ endif()
 # necessary to download and install these files if already included in CMake
 if(CMAKE_VERSION VERSION_LESS 2.8.12)
     set(_files Copyright.txt                                cc156f64bf5196dfb35f7ae7a4081a434e128ef4
-               Modules/FindFreetype.cmake                   517084cfdff8912891bb1b4e1c39fe9686d1824e
                Modules/SelectLibraryConfigurations.cmake    b0f24bea56e731e219506a1936c08817dc556d0a)
     _ycm_cmake_next_download(v2.8.12 ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.12 ${_files})
     install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.12
@@ -80,7 +79,7 @@ endif()
 # Files not yet available or containing bugs in current CMake release (2.8.12.1)
 
 # Latest revision tested
-set(_ref 6d1444feacb1c2d621b776ac61412f92ff0a1c34)
+set(_ref 4e4951c9fcd312a1a3d799afbbc926c56a4accf2)
 
 if(NOT CMAKE_VERSION VERSION_LESS 3.0.0)
     # Just a reminder to update files when a new cmake version is released
@@ -88,8 +87,9 @@ if(NOT CMAKE_VERSION VERSION_LESS 3.0.0)
 endif()
 
 # Always downloaded and installed until manually updated
-set(_files Copyright.txt                               cc156f64bf5196dfb35f7ae7a4081a434e128ef4
-           Modules/FindGTK2.cmake                      0c7f8d6c825e9f5d3a50324cfe93bf5da9c3bb5a
+set(_files Copyright.txt                               84889816c71a04e30e715b89faf10d72a7334839
+           Modules/FindGTK2.cmake                      13c52fdee80740af8e59878c284bd89e17ed4bf5
+           Modules/FindFreetype.cmake                  b1a41d0d1321356beccc077495aa0d4c3d57e3a6
            Modules/SelectLibraryConfigurations.cmake   4d1ee73df6dadcb2e51f12059cf48f5e9165bb1e  # Used by FindGTK2
            Modules/CMakeParseArguments.cmake           00c393ca7dfd7f9ea9d1a5dc99702dcaffd289af  # Used by FindGTK2
            Modules/FindPackageHandleStandardArgs.cmake 6f694a4c8de523b14ce1dbc44c3f5942fc467fc1  # Used by FindGTK2
