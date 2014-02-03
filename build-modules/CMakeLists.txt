@@ -4,15 +4,11 @@
 
 set(YCM_BUILD_MODULES BuildECM.cmake
                       BuildGooCanvas.cmake
-                      BuildTemplateExe.cmake
-                      BuildTemplatePkg.cmake
-                      BuildTemplateRf.cmake
                       BuildTinyXML.cmake
                       BuildYARP.cmake
                       BuildICUB.cmake
                       BuildGazeboYARPPlugins.cmake
-                      BuildComanSimulator.cmake
-                      Buildfakebot.cmake)
+                      BuildComanSimulator.cmake)
 
 install(FILES ${YCM_BUILD_MODULES}
         DESTINATION share/YCM/build-modules)
