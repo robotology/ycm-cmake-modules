@@ -23,7 +23,8 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindPortAudio.cmake
                      FindQt3.cmake
                      FindSQLite.cmake
-                     FindTinyXML.cmake)
+                     FindTinyXML.cmake
+                     FindYamlCpp.cmake)
 
 install(FILES ${YCM_FIND_MODULES}
        DESTINATION share/YCM/find-modules)
