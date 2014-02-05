@@ -28,6 +28,7 @@ ycm_ep_helper(YARP TYPE GIT
                                     -DENABLE_yarpcar_tcpros_carrier:BOOL=ON
                                     -DENABLE_yarpcar_xmlrpc_carrier:BOOL=ON
                                     -DENABLE_yarpcar_priority_carrier:BOOL=ON
+                                    -DENABLE_yarpcar_bayer_carrier:BOOL=ON
                                     -DENABLE_yarpidl_thrift:BOOL=ON
                                     -DCREATE_DEVICE_LIBRARY_MODULES:BOOL=ON
                                     -DENABLE_yarpcar_human_carrier:BOOL=ON
