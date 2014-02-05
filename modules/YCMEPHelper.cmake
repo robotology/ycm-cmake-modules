@@ -367,8 +367,7 @@ function(YCM_EP_HELPER _name)
                           TMP_DIR ${${_name}_TMP_DIR}
                           STAMP_DIR ${${_name}_STAMP_DIR})
 
-    set(${_name}_CMAKE_ARGS CMAKE_ARGS
-                            "--no-warn-unused-cli"
+    set(${_name}_CMAKE_ARGS "--no-warn-unused-cli"
                             "-DCMAKE_PREFIX_PATH:PATH=${${_name}_INSTALL_DIR}"    # Path used by cmake for finding stuff
                             "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}" # Where to do the installation
                             "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"       # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
@@ -379,8 +378,10 @@ function(YCM_EP_HELPER _name)
         list(APPEND ${_name}_CMAKE_ARGS ${_YH_${_name}_CMAKE_ARGS})
     endif()
 
+    set(${_name}_ALL_CMAKE_ARGS CMAKE_ARGS ${${_name}_CMAKE_ARGS})
+
     if(_YH_${_name}_CMAKE_CACHE_ARGS)
-        list(APPEND ${_name}_CMAKE_ARGS CMAKE_CACHE_ARGS ${_YH_${_name}_CMAKE_CACHE_ARGS})
+        list(APPEND ${_name}_ALL_CMAKE_ARGS CMAKE_CACHE_ARGS ${_YH_${_name}_CMAKE_CACHE_ARGS})
     endif()
 
     foreach(_dep ${_YH_${_name}_DEPENDS})
@@ -482,7 +483,7 @@ function(YCM_EP_HELPER _name)
     unset(${_name}_ARGS)
     foreach(_arg IN LISTS ${_name}_REPOSITORY_ARGS
                           ${_name}_DIR_ARGS
-                          ${_name}_CMAKE_ARGS
+                          ${_name}_ALL_CMAKE_ARGS
                           ${_name}_DEPENDS_ARGS
                           ${_name}_COMMAND_ARGS
                           ${_name}_COMPONENT_ARGS
