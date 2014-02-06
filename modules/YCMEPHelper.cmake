@@ -368,7 +368,7 @@ function(YCM_EP_HELPER _name)
                           STAMP_DIR ${${_name}_STAMP_DIR})
 
     set(${_name}_CMAKE_ARGS "--no-warn-unused-cli"
-                            "-DCMAKE_PREFIX_PATH:PATH=${${_name}_INSTALL_DIR}"    # Path used by cmake for finding stuff
+                            "-DCMAKE_PREFIX_PATH:PATH=$ENV{CMAKE_PREFIX_PATH};${${_name}_INSTALL_DIR}"    # Path used by cmake for finding stuff
                             "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}" # Where to do the installation
                             "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"       # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
                             "-DCMAKE_SKIP_RPATH:PATH=\"${CMAKE_SKIP_RPATH}\""
