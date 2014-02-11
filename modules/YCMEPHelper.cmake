@@ -367,13 +367,21 @@ function(YCM_EP_HELPER _name)
                           TMP_DIR ${${_name}_TMP_DIR}
                           STAMP_DIR ${${_name}_STAMP_DIR})
 
+    # ExternalProject does not handle correctly arguments containing ";" passed
+    # using CMAKE_ARGS, and instead splits them into several arguments. This is
+    # a workaround that replaces ";" with "|" and sets LIST_SEPARATOR "|" in
+    # order to interpret them correctly.
+    #
+    # TODO FIXME check what happens when the "*_COMMAND" arguments are passed.
+    file(TO_CMAKE_PATH "$ENV{CMAKE_PREFIX_PATH}" _CMAKE_PREFIX_PATH)
+    list(APPEND _CMAKE_PREFIX_PATH ${${_name}_INSTALL_DIR})
+    string(REPLACE ";" "|" _CMAKE_PREFIX_PATH "${_CMAKE_PREFIX_PATH}")
     set(${_name}_CMAKE_ARGS "--no-warn-unused-cli"
-                            "-DCMAKE_PREFIX_PATH:PATH=$ENV{CMAKE_PREFIX_PATH};${${_name}_INSTALL_DIR}"    # Path used by cmake for finding stuff
+                            "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}"      # Path used by cmake for finding stuff
                             "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}" # Where to do the installation
                             "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"       # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
                             "-DCMAKE_SKIP_RPATH:PATH=\"${CMAKE_SKIP_RPATH}\""
                             "-DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}")
-
     if(_YH_${_name}_CMAKE_ARGS)
         list(APPEND ${_name}_CMAKE_ARGS ${_YH_${_name}_CMAKE_ARGS})
     endif()
@@ -383,6 +391,7 @@ function(YCM_EP_HELPER _name)
     if(_YH_${_name}_CMAKE_CACHE_ARGS)
         list(APPEND ${_name}_ALL_CMAKE_ARGS CMAKE_CACHE_ARGS ${_YH_${_name}_CMAKE_CACHE_ARGS})
     endif()
+    list(APPEND ${_name}_ALL_CMAKE_ARGS LIST_SEPARATOR "|")
 
     foreach(_dep ${_YH_${_name}_DEPENDS})
         if(TARGET ${_dep})
