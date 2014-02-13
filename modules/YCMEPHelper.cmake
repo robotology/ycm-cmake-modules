@@ -54,7 +54,7 @@ set(_ycm_ExternalProject_sha1sum     c7584ee4e403e39799483697907f5c6734c229b5)
 
 # Files in all projects that need to bootstrap YCM
 set(_ycm_IncludeUrl_sha1sum          7705c6eb8ed70694e2b9688a90f0731e37c7a8ac)
-set(_ycm_YCMBootstrap_sha1sum        a475b65727461d29c7429c8007ca7c7e88bdd75f)
+set(_ycm_YCMBootstrap_sha1sum        d1fd9afbbf290dbf6d6df5f3be7a24df971ea4fe)
 
 
 ########################################################################
