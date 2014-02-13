@@ -25,9 +25,13 @@
 #    [TEST_COMMAND]
 #    )
 #
-# YCM_BOOTSTRAP([VERBOSE])
+# YCM_BOOTSTRAP()
 #
+# Variables:
 # NON_INTERACTIVE_BUILD
+# YCM_BOOTSTRAP_BASE_ADDRESS
+# YCM_SKIP_HASH_CHECK
+# YCM_BOOTSTRAP_VERBOSE
 
 # Copyright (C) 2013  iCub Facility, Istituto Italiano di Tecnologia
 # Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
