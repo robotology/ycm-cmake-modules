@@ -379,6 +379,7 @@ function(YCM_EP_HELPER _name)
     # TODO FIXME check what happens when the "*_COMMAND" arguments are passed.
     file(TO_CMAKE_PATH "$ENV{CMAKE_PREFIX_PATH}" _CMAKE_PREFIX_PATH)
     list(APPEND _CMAKE_PREFIX_PATH ${${_name}_INSTALL_DIR})
+    list(REMOVE_DUPLICATES _CMAKE_PREFIX_PATH)
     string(REPLACE ";" "|" _CMAKE_PREFIX_PATH "${_CMAKE_PREFIX_PATH}")
     set(${_name}_CMAKE_ARGS "--no-warn-unused-cli"
                             "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}"      # Path used by cmake for finding stuff
