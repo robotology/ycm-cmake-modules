@@ -9,6 +9,11 @@ endif()
 
 #find_or_build_package(GooCanvas QUIET)
 
+# For bindings
+find_package(SWIG QUIET)
+find_package(PythonLibs QUIET)
+find_package(PythonInterp QUIET)
+
 ycm_ep_helper(YARP TYPE GIT
                    STYLE GITHUB
                    REPOSITORY robotology/yarp.git
@@ -41,4 +46,6 @@ ycm_ep_helper(YARP TYPE GIT
                                     -DCREATE_GYARPBUILDER:BOOL=ON
                                     -DYARP_COMPILE_EXPERIMENTAL_WRAPPERS:BOOL=ON
                                     -DYARP_DOXYGEN_XML:BOOL=ON
-                                    -DYARP_DOXYGEN_TAGFILE:BOOL=ON)
+                                    -DYARP_DOXYGEN_TAGFILE:BOOL=ON
+                                    -DYARP_COMPILE_BINDINGS:BOOL=ON
+                                    -DCREATE_PYTHON:BOOL=ON)
