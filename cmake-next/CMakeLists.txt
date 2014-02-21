@@ -94,7 +94,8 @@ set(_files Copyright.txt                               84889816c71a04e30e715b89f
            Modules/CMakeParseArguments.cmake           00c393ca7dfd7f9ea9d1a5dc99702dcaffd289af  # Used by FindGTK2
            Modules/FindPackageHandleStandardArgs.cmake 6f694a4c8de523b14ce1dbc44c3f5942fc467fc1  # Used by FindGTK2
            Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195  # Used by FindPackageHandleStandardArgs
-           Modules/GNUInstallDirs.cmake                af110b1c08d2ae909dd12b3dff3b8f9ed0f1c335)
+           Modules/GNUInstallDirs.cmake                af110b1c08d2ae909dd12b3dff3b8f9ed0f1c335
+           Modules/FindArmadillo.cmake                 bd42719aff81dccb0730c0cc1e52aa2efad64d48)
 _ycm_cmake_next_download(${_ref} ${CMAKE_CURRENT_BINARY_DIR}/cmake-next ${_files})
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-next
         DESTINATION share/YCM)
