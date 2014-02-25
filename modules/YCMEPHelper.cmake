@@ -530,7 +530,7 @@ function(YCM_EP_HELPER _name)
         add_dependencies(fetch-all ${_name}-fetch)
 
         externalproject_add_step(${_name} status
-                                 COMMAND pwd
+                                 COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "Working directory: ${${_name}_SOURCE_DIR}"
                                  COMMAND ${GIT_EXECUTABLE} status
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                                  DEPENDEES download
@@ -540,7 +540,7 @@ function(YCM_EP_HELPER _name)
         add_dependencies(status-all ${_name}-status)
     elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
         externalproject_add_step(${_name} status
-                                 COMMAND pwd
+                                 COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "Working directory: ${${_name}_SOURCE_DIR}"
                                  COMMAND ${Subversion_SVN_EXECUTABLE} status
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                                  DEPENDEES download
