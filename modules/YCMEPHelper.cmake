@@ -153,16 +153,12 @@ macro(_YCM_SETUP)
         add_custom_target(update-all)
     endif()
 
-    if(NOT TARGET status-all)
-        add_custom_target(status-all)
-    endif()
-
     if(NOT TARGET fetch-all)
         add_custom_target(fetch-all)
     endif()
 
-    if(NOT TARGET pull-all)
-        add_custom_target(pull-all)
+    if(NOT TARGET status-all)
+        add_custom_target(status-all)
     endif()
 
     if(NOT YCM_FOUND) # Useless if we don't need to bootstrap
@@ -521,30 +517,35 @@ function(YCM_EP_HELPER _name)
     endif()
 
 
-# TODO Enable extra steps
-#     externalproject_add_step(${_name} fetch
-#                              COMMAND ${GIT_EXECUTABLE} fetch --all --prune
-#                              WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
-#                              COMMENT "Performing fetch step for '${_name}'"
-#                              DEPENDEES update)
-#     externalproject_add_steptargets(${_name} fetch)
-#     add_dependencies(fetch-all ${_name}-fetch)
-#
-#     externalproject_add_step(${_name} status
-#                              COMMAND pwd
-#                              COMMAND ${GIT_EXECUTABLE} status
-#                              WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
-#                              DEPENDEES fetch)
-#     externalproject_add_steptargets(${_name} status)
-#     add_dependencies(pull-all ${_name}-pull)
-#
-#     externalproject_add_step(${_name} pull
-#                              COMMAND ${GIT_EXECUTABLE} pull --rebase
-#                              WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
-#                              COMMENT "Performing pull step for '${_name}'"
-#                              DEPENDEES fetch)
-#     externalproject_add_steptargets(${_name} pull)
-#     add_dependencies(pull-all ${_name}-pull)
+# Extra steps
+    if("${_YH_${_name}_TYPE}" STREQUAL "GIT")
+        externalproject_add_step(${_name} fetch
+                                 COMMAND ${GIT_EXECUTABLE} fetch --all --prune
+                                 WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
+                                 COMMENT "Performing fetch step for '${_name}'"
+                                 DEPENDEES download
+                                 ALWAYS 1)
+        externalproject_add_steptargets(${_name} NO_DEPENDS fetch)
+        add_dependencies(fetch-all ${_name}-fetch)
+
+        externalproject_add_step(${_name} status
+                                 COMMAND pwd
+                                 COMMAND ${GIT_EXECUTABLE} status
+                                 WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
+                                 DEPENDEES download
+                                 ALWAYS 1)
+        externalproject_add_steptargets(${_name} NO_DEPENDS status)
+        add_dependencies(status-all ${_name}-status)
+    elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
+        externalproject_add_step(${_name} status
+                                 COMMAND pwd
+                                 COMMAND ${SVN_EXECUTABLE} status
+                                 WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
+                                 DEPENDEES download
+                                 ALWAYS 1)
+        externalproject_add_steptargets(${_name} NO_DEPENDS status)
+        add_dependencies(status-all ${_name}-status)
+    endif()
 
 
     # Set some useful variables in parent scope
