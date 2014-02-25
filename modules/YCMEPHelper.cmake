@@ -541,7 +541,7 @@ function(YCM_EP_HELPER _name)
     elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
         externalproject_add_step(${_name} status
                                  COMMAND pwd
-                                 COMMAND ${SVN_EXECUTABLE} status
+                                 COMMAND ${Subversion_SVN_EXECUTABLE} status
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                                  DEPENDEES download
                                  EXCLUDE_FROM_MAIN 1
