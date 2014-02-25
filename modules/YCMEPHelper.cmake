@@ -524,6 +524,7 @@ function(YCM_EP_HELPER _name)
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                                  COMMENT "Performing fetch step for '${_name}'"
                                  DEPENDEES download
+                                 EXCLUDE_FROM_MAIN 1
                                  ALWAYS 1)
         externalproject_add_steptargets(${_name} NO_DEPENDS fetch)
         add_dependencies(fetch-all ${_name}-fetch)
@@ -533,6 +534,7 @@ function(YCM_EP_HELPER _name)
                                  COMMAND ${GIT_EXECUTABLE} status
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                                  DEPENDEES download
+                                 EXCLUDE_FROM_MAIN 1
                                  ALWAYS 1)
         externalproject_add_steptargets(${_name} NO_DEPENDS status)
         add_dependencies(status-all ${_name}-status)
@@ -542,6 +544,7 @@ function(YCM_EP_HELPER _name)
                                  COMMAND ${SVN_EXECUTABLE} status
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                                  DEPENDEES download
+                                 EXCLUDE_FROM_MAIN 1
                                  ALWAYS 1)
         externalproject_add_steptargets(${_name} NO_DEPENDS status)
         add_dependencies(status-all ${_name}-status)
