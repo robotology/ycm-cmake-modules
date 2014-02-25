@@ -161,6 +161,10 @@ macro(_YCM_SETUP)
         add_custom_target(status-all)
     endif()
 
+    if(NOT TARGET print-directories-all)
+        add_custom_target(print-directories-all)
+    endif()
+
     if(NOT YCM_FOUND) # Useless if we don't need to bootstrap
         set(YCM_BOOTSTRAP_BASE_ADDRESS "https://raw.github.com/robotology/ycm/HEAD/" CACHE STRING "Base address of YCM repository")
         mark_as_advanced(YCM_BOOTSTRAP_BASE_ADDRESS)
@@ -549,6 +553,22 @@ function(YCM_EP_HELPER _name)
         externalproject_add_steptargets(${_name} NO_DEPENDS status)
         add_dependencies(status-all ${_name}-status)
     endif()
+
+
+    externalproject_add_step(${_name} print-directories
+                             COMMAND ${CMAKE_COMMAND} -E echo ""
+                             COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
+                             COMMAND ${CMAKE_COMMAND} -E echo "    ${${_name}_SOURCE_DIR}"
+                             COMMAND ${CMAKE_COMMAND} -E echo ""
+                             COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} BINARY directory: "
+                             COMMAND ${CMAKE_COMMAND} -E echo "    ${${_name}_BINARY_DIR}"
+                             COMMAND ${CMAKE_COMMAND} -E echo ""
+                             WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
+                             DEPENDEES download
+                             EXCLUDE_FROM_MAIN 1
+                             ALWAYS 1)
+    externalproject_add_steptargets(${_name} NO_DEPENDS print-directories)
+    add_dependencies(print-directories-all ${_name}-print-directories)
 
 
     # Set some useful variables in parent scope
