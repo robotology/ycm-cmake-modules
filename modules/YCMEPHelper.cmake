@@ -566,6 +566,7 @@ function(YCM_EP_HELPER _name)
                              WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                              DEPENDEES download
                              EXCLUDE_FROM_MAIN 1
+                             COMMENT "Directories for ${_name}"
                              ALWAYS 1)
     externalproject_add_steptargets(${_name} NO_DEPENDS print-directories)
     add_dependencies(print-directories-all ${_name}-print-directories)
