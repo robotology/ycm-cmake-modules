@@ -50,7 +50,7 @@ set(__YCMEPHELPER_INCLUDED TRUE)
 
 # Files downloaded during YCM bootstrap
 set(_ycm_CMakeParseArguments_sha1sum 0c4d3f7ed248145cbeb67cbd6fd7190baf2e4517)
-set(_ycm_ExternalProject_sha1sum     c7584ee4e403e39799483697907f5c6734c229b5)
+set(_ycm_ExternalProject_sha1sum     e13485c3203f90e028baeffbf1a48a9f98995ed7)
 
 # Files in all projects that need to bootstrap YCM
 set(_ycm_IncludeUrl_sha1sum          7705c6eb8ed70694e2b9688a90f0731e37c7a8ac)
@@ -147,6 +147,7 @@ macro(_YCM_SETUP)
     set_property(DIRECTORY PROPERTY EP_STEP_TARGETS configure)
     set_property(DIRECTORY PROPERTY EP_INDEPENDENT_STEP_TARGETS update)
     set_property(DIRECTORY PROPERTY EP_SOURCE_DIR_PRESERVE 1)
+    set_property(DIRECTORY PROPERTY EP_SCM_DISCONNECTED 1)
     set_property(DIRECTORY PROPERTY CMAKE_PARSE_ARGUMENTS_DEFAULT_SKIP_EMPTY FALSE)
 
     if(NOT TARGET update-all)
