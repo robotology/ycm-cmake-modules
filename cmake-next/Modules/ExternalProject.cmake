@@ -42,6 +42,7 @@
 #    [SOURCE_DIR_PERSISTENT 1]   # FIXME docs
 #   #--Update/Patch step----------
 #    [UPDATE_COMMAND cmd...]     # Source work-tree update command
+#    [SCM_DISCONNECTED 1]        # Never update automatically from the remote repo
 #    [PATCH_COMMAND cmd...]      # Command to patch downloaded source
 #   #--Configure step-------------
 #    [SOURCE_DIR dir]            # Source dir to be used for build
@@ -112,6 +113,16 @@
 # using one of the DOWNLOAD_COMMAND, CVS_*, SVN_*, or URL options.  The
 # URL option may refer locally to a directory or source tarball, or
 # refer to a remote tarball (e.g.  http://.../src.tgz).
+#
+# If ``SCM_DISCONNECTED`` is set, the update step is not executed
+# automatically when building the main target. The update step can still
+# be added as a step target and called manually. This is useful if you
+# want to allow to build the project when you are disconnected from the
+# network (you might still need the network for the download step).
+# This is disabled by default.
+# The directory property ``EP_SCM_DISCONNECTED`` can be used to change
+# the default value for all the external projects in the current
+# directory and its subdirectories.
 #
 # The 'ExternalProject_Add_Step' function adds a custom step to an
 # external project:
@@ -324,6 +335,13 @@ define_property(DIRECTORY PROPERTY "EP_INDEPENDENT_STEP_TARGETS" INHERITED
 
 define_property(DIRECTORY PROPERTY "EP_SOURCE_DIR_PERSISTENT" INHERITED
   BRIEF_DOCS "Whether source dir stored outside the build directory should be preserved."
+  FULL_DOCS
+  "See documentation of the ExternalProject_Add() function in the "
+  "ExternalProject module."
+  )
+
+define_property(DIRECTORY PROPERTY "EP_SCM_DISCONNECTED" INHERITED
+  BRIEF_DOCS "Never update automatically from the remote repo."
   FULL_DOCS
   "See documentation of the ExternalProject_Add() function in the "
   "ExternalProject module."
@@ -1727,6 +1745,12 @@ function(_ep_add_update_command name)
   get_property(svn_repository TARGET ${name} PROPERTY _EP_SVN_REPOSITORY)
   get_property(git_repository TARGET ${name} PROPERTY _EP_GIT_REPOSITORY)
   get_property(hg_repository  TARGET ${name} PROPERTY _EP_HG_REPOSITORY )
+  get_property(scm_disconnected_set TARGET ${name} PROPERTY _EP_SCM_DISCONNECTED SET)
+  if(scm_disconnected_set)
+    get_property(scm_disconnected TARGET ${name} PROPERTY _EP_SCM_DISCONNECTED)
+  else()
+    get_property(scm_disconnected DIRECTORY PROPERTY EP_SCM_DISCONNECTED)
+  endif()
 
   set(work_dir)
   set(comment)
@@ -1815,10 +1839,24 @@ Update to Mercurial >= 2.1.1.
     COMMENT ${comment}
     COMMAND ${cmd}
     ALWAYS ${always}
+    EXCLUDE_FROM_MAIN ${scm_disconnected}
     WORKING_DIRECTORY ${work_dir}
     DEPENDEES download
     ${log}
     )
+
+  if(always AND scm_disconnected)
+    string(REPLACE "Performing" "Skipping" comment "${comment}")
+    ExternalProject_Add_Step(${name} skip-update
+      COMMENT ${comment}
+      ALWAYS 1
+      EXCLUDE_FROM_MAIN 1
+      WORKING_DIRECTORY ${work_dir}
+      DEPENDEES download
+      ${log}
+    )
+  endif()
+
 endfunction()
 
 
@@ -1921,10 +1959,22 @@ function(_ep_add_configure_command name)
     set(log "")
   endif()
 
+  get_property(scm_disconnected_set TARGET ${name} PROPERTY _EP_SCM_DISCONNECTED SET)
+  if(scm_disconnected_set)
+    get_property(scm_disconnected TARGET ${name} PROPERTY _EP_SCM_DISCONNECTED)
+  else()
+    get_property(scm_disconnected DIRECTORY PROPERTY EP_SCM_DISCONNECTED)
+  endif()
+  if(scm_disconnected)
+    set(update_dep skip-update)
+  else()
+    set(update_dep update)
+  endif()
+
   ExternalProject_Add_Step(${name} configure
     COMMAND ${cmd}
     WORKING_DIRECTORY ${binary_dir}
-    DEPENDEES update patch
+    DEPENDEES ${update_dep} patch
     DEPENDS ${file_deps}
     ${log}
     )
