@@ -183,8 +183,8 @@ macro(INCLUDE_URL _remotefile)
             list(GET _downloadResult 1 _downloadResult_1)
             set(_error_message "Downloading ${_filename} - ERROR ${_downloadResult_0}: ${_downloadResult_1}")
 
-        # BUG in CMake 2.8.12.1
-        # CMake 2.8.12.1 or less does not give a fatal error if hash
+        # BUG in CMake 2.8.12.2
+        # CMake 2.8.12.2 or less does not give a fatal error if hash
         # of the downloaded file is wrong.
         # A new check is required in order not to include a "faulty"
         # file (it could be a security issue).

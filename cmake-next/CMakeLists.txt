@@ -76,7 +76,7 @@ endif()
 
 
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (2.8.12.1)
+# Files not yet available or containing bugs in current CMake release (2.8.12.2)
 
 # Latest revision tested
 set(_ref 0d2318dedd4c80a85b3b3e337148a9e4f7629549)
