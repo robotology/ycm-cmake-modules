@@ -4,11 +4,15 @@ compiler:
   - gcc
   - clang
 
+env:
+  - TRAVIS_BUILD_TYPE=Debug
+  - TRAVIS_BUILD_TYPE=Release
+
 before_script:
   - cmake --version
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_INSTALL_PREFIX=$(pwd)/../install
+  - cmake .. -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install
 
 script:
   - make
