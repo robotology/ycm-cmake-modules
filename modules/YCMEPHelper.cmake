@@ -329,6 +329,15 @@ function(YCM_EP_HELPER _name)
 
     cmake_parse_arguments(_YH_${_name} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
+    # Allow to override parameters by setting variables
+    foreach(_arg ${_oneValueArgs} ${_multiValueArgs})
+        if(DEFINED ${_name}_${_arg})
+            set(_YH_${_name}_${_arg} ${${_name}_${_arg}})
+        endif()
+    endforeach()
+
+
+    # Check that all required arguments are set
     if(NOT DEFINED _YH_${_name}_TYPE)
         message(FATAL_ERROR "Missing TYPE argument")
     endif()
