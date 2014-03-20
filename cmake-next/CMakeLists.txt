@@ -76,26 +76,47 @@ endif()
 
 
 ################################################################################
+# Files not available or containing bugs in CMake 3.0.0-rc2
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.0.0)
+    # Just a reminder to remove this when we change cmake version
+    message(AUTHOR_WARNING "CMake minimum required version greater than 3.0.0. You can remove this.")
+endif()
+
+# We assume that the user won't downgrade his cmake, therefore it's not
+# necessary to download and install these files if already included in CMake
+if(CMAKE_VERSION VERSION_LESS 3.0.0)
+
+    set(_files Copyright.txt                               84889816c71a04e30e715b89faf10d72a7334839
+               Modules/FindGTK2.cmake                      15657c7891807e028b05841e52bc57448a17701a
+               Modules/FindFreetype.cmake                  b1a41d0d1321356beccc077495aa0d4c3d57e3a6
+               Modules/SelectLibraryConfigurations.cmake   4d1ee73df6dadcb2e51f12059cf48f5e9165bb1e  # Used by FindGTK2
+               Modules/CMakeParseArguments.cmake           00c393ca7dfd7f9ea9d1a5dc99702dcaffd289af  # Used by FindGTK2
+               Modules/FindPackageHandleStandardArgs.cmake 6f694a4c8de523b14ce1dbc44c3f5942fc467fc1  # Used by FindGTK2
+               Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195  # Used by FindPackageHandleStandardArgs
+               Modules/GNUInstallDirs.cmake                af110b1c08d2ae909dd12b3dff3b8f9ed0f1c335
+               Modules/FindArmadillo.cmake                 bd42719aff81dccb0730c0cc1e52aa2efad64d48)
+    _ycm_cmake_next_download(v3.0.0-rc2 ${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0.0 ${_files})
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0.0
+            DESTINATION share/YCM)
+endif()
+
+
+################################################################################
 # Files not yet available or containing bugs in current CMake release (2.8.12.2)
 
 # Latest revision tested
-set(_ref 0d2318dedd4c80a85b3b3e337148a9e4f7629549)
+set(_ref 0f79dab48bf17e867fe19a7b7140fa7513f4b72d)
 
-if(NOT CMAKE_VERSION VERSION_LESS 3.0.0)
+if(NOT CMAKE_VERSION VERSION_LESS 3.1.0)
     # Just a reminder to update files when a new cmake version is released
     message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
 endif()
 
 # Always downloaded and installed until manually updated
 set(_files Copyright.txt                               84889816c71a04e30e715b89faf10d72a7334839
-           Modules/FindGTK2.cmake                      13c52fdee80740af8e59878c284bd89e17ed4bf5
-           Modules/FindFreetype.cmake                  b1a41d0d1321356beccc077495aa0d4c3d57e3a6
-           Modules/SelectLibraryConfigurations.cmake   4d1ee73df6dadcb2e51f12059cf48f5e9165bb1e  # Used by FindGTK2
-           Modules/CMakeParseArguments.cmake           00c393ca7dfd7f9ea9d1a5dc99702dcaffd289af  # Used by FindGTK2
+           Modules/FindPkgConfig.cmake                 a5650a2a89acd93f6f78fd7846b88aad5fac5d0e
            Modules/FindPackageHandleStandardArgs.cmake 6f694a4c8de523b14ce1dbc44c3f5942fc467fc1  # Used by FindGTK2
-           Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195  # Used by FindPackageHandleStandardArgs
-           Modules/GNUInstallDirs.cmake                af110b1c08d2ae909dd12b3dff3b8f9ed0f1c335
-           Modules/FindArmadillo.cmake                 bd42719aff81dccb0730c0cc1e52aa2efad64d48)
+           Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195) # Used by FindPackageHandleStandardArgs
 _ycm_cmake_next_download(${_ref} ${CMAKE_CURRENT_BINARY_DIR}/cmake-next ${_files})
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-next
         DESTINATION share/YCM)
@@ -106,8 +127,7 @@ install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-next
 
 
 # Always installed
-set(YCM_CMAKE_PROPOSED_FILES Modules/FindPkgConfig.cmake
-                             Modules/ExternalProject.cmake
+set(YCM_CMAKE_PROPOSED_FILES Modules/ExternalProject.cmake
                              Modules/CMakeParseArguments.cmake)
 install(FILES ${YCM_CMAKE_PROPOSED_FILES} DESTINATION share/YCM/cmake-proposed/Modules)
 install(FILES Copyright.txt # Must be redistributed together with CMake files
