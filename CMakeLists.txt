@@ -36,16 +36,18 @@ install(FILES ${CMAKE_BINARY_DIR}/YCMConfigVersion.cmake
         DESTINATION ${YCM_INSTALL_MODULE_DIR}/cmake)
 
 # YCMConfig.cmake (build tree)
-set(PACKAGE_YCM_MODULE_DIR "${CMAKE_SOURCE_DIR}/cmake")
+set(PACKAGE_YCM_MODULE_DIR "${CMAKE_SOURCE_DIR}")
 configure_package_config_file(YCMConfig.cmake.in ${CMAKE_BINARY_DIR}/YCMConfig.cmake
                               INSTALL_DESTINATION ${CMAKE_BINARY_DIR}
-                              PATH_VARS YCM_BUILD_MODULE_DIR)
+                              PATH_VARS YCM_BUILD_MODULE_DIR
+                              NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
 # YCMConfig.cmake (installed)
 set(PACKAGE_YCM_MODULE_DIR "${YCM_INSTALL_MODULE_DIR}")
 configure_package_config_file(YCMConfig.cmake.in ${CMAKE_BINARY_DIR}/YCMConfigInstall.cmake
                               INSTALL_DESTINATION ${YCM_INSTALL_MODULE_DIR}
-                              PATH_VARS YCM_INSTALL_MODULE_DIR)
+                              PATH_VARS YCM_INSTALL_MODULE_DIR
+                              NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
 install(FILES ${CMAKE_BINARY_DIR}/YCMConfigInstall.cmake
         DESTINATION ${YCM_INSTALL_MODULE_DIR}/cmake
@@ -55,3 +57,10 @@ include(AddUninstallTarget)
 
 add_custom_target(update-sha1sums
                   COMMAND ${CMAKE_SOURCE_DIR}/tools/update_sha1sums.sh)
+
+enable_testing()
+include(CTest)
+# Set up test-time configuration.
+set_directory_properties(PROPERTIES TEST_INCLUDE_FILE "${CMAKE_BINARY_DIR}/tests/EnforceConfig.cmake")
+
+add_subdirectory(tests)

@@ -3,7 +3,6 @@ set(YCM_VERSION @YCM_VERSION@)
 @PACKAGE_INIT@
 
 set_and_check(YCM_MODULE_DIR "@PACKAGE_YCM_MODULE_DIR@")
-check_required_components(YCM)
 
 list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/modules")
 list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/find-modules")

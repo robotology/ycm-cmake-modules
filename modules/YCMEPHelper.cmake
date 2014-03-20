@@ -33,6 +33,11 @@
 # YCM_SKIP_HASH_CHECK
 # YCM_BOOTSTRAP_VERBOSE
 
+# TODO
+# Rename NON_INTERACTIVE_BUILD -> YCM_NON_INTERACTIVE_BUILD
+# YCM_INSTALL_PREFIX
+
+
 # Copyright (C) 2013  iCub Facility, Istituto Italiano di Tecnologia
 # Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
