@@ -55,9 +55,10 @@ _ycm_clean_path("${CMAKE_BINARY_DIR}/install" PATH)
 
 
 find_package(YCM QUIET)
-set_package_properties(YCM PROPERTIES TYPE RECOMMENDED
-                                      PURPOSE "Used by the build system")
-
+if(COMMAND set_package_properties)
+  set_package_properties(YCM PROPERTIES TYPE RECOMMENDED
+                                        PURPOSE "Used by the build system")
+endif()
 if(YCM_FOUND)
     return()
 endif()
