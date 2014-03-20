@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.7)
-project(yarp-cmake-modules NONE)
+project(YCM NONE)
 
 set(YCM_MAJOR_VERSION 0)
 set(YCM_MINOR_VERSION 0)
