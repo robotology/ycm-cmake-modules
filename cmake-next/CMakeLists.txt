@@ -114,11 +114,17 @@ endif()
 
 # Always downloaded and installed until manually updated
 set(_files Copyright.txt                               84889816c71a04e30e715b89faf10d72a7334839
-           Modules/FindPkgConfig.cmake                 a5650a2a89acd93f6f78fd7846b88aad5fac5d0e
            Modules/FindPackageHandleStandardArgs.cmake 6f694a4c8de523b14ce1dbc44c3f5942fc467fc1  # Used by FindGTK2
            Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195  # Used by FindPackageHandleStandardArgs
            Modules/FeatureSummary.cmake                23ca4b624b0974730814d6f809509dff7feb77fb
            Modules/CMakeParseArguments.cmake           00c393ca7dfd7f9ea9d1a5dc99702dcaffd289af) # Used by FeatureSummary
+# Some files cannot be parsed due to new-style cmake comments, so we ship
+# an old style commented version
+if(NOT CMAKE_VERSION VERSION_LESS 3.0.0)
+    list(APPEND _files  Modules/FindPkgConfig.cmake    a5650a2a89acd93f6f78fd7846b88aad5fac5d0e)
+else()
+    file(COPY Modules/FindPkgConfig.cmake DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/cmake-next)
+endif()
 _ycm_cmake_next_download(${_ref} ${CMAKE_CURRENT_BINARY_DIR}/cmake-next ${_files})
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-next
         DESTINATION share/YCM)
@@ -126,7 +132,6 @@ install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-next
 
 ################################################################################
 # Files with patches not yet merged in CMake master
-
 
 # Always installed
 set(YCM_CMAKE_PROPOSED_FILES Modules/ExternalProject.cmake
