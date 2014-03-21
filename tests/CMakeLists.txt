@@ -92,6 +92,10 @@ if(BUILD_TESTING)
     --build-makeprogram ${YCM_TEST_EXPLICIT_MAKE_PROGRAM}
     )
 
+  add_test(NAME sha1sums
+           WORKING_DIRECTORY "${YCM_SOURCE_DIR}/tests/sha1sums"
+           COMMAND ${YCM_SOURCE_DIR}/tests/sha1sums/check_sha1sums.sh ${YCM_SOURCE_DIR}/modules/YCMEPHelper.cmake)
+
   add_test(YCMBootstrap-not-found ${CMAKE_CTEST_COMMAND}
            --build-and-test
            "${YCM_SOURCE_DIR}/tests/YCMBootstrap"
