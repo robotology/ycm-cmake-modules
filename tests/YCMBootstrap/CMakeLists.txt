@@ -18,8 +18,11 @@ file(COPY ${YCM_SOURCE_DIR}/tools/YCMBootstrap.cmake
 
 set(YCM_BOOTSTRAP_BASE_ADDRESS file://${YCM_SOURCE_DIR} CACHE STRING "Base address of YCM repository")
 set(YCM_BOOTSTRAP_VERBOSE TRUE)
-set(YCM_STYLE LOCAL)
-set(YCM_REPOSITORY file://${YCM_SOURCE_DIR})
+if(EXISTS ${YCM_SOURCE_DIR}/.git AND NOT EXISTS ${YCM_SOURCE_DIR}/.git/shallow)
+    # This is a proper git repo, we can clone from it.
+    set(YCM_STYLE LOCAL)
+    set(YCM_REPOSITORY file://${YCM_SOURCE_DIR})
+endif()
 set(NON_INTERACTIVE_BUILD TRUE)
 
 if(YCM_BOOTSTRAP_TEST STREQUAL "BUILD_DIR")
