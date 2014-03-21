@@ -52,3 +52,6 @@ install(FILES ${CMAKE_BINARY_DIR}/YCMConfigInstall.cmake
         RENAME YCMConfig.cmake)
 
 include(AddUninstallTarget)
+
+add_custom_target(update-sha1sums
+                  COMMAND ${CMAKE_SOURCE_DIR}/tools/update_sha1sums.sh)
