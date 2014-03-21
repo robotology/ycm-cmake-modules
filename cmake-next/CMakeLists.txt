@@ -116,7 +116,9 @@ endif()
 set(_files Copyright.txt                               84889816c71a04e30e715b89faf10d72a7334839
            Modules/FindPkgConfig.cmake                 a5650a2a89acd93f6f78fd7846b88aad5fac5d0e
            Modules/FindPackageHandleStandardArgs.cmake 6f694a4c8de523b14ce1dbc44c3f5942fc467fc1  # Used by FindGTK2
-           Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195) # Used by FindPackageHandleStandardArgs
+           Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195  # Used by FindPackageHandleStandardArgs
+           Modules/FeatureSummary.cmake                23ca4b624b0974730814d6f809509dff7feb77fb
+           Modules/CMakeParseArguments.cmake           00c393ca7dfd7f9ea9d1a5dc99702dcaffd289af) # Used by FeatureSummary
 _ycm_cmake_next_download(${_ref} ${CMAKE_CURRENT_BINARY_DIR}/cmake-next ${_files})
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-next
         DESTINATION share/YCM)
