@@ -439,8 +439,8 @@ function(YCM_EP_HELPER _name)
                   BUILD
                   INSTALL
                   TEST)
-        if(CMAKE_VERSION VERSION_LESS 3.0.0)
-            # HACK: set(var "" PARENT_SCOPE) before CMake 3.0.0 did not set an empty string, but
+        if(CMAKE_VERSION VERSION_LESS 3.1.0)
+            # HACK: set(var "" PARENT_SCOPE) before CMake 3.1.0 did not set an empty string, but
             # instead unset the variable.
             # Therefore after cmake_parse_arguments, even if the variables are defined, they are not
             # set.
@@ -553,6 +553,8 @@ function(YCM_EP_HELPER _name)
 
 # Extra steps
     if("${_YH_${_name}_TYPE}" STREQUAL "GIT")
+
+        # fetch step
         externalproject_add_step(${_name} fetch
                                  COMMAND ${GIT_EXECUTABLE} fetch --all --prune
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
@@ -563,6 +565,7 @@ function(YCM_EP_HELPER _name)
         externalproject_add_steptargets(${_name} NO_DEPENDS fetch)
         add_dependencies(fetch-all ${_name}-fetch)
 
+        # status (git) step
         externalproject_add_step(${_name} status
                                  COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "Working directory: ${${_name}_SOURCE_DIR}"
                                  COMMAND ${GIT_EXECUTABLE} status
@@ -572,7 +575,10 @@ function(YCM_EP_HELPER _name)
                                  ALWAYS 1)
         externalproject_add_steptargets(${_name} NO_DEPENDS status)
         add_dependencies(status-all ${_name}-status)
+
     elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
+
+        # status (svn) step
         externalproject_add_step(${_name} status
                                  COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "Working directory: ${${_name}_SOURCE_DIR}"
                                  COMMAND ${Subversion_SVN_EXECUTABLE} status
