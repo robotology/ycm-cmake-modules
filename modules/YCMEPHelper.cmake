@@ -23,6 +23,7 @@
 #    [BUILD_COMMAND]
 #    [INSTALL_COMMAND]
 #    [TEST_COMMAND]
+#    [CLEAN_COMMAND] (not in ExternalProject)
 #    )
 #
 # YCM_BOOTSTRAP()
@@ -165,6 +166,10 @@ macro(_YCM_SETUP)
 
     if(NOT TARGET status-all)
         add_custom_target(status-all)
+    endif()
+
+    if(NOT TARGET clean-all)
+        add_custom_target(clean-all)
     endif()
 
     if(NOT TARGET print-directories-all)
@@ -330,7 +335,8 @@ function(YCM_EP_HELPER _name)
                         CONFIGURE_COMMAND
                         BUILD_COMMAND
                         INSTALL_COMMAND
-                        TEST_COMMAND)
+                        TEST_COMMAND
+                        CLEAN_COMMAND)
 
     cmake_parse_arguments(_YH_${_name} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
@@ -447,6 +453,15 @@ function(YCM_EP_HELPER _name)
             list(APPEND ${_name}_COMMAND_ARGS ${_step}_COMMAND "${_YH_${_name}_${_step}_COMMAND}")
         endif()
     endforeach()
+
+    # CLEAN_COMMAND is not accepted by ExternalProject, so we clean it here
+    if(CMAKE_VERSION VERSION_LESS 3.1.0)
+        # HACK: (see previous one)
+        if("${ARGN}" MATCHES ";?CLEAN_COMMAND;"  AND  NOT DEFINED _YH_${_name}_CLEAN_COMMAND)
+            set(_YH_${_name}_CLEAN_COMMAND "")
+        endif()
+    endif()
+
 
     unset(${_name}_COMPONENT_ARGS)
     if("${_YH_${_name}_COMPONENT}" STREQUAL "documentation")
@@ -568,6 +583,27 @@ function(YCM_EP_HELPER _name)
         externalproject_add_steptargets(${_name} NO_DEPENDS status)
         add_dependencies(status-all ${_name}-status)
     endif()
+
+    # clean step
+    unset(_cmd)
+    if(NOT DEFINED _YH_${_name}_CLEAN_COMMAND)
+        set(_cmd ${CMAKE_COMMAND} --build ${${_name}_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target clean)
+    elseif(NOT "${_YH_${_name}_CLEAN_COMMAND}" STREQUAL "")
+        set(_cmd ${_YH_${_name}_CLEAN_COMMAND})
+    endif()
+    if(_cmd)
+        externalproject_add_step(${_name} clean
+                                COMMAND ${_cmd}
+                                WORKING_DIRECTORY ${${_name}_BINARY_DIR}
+                                COMMENT "Performing clean step for '${_name}'"
+                                DEPENDEES configure
+                                EXCLUDE_FROM_MAIN 1
+                                ALWAYS 1)
+        externalproject_add_steptargets(${_name} NO_DEPENDS clean)
+        add_dependencies(clean-all ${_name}-clean)
+    endif()
+    unset(_cmd)
+
 
 
     externalproject_add_step(${_name} print-directories
