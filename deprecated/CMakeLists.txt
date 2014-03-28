@@ -15,5 +15,7 @@ if(NOT YCM_NO_DEPRECATED)
                              FindGtkPlus.cmake
                              FindGtkWin32.cmake)
     install(FILES ${YCM_DEPRECATED_FILES}
-            DESTINATION share/YCM/deprecated)
+            DESTINATION ${YCM_INSTALL_MODULE_DIR}/deprecated)
+    file(COPY ${YCM_DEPRECATED_FILES}
+         DESTINATION ${YCM_BUILD_MODULE_DIR}/deprecated)
 endif()

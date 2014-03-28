@@ -6,7 +6,7 @@ set(YCM_MINOR_VERSION 0)
 set(YCM_PATCH_VERSION 1)
 set(YCM_VERSION ${YCM_MAJOR_VERSION}.${YCM_MINOR_VERSION}.${YCM_PATCH_VERSION})
 
-set(YCM_BUILD_MODULE_DIR ${CMAKE_SOURCE_DIR})
+set(YCM_BUILD_MODULE_DIR "${CMAKE_BINARY_DIR}/share/YCM")
 set(YCM_INSTALL_MODULE_DIR "${CMAKE_INSTALL_PREFIX}/share/YCM")
 
 add_subdirectory(modules)
@@ -15,7 +15,7 @@ add_subdirectory(build-modules)
 add_subdirectory(deprecated)
 add_subdirectory(cmake-next)
 
-list(APPEND CMAKE_MODULE_PATH "${YCM_BUILD_MODULE_DIR}/modules")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
 
 # CMakePackageConfigHelpers is not available in CMake 2.8.7
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8)
@@ -36,7 +36,7 @@ install(FILES ${CMAKE_BINARY_DIR}/YCMConfigVersion.cmake
         DESTINATION ${YCM_INSTALL_MODULE_DIR}/cmake)
 
 # YCMConfig.cmake (build tree)
-set(PACKAGE_YCM_MODULE_DIR "${CMAKE_SOURCE_DIR}")
+set(PACKAGE_YCM_MODULE_DIR "${YCM_BUILD_MODULE_DIR}")
 configure_package_config_file(YCMConfig.cmake.in ${CMAKE_BINARY_DIR}/YCMConfig.cmake
                               INSTALL_DESTINATION ${CMAKE_BINARY_DIR}
                               PATH_VARS YCM_BUILD_MODULE_DIR

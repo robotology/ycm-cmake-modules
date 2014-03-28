@@ -10,4 +10,6 @@ set(YCM_BUILD_MODULES BuildECM.cmake
                       BuildGazeboYARPPlugins.cmake)
 
 install(FILES ${YCM_BUILD_MODULES}
-        DESTINATION share/YCM/build-modules)
+        DESTINATION ${YCM_INSTALL_MODULE_DIR}/build-modules)
+file(COPY ${YCM_BUILD_MODULES}
+     DESTINATION ${YCM_BUILD_MODULE_DIR}/build-modules)

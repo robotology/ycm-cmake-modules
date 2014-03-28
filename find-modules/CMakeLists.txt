@@ -27,4 +27,6 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindYamlCpp.cmake)
 
 install(FILES ${YCM_FIND_MODULES}
-       DESTINATION share/YCM/find-modules)
+       DESTINATION ${YCM_INSTALL_MODULE_DIR}/find-modules)
+file(COPY ${YCM_FIND_MODULES}
+     DESTINATION ${YCM_BUILD_MODULE_DIR}/find-modules)

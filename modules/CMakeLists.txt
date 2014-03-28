@@ -12,4 +12,6 @@ set(YCM_MODULES AddUninstallTarget.cmake
                 YCMEPHelper.cmake)
 
 install(FILES ${YCM_MODULES}
-        DESTINATION share/YCM/modules)
+        DESTINATION ${YCM_INSTALL_MODULE_DIR}/modules)
+file(COPY ${YCM_MODULES}
+     DESTINATION ${YCM_BUILD_MODULE_DIR}/modules)
