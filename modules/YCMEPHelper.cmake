@@ -610,8 +610,8 @@ function(YCM_EP_HELPER _name)
     endif()
     unset(_cmd)
 
-    # depends step (build only dependencies)
     if(DEFINED _YH_${_name}_DEPENDS)
+        # dependencies step (build all dependencies)
         externalproject_add_step(${_name} dependencies
                                 WORKING_DIRECTORY ${${_name}_BINARY_DIR}
                                 COMMENT "Dependencies for '${_name}' built."
@@ -621,6 +621,19 @@ function(YCM_EP_HELPER _name)
         foreach(_dep ${_YH_${_name}_DEPENDS})
             if(TARGET ${_dep})
                 add_dependencies(${_name}-dependencies ${_dep})
+            endif()
+        endforeach()
+
+        # dependencies-update steps (update all dependencies)
+        externalproject_add_step(${_name} dependencies-update
+                                WORKING_DIRECTORY ${${_name}_BINARY_DIR}
+                                COMMENT "Dependencies for '${_name}' updated."
+                                EXCLUDE_FROM_MAIN 1
+                                ALWAYS 1)
+        externalproject_add_steptargets(${_name} NO_DEPENDS dependencies-update)
+        foreach(_dep ${_YH_${_name}_DEPENDS})
+            if(TARGET ${_dep}-update)
+                add_dependencies(${_name}-dependencies-update ${_dep}-update)
             endif()
         endforeach()
     endif()
