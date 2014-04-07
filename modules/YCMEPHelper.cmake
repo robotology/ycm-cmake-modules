@@ -648,7 +648,6 @@ function(YCM_EP_HELPER _name)
                              COMMAND ${CMAKE_COMMAND} -E echo "    ${${_name}_BINARY_DIR}"
                              COMMAND ${CMAKE_COMMAND} -E echo ""
                              WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
-                             DEPENDEES download
                              EXCLUDE_FROM_MAIN 1
                              COMMENT "Directories for ${_name}"
                              ALWAYS 1)
