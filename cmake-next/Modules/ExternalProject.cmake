@@ -1296,6 +1296,7 @@ function(ExternalProject_Add_StepTargets name)
     add_custom_target(${name}-${step}
       DEPENDS ${stamp_file})
     set_property(TARGET ${name}-${step} PROPERTY LABELS ${name})
+    set_property(TARGET ${name}-${step} PROPERTY FOLDER "ExternalProjectTargets/${name}")
 
     # Depend on other external projects (target-level).
     if(NOT no_deps)
@@ -2123,6 +2124,7 @@ function(ExternalProject_Add name)
   add_custom_target(${name} ALL DEPENDS ${complete_stamp_file})
   set_property(TARGET ${name} PROPERTY _EP_IS_EXTERNAL_PROJECT 1)
   set_property(TARGET ${name} PROPERTY LABELS ${name})
+  set_property(TARGET ${name} PROPERTY FOLDER "ExternalProjectTargets/${name}")
   _ep_parse_arguments(ExternalProject_Add ${name} _EP_ "${ARGN}")
   _ep_set_directories(${name})
   _ep_get_step_stampfile(${name} "done" done_stamp_file)
