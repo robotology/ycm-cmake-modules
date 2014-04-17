@@ -156,24 +156,43 @@ macro(_YCM_SETUP)
     set_property(DIRECTORY PROPERTY EP_SCM_DISCONNECTED 1)
     set_property(DIRECTORY PROPERTY CMAKE_PARSE_ARGUMENTS_DEFAULT_SKIP_EMPTY FALSE)
 
-    if(NOT TARGET update-all)
-        add_custom_target(update-all)
+    if(MSVC_VERSION OR XCODE_VERSION)
+        set(_update-all ALL_UPDATE)
+        set(_fetch-all ALL_FETCH)
+        set(_status-all ALL_STATUS)
+        set(_clean-all ALL_CLEAN)
+        set(_print-directories-all ALL_PRINT_DIRECTORIES)
+    else()
+        set(_update-all update-all)
+        set(_fetch-all fetch-all)
+        set(_status-all status-all)
+        set(_clean-all clean-all)
+        set(_print-directories-all print-directories-all)
     endif()
 
-    if(NOT TARGET fetch-all)
-        add_custom_target(fetch-all)
+    if(NOT TARGET ${_update-all})
+        add_custom_target(${_update-all})
+        set_property(TARGET ${_update-all} PROPERTY FOLDER "YCMTargets")
     endif()
 
-    if(NOT TARGET status-all)
-        add_custom_target(status-all)
+    if(NOT TARGET ${_fetch-all})
+        add_custom_target(${_fetch-all})
+        set_property(TARGET ${_fetch-all} PROPERTY FOLDER "YCMTargets")
     endif()
 
-    if(NOT TARGET clean-all)
-        add_custom_target(clean-all)
+    if(NOT TARGET ${status-all})
+        add_custom_target(${_status-all})
+        set_property(TARGET ${_status-all} PROPERTY FOLDER "YCMTargets")
     endif()
 
-    if(NOT TARGET print-directories-all)
-        add_custom_target(print-directories-all)
+    if(NOT TARGET ${_clean-all})
+        add_custom_target(${_clean-all})
+        set_property(TARGET ${_clean-all} PROPERTY FOLDER "YCMTargets")
+    endif()
+
+    if(NOT TARGET ${_print-directories-all})
+        add_custom_target(${_print-directories-all})
+        set_property(TARGET ${_print-directories-all} PROPERTY FOLDER "YCMTargets")
     endif()
 
     if(NOT YCM_FOUND) # Useless if we don't need to bootstrap
@@ -536,8 +555,8 @@ function(YCM_EP_HELPER _name)
     endforeach()
     externalproject_add(${_name} "${${_name}_ARGS}")
 
-    if(TARGET update-all AND TARGET ${_name}-update)
-        add_dependencies(update-all ${_name}-update)
+    if(TARGET ${_update-all} AND TARGET ${_name}-update)
+        add_dependencies(${_update-all} ${_name}-update)
     endif()
 
     if(_setup_devel_cmd)
@@ -562,7 +581,7 @@ function(YCM_EP_HELPER _name)
                                  EXCLUDE_FROM_MAIN 1
                                  ALWAYS 1)
         externalproject_add_steptargets(${_name} NO_DEPENDS fetch)
-        add_dependencies(fetch-all ${_name}-fetch)
+        add_dependencies(${_fetch-all} ${_name}-fetch)
 
         # status (git) step
         externalproject_add_step(${_name} status
@@ -573,7 +592,7 @@ function(YCM_EP_HELPER _name)
                                  EXCLUDE_FROM_MAIN 1
                                  ALWAYS 1)
         externalproject_add_steptargets(${_name} NO_DEPENDS status)
-        add_dependencies(status-all ${_name}-status)
+        add_dependencies(${_status-all} ${_name}-status)
 
     elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
 
@@ -586,7 +605,7 @@ function(YCM_EP_HELPER _name)
                                  EXCLUDE_FROM_MAIN 1
                                  ALWAYS 1)
         externalproject_add_steptargets(${_name} NO_DEPENDS status)
-        add_dependencies(status-all ${_name}-status)
+        add_dependencies(${_status-all} ${_name}-status)
     endif()
 
     # clean step
@@ -605,7 +624,7 @@ function(YCM_EP_HELPER _name)
                                 EXCLUDE_FROM_MAIN 1
                                 ALWAYS 1)
         externalproject_add_steptargets(${_name} NO_DEPENDS clean)
-        add_dependencies(clean-all ${_name}-clean)
+        add_dependencies(${_clean-all} ${_name}-clean)
     endif()
     unset(_cmd)
 
@@ -651,7 +670,7 @@ function(YCM_EP_HELPER _name)
                              COMMENT "Directories for ${_name}"
                              ALWAYS 1)
     externalproject_add_steptargets(${_name} NO_DEPENDS print-directories)
-    add_dependencies(print-directories-all ${_name}-print-directories)
+    add_dependencies(${_print-directories-all} ${_name}-print-directories)
 
 
     # Set some useful variables in parent scope
