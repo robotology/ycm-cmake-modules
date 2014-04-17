@@ -535,7 +535,6 @@ function(YCM_EP_HELPER _name)
         list(APPEND ${_name}_ARGS "${_arg}")
     endforeach()
     externalproject_add(${_name} "${${_name}_ARGS}")
-    set_property(TARGET ${_name} PROPERTY FOLDER ${_name})
 
     if(TARGET update-all AND TARGET ${_name}-update)
         add_dependencies(update-all ${_name}-update)
