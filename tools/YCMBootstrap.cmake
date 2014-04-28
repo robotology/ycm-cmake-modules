@@ -65,7 +65,17 @@ endif()
 
 message(STATUS "YCM not found. Bootstrapping it.")
 
-set(YCM_BOOTSTRAP_BASE_ADDRESS "https://raw.github.com/robotology/ycm/HEAD/" CACHE STRING "Base address of YCM repository")
+set(YCM_BOOTSTRAP_BASE_ADDRESS "https://raw.githubusercontent.com/robotology/ycm/HEAD" CACHE STRING "Base address of YCM repository")
+# Replace old raw.github address to support existing builds
+if("${YCM_BOOTSTRAP_BASE_ADDRESS}" MATCHES "raw.github.com")
+    string(REPLACE "raw.github.com" "raw.githubusercontent.com" _tmp ${YCM_BOOTSTRAP_BASE_ADDRESS})
+    set_property(CACHE YCM_BOOTSTRAP_BASE_ADDRESS PROPERTY VALUE "${_tmp}")
+endif()
+# New github address does not accept "//" in the path, therefore we remove the last slash
+if("${YCM_BOOTSTRAP_BASE_ADDRESS}" MATCHES "/$")
+    string(REGEX REPLACE "/$" "" _tmp ${_tmp})
+    set_property(CACHE YCM_BOOTSTRAP_BASE_ADDRESS PROPERTY VALUE "${_tmp}")
+endif()
 mark_as_advanced(YCM_BOOTSTRAP_BASE_ADDRESS)
 
 include(IncludeUrl)
