@@ -1874,17 +1874,22 @@ Update to Mercurial >= 2.1.1.
     )
 
   if(always AND scm_disconnected)
-    _ep_get_step_stampfile(${name} skip-update stamp_file)
+    _ep_get_step_stampfile(${name} skip-update skip-update_stamp_file)
+    _ep_get_step_stampfile(${name} update update_stamp_file)
     string(REPLACE "Performing" "Skipping" comment "${comment}")
     ExternalProject_Add_Step(${name} skip-update
       COMMENT ${comment}
-      COMMAND ${CMAKE_COMMAND} -E touch ${stamp_file}
+      COMMAND ${CMAKE_COMMAND} -E touch ${skip-update_stamp_file}
       ALWAYS 1
       EXCLUDE_FROM_MAIN 1
       WORKING_DIRECTORY ${work_dir}
       DEPENDEES download
       ${log}
     )
+    add_custom_command(APPEND
+      OUTPUT ${update_stamp_file}
+      COMMAND ${CMAKE_COMMAND} -E remove -f ${skip-update_stamp_file}
+      )
   endif()
 
 endfunction()
