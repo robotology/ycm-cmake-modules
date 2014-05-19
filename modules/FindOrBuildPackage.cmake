@@ -131,6 +131,6 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
         find_package(${_pkg} ${ARGN})
     endif()
 
-    set(HAVE_SYSTEM_${_PKG} "${HAVE_SYSTEM_${_PKG}}" CACHE INTERNAL "System has ${_pkg}" FORCE)
-    set(HAVE_${_PKG} "${HAVE_${_PKG}}" CACHE INTERNAL "${_pkg} was either found or will be built" FORCE)
+    set(HAVE_SYSTEM_${_PKG} "${HAVE_SYSTEM_${_PKG}}" PARENT_SCOPE)
+    set(HAVE_${_PKG} "${HAVE_${_PKG}}" PARENT_SCOPE)
 endfunction()
