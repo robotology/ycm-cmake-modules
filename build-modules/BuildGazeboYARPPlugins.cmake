@@ -9,6 +9,7 @@ if(NOT CMAKE_C_COMPILER_LOADED)
     enable_language(C)
 endif()
 find_package(gazebo QUIET)
+find_package(Boost COMPONENTS serialization system QUIET)
 
 ycm_ep_helper(GazeboYARPPlugins TYPE GIT
                                 STYLE GITHUB
