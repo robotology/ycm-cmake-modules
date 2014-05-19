@@ -80,7 +80,7 @@ endif()
 
 
 ################################################################################
-# Files not available or containing bugs in CMake 3.0.0-rc2
+# Files not available or containing bugs in CMake 3.0.0-rc5
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.0.0)
     # Just a reminder to remove this when we change cmake version
     message(AUTHOR_WARNING "CMake minimum required version greater than 3.0.0. You can remove this.")
@@ -99,7 +99,7 @@ if(CMAKE_VERSION VERSION_LESS 3.0.0)
                Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195  # Used by FindPackageHandleStandardArgs
                Modules/GNUInstallDirs.cmake                af110b1c08d2ae909dd12b3dff3b8f9ed0f1c335
                Modules/FindArmadillo.cmake                 bd42719aff81dccb0730c0cc1e52aa2efad64d48)
-    _ycm_cmake_next_download(v3.0.0-rc2 ${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0.0 ${_files})
+    _ycm_cmake_next_download(v3.0.0-rc5 ${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0.0 ${_files})
     install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0.0
             DESTINATION ${YCM_INSTALL_MODULE_DIR})
     file(COPY ${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0.0
