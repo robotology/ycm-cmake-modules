@@ -1,4 +1,4 @@
-# YARP
+# ICUB
 include(YCMEPHelper)
 include(FindOrBuildPackage)
 
