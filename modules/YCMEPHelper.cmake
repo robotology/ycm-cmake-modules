@@ -153,7 +153,10 @@ macro(_YCM_SETUP)
     set_property(DIRECTORY PROPERTY EP_STEP_TARGETS configure)
     set_property(DIRECTORY PROPERTY EP_INDEPENDENT_STEP_TARGETS update)
     set_property(DIRECTORY PROPERTY EP_SOURCE_DIR_PERSISTENT 1)
-    set_property(DIRECTORY PROPERTY EP_SCM_DISCONNECTED 1)
+    if(NOT NON_INTERACTIVE_BUILD)
+      # Non interactive builds should always perform the update step
+      set_property(DIRECTORY PROPERTY EP_SCM_DISCONNECTED 1)
+    endif()
     set_property(DIRECTORY PROPERTY CMAKE_PARSE_ARGUMENTS_DEFAULT_SKIP_EMPTY FALSE)
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
