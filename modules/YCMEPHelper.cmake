@@ -636,29 +636,65 @@ function(YCM_EP_HELPER _name)
     unset(_cmd)
 
     if(DEFINED _YH_${_name}_DEPENDS)
-        # dependencies step (build all dependencies)
-        externalproject_add_step(${_name} dependencies
+        # dependees step (build all packages required by this package)
+        externalproject_add_step(${_name} dependees
                                 WORKING_DIRECTORY ${${_name}_BINARY_DIR}
                                 COMMENT "Dependencies for '${_name}' built."
                                 EXCLUDE_FROM_MAIN 1
                                 ALWAYS 1)
-        externalproject_add_steptargets(${_name} NO_DEPENDS dependencies)
+        externalproject_add_steptargets(${_name} NO_DEPENDS dependees)
         foreach(_dep ${_YH_${_name}_DEPENDS})
             if(TARGET ${_dep})
-                ExternalProject_Add_StepDependencies(${_name} dependencies ${_dep})
+                externalproject_add_stepdependencies(${_name} dependees ${_dep})
             endif()
         endforeach()
 
-        # dependencies-update steps (update all dependencies)
-        externalproject_add_step(${_name} dependencies-update
+        # dependees-update step (update all packages required by this package)
+        externalproject_add_step(${_name} dependees-update
                                 WORKING_DIRECTORY ${${_name}_BINARY_DIR}
                                 COMMENT "Dependencies for '${_name}' updated."
                                 EXCLUDE_FROM_MAIN 1
                                 ALWAYS 1)
-        externalproject_add_steptargets(${_name} NO_DEPENDS dependencies-update)
+        externalproject_add_steptargets(${_name} NO_DEPENDS dependees-update)
         foreach(_dep ${_YH_${_name}_DEPENDS})
             if(TARGET ${_dep}-update)
-                ExternalProject_Add_StepDependencies(${_name} dependencies-update ${_dep}-update)
+                externalproject_add_stepdependencies(${_name} dependees-update ${_dep}-update)
+            endif()
+        endforeach()
+
+        # dependers step (build all packages that require this package)
+        foreach(_dep ${_YH_${_name}_DEPENDS})
+            if(TARGET ${_dep})
+                get_property(is_ep TARGET ${_dep} PROPERTY _EP_IS_EXTERNAL_PROJECT)
+                if(is_ep)
+                    if(NOT TARGET ${_dep}-dependers)
+                        externalproject_add_step(${_dep} dependers
+                                                WORKING_DIRECTORY ${${_dep}_BINARY_DIR}
+                                                COMMENT "Dependers for '${_dep}' built."
+                                                EXCLUDE_FROM_MAIN 1
+                                                ALWAYS 1)
+                        externalproject_add_steptargets(${_dep} NO_DEPENDS dependers)
+                    endif()
+                    externalproject_add_stepdependencies(${_dep} dependers ${_name})
+                endif()
+            endif()
+        endforeach()
+
+        # dependers-update step (update all packages that require this package)
+        foreach(_dep ${_YH_${_name}_DEPENDS})
+            if(TARGET ${_dep})
+                get_property(is_ep TARGET ${_dep} PROPERTY _EP_IS_EXTERNAL_PROJECT)
+                if(is_ep)
+                    if(NOT TARGET ${_dep}-dependers-update)
+                        externalproject_add_step(${_dep} dependers-update
+                                                WORKING_DIRECTORY ${${_dep}_BINARY_DIR}
+                                                COMMENT "Dependers for '${_dep}' updated."
+                                                EXCLUDE_FROM_MAIN 1
+                                                ALWAYS 1)
+                        externalproject_add_steptargets(${_dep} NO_DEPENDS dependers-update)
+                    endif()
+                    externalproject_add_stepdependencies(${_dep} dependers-update ${_name})
+                endif()
             endif()
         endforeach()
     endif()
