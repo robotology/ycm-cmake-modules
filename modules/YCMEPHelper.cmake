@@ -56,7 +56,7 @@ set(__YCMEPHELPER_INCLUDED TRUE)
 
 # Files downloaded during YCM bootstrap
 set(_ycm_CMakeParseArguments_sha1sum 0c4d3f7ed248145cbeb67cbd6fd7190baf2e4517)
-set(_ycm_ExternalProject_sha1sum     1a350274c345d027e48ca9105091aa46a7c59235)
+set(_ycm_ExternalProject_sha1sum     b8723ffc84a20317178f6ee46925a11e316e8925)
 
 # Files in all projects that need to bootstrap YCM
 set(_ycm_IncludeUrl_sha1sum          e9f65b10167894ab2e96e703980953c73ab76f2b)
