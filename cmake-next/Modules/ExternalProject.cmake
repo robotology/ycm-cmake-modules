@@ -442,7 +442,10 @@ if(EXISTS \"${source_dir}\" AND ${source_dir_persistent})
       endif()
     endif()
   endif()
-else()
+endif()
+
+# Now perform the clone if still required
+if(NOT IS_DIRECTORY \"${source_dir}/.git\")
   execute_process(
     COMMAND \${CMAKE_COMMAND} -E remove_directory \"${source_dir}\"
     RESULT_VARIABLE error_code
