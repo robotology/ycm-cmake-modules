@@ -422,11 +422,21 @@ if(EXISTS \"${source_dir}\" AND ${source_dir_persistent})
         message(FATAL_ERROR \"Failed to add origin remote in: '${work_dir}/${src_name}'\")
       endif()
 
-      execute_process(
-        COMMAND \"${git_EXECUTABLE}\" fetch origin
-        WORKING_DIRECTORY \"${work_dir}/${src_name}\"
-        RESULT_VARIABLE error_code
-        )
+      # try the clone 3 times incase there is an odd git fetch issue
+      set(error_code 1)
+      set(number_of_tries 0)
+      while(error_code AND number_of_tries LESS 3)
+        execute_process(
+          COMMAND \"${git_EXECUTABLE}\" fetch origin
+          WORKING_DIRECTORY \"${work_dir}/${src_name}\"
+          RESULT_VARIABLE error_code
+          )
+        math(EXPR number_of_tries \"\${number_of_tries} + 1\")
+      endwhile()
+      if(number_of_tries GREATER 1)
+        message(STATUS \"Had to git fetch more than once:
+                \${number_of_tries} times.\")
+      endif()
       if(error_code)
         message(FATAL_ERROR \"Failed to fetch in: '${work_dir}/${src_name}'\")
       endif()
