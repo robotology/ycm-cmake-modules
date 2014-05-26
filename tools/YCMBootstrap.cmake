@@ -78,6 +78,10 @@ if("${YCM_BOOTSTRAP_BASE_ADDRESS}" MATCHES "/$")
 endif()
 mark_as_advanced(YCM_BOOTSTRAP_BASE_ADDRESS)
 
+if("${YCM_BOOTSTRAP_BASE_ADDRESS}" MATCHES "/HEAD$" AND YCM_TAG)
+    string(REGEX REPLACE "/HEAD$" "/${YCM_TAG}" YCM_BOOTSTRAP_BASE_ADDRESS ${YCM_BOOTSTRAP_BASE_ADDRESS})
+endif()
+
 include(IncludeUrl)
 include_url(${YCM_BOOTSTRAP_BASE_ADDRESS}/modules/YCMEPHelper.cmake)
 ycm_bootstrap()
