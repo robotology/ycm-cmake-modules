@@ -560,14 +560,14 @@ function(YCM_EP_HELPER _name)
                           ${_name}_EXTRA_ARGS)
         list(APPEND ${_name}_ARGS "${_arg}")
     endforeach()
-    externalproject_add(${_name} "${${_name}_ARGS}")
+    ExternalProject_Add(${_name} "${${_name}_ARGS}")
 
     if(TARGET ${_update-all} AND TARGET ${_name}-update)
         add_dependencies(${_update-all} ${_name}-update)
     endif()
 
     if(_setup_devel_cmd)
-        externalproject_add_step(${_name} setup-development
+        ExternalProject_Add_Step(${_name} setup-development
                                  ${_setup_devel_cmd}
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                                  COMMENT "Performing setup-development step for '${_name}'"
@@ -580,38 +580,38 @@ function(YCM_EP_HELPER _name)
     if("${_YH_${_name}_TYPE}" STREQUAL "GIT")
 
         # fetch step
-        externalproject_add_step(${_name} fetch
+        ExternalProject_Add_Step(${_name} fetch
                                  COMMAND ${GIT_EXECUTABLE} fetch --all --prune
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                                  COMMENT "Performing fetch step for '${_name}'"
                                  DEPENDEES download
                                  EXCLUDE_FROM_MAIN 1
                                  ALWAYS 1)
-        externalproject_add_steptargets(${_name} NO_DEPENDS fetch)
+        ExternalProject_Add_StepTargets(${_name} NO_DEPENDS fetch)
         add_dependencies(${_fetch-all} ${_name}-fetch)
 
         # status (git) step
-        externalproject_add_step(${_name} status
+        ExternalProject_Add_Step(${_name} status
                                  COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "Working directory: ${${_name}_SOURCE_DIR}"
                                  COMMAND ${GIT_EXECUTABLE} status
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                                  DEPENDEES download
                                  EXCLUDE_FROM_MAIN 1
                                  ALWAYS 1)
-        externalproject_add_steptargets(${_name} NO_DEPENDS status)
+        ExternalProject_Add_StepTargets(${_name} NO_DEPENDS status)
         add_dependencies(${_status-all} ${_name}-status)
 
     elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
 
         # status (svn) step
-        externalproject_add_step(${_name} status
+        ExternalProject_Add_Step(${_name} status
                                  COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "Working directory: ${${_name}_SOURCE_DIR}"
                                  COMMAND ${Subversion_SVN_EXECUTABLE} status
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                                  DEPENDEES download
                                  EXCLUDE_FROM_MAIN 1
                                  ALWAYS 1)
-        externalproject_add_steptargets(${_name} NO_DEPENDS status)
+        ExternalProject_Add_StepTargets(${_name} NO_DEPENDS status)
         add_dependencies(${_status-all} ${_name}-status)
     endif()
 
@@ -623,42 +623,42 @@ function(YCM_EP_HELPER _name)
         set(_cmd ${_YH_${_name}_CLEAN_COMMAND})
     endif()
     if(_cmd)
-        externalproject_add_step(${_name} clean
+        ExternalProject_Add_Step(${_name} clean
                                 COMMAND ${_cmd}
                                 WORKING_DIRECTORY ${${_name}_BINARY_DIR}
                                 COMMENT "Performing clean step for '${_name}'"
                                 DEPENDEES configure
                                 EXCLUDE_FROM_MAIN 1
                                 ALWAYS 1)
-        externalproject_add_steptargets(${_name} NO_DEPENDS clean)
+        ExternalProject_Add_StepTargets(${_name} NO_DEPENDS clean)
         add_dependencies(${_clean-all} ${_name}-clean)
     endif()
     unset(_cmd)
 
     if(DEFINED _YH_${_name}_DEPENDS)
         # dependees step (build all packages required by this package)
-        externalproject_add_step(${_name} dependees
+        ExternalProject_Add_Step(${_name} dependees
                                 WORKING_DIRECTORY ${${_name}_BINARY_DIR}
                                 COMMENT "Dependencies for '${_name}' built."
                                 EXCLUDE_FROM_MAIN 1
                                 ALWAYS 1)
-        externalproject_add_steptargets(${_name} NO_DEPENDS dependees)
+        ExternalProject_Add_StepTargets(${_name} NO_DEPENDS dependees)
         foreach(_dep ${_YH_${_name}_DEPENDS})
             if(TARGET ${_dep})
-                externalproject_add_stepdependencies(${_name} dependees ${_dep})
+                ExternalProject_Add_StepDependencies(${_name} dependees ${_dep})
             endif()
         endforeach()
 
         # dependees-update step (update all packages required by this package)
-        externalproject_add_step(${_name} dependees-update
+        ExternalProject_Add_Step(${_name} dependees-update
                                 WORKING_DIRECTORY ${${_name}_BINARY_DIR}
                                 COMMENT "Dependencies for '${_name}' updated."
                                 EXCLUDE_FROM_MAIN 1
                                 ALWAYS 1)
-        externalproject_add_steptargets(${_name} NO_DEPENDS dependees-update)
+        ExternalProject_Add_StepTargets(${_name} NO_DEPENDS dependees-update)
         foreach(_dep ${_YH_${_name}_DEPENDS})
             if(TARGET ${_dep}-update)
-                externalproject_add_stepdependencies(${_name} dependees-update ${_dep}-update)
+                ExternalProject_Add_StepDependencies(${_name} dependees-update ${_dep}-update)
             endif()
         endforeach()
 
@@ -668,14 +668,14 @@ function(YCM_EP_HELPER _name)
                 get_property(is_ep TARGET ${_dep} PROPERTY _EP_IS_EXTERNAL_PROJECT)
                 if(is_ep)
                     if(NOT TARGET ${_dep}-dependers)
-                        externalproject_add_step(${_dep} dependers
+                        ExternalProject_Add_Step(${_dep} dependers
                                                 WORKING_DIRECTORY ${${_dep}_BINARY_DIR}
                                                 COMMENT "Dependers for '${_dep}' built."
                                                 EXCLUDE_FROM_MAIN 1
                                                 ALWAYS 1)
-                        externalproject_add_steptargets(${_dep} NO_DEPENDS dependers)
+                        ExternalProject_Add_StepTargets(${_dep} NO_DEPENDS dependers)
                     endif()
-                    externalproject_add_stepdependencies(${_dep} dependers ${_name})
+                    ExternalProject_Add_StepDependencies(${_dep} dependers ${_name})
                 endif()
             endif()
         endforeach()
@@ -686,21 +686,21 @@ function(YCM_EP_HELPER _name)
                 get_property(is_ep TARGET ${_dep} PROPERTY _EP_IS_EXTERNAL_PROJECT)
                 if(is_ep)
                     if(NOT TARGET ${_dep}-dependers-update)
-                        externalproject_add_step(${_dep} dependers-update
+                        ExternalProject_Add_Step(${_dep} dependers-update
                                                 WORKING_DIRECTORY ${${_dep}_BINARY_DIR}
                                                 COMMENT "Dependers for '${_dep}' updated."
                                                 EXCLUDE_FROM_MAIN 1
                                                 ALWAYS 1)
-                        externalproject_add_steptargets(${_dep} NO_DEPENDS dependers-update)
+                        ExternalProject_Add_StepTargets(${_dep} NO_DEPENDS dependers-update)
                     endif()
-                    externalproject_add_stepdependencies(${_dep} dependers-update ${_name})
+                    ExternalProject_Add_StepDependencies(${_dep} dependers-update ${_name})
                 endif()
             endif()
         endforeach()
     endif()
 
 
-    externalproject_add_step(${_name} print-directories
+    ExternalProject_Add_Step(${_name} print-directories
                              COMMAND ${CMAKE_COMMAND} -E echo ""
                              COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
                              COMMAND ${CMAKE_COMMAND} -E echo "    ${${_name}_SOURCE_DIR}"
@@ -712,7 +712,7 @@ function(YCM_EP_HELPER _name)
                              EXCLUDE_FROM_MAIN 1
                              COMMENT "Directories for ${_name}"
                              ALWAYS 1)
-    externalproject_add_steptargets(${_name} NO_DEPENDS print-directories)
+    ExternalProject_Add_StepTargets(${_name} NO_DEPENDS print-directories)
     add_dependencies(${_print-directories-all} ${_name}-print-directories)
 
 
