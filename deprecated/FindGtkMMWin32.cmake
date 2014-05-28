@@ -4,9 +4,9 @@
 #
 # Searches gtkmm on windows.
 # Assumes that the environment variable GTKMM_BASEPATH is set to the place
-# where GTKMM libs have been unpacked/installed. Users that want to install 
+# where GTKMM libs have been unpacked/installed. Users that want to install
 # gtkmm manually must define GTKMM_BASEPATH accordingly.
-# 
+#
 # Added: 03/11/2011, Lorenzo
 # Support gtkmm x64, search also using GTKMM64_BASEPATH (this variable is set by the installer).
 #
@@ -20,7 +20,7 @@
 # GtkMM_MINOR_VERSION  - minor version
 
 # 14/04/11, Lorenzo Natale: Added version info -- for now fake
-# 03/11/11, Lorenzo Natale: Specifically handle Visual Studio 10 (see branch MSVC_VERSION EQUAL 1600) to avoid runtime error 
+# 03/11/11, Lorenzo Natale: Specifically handle Visual Studio 10 (see branch MSVC_VERSION EQUAL 1600) to avoid runtime error
 #           when running gyarpmanager. Previous version was linking vs9 lib/dlls. If VS 10 dlls/libs are not available with the
 #           version of GTKMM you use, update to newer version (e.g. 2.22).
 
