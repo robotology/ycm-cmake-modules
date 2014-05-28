@@ -508,7 +508,7 @@ function(YCM_EP_HELPER _name)
 
     # Repository dependent variables
     unset(${_name}_REPOSITORY_ARGS)
-    unset(_setup_devel_cmd)
+    unset(_setup_repo_cmd)
 
     if("${_YH_${_name}_TYPE}" STREQUAL "GIT")
         # Specific setup for GIT
@@ -522,12 +522,12 @@ function(YCM_EP_HELPER _name)
 
        if(YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_NAME)
             unset(${_name}_COMMIT_NAME)
-            set(_setup_devel_cmd ${_setup_devel_cmd}
+            set(_setup_repo_cmd ${_setup_repo_cmd}
                                  COMMAND ${GIT_EXECUTABLE} config --local user.name ${YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_NAME})
         endif()
 
         if(YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_EMAIL)
-            set(_setup_devel_cmd ${_setup_devel_cmd}
+            set(_setup_repo_cmd ${_setup_repo_cmd}
                                  COMMAND ${GIT_EXECUTABLE} config --local user.email ${YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_EMAIL})
        endif()
     elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
@@ -566,11 +566,11 @@ function(YCM_EP_HELPER _name)
         add_dependencies(${_update-all} ${_name}-update)
     endif()
 
-    if(_setup_devel_cmd)
-        ExternalProject_Add_Step(${_name} setup-development
-                                 ${_setup_devel_cmd}
+    if(_setup_repo_cmd)
+        ExternalProject_Add_Step(${_name} setup-repository
+                                 ${_setup_repo_cmd}
                                  WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
-                                 COMMENT "Performing setup-development step for '${_name}'"
+                                 COMMENT "Performing setup-repository step for '${_name}'"
                                  DEPENDEES download
                                  DEPENDERS update)
     endif()
