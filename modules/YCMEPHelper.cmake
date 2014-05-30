@@ -700,6 +700,20 @@ function(YCM_EP_HELPER _name)
     endif()
 
 
+    # edit cache target for cmake projects
+    _ep_get_configure_command_id(${_name} _${_name}_configure_command_id)
+    if(_${_name}_configure_command_id STREQUAL "cmake")
+        ExternalProject_Add_Step(${_name} edit_cache
+                                 COMMAND ${CMAKE_EDIT_COMMAND} -H${${_name}_SOURCE_DIR} -B${${_name}_BINARY_DIR}
+                                 WORKING_DIRECTORY ${${_name}_BUILD_DIR}
+                                 DEPENDEES configure
+                                 EXCLUDE_FROM_MAIN 1
+                                 COMMENT "Running CMake cache editor for ${_name}..."
+                                 ALWAYS 1)
+        ExternalProject_Add_StepTargets(${_name} NO_DEPENDS edit_cache)
+    endif()
+
+
     ExternalProject_Add_Step(${_name} print-directories
                              COMMAND ${CMAKE_COMMAND} -E echo ""
                              COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
