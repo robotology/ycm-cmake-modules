@@ -15,6 +15,7 @@ include(YCMInternal)
 add_subdirectory(modules)
 add_subdirectory(find-modules)
 add_subdirectory(cmake-next)
+add_subdirectory(3rdparty)
 add_subdirectory(deprecated)
 add_subdirectory(build-modules)
 

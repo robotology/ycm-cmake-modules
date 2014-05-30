@@ -56,6 +56,14 @@ if(EXISTS "${YCM_MODULE_DIR}/cmake-2.8.8"
     endif()
 endif()
 
+if(EXISTS "${YCM_MODULE_DIR}/3rdparty")
+    option(YCM_USE_3RDPARTY "Use YCM 3rd party modules" ON)
+    mark_as_advanced(YCM_USE_3RDPARTY)
+    if(YCM_USE_3RDPARTY)
+        list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/3rdparty")
+    endif()
+endif()
+
 set(YCM_NO_DEPRECATED 1)
 if(EXISTS "${YCM_MODULE_DIR}/deprecated")
     option(YCM_USE_DEPRECATED "Use YCM deprecated modules" ON)
