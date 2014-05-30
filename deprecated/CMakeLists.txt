@@ -1,4 +1,4 @@
-# Copyright (C) 2013  iCub Facility, Istituto Italiano di Tecnologia
+# Copyright (C) 2013-2014  iCub Facility, Istituto Italiano di Tecnologia
 # Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
@@ -14,8 +14,6 @@ if(NOT YCM_NO_DEPRECATED)
                              FindGtkMMWin32.cmake
                              FindGtkPlus.cmake
                              FindGtkWin32.cmake)
-    install(FILES ${YCM_DEPRECATED_FILES}
-            DESTINATION ${YCM_INSTALL_MODULE_DIR}/deprecated)
-    file(COPY ${YCM_DEPRECATED_FILES}
-         DESTINATION ${YCM_BUILD_MODULE_DIR}/deprecated)
+    _ycm_install(deprecated FILES ${YCM_DEPRECATED_FILES}
+                            DESTINATION ${YCM_INSTALL_MODULE_DIR}/deprecated)
 endif()

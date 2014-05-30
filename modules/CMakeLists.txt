@@ -1,4 +1,4 @@
-# Copyright (C) 2013  iCub Facility, Istituto Italiano di Tecnologia
+# Copyright (C) 2013-2014  iCub Facility, Istituto Italiano di Tecnologia
 # Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
@@ -11,7 +11,5 @@ set(YCM_MODULES AddUninstallTarget.cmake
                 YCMDefaultDirs.cmake
                 YCMEPHelper.cmake)
 
-install(FILES ${YCM_MODULES}
-        DESTINATION ${YCM_INSTALL_MODULE_DIR}/modules)
-file(COPY ${YCM_MODULES}
-     DESTINATION ${YCM_BUILD_MODULE_DIR}/modules)
+_ycm_install(modules FILES ${YCM_MODULES}
+                     DESTINATION ${YCM_INSTALL_MODULE_DIR}/modules)

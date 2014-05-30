@@ -1,4 +1,4 @@
-# Copyright (C) 2013  iCub Facility, Istituto Italiano di Tecnologia
+# Copyright (C) 2013-2014  iCub Facility, Istituto Italiano di Tecnologia
 # Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
@@ -26,7 +26,5 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindTinyXML.cmake
                      FindYamlCpp.cmake)
 
-install(FILES ${YCM_FIND_MODULES}
-       DESTINATION ${YCM_INSTALL_MODULE_DIR}/find-modules)
-file(COPY ${YCM_FIND_MODULES}
-     DESTINATION ${YCM_BUILD_MODULE_DIR}/find-modules)
+_ycm_install(find-modules FILES ${YCM_FIND_MODULES}
+                          DESTINATION ${YCM_INSTALL_MODULE_DIR}/find-modules)

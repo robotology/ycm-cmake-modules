@@ -1,4 +1,4 @@
-# Copyright (C) 2013  iCub Facility, Istituto Italiano di Tecnologia
+# Copyright (C) 2013-2014  iCub Facility, Istituto Italiano di Tecnologia
 # Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
@@ -9,7 +9,5 @@ set(YCM_BUILD_MODULES BuildECM.cmake
                       BuildICUB.cmake
                       BuildGazeboYARPPlugins.cmake)
 
-install(FILES ${YCM_BUILD_MODULES}
-        DESTINATION ${YCM_INSTALL_MODULE_DIR}/build-modules)
-file(COPY ${YCM_BUILD_MODULES}
-     DESTINATION ${YCM_BUILD_MODULE_DIR}/build-modules)
+_ycm_install(build-modules FILES ${YCM_BUILD_MODULES}
+                           DESTINATION ${YCM_INSTALL_MODULE_DIR}/build-modules)
