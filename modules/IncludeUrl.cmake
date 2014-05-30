@@ -91,6 +91,7 @@ macro(INCLUDE_URL _remotefile)
 
     set(_options DOWNLOAD_ONCE
                  DOWNLOAD_ALWAYS
+                 QUIET
                  ${_downloadOptions}
                  ${_includeOptions})
     set(_oneValueArgs DESTINATION
@@ -165,7 +166,9 @@ macro(INCLUDE_URL _remotefile)
             file(RENAME ${_localfile} ${_tmpFile})
         endif()
 
-        message(STATUS "Downloading ${_filename}")
+        if(NOT _IU_QUIET)
+            message(STATUS "Downloading ${_filename}")
+        endif()
         file(DOWNLOAD ${_remotefile} ${_localfile} ${_downloadArgs})
 
         # Set the LOG and the STATUS variables if requested by the user
@@ -225,7 +228,9 @@ macro(INCLUDE_URL _remotefile)
                 message(STATUS ${_error_message})
             endif()
         else()
-            message(STATUS "Downloading ${_filename} - SUCCESS")
+            if(NOT _IU_QUIET)
+                message(STATUS "Downloading ${_filename} - SUCCESS")
+            endif()
         endif()
 
         if(EXISTS ${_tmpFile})
