@@ -87,7 +87,7 @@ endif()
 if(CMAKE_VERSION VERSION_LESS 2.8.12)
     set(_files Copyright.txt                                cc156f64bf5196dfb35f7ae7a4081a434e128ef4
                Modules/SelectLibraryConfigurations.cmake    b0f24bea56e731e219506a1936c08817dc556d0a)
-    _ycm_cmake_next_download(v2.8.12 ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.12 ${_files})
+    _ycm_cmake_next_download(v2.8.12 ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.12 "${_files}")
     _ycm_cmake_next_install(v2.8.12 DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.12
                                     DESTINATION ${YCM_INSTALL_MODULE_DIR})
 endif()
