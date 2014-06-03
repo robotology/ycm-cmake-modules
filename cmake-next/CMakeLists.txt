@@ -67,7 +67,7 @@ endif()
 if(CMAKE_VERSION VERSION_LESS 2.8.8)
     set(_files Copyright.txt                                cc156f64bf5196dfb35f7ae7a4081a434e128ef4
                Modules/CMakePackageConfigHelpers.cmake      ccb9c0f5c8abaa958f3049e001eeecfc9dc9ec43)
-    _ycm_cmake_next_download_now(v2.8.8 ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8 ${_files})
+    _ycm_cmake_next_download_now(v2.8.8 ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8 "${_files}")
     install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8
             DESTINATION ${YCM_INSTALL_MODULE_DIR})
     file(COPY ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8
