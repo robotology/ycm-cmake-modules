@@ -3,11 +3,7 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
 
-include(YCMInternal)
-function(_YCM_CMAKE_NEXT_DOWNLOAD _ref _dir _files)
-    _ycm_download(cmake-${_ref} "CMake git repository"
-                  "http://cmake.org/gitweb?p=cmake.git;a=blob_plain;f=<FILE>;hb=<REF>"
-                  "${_ref}" "${_dir}" "${_files}")
+function(_YCM_CMAKE_NEXT_WRITE_README _ref _dir)
     file(WRITE ${_dir}/README
 "Files in this folder and its subfolder come from CMake git repository
 (ref ${_ref}):
@@ -23,9 +19,41 @@ see accompanying file Copyright.txt for details.
 ")
 endfunction()
 
+function(_YCM_CMAKE_NEXT_DOWNLOAD _ref _dir _files)
+    _ycm_download(cmake-${_ref} "CMake git repository"
+                  "http://cmake.org/gitweb?p=cmake.git;a=blob_plain;f=<FILE>;hb=<REF>"
+                  "${_ref}" "${_dir}" "${_files}")
+    _ycm_cmake_next_write_readme(${_ref} ${_dir})
+endfunction()
+
 function(_YCM_CMAKE_NEXT_INSTALL _ref)
     _ycm_install(cmake-${_ref} ${ARGN})
 endfunction()
+
+# Download and install files from CMake git at configure time, useful to
+# download the modules used by the YCM build that are not available
+# on older CMake versions
+function(_YCM_CMAKE_NEXT_DOWNLOAD_NOW _ref _dir _files)
+    # loop over a list of file and sha1
+    list(LENGTH _files _size)
+    foreach(_i RANGE 1 ${_size} 2)
+        math(EXPR _j "${_i} - 1")
+        list(GET _files ${_j} _file)
+        list(GET _files ${_i} _sha1)
+
+        set(_src "http://cmake.org/gitweb?p=cmake.git;a=blob_plain;f=${_file};hb=${_ref}")
+        set(_dest "${_dir}/${_file}")
+
+        if(NOT EXISTS ${_dest})
+            message(STATUS "Downloading file ${_file} from CMake git repository (ref ${_ref})")
+            file(DOWNLOAD "${_src}" "${_dest}"
+                 EXPECTED_HASH SHA1=${_sha1})
+        endif()
+        set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${_dest})
+    endforeach()
+    _ycm_cmake_next_write_readme(${_ref} ${_dir})
+endfunction()
+
 
 ################################################################################
 # Files not available or containing bugs in CMake 2.8.7
@@ -39,9 +67,11 @@ endif()
 if(CMAKE_VERSION VERSION_LESS 2.8.8)
     set(_files Copyright.txt                                cc156f64bf5196dfb35f7ae7a4081a434e128ef4
                Modules/CMakePackageConfigHelpers.cmake      ccb9c0f5c8abaa958f3049e001eeecfc9dc9ec43)
-    _ycm_cmake_next_download(v2.8.8 ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8 ${_files})
-    _ycm_cmake_next_install(v2.8.8 DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8
-                                   DESTINATION ${YCM_INSTALL_MODULE_DIR})
+    _ycm_cmake_next_download_now(v2.8.8 ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8 ${_files})
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8
+            DESTINATION ${YCM_INSTALL_MODULE_DIR})
+    file(COPY ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8
+         DESTINATION ${YCM_BUILD_MODULE_DIR})
 endif()
 
 
