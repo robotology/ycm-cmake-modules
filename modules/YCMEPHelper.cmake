@@ -293,6 +293,14 @@ function(_YCM_SETUP_GIT)
     set_property(CACHE YCM_GIT_GITLAB_ICUB_ORG_BASE_ADDRESS PROPERTY STRINGS "https://gitlab.icub.org/" "git://gitlab.icub.org/" "ssh://git@gitlab.icub.org/" "icub:")
     mark_as_advanced(YCM_GIT_GITLAB_ICUB_ORG_USERNAME YCM_GIT_GITLAB_ICUB_ORG_COMMIT_NAME YCM_GIT_GITLAB_ICUB_ORG_COMMIT_EMAIL YCM_GIT_GITLAB_ICUB_ORG_BASE_ADDRESS)
 
+    # TYPE GIT STYLE GITLAB_ROBOTOLOGY
+    set(YCM_GIT_GITLAB_ROBOTOLOGY_USERNAME "" CACHE STRING "Username to use for IIT iCub Facility Gitlab git repositories")
+    set(YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_NAME "" CACHE STRING "Name to use for git commits for IIT iCub Facility Gitlab git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
+    set(YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for IIT iCub Facility Gitlab git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
+    set(YCM_GIT_GITLAB_ROBOTOLOGY_BASE_ADDRESS "https://gitlab.icub.org/" CACHE STRING "Address to use for IIT iCub Facility Gitlab git repositories")
+    set_property(CACHE YCM_GIT_GITLAB_ROBOTOLOGY_BASE_ADDRESS PROPERTY STRINGS "https://gitlab.icub.org/" "git://gitlab.icub.org/" "ssh://git@gitlab.icub.org/" "icub:")
+    mark_as_advanced(YCM_GIT_GITLAB_ROBOTOLOGY_USERNAME YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_NAME YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_EMAIL YCM_GIT_GITLAB_ROBOTOLOGY_BASE_ADDRESS)
+
 
     # TYPE GIT STYLE LOCAL
     set(YCM_GIT_LOCAL_BASE_ADDRESS "" CACHE INTERNAL "Address to use for local git repositories")
