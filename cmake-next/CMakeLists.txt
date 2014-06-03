@@ -8,6 +8,19 @@ function(_YCM_CMAKE_NEXT_DOWNLOAD _ref _dir _files)
     _ycm_download(cmake-${_ref} "CMake git repository"
                   "http://cmake.org/gitweb?p=cmake.git;a=blob_plain;f=<FILE>;hb=<REF>"
                   "${_ref}" "${_dir}" "${_files}")
+    file(WRITE ${_dir}/README
+"Files in this folder and its subfolder come from CMake git repository
+(ref ${_ref}):
+
+  git://cmake.org/cmake.git
+
+They were imported exactly as they are on the original repository, in
+order to supply the new features and bugfix available in newer releases
+to user with older cmake releases.
+
+These files are distributed under the OSI-approved BSD License;
+see accompanying file Copyright.txt for details.
+")
 endfunction()
 
 function(_YCM_CMAKE_NEXT_INSTALL _ref)
