@@ -180,8 +180,11 @@ function(_YCM_INSTALL _target)
 
     file(WRITE ${_ycm_install_script}
 "cmake_minimum_required(VERSION ${CMAKE_VERSION})
+set(_DESTDIR \$ENV{DESTDIR})
+set(ENV{DESTDIR} )
 file(${copyARGN})
-  ")
+set(ENV{DESTDIR} \${_DESTDIR})
+")
 
     # Add custom command
     add_custom_command(OUTPUT ${_ycm_install_stamp_file}
