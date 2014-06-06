@@ -1,18 +1,16 @@
 cmake_minimum_required(VERSION 2.8.7)
 project(YCM NONE)
 
-set(YCM_MAJOR_VERSION 0)
-set(YCM_MINOR_VERSION 0)
-set(YCM_PATCH_VERSION 1)
-set(YCM_VERSION ${YCM_MAJOR_VERSION}.${YCM_MINOR_VERSION}.${YCM_PATCH_VERSION})
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/internal-modules")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
+
+include(YCMVersion)
+include(YCMInternal)
+
 
 set(YCM_BUILD_MODULE_DIR "${CMAKE_BINARY_DIR}/share/YCM")
 set(YCM_INSTALL_MODULE_DIR "${CMAKE_INSTALL_PREFIX}/share/YCM")
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/internal-modules")
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
-
-include(YCMInternal)
 
 add_subdirectory(modules)
 add_subdirectory(find-modules)
