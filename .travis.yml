@@ -13,6 +13,7 @@ env:
   - TRAVIS_BUILD_TYPE=Release
 
 before_script:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install cmake; fi
   - cmake --version
   - mkdir build
   - cd build
