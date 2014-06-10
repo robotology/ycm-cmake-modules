@@ -1,3 +1,7 @@
+os:
+  - linux
+  - osx
+  
 language: cpp
 
 compiler:
@@ -12,9 +16,12 @@ before_script:
   - cmake --version
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cmake .. -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cmake .. -GXcode -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install; fi
 
 script:
-  - make
-  - make test
-  - make install
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then make; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then make test; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then make install; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then xcodebuild; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then xcodebuild -target test; fi
