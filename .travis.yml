@@ -22,7 +22,7 @@ before_script:
   - mkdir build
   - cd build
   - cmake .. -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install
-  - if [ "$TRAVIS_OS_NAME" = "osx" ];  cd ..; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ];  cd .. ; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; mkdir build_xcode; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; cd build_xcode; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cmake .. -GXcode -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install_xcode; fi
