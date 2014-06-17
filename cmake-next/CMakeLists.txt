@@ -113,9 +113,9 @@ if(CMAKE_VERSION VERSION_LESS 3.0.0)
                Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195  # Used by FindPackageHandleStandardArgs
                Modules/GNUInstallDirs.cmake                af110b1c08d2ae909dd12b3dff3b8f9ed0f1c335
                Modules/FindArmadillo.cmake                 bd42719aff81dccb0730c0cc1e52aa2efad64d48)
-    _ycm_cmake_next_download(v3.0.0-rc6 ${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0.0 "${_files}")
-    _ycm_cmake_next_install(v3.0.0-rc6 DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0.0
-                                       DESTINATION ${YCM_INSTALL_MODULE_DIR})
+    _ycm_cmake_next_download(v3.0.0 ${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0.0 "${_files}")
+    _ycm_cmake_next_install(v3.0.0 DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0.0
+                                   DESTINATION ${YCM_INSTALL_MODULE_DIR})
 endif()
 
 
