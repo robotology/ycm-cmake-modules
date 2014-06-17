@@ -92,6 +92,11 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
             extract_version(${_PKG}_BUILD REVERSE_NAME)
         endif()
 
+        if(TARGET ${_pkg})
+            # Weird. We found the recipe, but this doesn't add a TARGET ${_pkg}
+            # Should not happen, let's print an AUTHOR_WARNING
+            message(AUTHOR_WARNING "A ${_pkg} target already exists before including Build${_pkg}.")
+        endif()
         # Include the Build recipe
         include(Build${_pkg} OPTIONAL RESULT_VARIABLE _${_PKG}_RECIPE)
         if(NOT _${_PKG}_RECIPE)
@@ -101,7 +106,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
             if(NOT TARGET ${_pkg})
                 # Weird. We found the recipe, but this doesn't add a TARGET ${_pkg}
                 # Should not happen, let's print an AUTHOR_WARNING
-                message(AUTHOR_WARNING "The file ${_${_PKG}_RECIPE} does not define a ${_pkg} target. Assuming that the target has a different name.")
+                message(AUTHOR_WARNING "The file ${_${_PKG}_RECIPE} does not define a ${_pkg} target.")
             endif()
             set(HAVE_${_PKG} 1)
         endif()
