@@ -11,6 +11,10 @@ include(YCMInternal)
 set(YCM_BUILD_MODULE_DIR "${CMAKE_BINARY_DIR}/share/YCM")
 set(YCM_INSTALL_MODULE_DIR "${CMAKE_INSTALL_PREFIX}/share/YCM")
 
+# FIXME
+include(GNUInstallDirs)
+set(YCM_DOC_DIR ${CMAKE_INSTALL_DOCDIR})
+
 
 add_subdirectory(modules)
 add_subdirectory(find-modules)
@@ -18,6 +22,7 @@ add_subdirectory(cmake-next)
 add_subdirectory(3rdparty)
 add_subdirectory(deprecated)
 add_subdirectory(build-modules)
+add_subdirectory(docs)
 
 # CMakePackageConfigHelpers is not available in CMake 2.8.7
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8)
