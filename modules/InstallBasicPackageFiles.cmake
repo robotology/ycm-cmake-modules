@@ -2,9 +2,16 @@
 # InstallBasicPackageFiles
 # ------------------------
 #
-# Create and install a basic version of cmake files for your project::
+# A helper module to make your package easier to be found by other
+# projects.
 #
-#  install_basic_package_files(<name>
+#
+# .. command:: install_basic_package_files
+#
+# Create and install a basic version of cmake config files for your
+# project::
+#
+#  install_basic_package_files(<Name>
 #                              VERSION <version>
 #                              COMPATIBILITY <compatibility>
 #                              TARGETS_PROPERTY <property_name>
@@ -31,30 +38,48 @@
 # uppercase convention is used.
 #
 # Each file is generated twice, one for the build directory and one for
-# the installation directory.  The `DESTINATION` argument can be passed
-# to install the files in a location different from the default one
-# (`CMake` on Windows, `${CMAKE_INSTALL_LIBDIR}/cmake/${name}` on other
-# platforms.
+# the installation directory.  The ``DESTINATION`` argument can be
+# passed to install the files in a location different from the default
+# one (``CMake`` on Windows, ``${CMAKE_INSTALL_LIBDIR}/cmake/${name}``
+# on other platforms.
 #
 #
-# The `<Name>ConfigVersion.cmake` is generated using
-# `write_basic_package_version_file`.  The `VERSION`, `COMPATIBILITY`,
-# `NO_SET_AND_CHECK_MACRO`, and `NO_CHECK_REQUIRED_COMPONENTS_MACRO` are
-# passed to this function.  See the documentation for the
-# `CMakePackageConfigHelpers` module for further information.
-# The files in the build and install directory are exactly the same.
+# The ``<Name>ConfigVersion.cmake`` is generated using
+# ``write_basic_package_version_file``.  The ``VERSION``,
+# ``COMPATIBILITY``, ``NO_SET_AND_CHECK_MACRO``, and
+# ``NO_CHECK_REQUIRED_COMPONENTS_MACRO`` are passed to this function.
+# See the documentation for the :module:`CMakePackageConfigHelpers`
+# module for further information. The files in the build and install
+# directory are exactly the same.
 #
 #
-# The `<Name>Config.cmake` is generated using
-# `configure_package_config_file`.  See the documentation for the
-# `CMakePackageConfigHelpers` module for further information.
-#  The module expects to find a `<Name>Config.cmake.in` file in the root
-# directory of the project.
+# The ``<Name>Config.cmake`` is generated using
+# ``configure_package_config_file``.  See the documentation for the
+# :module:`CMakePackageConfigHelpers` module for further information.
+# The module expects to find a ``<Name>Config.cmake.in`` or
+# ``<name>-config.cmake.in`` file in the root directory of the project.
 # If the file does not exist, a very basic file is created.
 #
 # A set of variables are checked and passed to
-# `configure_package_config_file` as `PATH_VARS`.  Default
-# PATH_VARS_SUFFIX are::
+# ``configure_package_config_file`` as ``PATH_VARS``. For each of the
+# ``SUFFIX`` considered, if one of the variables::
+#
+#     <VARS_PREFIX>_(BUILD|INSTALL)_<SUFFIX>
+#     (BUILD|INSTALL)_<VARS_PREFIX>_<SUFFIX>
+#
+# is defined, the ``<VARS_PREFIX>_<SUFFIX>`` variable will be defined
+# before configuring the package.  In order to use that variable in the
+# config file, a line ou can access to that variable in the config
+# file by using::
+#
+#   set_and_check(<VARS_PREFIX>_<SUFFIX> \"@PACKAGE_<VARS_PREFIX>_<SUFFIX>@\")
+#
+# These variable will have different values whether you are using the
+# package from the build tree or from the install directory.  Also these
+# files will contain only relative paths, meaning that you can move the
+# whole installation and the CMake files will still work.
+#
+# Default ``PATH_VARS`` suffixes are::
 #
 #   BINDIR          BIN_DIR
 #   SBINDIR         SBIN_DIR
@@ -72,32 +97,17 @@
 #   MANDIR          MAN_DIR
 #   DOCDIR          DOC_DIR
 #
-# more suffixes can be added using the EXTRA_PATH_VARS_SUFFIX argument.
-#
-# For each PATH_VARS_SUFFIX, if one of the variables
-#
-#     <VARS_PREFIX>_(BUILD|INSTALL)_<SUFFIX>
-#     (BUILD|INSTALL)_<VARS_PREFIX>_<SUFFIX>
-#
-# is defined, the <VARS_PREFIX>_<SUFFIX> variable will be defined before
-# configuring the package.  In order to use that variable in the config
-# file, a line ou can access to that variable in the config
-# file by using::
-#
-#   set_and_check(<VARS_PREFIX>_<SUFFIX> \"@PACKAGE_<VARS_PREFIX>_<SUFFIX>@\")
-#
-# These variable will have different values whether you are using the
-# package from the build tree or from the install directory.  Also these
-# files will contain only relative paths, meaning that you can move the
-# whole installation and the CMake files will still work.
+# more suffixes can be added using the ``EXTRA_PATH_VARS_SUFFIX``
+# argument.
 #
 #
-# The `<name>Targets*.cmake` is generated using `export(TARGETS)` in the
-# build tree and install(EXPORT) in the installation directory.
-# The targets are exported using the value for the `NAMESPACE` argument
-# as namespace.
+# The ``<name>Targets.cmake`` is generated using
+# :command:`export(TARGETS)` in the build tree and
+# :command:`install(EXPORT)` in the installation directory.
+# The targets are exported using the value for the ``NAMESPACE``
+# argument as namespace.
 # The targets should be listed in a global property, that must be passed
-# to the function using the `TARGETS_PROPERTY` argument
+# to the function using the ``TARGETS_PROPERTY`` argument
 
 #=============================================================================
 # Copyright 2013  iCub Facility, Istituto Italiano di Tecnologia
