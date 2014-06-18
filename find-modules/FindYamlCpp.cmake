@@ -1,3 +1,7 @@
+#.rst:
+# FindYamlCpp
+# -----------
+#
 # Try to find the YamlCpp library.
 # Once done this will define the following variables:
 #

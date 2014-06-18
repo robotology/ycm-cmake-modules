@@ -1,3 +1,7 @@
+#.rst:
+# FindAtlas
+# ---------
+#
 # Find the Atlas (and Lapack) libraries
 
 # Copyright: (C) 2010 RobotCub Consortium

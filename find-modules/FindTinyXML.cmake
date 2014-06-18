@@ -1,3 +1,7 @@
+#.rst:
+# FindTinyXML
+# -----------
+#
 # Try to find the TinyXML library.
 # Once done this will define the following variables:
 #

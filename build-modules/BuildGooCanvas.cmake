@@ -1,3 +1,7 @@
+#.rst:
+# BuildGooCanvas
+# --------------
+#
 # GooCanvas
 include(YCMEPHelper)
 include(ExternalProject)

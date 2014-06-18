@@ -1,6 +1,10 @@
+#.rst:
+# FindACE
+# -------
+#
 # Try to find the ACE library
 #
-# Variables set:
+# Variables set::
 #   ACE_FOUND
 #   ACE_LIBRARIES
 #   ACE_INCLUDE_DIRS

@@ -1,3 +1,7 @@
+#.rst:
+# FindSQLite
+# ----------
+#
 # Try to find the SQLite library.
 # Once done this will define the following variables:
 #

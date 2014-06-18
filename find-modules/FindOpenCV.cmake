@@ -1,12 +1,15 @@
-######################################################################
-## Find OpenCV - variables set:
-##  OpenCV_FOUND
-##  OpenCV_LIBRARIES
-##  OpenCV_INCLUDE_DIRS
-##
-## This script is a combination from multiple sources that use
-## different variable names; the names are reconciled at the end
-## of the script.
+#.rst:
+# FindOpenCV
+# ----------
+#
+# Find OpenCV - variables set:
+#  OpenCV_FOUND
+#  OpenCV_LIBRARIES
+#  OpenCV_INCLUDE_DIRS
+#
+# This script is a combination from multiple sources that use
+# different variable names; the names are reconciled at the end
+# of the script.
 
 ###########################################################
 #                  Find OpenCV Library

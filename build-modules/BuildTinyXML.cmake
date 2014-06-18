@@ -1,3 +1,7 @@
+#.rst:
+# BuildTinyXML
+# ------------
+#
 # TinyXML
 include(YCMEPHelper)
 

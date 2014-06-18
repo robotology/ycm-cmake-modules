@@ -1,3 +1,7 @@
+#.rst:
+# FindCFW2CANAPI
+# --------------
+#
 # Created:
 # CFW2CANAPI_INC_DIRS   - Directories to include to use esdcan api
 # CFW2CANAPI_LIB        - Default library to link against to use the esdcan API

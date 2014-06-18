@@ -1,11 +1,15 @@
-# Copyright: (C) 2009 RobotCub Consortium
-# Authors: Alexandre Bernardino, Paul Fitzpatrick, Lorenzo Natale
-# CopyPolicy: Released under the terms of the GNU GPL v2.0.
-
+#.rst:
+# FindPLXCANAPI
+# -------------
+#
 # Created:
 # PLXCANAPI_INC_DIRS   - Directories to include to use esdcan api
 # PLXCANAPI_LIB        - Default library to link against to use the esdcan API
 # PLXCANAPI_FOUND      - If false, don't try to use esdcan API
+
+# Copyright: (C) 2009 RobotCub Consortium
+# Authors: Alexandre Bernardino, Paul Fitzpatrick, Lorenzo Natale
+# CopyPolicy: Released under the terms of the GNU GPL v2.0.
 
 IF(NOT PLXCANAPI_FOUND)
     SET(PLXCANAPI_DIR $ENV{PLXCANAPI_DIR} CACHE PATH "Path to PLXCANAPI")

@@ -1,3 +1,7 @@
+#.rst:
+# FindDRAGONFLYAPI
+# ----------------
+#
 # Created:
 # DRAGONFLYAPI_INC_DIRS   - Directories to include to use dragonfly API
 # DRAGONFLYAPI_LIB        - Default library to link against to use the dragonfly API

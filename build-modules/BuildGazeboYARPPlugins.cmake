@@ -1,3 +1,7 @@
+#.rst:
+# BuildGazeboYARPPlugins
+# ----------------------
+#
 # GazeboYARPPlugins
 
 include(YCMEPHelper)

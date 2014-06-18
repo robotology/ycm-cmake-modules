@@ -1,3 +1,7 @@
+#.rst:
+# BuildYARP
+# ---------
+#
 # YARP
 include(YCMEPHelper)
 include(FindOrBuildPackage)
