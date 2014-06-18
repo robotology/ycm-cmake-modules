@@ -7,4 +7,4 @@ Extra CMake Modules for YARP and friends
 
 | OS X/Linux |  Windows  |
 |:----------:|:----------|
-| [![Build Status](https://travis-ci.org/robotology/ycm.png?branch=master)](https://travis-ci.org/robotology/ycm) | [![Build status](https://ci.appveyor.com/api/projects/status/0xqq7fntw01qk4mf)](https://ci.appveyor.com/project/traversaro/ycm-859) |
+| [![Build Status](https://travis-ci.org/robotology/ycm.png?branch=master)](https://travis-ci.org/robotology/ycm) | [![Build status](https://ci.appveyor.com/api/projects/status/0xqq7fntw01qk4mf)](https://ci.appveyor.com/project/drdanz/ycm) |
