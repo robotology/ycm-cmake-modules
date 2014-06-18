@@ -1,0 +1,15 @@
+version: 1.0.{build}
+
+clone_folder: c:\projects\ycm
+
+install:
+  - cmd: dir c:\projects
+  
+build:
+
+build_script:
+  - cd c:\projects\ycm
+  - md build
+  - cd build
+  - cmake -G"Visual Studio 11" ..
+  - msbuild /m /p:Configuration=Release /p:Platform="Win32" ycm.sln
