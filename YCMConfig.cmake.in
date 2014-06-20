@@ -13,6 +13,7 @@ list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/build-modules")
 #  - proposed
 #  - next
 #  - old releases (newer releases first)
+#  - 3rd party
 #  - deprecated
 option(YCM_USE_CMAKE_PROPOSED "Use modules including unmerged CMake patches" OFF)
 mark_as_advanced(YCM_USE_CMAKE_PROPOSED)
