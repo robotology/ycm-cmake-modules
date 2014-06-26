@@ -407,6 +407,8 @@ function(YCM_EP_HELPER _name)
         set(_YH_${_name}_COMPONENT external)
 #     elseif(NOT "x${_YH_${_name}_COMPONENT}" MATCHES "^x(external|documentation)$")
 #         message(WARNING "Unknown component:\n  ${_YH_${_name}_COMPONENT}\n")
+    elseif(_YH_${_name}_COMPONENT STREQUAL "build")
+        message(AUTHOR_WARNING "Using \"build\" is dangerous, you should choose another name for the component.")
     endif()
 
     # Generic variables
