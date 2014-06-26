@@ -469,6 +469,17 @@ function(YCM_EP_HELPER _name)
     endif()
 
     unset(${_name}_COMMAND_ARGS)
+    if("${_YH_${_name}_COMPONENT}" STREQUAL "documentation")
+        # Documentation component does not have a build step, unless
+        # specified by the user.
+        foreach(_step CONFIGURE
+                      BUILD
+                      INSTALL)
+            if(NOT DEFINED _YH_${_name}_${_step}_COMMAND)
+                set(_YH_${_name}_${_step}_COMMAND "")
+            endif()
+        endforeach()
+    endif()
     foreach(_step DOWNLOAD
                   UPDATE PATCH
                   CONFIGURE
@@ -499,15 +510,10 @@ function(YCM_EP_HELPER _name)
     endif()
 
 
-    unset(${_name}_COMPONENT_ARGS)
     if("${_YH_${_name}_COMPONENT}" STREQUAL "documentation")
-        set(${_name}_COMPONENT_ARGS CONFIGURE_COMMAND ""
-                                    BUILD_COMMAND ""
-                                    INSTALL_COMMAND ""
-                                    STEP_TARGETS ""
-                                    INDEPENDENT_STEP_TARGETS "")
+        set(${_name}_STEP_ARGS STEP_TARGETS ""
+                               INDEPENDENT_STEP_TARGETS "")
     endif()
-
 
 
     unset(${_name}_EXTRA_ARGS})
@@ -566,7 +572,7 @@ function(YCM_EP_HELPER _name)
                           ${_name}_ALL_CMAKE_ARGS
                           ${_name}_DEPENDS_ARGS
                           ${_name}_COMMAND_ARGS
-                          ${_name}_COMPONENT_ARGS
+                          ${_name}_STEP_ARGS
                           ${_name}_EXTRA_ARGS)
         list(APPEND ${_name}_ARGS "${_arg}")
     endforeach()
