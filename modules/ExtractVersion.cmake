@@ -42,7 +42,7 @@ set(__EXTRACT_VERSION_INCLUDED TRUE)
 
 
 macro(EXTRACT_VERSION _name)
-    if("x${ARG2}" STREQUAL "xREVERSE_NAME")
+    if("x${ARGV2}" STREQUAL "xREVERSE_NAME")
         set(_reverse 1)
     endif()
 
