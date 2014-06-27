@@ -814,6 +814,32 @@ endfunction()
 
 
 ########################################################################
+# YCM_WRITE_CTEST_SUBPROJECT_CONFIG_FILE
+#
+# Write ctest subprojects file::
+#
+#  ycm_write_ctest_subproject_config_file(<filename>)
+#
+# This function writes a cmake file that can be used in ctest scripts.
+
+function(YCM_WRITE_CTEST_SUBPROJECT_CONFIG_FILE _filename)
+    get_property(_projects GLOBAL PROPERTY YCM_PROJECTS)
+    file(WRITE ${_filename} "set(CTEST_PROJECT_SUBPROJECTS")
+    foreach(_proj ${_projects})
+        file(APPEND "${_filename}" "\n      ${_proj}")
+    endforeach()
+    file(APPEND "${_filename}" ")\n")
+    foreach(_proj ${_projects})
+      get_property(_component GLOBAL PROPERTY _YCM_${_proj}_COMPONENT)
+      file(APPEND "${_filename}" "
+set(${_proj}_SOURCE_DIR \${CTEST_SOURCE_DIRECTORY}/${_component}/${_proj})
+set(${_proj}_BINARY_DIR \${CTEST_BINARY_DIRECTORY}/${_component}/${_proj})
+")
+    endforeach()
+endfunction()
+
+
+########################################################################
 # YCM_BOOTSTRAP
 #
 # Bootstrap YCM.
