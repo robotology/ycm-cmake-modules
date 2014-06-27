@@ -15,7 +15,9 @@ ycm_ep_helper(GazeboYARPPlugins TYPE GIT
                                 STYLE GITHUB
                                 REPOSITORY robotology/gazebo_yarp_plugins.git
                                 TAG master
-                                DEPENDS YARP)
+                                DEPENDS YARP
+                                        gazebo
+                                        Boost)
 
 ycm_ep_helper(gazebo_yarp_plugins.wiki TYPE GIT
                                        STYLE GITHUB
