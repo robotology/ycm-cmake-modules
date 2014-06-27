@@ -775,6 +775,45 @@ endfunction()
 
 
 ########################################################################
+# YCM_WRITE_CDASH_PROJECT_FILE
+#
+# Write cdash Project.xml file::
+#
+#  ycm_write_cdash_project_file(<filename>)
+#
+# This function writes a Project.xml file that can be read and
+# interpreted by CDash.
+
+function(YCM_WRITE_CDASH_PROJECT_FILE _filename)
+    get_property(_projects GLOBAL PROPERTY YCM_PROJECTS)
+
+    # For CTEST_PROJECT_NAME
+    include(${CMAKE_SOURCE_DIR}/CTestConfig.cmake OPTIONAL)
+
+    if(NOT DEFINED CTEST_PROJECT_NAME OR CTEST_PROJECT_NAME STREQUAL "")
+        message(SEND_ERROR "Cannot generate Project.xml. Please set CTEST_PROJECT_NAME variable or add a ${CMAKE_SOURCE_DIR}/CTestConfig.cmake file")
+    endif()
+
+    file(WRITE ${_filename} "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Project name=\"${CTEST_PROJECT_NAME}\">\n")
+
+    foreach(_proj ${_projects})
+        file(APPEND "${_filename}" "\n  <SubProject name=\"${_proj}\">")
+        get_property(_dependencies GLOBAL PROPERTY _YCM_${_proj}_DEPENDS)
+        foreach(_dep ${_dependencies})
+            list(FIND _projects ${_dep} _is_ycm)
+            if(NOT _is_ycm EQUAL -1)
+                file(APPEND "${_filename}" "\n    <Dependency name=\"${_dep}\" />")
+            else()
+                file(APPEND "${_filename}" "\n    <!-- <Dependency name=\"${_dep}\" /> -->")
+            endif()
+        endforeach()
+        file(APPEND "${_filename}" "\n  </SubProject>\n")
+    endforeach()
+file(APPEND "${_filename}" "</Project>\n")
+endfunction()
+
+
+########################################################################
 # YCM_BOOTSTRAP
 #
 # Bootstrap YCM.
