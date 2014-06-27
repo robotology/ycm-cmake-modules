@@ -757,6 +757,20 @@ function(YCM_EP_HELPER _name)
         set(${_name}_${_d} ${${_name}_${_d}} PARENT_SCOPE)
     endforeach()
 
+    # Set some useful global properties
+    if(NOT _name STREQUAL "YCM")
+        set_property(GLOBAL APPEND PROPERTY YCM_PROJECTS ${_name})
+        get_property(_components GLOBAL PROPERTY YCM_COMPONENTS)
+        list(APPEND _components ${_YH_${_name}_COMPONENT})
+        list(REMOVE_DUPLICATES _components)
+        set_property(GLOBAL PROPERTY YCM_COMPONENTS ${_components})
+
+        # TODO foreach on all the variables?
+        set_property(GLOBAL PROPERTY _YCM_${_name}_COMPONENT ${_YH_${_name}_COMPONENT})
+        set_property(GLOBAL PROPERTY _YCM_${_name}_DEPENDS ${_YH_${_name}_DEPENDS})
+
+        set_property(GLOBAL APPEND PROPERTY _YCM_${_name}_PROJECTS ${_name})
+    endif()
 endfunction()
 
 
