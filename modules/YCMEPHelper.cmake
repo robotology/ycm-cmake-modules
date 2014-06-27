@@ -757,6 +757,178 @@ function(YCM_EP_HELPER _name)
         set(${_name}_${_d} ${${_name}_${_d}} PARENT_SCOPE)
     endforeach()
 
+    # Set some useful global properties
+    if(NOT _name STREQUAL "YCM")
+        set_property(GLOBAL APPEND PROPERTY YCM_PROJECTS ${_name})
+        get_property(_components GLOBAL PROPERTY YCM_COMPONENTS)
+        list(APPEND _components ${_YH_${_name}_COMPONENT})
+        list(REMOVE_DUPLICATES _components)
+        set_property(GLOBAL PROPERTY YCM_COMPONENTS ${_components})
+
+        # TODO foreach on all the variables?
+        set_property(GLOBAL PROPERTY _YCM_${_name}_COMPONENT ${_YH_${_name}_COMPONENT})
+        set_property(GLOBAL PROPERTY _YCM_${_name}_DEPENDS ${_YH_${_name}_DEPENDS})
+
+        set_property(GLOBAL APPEND PROPERTY _YCM_${_name}_PROJECTS ${_name})
+    endif()
+endfunction()
+
+
+########################################################################
+# YCM_WRITE_CDASH_PROJECT_FILE
+#
+# Write cdash Project.xml file::
+#
+#  ycm_write_cdash_project_file(<filename>)
+#
+# This function writes a Project.xml file that can be read and
+# interpreted by CDash.
+
+function(YCM_WRITE_CDASH_PROJECT_FILE _filename)
+    get_property(_projects GLOBAL PROPERTY YCM_PROJECTS)
+
+    # For CTEST_PROJECT_NAME
+    include(${CMAKE_SOURCE_DIR}/CTestConfig.cmake OPTIONAL)
+
+    if(NOT DEFINED CTEST_PROJECT_NAME OR CTEST_PROJECT_NAME STREQUAL "")
+        message(SEND_ERROR "Cannot generate Project.xml. Please set CTEST_PROJECT_NAME variable or add a ${CMAKE_SOURCE_DIR}/CTestConfig.cmake file")
+    endif()
+
+    file(WRITE ${_filename} "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Project name=\"${CTEST_PROJECT_NAME}\">\n")
+
+    foreach(_proj ${_projects})
+        file(APPEND "${_filename}" "\n  <SubProject name=\"${_proj}\">")
+        get_property(_dependencies GLOBAL PROPERTY _YCM_${_proj}_DEPENDS)
+        foreach(_dep ${_dependencies})
+            list(FIND _projects ${_dep} _is_ycm)
+            if(NOT _is_ycm EQUAL -1)
+                file(APPEND "${_filename}" "\n    <Dependency name=\"${_dep}\" />")
+            else()
+                file(APPEND "${_filename}" "\n    <!-- <Dependency name=\"${_dep}\" /> -->")
+            endif()
+        endforeach()
+        file(APPEND "${_filename}" "\n  </SubProject>\n")
+    endforeach()
+file(APPEND "${_filename}" "</Project>\n")
+endfunction()
+
+
+########################################################################
+# YCM_WRITE_CTEST_SUBPROJECT_CONFIG_FILE
+#
+# Write ctest subprojects file::
+#
+#  ycm_write_ctest_subproject_config_file(<filename>)
+#
+# This function writes a cmake file that can be used in ctest scripts.
+
+function(YCM_WRITE_CTEST_SUBPROJECT_CONFIG_FILE _filename)
+    get_property(_projects GLOBAL PROPERTY YCM_PROJECTS)
+    file(WRITE ${_filename} "set(CTEST_PROJECT_SUBPROJECTS")
+    foreach(_proj ${_projects})
+        file(APPEND "${_filename}" "\n      ${_proj}")
+    endforeach()
+    file(APPEND "${_filename}" ")\n")
+    foreach(_proj ${_projects})
+      get_property(_component GLOBAL PROPERTY _YCM_${_proj}_COMPONENT)
+      file(APPEND "${_filename}" "
+set(${_proj}_SOURCE_DIR \${CTEST_SOURCE_DIRECTORY}/${_component}/${_proj})
+set(${_proj}_BINARY_DIR \${CTEST_BINARY_DIRECTORY}/${_component}/${_proj})
+")
+    endforeach()
+endfunction()
+
+
+########################################################################
+# YCM_WRITE_DOT_FILE
+#
+# Write dot file::
+#
+#  ycm_write_dot_file(<filename>)
+#
+# This function writes a dot file that produces a graph showing all the
+# subprojects, dependencies and components.
+
+function(YCM_WRITE_DOT_FILE _filename)
+    get_property(_projects GLOBAL PROPERTY YCM_PROJECTS)
+    get_property(_components GLOBAL PROPERTY YCM_COMPONENTS)
+    foreach(_proj ${_projects})
+        get_property(_component GLOBAL PROPERTY _YCM_${_proj}_COMPONENT)
+        get_property(_dependencies GLOBAL PROPERTY _YCM_${_proj}_DEPENDS)
+
+        if(NOT _component STREQUAL "documentation"
+           AND NOT _component STREQUAL "templates"
+           AND NOT _component STREQUAL "examples")
+
+            set(_${_component}_subgraph  "${_${_component}_subgraph}\n    ${_proj}")
+            foreach(_dep ${_dependencies})
+                list(FIND _projects ${_dep} _is_ycm)
+                if(_is_ycm EQUAL -1)
+                    list(APPEND _found_on_system ${_dep})
+                    list(REMOVE_DUPLICATES _found_on_system)
+                    set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"lightgray\" style=\"dashed\"];")
+                else()
+                    get_property(_dep_component GLOBAL PROPERTY _YCM_${_dep}_COMPONENT)
+                    if(_dep_component STREQUAL "external")
+                        set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"gray\"];")
+                    else()
+                        set(_arrows "${_arrows}\n  ${_proj} -> ${_dep};")
+                    endif()
+                endif()
+            endforeach()
+        endif()
+    endforeach()
+    foreach(_dep ${_found_on_system})
+        set(_found_on_system_subgraph "${_found_on_system_subgraph}\n    ${_dep}")
+    endforeach()
+
+    file(WRITE ${_filename}
+"digraph ${PROJECT_NAME} {
+  graph [ranksep=\"1.5\", nodesep=\"0.1\" rankdir=\"BT\"];
+")
+
+    if(_found_on_system_subgraph)
+        file(APPEND ${_filename} "
+  subgraph cluster_system {
+    label=\"System\";
+    style=\"dashed\";
+    color=\"orangered1\";
+    bgcolor=\"oldlace\";
+    node [shape=\"pentagon\", color=\"orangered3\", fontsize=\"8\"];
+${_found_on_system_subgraph}
+  }
+")
+    endif()
+
+    if(_external_subgraph)
+        file(APPEND "${_filename}" "
+  subgraph cluster_external {
+    label=\"External\";
+    style=\"dashed\";
+    color=\"green\";
+    bgcolor=\"mintcream\";
+    node [shape=\"box\", color=\"darkgreen\"];
+${_external_subgraph}
+  }
+")
+    endif()
+
+    list(REMOVE_ITEM _components "external" "documentation" "templates" "examples")
+    foreach(_component ${_components})
+        if(_${_component}_subgraph)
+            file(APPEND "${_filename}" "
+  subgraph cluster_${_component} {
+    label=\"${_component}\";
+    color=\"dodgerblue1\";
+    bgcolor = \"aliceblue\";
+    node [style=\"bold\", shape=\"note\", color=\"dodgerblue3\"];
+${_${_component}_subgraph}
+  }
+")
+        endif()
+    endforeach()
+
+    file(APPEND "${_filename}" "\n${_arrows}\n}\n")
 endfunction()
 
 
