@@ -840,6 +840,99 @@ endfunction()
 
 
 ########################################################################
+# YCM_WRITE_DOT_FILE
+#
+# Write dot file::
+#
+#  ycm_write_dot_file(<filename>)
+#
+# This function writes a dot file that produces a graph showing all the
+# subprojects, dependencies and components.
+
+function(YCM_WRITE_DOT_FILE _filename)
+    get_property(_projects GLOBAL PROPERTY YCM_PROJECTS)
+    get_property(_components GLOBAL PROPERTY YCM_COMPONENTS)
+    foreach(_proj ${_projects})
+        get_property(_component GLOBAL PROPERTY _YCM_${_proj}_COMPONENT)
+        get_property(_dependencies GLOBAL PROPERTY _YCM_${_proj}_DEPENDS)
+
+        if(NOT _component STREQUAL "documentation"
+           AND NOT _component STREQUAL "templates"
+           AND NOT _component STREQUAL "examples")
+
+            set(_${_component}_subgraph  "${_${_component}_subgraph}\n    ${_proj}")
+            foreach(_dep ${_dependencies})
+                list(FIND _projects ${_dep} _is_ycm)
+                if(_is_ycm EQUAL -1)
+                    list(APPEND _found_on_system ${_dep})
+                    list(REMOVE_DUPLICATES _found_on_system)
+                    set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"lightgray\" style=\"dashed\"];")
+                else()
+                    get_property(_dep_component GLOBAL PROPERTY _YCM_${_dep}_COMPONENT)
+                    if(_dep_component STREQUAL "external")
+                        set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"gray\"];")
+                    else()
+                        set(_arrows "${_arrows}\n  ${_proj} -> ${_dep};")
+                    endif()
+                endif()
+            endforeach()
+        endif()
+    endforeach()
+    foreach(_dep ${_found_on_system})
+        set(_found_on_system_subgraph "${_found_on_system_subgraph}\n    ${_dep}")
+    endforeach()
+
+    file(WRITE ${_filename}
+"digraph ${PROJECT_NAME} {
+  graph [ranksep=\"1.5\", nodesep=\"0.1\" rankdir=\"BT\"];
+")
+
+    if(_found_on_system_subgraph)
+        file(APPEND ${_filename} "
+  subgraph cluster_system {
+    label=\"System\";
+    style=\"dashed\";
+    color=\"orangered1\";
+    bgcolor=\"oldlace\";
+    node [shape=\"pentagon\", color=\"orangered3\", fontsize=\"8\"];
+${_found_on_system_subgraph}
+  }
+")
+    endif()
+
+    if(_external_subgraph)
+        file(APPEND "${_filename}" "
+  subgraph cluster_external {
+    label=\"External\";
+    style=\"dashed\";
+    color=\"green\";
+    bgcolor=\"mintcream\";
+    node [shape=\"box\", color=\"darkgreen\"];
+${_external_subgraph}
+  }
+")
+    endif()
+
+    list(REMOVE_ITEM _components "external" "documentation" "templates" "examples")
+    foreach(_component ${_components})
+        if(_${_component}_subgraph)
+            file(APPEND "${_filename}" "
+  subgraph cluster_${_component} {
+    label=\"${_component}\";
+    color=\"dodgerblue1\";
+    bgcolor = \"aliceblue\";
+    node [style=\"bold\", shape=\"note\", color=\"dodgerblue3\"];
+${_${_component}_subgraph}
+  }
+")
+        endif()
+    endforeach()
+
+    file(APPEND "${_filename}" "\n${_arrows}\n}\n")
+endfunction()
+
+
+########################################################################
 # YCM_BOOTSTRAP
 #
 # Bootstrap YCM.
