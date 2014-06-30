@@ -512,7 +512,8 @@ function(YCM_EP_HELPER _name)
 
     if("${_YH_${_name}_COMPONENT}" STREQUAL "documentation")
         set(${_name}_STEP_ARGS STEP_TARGETS ""
-                               INDEPENDENT_STEP_TARGETS "")
+                               INDEPENDENT_STEP_TARGETS ""
+                               SCM_DISCONNECTED 0)
     endif()
 
 
