@@ -1,3 +1,7 @@
+#.rst:
+# FindGtkDatabox
+# --------------
+#
 # Try to find the GtkDatabox library.
 # Once done this will define the following variables:
 #

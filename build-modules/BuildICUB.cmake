@@ -1,3 +1,7 @@
+#.rst:
+# BuildICUB
+# ---------
+#
 # ICUB
 include(YCMEPHelper)
 include(FindOrBuildPackage)

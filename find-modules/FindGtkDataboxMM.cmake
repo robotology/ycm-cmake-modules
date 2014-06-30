@@ -1,3 +1,7 @@
+#.rst:
+# FindGtkDataboxMM
+# ----------------
+#
 # Try to find the GtkDataboxMM library.
 # Once done this will define the following variables:
 #

@@ -1,3 +1,7 @@
+#.rst:
+# FindESDCANAPI
+# -------------
+#
 # Created:
 # ESDCANAPI_INC_DIRS   - Directories to include to use esdcan api
 # ESDCANAPI_LIB        - Default library to link against to use the esdcan API

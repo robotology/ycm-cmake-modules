@@ -1,3 +1,7 @@
+#.rst:
+# FindIPOPT
+# ---------
+#
 # Try to locate the IPOPT library
 #
 # If the IPOPT_DIR is set, try to locate the package in the given

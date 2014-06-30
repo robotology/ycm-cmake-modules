@@ -1,3 +1,7 @@
+#.rst:
+# FindGSL
+# -------
+#
 # Try to find GSL library
 # Once run this will define:
 #

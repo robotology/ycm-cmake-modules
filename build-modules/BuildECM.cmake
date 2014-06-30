@@ -1,3 +1,7 @@
+#.rst:
+# BuildECM
+# --------
+#
 # ECM - extra-cmake-modules (from KDE project)
 
 include(YCMEPHelper)

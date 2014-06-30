@@ -1,7 +1,6 @@
-#
-# Copyright: 2010 RobotCub Consortium
-# Author: Lorenzo Natale
-# CopyPolicy: Released under the terms of the GNU GPL v2.0.
+#.rst:
+# FindQt3
+# -------
 #
 # Wrap kitware's original FindQt3 script. Standardize varibles.
 #
@@ -11,6 +10,10 @@
 # Qt3_FOUND
 # Qt3_LIBRARIES
 # Qt3_INCLUDE_DIRS
+
+# Copyright: 2010 RobotCub Consortium
+# Author: Lorenzo Natale
+# CopyPolicy: Released under the terms of the GNU GPL v2.0.
 
 #message(Find Qt3 form iCub package)
 

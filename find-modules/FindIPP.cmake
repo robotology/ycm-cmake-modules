@@ -1,3 +1,8 @@
+#.rst:
+# FindIPP
+# -------
+#
+
 # ask Francesco Rea if you have troubles.
 SET(VERBOSE OFF)
 

@@ -1,8 +1,7 @@
-
-# Copyright: (C) 2009 RobotCub Consortium
-# Authors: Lorenzo Natale and Vadim Tikhanoff
-# CopyPolicy: Released under the terms of the GNU GPL v2.0.
-
+#.rst:
+# FindODE
+# -------
+#
 # Options:
 # USE_ODE_DOUBLE  -use double precision ode libraries
 # ODE_STATIC      -link against static libraries
@@ -11,6 +10,10 @@
 # ODE_INCLUDE_DIRS  - Directories to include to use ODE
 # ODE_LIBRARIES     - Default library to link against to use ODE
 # ODE_FOUND         - If false, library not found
+
+# Copyright: (C) 2009 RobotCub Consortium
+# Authors: Lorenzo Natale and Vadim Tikhanoff
+# CopyPolicy: Released under the terms of the GNU GPL v2.0.
 
 
 # Dec 2009, reorganized to handle new windows ode versions.

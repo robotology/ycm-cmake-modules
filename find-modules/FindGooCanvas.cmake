@@ -1,3 +1,7 @@
+#.rst:
+# FindGooCanvas
+# -------------
+#
 # Try to find the GooCanvas library.
 # Once done this will define the following variables:
 #

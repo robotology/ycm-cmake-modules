@@ -1,4 +1,10 @@
-# YCM_EP_HELPER(<name>
+#.rst:
+# YCMEPHelper
+# -----------
+#
+# A helper for :module:`ExternalProject`::
+#
+#  ycm_ep_helper(<name>
 #    [DOCS]
 #    [TYPE <type>]
 #    [STYLE <style>]
@@ -26,17 +32,20 @@
 #    [CLEAN_COMMAND] (not in ExternalProject)
 #    )
 #
-# YCM_BOOTSTRAP()
+#  YCM_BOOTSTRAP()
 #
-# Variables:
-# NON_INTERACTIVE_BUILD
-# YCM_BOOTSTRAP_BASE_ADDRESS
-# YCM_SKIP_HASH_CHECK
-# YCM_BOOTSTRAP_VERBOSE
+# .. variable:: NON_INTERACTIVE_BUILD
+#
+# TODO Rename NON_INTERACTIVE_BUILD -> YCM_NON_INTERACTIVE_BUILD
+#
+# .. variable:: YCM_BOOTSTRAP_BASE_ADDRESS
+#
+# .. variable:: YCM_SKIP_HASH_CHECK
+#
+# .. variable:: YCM_BOOTSTRAP_VERBOSE
+#
 
-# TODO
-# Rename NON_INTERACTIVE_BUILD -> YCM_NON_INTERACTIVE_BUILD
-# YCM_INSTALL_PREFIX
+# TODO Add variable YCM_INSTALL_PREFIX
 
 
 # Copyright (C) 2013  iCub Facility, Istituto Italiano di Tecnologia

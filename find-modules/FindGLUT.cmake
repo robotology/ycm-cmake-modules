@@ -1,16 +1,20 @@
-# Copyright: 2010 RobotCub Consortium
-# Author: Lorenzo Natale
-# CopyPolicy: Released under the terms of the GNU GPL v2.0.
-
+#.rst:
+# FindGLUT
+# --------
+#
 # Wrap kitware's original FindGLUT script to work on windows with
 # binary distribution. Standardize varibles.
 #
 # In windows require you set GLUT_DIR
 #
-# Set: 
+# Set:
 # GLUT_FOUND
 # GLUT_LIBRARIES
 # GLUT_INCLUDE_DIRS
+
+# Copyright: 2010 RobotCub Consortium
+# Author: Lorenzo Natale
+# CopyPolicy: Released under the terms of the GNU GPL v2.0.
 
 #message(Find GLUT form iCub package)
 
