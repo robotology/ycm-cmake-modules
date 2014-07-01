@@ -481,11 +481,15 @@ function(YCM_EP_HELPER _name)
     if("${_YH_${_name}_COMPONENT}" STREQUAL "documentation")
         # Documentation component does not have a build step, unless
         # specified by the user.
+        # The string "_" can be used to specify that the default command
+        # should be left.
         foreach(_step CONFIGURE
                       BUILD
                       INSTALL)
             if(NOT DEFINED _YH_${_name}_${_step}_COMMAND)
                 set(_YH_${_name}_${_step}_COMMAND "")
+            elseif(_YH_${_name}_${_step}_COMMAND STREQUAL "_")
+                unset(_YH_${_name}_${_step}_COMMAND)
             endif()
         endforeach()
     endif()
