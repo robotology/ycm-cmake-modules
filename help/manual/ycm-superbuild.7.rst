@@ -7,7 +7,6 @@ ycm-superbuild(7)
 
    .. contents::
 
-
 YCM Superbuild
 ==============
 
@@ -41,6 +40,10 @@ the appropriate section:
 
 YCM Superbuild Manual for Basic Users
 =====================================
+
+.. toctree::
+   :maxdepth: 1
+
 
 A YCM superbuild can be built like any other CMake project.
 
@@ -108,12 +111,12 @@ After updating some project, you should then rebuild.
 Windows
 -------
 
-TODO
+.. todo:: Add Windows documentation
 
 OS X
 ----
 
-TODO
+.. todo:: Add OS X documentation
 
 
 
@@ -124,18 +127,23 @@ TODO
 YCM Superbuild Manual for Developers
 ====================================
 
+.. toctree::
+   :maxdepth: 1
+
 
 A developer is someone that does not want just to build the superbuild
 but also wants to modify some of the subprojects.
 
-An important note is that if you want to build a package with a YCM
-Superbuild, this should not be available on the system. If it is, then
-the source code will not even be downloaded.
-If you want to keep 2 different versions, you have to tell the
-superbuild to ignore the system version, and to download and build it
-instead, by setting the ``USE_SYSTEM_<PACKAGE>`` varibale to ``FALSE``.
+.. note::
+  If a package should be built with a YCM Superbuild, this should not be
+  available on the system. If it is, then the source code will not even
+  be downloaded.
+  In order to keep 2 different versions, the superbuild should ignore
+  the system version, and download and build it instead.
+  This can be done by setting the ``USE_SYSTEM_<PACKAGE>`` varibale to
+  ``FALSE``.
 
-You can do this by running :cmake:manual:`ccmake <ccmake(1)>` or
+This can be done by running :cmake:manual:`ccmake <ccmake(1)>` or
 :cmake:manual:`cmake-gui <cmake-gui(1)>` and changing the value, or by
 running adding ``-DUSE_SYSTEM_<PACKAGE>:BOOL=FALSE`` to the
 :cmake:manual:`cmake <cmake(1)>` command line.
@@ -168,7 +176,8 @@ YCM superbuild project, usually ``${PROJECT_SOURCE_DIR}/build/``
 
 The superbuild will run the ``configure``, ``build`` and ``install``
 step for each project.
-Each project will be installed in ``
+
+Each project will be installed in ``${PROJECT_BINARY_DIR}/install``
 
 
 .. _`Developer Mode`:
@@ -176,14 +185,22 @@ Each project will be installed in ``
 Developer Mode
 --------------
 
-For each the superproject built by the superbuild, it is possible to
+A developer usually works on a limited set of projects.
 
+For each the superproject that the developer will modify, he should
+enable the :variable:`YCM_<PROJECT>_DEVEL_MODE` CMake cached variable.
+
+This can be done by running :cmake:manual:`ccmake <ccmake(1)>` or
+:cmake:manual:`cmake-gui <cmake-gui(1)>` and changing the value, or by
+running adding ``-DUSE_SYSTEM_<PACKAGE>:BOOL=FALSE`` to the
+:cmake:manual:`cmake <cmake(1)>` command line.
 
 
 
 Note that the superbuild will disable the
 :ref:`update target <target:project-update>` for the projects in
-<PROJECT>_DEVEL_MODE, you will have to update them manually
+:variable:`YCM_<PROJECT>_DEVEL_MODE`, you will have to update them
+manually.
 
 
 .. _`Expert Mode`:
@@ -191,10 +208,12 @@ Note that the superbuild will disable the
 Expert Mode
 -----------
 
-The :variable:`YCM_EXPERT_MODE`` variable will set the YCM Superbuild
-in "expert mode". This is disabled by default.
+The :variable:`YCM_SUPERBUILD_EXPERT_MODE`` variable will set the YCM
+Superbuild in "expert mode". This is disabled by default.
 This means that all the projects that are in "developer mode" will have
-all the targets enabled (including the update step)
+all the targets enabled (including the update step) and that the
+:ref:`update <target:project-update>` and similar targets will keep
+these targets as well.
 
 
 .. _`Targets`:
@@ -227,7 +246,8 @@ Build all sub-projects.
 update-all (ALL_UPDATE)
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Update all sub-projects, except for those in <PROJECT>_DEVEL_MODE.
+Update all sub-projects, except for those in
+:variable:`YCM_<PROJECT>_DEVEL_MODE`.
 
 
 .. _`target:fetch-all`:
@@ -235,8 +255,8 @@ Update all sub-projects, except for those in <PROJECT>_DEVEL_MODE.
 fetch-all (ALL_FETCH)
 ^^^^^^^^^^^^^^^^^^^^^
 
-Runs git fetch for all the sub-projects in <PROJECT>_DEVEL_MODE (git
-sub-projects only).
+Runs git fetch for all the sub-projects in
+:variable:`YCM_<PROJECT>_DEVEL_MODE` (git sub-projects only).
 
 
 .. _`target:status-all`:
@@ -245,7 +265,7 @@ status-all (ALL_STATUS)
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 Prints the status (using the appropriate SCM command) for all the
-sub-projects in <PROJECT>_DEVEL_MODE.
+sub-projects in :variable:`YCM_<PROJECT>_DEVEL_MODE`.
 
 
 .. _`target:clean-all`:
@@ -253,7 +273,7 @@ sub-projects in <PROJECT>_DEVEL_MODE.
 clean-all (ALL_CLEAN)
 ^^^^^^^^^^^^^^^^^^^^^
 
-... TODO
+.. todo:: Missing docs
 
 
 .. _`target:print-directories-all`:
@@ -261,13 +281,19 @@ clean-all (ALL_CLEAN)
 print-directories-all (ALL_PRINT_DIRECTORIES)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-... TODO
+.. todo:: Missing docs
 
 
 
-FIXME install
-^^^^^^^^^^^^^
-... TODO
+install
+^^^^^^^
+
+.. warning:: ``install`` target does not exist yet.
+
+.. todo:: Missing docs
+
+
+.. _`Component Targets`:
 
 
 Component Targets
@@ -277,15 +303,9 @@ These targets influence a specific ``COMPONENT``, for example
 ``external``
 
 
+.. _`Project Targets - Common`:
 
-.. _`target:component`:
-
-<COMPONENT>
-^^^^^^^^^^^
-
-
-
-Project Targets (Common)
+Project Targets - Common
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. _`target:project`:
@@ -297,8 +317,9 @@ Builds a sub-project and all its dependees.
 
 
 
+.. _`Project Targets - Basic Mode`:
 
-Project Targets (Basic Mode)
+Project Targets - Basic Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. _`target:project-update`:
@@ -309,12 +330,58 @@ Project Targets (Basic Mode)
 Update a sub-project.
 
 
+.. _`Project Targets - Development Mode`:
 
-
-Project Targets (Development Mode)
+Project Targets - Development Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+
+.. _`target:component`:
+
+<COMPONENT>
+^^^^^^^^^^^
+
+.. _`Project Targets - Special Components`:
+
+Project Targets - Special Components
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Projects in some special components behave in a different way
+
+
+documentation
+^^^^^^^^^^^^^
+
+These projects usually don't have ``build``, ``configure``, or
+``install`` step.
+The only target enabled is the :ref:`target:project` target.
+
+The ``update`` step for these projects is always performed with the
+:ref:`target:project` target.
+
+If one of the steps is added manually, this step is performed with the
+:ref:`target:project` target.
+
+These projects are not added to the
+:ref:`global targets <Global Targets>`.
+
+
+examples
+^^^^^^^^
+
+These projects are not added to the
+:ref:`global targets <Global Targets>`.
+
+templates
+^^^^^^^^^
+
+These projects are not added to the
+:ref:`global targets <Global Targets>`.
+
+
+IDEs
+----
 
 
 
@@ -323,6 +390,9 @@ Project Targets (Development Mode)
 
 YCM Superbuild Manual for Maintainers
 =====================================
+
+.. toctre:e:
+   :maxdepth: 1
 
 
 A YCM superbuild is based on the :module:`ExternalProject` CMake module.
@@ -355,17 +425,28 @@ configure time, instead of at compile time. This allows you to use
 all YCM modules right after the bootstrap.
 
 
-The other important modules for making a superbuild (see
-:ref:`Superbuild Helper Modules`) are:
+The other important modules for making a superbuild
 
  * :module:`YCMEPHelper`, a helper for :module:`ExternalProject` that
    does some extra setup, and add some extra targets
- * :module:`FindOrBuildPackage`,  that ensures that a package is available
-   and eventually downloads and builds it.
+ * :module:`FindOrBuildPackage`,  that ensures that a package is
+   available and eventually downloads and builds it.
+
+.. seealso:: :ref:`Superbuild Helper Modules`
 
 
-A superbuild is not supposed to contain source code, but just the CMake
-files to build all the subprojects.
+.. note::
+  A superbuild usually does not contain source code, but just the
+  CMake files to build all the subprojects. It can build code, but
+  the target dependencies should be handled properly.
+
+.. warning::
+  CMake modules installed by packages built by the superbuild will
+  **not** be available during the configure phase of the superbuild,
+  therefore you cannot include them in the ``CMakeLists.txt`` file, and
+  you cannot use the :cmake:command:`functions <function>` and
+  :cmake:command:`macros <macro>` that these files declare. This is
+  often a good reason for not including source code in the superbuild.
 
 
 
@@ -502,28 +583,30 @@ Components
 default component is ``external``.
 This is useful to separate your project in conceptual units.
 
-FIXME: These components are handled in a slightly different way
-
- * ``external`` component is for packages that the users of the superbuild
-   will not modify.
- * ``documentation`` component contains only documentation and is not
-   necessary for building the superbuild.
- * ``example`` and ``template`` components are not necessary for building
-   the superbuild.
 
 You can add any other component for your superbuild.
 
+This will influence the superbuild in some ways:
 
-TODO: The superbuild will create targets for each component.
+1. The superbuild will create targets for each component.
 
+   .. seealso:: :ref:`Component Targets` for details.
 
-The source code will be downloaded in your
-``${CMAKE_SOURCE_DIR}/${COMPONENT}/${NAME}``
+2. The component will influence the folders where the project is
+   downloaded and built.
 
-The binary directory, where your code will be compiled, will be
-``${CMAKE_BINARY_DIR}/${COMPONENT}/${NAME}``
+   .. seealso:: :ref:`Directories` for details.
 
+3. Some special components are handled in a slightly different way:
 
+    * ``external`` component is for packages that the users of the
+      superbuild will not modify.
+    * ``documentation`` component contains only documentation and is not
+      necessary for building the superbuild.
+    * ``example`` and ``template`` components are not necessary for
+      building the superbuild.
+
+   .. seealso:: :ref:`Project Targets - Special Components` for details.
 
 
 
@@ -532,9 +615,10 @@ The binary directory, where your code will be compiled, will be
 Changing TAG (git repository only)
 ----------------------------------
 
-TODO Perhaps this should be in the :module:`YCMEPHelper` module documentation?
+.. todo:: Perhaps this should be in the :module:`YCMEPHelper` module documentation?
 
-:command:`ycm_ep_helper` allows you to set a ``TAG`` for git repositories.
+:command:`ycm_ep_helper` allows you to set a ``TAG`` for git
+repositories.
 This ``TAG`` can be any ref known by the git repository, i.e. a commit
 hash, a tag or a branch.
 
@@ -549,7 +633,7 @@ This is the recommended mode to use when you need to work on one project
 inside your superbuild.
 
 
-FIXME changing branch issues
+.. todo:: Changing branch issues
 
 
 In the latter case, git always performs a checkout of the specific
@@ -560,7 +644,7 @@ dependencies for projects inside your superbuild, and that developers
 will not modify.
 
 
-FIXME changing tag issues
+.. todo:: Changing tag issues
 
 
 
@@ -569,9 +653,9 @@ FIXME changing tag issues
 Styles
 ------
 
-TODO Perhaps this should be in the :module:`YCMEPHelper` module documentation?
+.. todo:: Perhaps this should be in the :module:`YCMEPHelper` module documentation?
 
-TODO
+.. todo:: Missing docs
 
 
 
@@ -580,23 +664,49 @@ TODO
 CDash Integration
 -----------------
 
-Unit tests are not well integrated yet, see :ycm-issue:`17`
+.. todo:: Unit tests are not well integrated yet, see :ycm-issue:`17`
 
 
 
 .. _`Not Interactive Builds`:
 
-Not Interactive Builds
+Non Interactive Builds
 ----------------------
 
-For build machines the :variable:`NOT_INTERACTIVE_BUILD` variable
+For build machines the :variable:`NON_INTERACTIVE_BUILD` variable
 should be set to true.
+
+.. note::
+  This should either be set by running
+  ``cmake -DNON_INTERACTIVE_BUILD:BOOL=TRUE``, or using an initial cache
+  file and running ``cmake -C <file>``
+
+
+.. _`Install Step`:
+
+Install Step
+------------
+
+An important thing to notice is that, if the subprojects are written
+in a proper way, the user will have all the files that he needs to
+use the projects in ``${PROJECT_BINARY_DIR}/install``
+
+This means that it is quite important for your subproject to install
+the files in the ``install`` step, and that all the files are installed
+*inside* the ``install prefix``. For CMake projects this usually means
+that the ``DESTINATION`` argument for the :cmake:command:`install()`
+command should be a *relative* path instead of *absoulute*
+
+
 
 .. _`Maintainer Mode`:
 
 Maintainer Mode
 ---------------
 
-:variable:`YCM_MAINTAINER_MODE`
+If the :variable:`YCM_SUPERBUILD_MAINTAINER_MODE` CMake variable is
+enabled, all the targets for all the projects will be disabled, and all
+the ``USE_SYSTEM_<PACKAGE>`` variables will be disabled.
 
-
+This is an useful variable for maintainers, but is not recommended
+for developers.

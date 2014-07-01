@@ -22,3 +22,10 @@ TODO How to test changes locally::
 
   set(YCM_STYLE LOCAL)
   set(YCM_REPOSITORY file:///opt/iit/src/ycm)
+
+
+
+Maintainer Mode
+---------------
+
+:variable:`YCM_MAINTAINER_MODE`

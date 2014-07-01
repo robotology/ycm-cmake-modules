@@ -1,5 +1,5 @@
-CMake Release Notes
-*******************
+YCM Release Notes
+*****************
 
 Releases
 ========

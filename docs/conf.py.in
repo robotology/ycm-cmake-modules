@@ -34,7 +34,12 @@ extlinks = {'ycm-issue':('https://github.com/robotology/ycm/issues/%s', 'YCM iss
 
 exclude_patterns = []
 
-extensions = ['cmake', 'sphinx.ext.intersphinx', 'sphinx.ext.extlinks']
+todo_include_todos = True
+
+extensions = ['cmake',
+              'sphinx.ext.intersphinx',
+              'sphinx.ext.extlinks',
+              'sphinx.ext.todo']
 templates_path = ['@conf_path@/templates']
 
 ycm_manuals = sorted(glob.glob(r'@conf_docs@/manual/*.rst'))
@@ -64,6 +69,11 @@ html_show_sourcelink = True
 html_static_path = ['@conf_path@/static']
 html_style = 'ycm.css'
 html_theme = 'default'
+html_theme_options = {
+    "externalrefs": "true",
+    "relbarbgcolor": "#b30",
+    "sidebarwidth": "300"
+}
 
 html_title = 'YCM %s Documentation' % release
 html_short_title = '%s Documentation' % release
