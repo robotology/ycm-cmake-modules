@@ -53,12 +53,30 @@ function(_YCM_CMAKE_NEXT_DOWNLOAD_NOW _ref _dir _files)
 
         set(_src "http://cmake.org/gitweb?p=cmake.git;a=blob_plain;f=${_file};hb=${_ref}")
         set(_dest "${_dir}/${_file}")
+        set(_orig_dest "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/cmake-${_ref}.dir/downloads/${_file}")
+        set(_offline_dest "${CMAKE_SOURCE_DIR}/downloads/cmake-${_ref}/${_file}")
 
-        if(NOT EXISTS ${_dest})
+        if(EXISTS "${_offline_dest}")
+            execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_offline_dest}" "${_orig_dest}")
+        endif()
+
+        if(NOT EXISTS ${_orig_dest})
             message(STATUS "Downloading file ${_file} from CMake git repository (ref ${_ref})")
-            file(DOWNLOAD "${_src}" "${_dest}"
+            file(DOWNLOAD "${_src}" "${_orig_dest}"
                  EXPECTED_HASH SHA1=${_sha1})
         endif()
+
+        if(WIN32)
+            # On Windows we change files end of lines to the windows ones
+            file(READ "${_orig_dest}" _tmp)
+            string(REPLACE "/r/n" "/n" _tmp "\${_tmp}")
+            file(WRITE "${_dest}" "\${_tmp}")
+        else()
+            execute_process(COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${_orig_dest}" "${_dest}")
+        endif()
+
+        execute_process(COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${_orig_dest}" "${_offline_dest}")
+
         set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${_dest})
     endforeach()
     _ycm_cmake_next_write_readme(${_ref} ${_dir})
@@ -74,7 +92,7 @@ endif()
 
 # We assume that the user won't downgrade his cmake, therefore it's not
 # necessary to download and install these files if already included in CMake
-if(CMAKE_VERSION VERSION_LESS 2.8.8)
+if(CMAKE_VERSION VERSION_LESS 2.8.8 OR YCM_MAINTAINER_MODE)
     set(_files Copyright.txt                                cc156f64bf5196dfb35f7ae7a4081a434e128ef4
                Modules/CMakePackageConfigHelpers.cmake      ccb9c0f5c8abaa958f3049e001eeecfc9dc9ec43)
     _ycm_cmake_next_download_now(v2.8.8 ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8 "${_files}")
@@ -94,7 +112,7 @@ endif()
 
 # We assume that the user won't downgrade his cmake, therefore it's not
 # necessary to download and install these files if already included in CMake
-if(CMAKE_VERSION VERSION_LESS 2.8.12)
+if(CMAKE_VERSION VERSION_LESS 2.8.12 OR YCM_MAINTAINER_MODE)
     set(_files Copyright.txt                                cc156f64bf5196dfb35f7ae7a4081a434e128ef4
                Modules/SelectLibraryConfigurations.cmake    b0f24bea56e731e219506a1936c08817dc556d0a)
     _ycm_cmake_next_download(v2.8.12.2 ${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.12 "${_files}")
@@ -112,7 +130,7 @@ endif()
 
 # We assume that the user won't downgrade his cmake, therefore it's not
 # necessary to download and install these files if already included in CMake
-if(CMAKE_VERSION VERSION_LESS 3.0)
+if(CMAKE_VERSION VERSION_LESS 3.0 OR YCM_MAINTAINER_MODE)
 
     set(_files Copyright.txt                               84889816c71a04e30e715b89faf10d72a7334839
                Modules/FindGTK2.cmake                      15657c7891807e028b05841e52bc57448a17701a
@@ -148,7 +166,7 @@ set(_files Copyright.txt                               84889816c71a04e30e715b89f
            Modules/CMakeParseArguments.cmake           00c393ca7dfd7f9ea9d1a5dc99702dcaffd289af) # Used by FeatureSummary
 # Some files cannot be parsed due to new-style cmake comments, so we ship
 # an old style commented version
-if(NOT CMAKE_VERSION VERSION_LESS 3.0)
+if(NOT CMAKE_VERSION VERSION_LESS 3.0 OR YCM_MAINTAINER_MODE)
     list(APPEND _files  Modules/FindPkgConfig.cmake    302904ddf27a8f8bf3ddb15717553b479df27c45)
 else()
     file(COPY Modules/FindPkgConfig.cmake DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/cmake-next)

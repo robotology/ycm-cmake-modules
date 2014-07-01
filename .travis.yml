@@ -28,7 +28,7 @@ install:
 before_script:
   - mkdir build
   - cd build
-  - cmake .. -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install
+  - cmake .. -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install -DYCM_MAINTAINER_MODE=ON
 
 script:
   - cmake --build . --config ${TRAVIS_BUILD_TYPE}

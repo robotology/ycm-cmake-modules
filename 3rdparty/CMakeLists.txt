@@ -17,10 +17,10 @@ option(YCM_NO_3RDPARTY "Disable 3rd party modules." FALSE)
 mark_as_advanced(YCM_NO_3RDPARTY)
 
 # Useful 3rd party modules
-if(NOT YCM_NO_3RDPARTY)
+if(NOT YCM_NO_3RDPARTY OR YCM_MAINTAINER_MODE)
     # FindEigen3.cmake is installed automatically by libeigen3-dev on some
     # Debian and Ubuntu releases
-    if(NOT EXISTS ${CMAKE_ROOT}/FindEigen3.cmake)
+    if(NOT EXISTS ${CMAKE_ROOT}/FindEigen3.cmake OR YCM_MAINTAINER_MODE)
         set(_files COPYING.BSD             8fa159b3e41e0a44e10ea224cbb83e66ae02885e
                    cmake/FindEigen3.cmake  cb8ad72f9a74e9f214f0d5dd58af78dec68664b5)
         set(_ref 3.2.1)

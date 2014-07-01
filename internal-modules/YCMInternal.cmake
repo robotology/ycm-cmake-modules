@@ -78,6 +78,11 @@ function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
 
         set(_dest "${_dir}/${_file}")
         set(_orig_dest "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/downloads/${_file}")
+        set(_offline_dest "${CMAKE_SOURCE_DIR}/downloads/${_target}/${_file}")
+
+        if(EXISTS "${_offline_dest}")
+            execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_offline_dest}" "${_orig_dest}")
+        endif()
 
         if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.12)
             # Just a reminder to remove this when we change cmake minimum required version
@@ -142,7 +147,11 @@ string(REPLACE \"/r/n\" \"/n\" _tmp \"\${_tmp}\")
 file(WRITE \"${_dest}\" \"\${_tmp}\")
 ")
         else()
-            file(APPEND "${_download_script}" "execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different \"${_orig_dest}\" \"${_dest}\")")
+            file(APPEND "${_download_script}" "execute_process(COMMAND \"${CMAKE_COMMAND}\" -E copy_if_different \"${_orig_dest}\" \"${_dest}\")\n")
+        endif()
+
+        if(YCM_MAINTAINER_MODE)
+            file(APPEND "${_download_script}" "execute_process(COMMAND \"${CMAKE_COMMAND}\" -E copy_if_different \"${_orig_dest}\" \"${_offline_dest}\")\n")
         endif()
 
         add_custom_command(OUTPUT "${_dest}" "${_dir}"

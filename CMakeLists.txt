@@ -21,7 +21,12 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
 
 include(YCMVersion)
 include(YCMInternal)
-include(YCMPack)
+
+option(YCM_MAINTAINER_MODE "Enable maintainer mode (download all files and enable CPack)" FALSE)
+mark_as_advanced(YCM_MAINTAINER_MODE)
+if(YCM_MAINTAINER_MODE)
+    include(YCMPack)
+endif()
 
 include(GNUInstallDirs)
 
@@ -30,6 +35,7 @@ set(YCM_INSTALL_MODULE_DIR "${CMAKE_INSTALL_DATADIR}/YCM")
 
 set(YCM_BUILD_CMAKE_DIR "${CMAKE_BINARY_DIR}")
 set(YCM_INSTALL_CMAKE_DIR "${CMAKE_INSTALL_DATADIR}/YCM/cmake")
+
 
 # FIXME
 set(YCM_DOC_DIR ${CMAKE_INSTALL_DOCDIR})
