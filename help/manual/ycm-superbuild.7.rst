@@ -188,7 +188,7 @@ Developer Mode
 A developer usually works on a limited set of projects.
 
 For each the superproject that the developer will modify, he should
-enable the :variable:`YCM_<PROJECT>_DEVEL_MODE` CMake cached variable.
+enable the :variable:`YCM_EP_DEVEL_MODE_<PROJECT>` CMake cached variable.
 
 This can be done by running :cmake:manual:`ccmake <ccmake(1)>` or
 :cmake:manual:`cmake-gui <cmake-gui(1)>` and changing the value, or by
@@ -199,7 +199,7 @@ running adding ``-DUSE_SYSTEM_<PACKAGE>:BOOL=FALSE`` to the
 
 Note that the superbuild will disable the
 :ref:`update target <target:project-update>` for the projects in
-:variable:`YCM_<PROJECT>_DEVEL_MODE`, you will have to update them
+:variable:`YCM_EP_DEVEL_MODE_<PROJECT>`, you will have to update them
 manually.
 
 
@@ -208,7 +208,7 @@ manually.
 Expert Mode
 -----------
 
-The :variable:`YCM_SUPERBUILD_EXPERT_MODE`` variable will set the YCM
+The :variable:`YCM_EP_EXPERT_MODE`` variable will set the YCM
 Superbuild in "expert mode". This is disabled by default.
 This means that all the projects that are in "developer mode" will have
 all the targets enabled (including the update step) and that the
@@ -247,7 +247,7 @@ update-all (ALL_UPDATE)
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 Update all sub-projects, except for those in
-:variable:`YCM_<PROJECT>_DEVEL_MODE`.
+:variable:`YCM_EP_DEVEL_MODE_<PROJECT>`.
 
 
 .. _`target:fetch-all`:
@@ -256,7 +256,7 @@ fetch-all (ALL_FETCH)
 ^^^^^^^^^^^^^^^^^^^^^
 
 Runs git fetch for all the sub-projects in
-:variable:`YCM_<PROJECT>_DEVEL_MODE` (git sub-projects only).
+:variable:`YCM_EP_DEVEL_MODE_<PROJECT>` (git sub-projects only).
 
 
 .. _`target:status-all`:
@@ -265,7 +265,7 @@ status-all (ALL_STATUS)
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 Prints the status (using the appropriate SCM command) for all the
-sub-projects in :variable:`YCM_<PROJECT>_DEVEL_MODE`.
+sub-projects in :variable:`YCM_EP_DEVEL_MODE_<PROJECT>`.
 
 
 .. _`target:clean-all`:
@@ -704,7 +704,7 @@ command should be a *relative* path instead of *absoulute*
 Maintainer Mode
 ---------------
 
-If the :variable:`YCM_SUPERBUILD_MAINTAINER_MODE` CMake variable is
+If the :variable:`YCM_EP_MAINTAINER_MODE` CMake variable is
 enabled, all the targets for all the projects will be disabled, and all
 the ``USE_SYSTEM_<PACKAGE>`` variables will be disabled.
 
