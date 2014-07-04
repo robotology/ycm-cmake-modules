@@ -139,7 +139,7 @@ set(_files Copyright.txt                               84889816c71a04e30e715b89f
 # Some files cannot be parsed due to new-style cmake comments, so we ship
 # an old style commented version
 if(NOT CMAKE_VERSION VERSION_LESS 3.0)
-    list(APPEND _files  Modules/FindPkgConfig.cmake    a5650a2a89acd93f6f78fd7846b88aad5fac5d0e)
+    list(APPEND _files  Modules/FindPkgConfig.cmake    302904ddf27a8f8bf3ddb15717553b479df27c45)
 else()
     file(COPY Modules/FindPkgConfig.cmake DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/cmake-next)
 endif()
