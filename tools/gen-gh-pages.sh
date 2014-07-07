@@ -64,7 +64,7 @@ for ref in $branches $tags; do
     echo Generating documentation for ref $ref
     (cd build-docs && git checkout -q $ref)
     mkdir build-docs/build
-    (cd build-docs/build && cmake .. -DSPHINX_HTML:BOOL=TRUE && make) >/dev/null 2>&1
+    (cd build-docs/build && cmake .. -DSPHINX_HTML:BOOL=TRUE && make documentation) >/dev/null 2>&1
 
     if [ -d build-docs/build/docs/html/ ]; then
         cp -R build-docs/build/docs/html/ gh-pages/$ref
