@@ -8,13 +8,14 @@ YCM
 
    .. contents::
 
+
+Introduction
+############
+
 YCM is not a replacement to CMake or yet another build system. YCM is
 just a thin layer over CMake. It does not add extra dependencies like
 other build system, it does not use python
 
-
-Introduction
-############
 
 The problem
 ===========
