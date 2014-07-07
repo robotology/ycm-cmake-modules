@@ -1,25 +1,20 @@
 .. title:: YCM Reference Documentation
 
-ycm(7)
-******
+
+YCM
+***
 
 .. only:: html or latex
 
    .. contents::
-
-YCM
-===
-
-.. toctree::
-   :maxdepth: 1
-
 
 YCM is not a replacement to CMake or yet another build system. YCM is
 just a thin layer over CMake. It does not add extra dependencies like
 other build system, it does not use python
 
 
-
+Introduction
+############
 
 The problem
 ===========
@@ -144,15 +139,6 @@ The solution
 
 
 
-Aknowledgements
-===============
-
-YCM was initially developed by iCub Facility, Istituto Italiano di Tecnologia
-supported by the European Projects:
-
- * `WALK-MAN`_: Whole-body Adaptive Locomotion and Manipulation
-
-.. _WALK-MAN: http://walk-man.eu/
 
 Reference Manuals
 #################
@@ -168,6 +154,20 @@ Reference Manuals
    /manual/ycm-variables.7
 
    /manual/ycm-faq.7
+
+
+
+Aknowledgements
+###############
+
+YCM was initially developed by iCub Facility, Istituto Italiano di Tecnologia
+supported by the European Projects:
+
+ * `WALK-MAN`_: Whole-body Adaptive Locomotion and Manipulation
+
+.. _WALK-MAN: http://walk-man.eu/
+
+
 
 .. only:: html or text
 
