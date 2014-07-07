@@ -1,25 +1,41 @@
+#.rst:
+# FindGtkWin32 (Replaced by :cmake:module:`FindGTK2`)
+# ---------------------------------------------------
 #
-# Searches and hopefully finds gtk on windows -- by nat.
-
-# Copyright: (C) 2009 RobotCub Consortium
-# Authors: Lorenzo Natale
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
-
-# Assumes that the environment variable GTK_BASEPATH is set to the place
+# .. warning:: This module is deprecated. You should use :cmake:module:`FindGTK2` instead.
+#
+# Searches and hopefully finds GTK on Windows.
+#
+# Assumes that the environment variable ``GTK_BASEPATH`` is set to the place
 # where GTK libs have been unpacked/installed. This is the default 
 # behavior of glade for win32, users that want to install gtk manually
-# must define GTK_BASEPATH accordingly.
+# must define ``GTK_BASEPATH`` accordingly.
 #
-# Creates:
-# GTK_INCLUDE_DIR   - Directories to include to use GTK
-# GTK_LIBRARIES     - Files to link against to use GTK
-# GTK_FOUND         - If false, don't try to use GTK
-# GTK_GL_FOUND      - If false, don't try to use GTK's GL features
+# Creates::
+#
+#  GTK_INCLUDE_DIR   - Directories to include to use GTK
+#  GTK_LIBRARIES     - Files to link against to use GTK
+#  GTK_FOUND         - If false, don't try to use GTK
+#  GTK_GL_FOUND      - If false, don't try to use GTK's GL features
+
+#=============================================================================
+# Copyright 2009 RobotCub Consortium
+#   Authors: Lorenzo Natale <lorenzo.natale@iit.it>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
+
 
 # Added: 03/11/2011, Lorenzo
-# Support gtkplus from gtkmm x64, search also using GTKMM64_BASEPATH (this variable is set by the installer).
-#
-
+# Support gtkplus from gtkmm x64, search also using GTKMM64_BASEPATH (this
+# variable is set by the installer).
 
 include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
 ycm_deprecated_warning("FindGtkWin32.cmake is deprecated. Use FindGTK2 from CMake instead.")

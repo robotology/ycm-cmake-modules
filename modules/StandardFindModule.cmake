@@ -51,8 +51,8 @@
 # output
 
 #=============================================================================
-# Copyright 2012, 2013  iCub Facility, Istituto Italiano di Tecnologia
-#     @author Daniele E. Domenichelli <daniele.domenichelli@iit.it>
+# Copyright 2012-2013 iCub Facility, Istituto Italiano di Tecnologia
+#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 #
 # Distributed under the OSI-approved BSD License (the "License");
 # see accompanying file Copyright.txt for details.

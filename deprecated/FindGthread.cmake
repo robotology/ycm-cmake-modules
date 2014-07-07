@@ -1,20 +1,41 @@
+#.rst:
+# FindGthread (Replaced by :cmake:module:`FindGTK2`)
+# --------------------------------------------------
+#
+# .. warning:: This module is deprecated. You should use :cmake:module:`FindGTK2` instead.
+#
 # Try to find Gthread package
 #
-# On exit set:
-# Gthread_FOUND
-# Gthread_LIBRARIES
-# Gthread_INCLUDE_DIRS
+# On exit set::
 #
-# Old variables:
+#  Gthread_FOUND
+#  Gthread_LIBRARIES
+#  Gthread_INCLUDE_DIRS
 #
-# GTHREAD_FOUND
-# GTHREAD_LINK_FLAGS
-# GTHREAD_INCLUDE_DIR
+# Old variables::
+#
+#  GTHREAD_FOUND
+#  GTHREAD_LINK_FLAGS
+#  GTHREAD_INCLUDE_DIR
 
+#=============================================================================
+# Copyright 2009 RobotCub Consortium
+#   Authors: Alessandro Scalzo <alessandro.scalzo@iit.it>
+#            Lorenzo Natale <lorenzo.natale@iit.it>
+#            Paul Fitzpatrick <paulfitz@alum.mit.edu>
+#            Gianluca Massera <gianluca.massera@istc.cnr.it>
+#            Daniele E. Domenichelli <daniele.domenichelli@iit.it>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
 
-# Copyright: (C) 2009 RobotCub Consortium
-# Authors: Alessandro Scalzo, Lorenzo Natale, Paul Fitzpatrick, Gianluca Massera
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
 # Tried to make variables uniform with cmake "standards"
 # Now set Gthread_* variables (respect capitalization rule).
@@ -23,7 +44,6 @@
 
 # Added: 03/11/2011, Lorenzo
 # Windows: support gtkmm x64, search also using GTKMM64_BASEPATH (this variable is set by the installer).
-
 
 include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
 ycm_deprecated_warning("FindGthread.cmake is deprecated. Use FindGTK2 from CMake instead.")

@@ -2,14 +2,25 @@
 # FindDRAGONFLYAPI
 # ----------------
 #
-# Created:
-# DRAGONFLYAPI_INC_DIRS   - Directories to include to use dragonfly API
-# DRAGONFLYAPI_LIB        - Default library to link against to use the dragonfly API
-# DRAGONFLYAPI_FOUND      - If false, don't try to use dragonfly API
+# Created::
+#
+#  DRAGONFLYAPI_INC_DIRS   - Directories to include to use dragonfly API
+#  DRAGONFLYAPI_LIB        - Default library to link against to use the dragonfly API
+#  DRAGONFLYAPI_FOUND      - If false, don't try to use dragonfly API
 
-# Copyright: (C) 2009 RobotCub Consortium
-# Author: Lorenzo Natale
-# CopyPolicy: Released under the terms of the GNU GPL v2.0.
+#=============================================================================
+# Copyright 2009 RobotCub Consortium
+#   Authors: Lorenzo Natale <lorenzo.natale@iit.it>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
 
 if(NOT DRAGONFLYAPI_FOUND)
     if(WIN32)

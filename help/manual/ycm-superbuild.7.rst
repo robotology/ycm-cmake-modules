@@ -235,16 +235,16 @@ name of the target on IDEs like Visual Studio and XCode.
 
 .. _`target:all`:
 
-all (ALL)
-^^^^^^^^^
+``all`` (``ALL``)
+^^^^^^^^^^^^^^^^^
 
 Build all sub-projects.
 
 
 .. _`target:update-all`:
 
-update-all (ALL_UPDATE)
-^^^^^^^^^^^^^^^^^^^^^^^
+``update-all`` (``ALL_UPDATE``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Update all sub-projects, except for those in
 :variable:`YCM_EP_DEVEL_MODE_<PROJECT>`.
@@ -252,8 +252,8 @@ Update all sub-projects, except for those in
 
 .. _`target:fetch-all`:
 
-fetch-all (ALL_FETCH)
-^^^^^^^^^^^^^^^^^^^^^
+``fetch-all`` (``ALL_FETCH``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Runs git fetch for all the sub-projects in
 :variable:`YCM_EP_DEVEL_MODE_<PROJECT>` (git sub-projects only).
@@ -261,37 +261,49 @@ Runs git fetch for all the sub-projects in
 
 .. _`target:status-all`:
 
-status-all (ALL_STATUS)
-^^^^^^^^^^^^^^^^^^^^^^^
+``status-all`` (``ALL_STATUS``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Prints the status (using the appropriate SCM command) for all the
-sub-projects in :variable:`YCM_EP_DEVEL_MODE_<PROJECT>`.
+Prints the status (using the appropriate SCM command) for all the sub-projects
+in :variable:`YCM_EP_DEVEL_MODE_<PROJECT>`.
 
 
 .. _`target:clean-all`:
 
-clean-all (ALL_CLEAN)
-^^^^^^^^^^^^^^^^^^^^^
+``clean-all`` (``ALL_CLEAN``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. todo:: Missing docs
 
 
 .. _`target:print-directories-all`:
 
-print-directories-all (ALL_PRINT_DIRECTORIES)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+``print-directories-all`` (``ALL_PRINT_DIRECTORIES``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. todo:: Missing docs
+Prints the source and binary directories for all the sub-projects in
+:variable:`YCM_EP_DEVEL_MODE_<PROJECT>`.
 
 
+.. _`target:install`:
 
-install
-^^^^^^^
+``install``
+^^^^^^^^^^^
 
-.. warning:: ``install`` target does not exist yet.
+.. todo:: Add a proper installation.
 
-.. todo:: Missing docs
+.. warning::
 
+ YCM does not create an ``install`` target (yet). In some cases, i.e. if you
+ include some CMake module that installs some file, you might find an
+ ``install`` target, but it will not install the whole superbuild, but just
+ these files.
+ 
+ One known module that adds the ``install`` target is
+ ``catkinConfig.cmake`` distributed with `ROS Hydro`_, and usually included
+ by running :cmake:command:`find_package(catkin)`.
+ 
+.. _ROS Hydro: http://wiki.ros.org/hydro
 
 .. _`Component Targets`:
 
@@ -302,16 +314,36 @@ Component Targets
 These targets influence a specific ``COMPONENT``, for example
 ``external``
 
+.. todo:: Component targets.
+
+.. _`target:component`:
+
+``<COMPONENT>``
+^^^^^^^^^^^^^^^
+
+.. todo:: Missing docs
+
+
+.. _`target:component-update`:
+
+``<COMPONENT>-update``
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. todo:: Missing docs
+
 
 .. _`Project Targets - Common`:
 
 Project Targets - Common
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+These targets are always available for all the sub-projects:
+
+
 .. _`target:project`:
 
-<PROJECT>
-^^^^^^^^^
+``<PROJECT>``
+^^^^^^^^^^^^^
 
 Builds a sub-project and all its dependees.
 
@@ -322,10 +354,14 @@ Builds a sub-project and all its dependees.
 Project Targets - Basic Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+These targets are available only for the sub-projects that are **not** in
+:variable:`YCM_EP_DEVEL_MODE_<PROJECT>`.
+
+
 .. _`target:project-update`:
 
-<PROJECT>-update
-^^^^^^^^^^^^^^^^
+``<PROJECT>-update``
+^^^^^^^^^^^^^^^^^^^^
 
 Update a sub-project.
 
@@ -335,12 +371,94 @@ Update a sub-project.
 Project Targets - Development Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+These targets are available only for the sub-projects that are in
+:variable:`YCM_EP_DEVEL_MODE_<PROJECT>`.
 
 
-.. _`target:component`:
+.. _`target:project-configure`:
 
-<COMPONENT>
-^^^^^^^^^^^
+``<PROJECT>-configure``
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Configure a sub-project.
+
+
+.. _`target:project-fetch`:
+
+``<PROJECT>-fetch``
+^^^^^^^^^^^^^^^^^^^
+
+Runs git fetch a sub-project (git sub-projects only).
+
+
+.. _`target:project-status`:
+
+``<PROJECT>-status``
+^^^^^^^^^^^^^^^^^^^^
+
+Prints the status (using the appropriate SCM command) for a sub-project.
+
+
+
+.. _`target:project-clean`:
+
+``<PROJECT>-clean``
+^^^^^^^^^^^^^^^^^^^
+
+.. todo:: Missing docs
+
+
+.. _`target:project-edit-cache`:
+
+``<PROJECT>-edit-cache``
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Edit CMake cache for a sub-project (CMake sub-projects only).
+
+
+.. _`target:project-print-directories`:
+
+``<PROJECT>-print-directories``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Prints the source and binary directories for a sub-project
+
+
+.. _`target:project-dependees`:
+
+``<PROJECT>-dependees``
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Builds all the sub-projects required by this sub-project.
+
+
+.. _`target:project-dependees-update`:
+
+``<PROJECT>-dependees-update``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Update all the sub-projects that are not in
+:variable:`YCM_EP_DEVEL_MODE_<PROJECT>` and that are required by this
+sub-project.
+
+
+.. _`target:project-dependers`:
+
+``<PROJECT>-dependers``
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Builds all the sub-projects that require this sub-project.
+
+
+.. _`target:project-dependers-update`:
+
+``<PROJECT>-dependers-update``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Update all the sub-projects that are not in
+:variable:`YCM_EP_DEVEL_MODE_<PROJECT>` and that require this sub-project.
+
+
 
 .. _`Project Targets - Special Components`:
 
@@ -350,8 +468,8 @@ Project Targets - Special Components
 Projects in some special components behave in a different way
 
 
-documentation
-^^^^^^^^^^^^^
+``documentation`` Projects
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 These projects usually don't have ``build``, ``configure``, or
 ``install`` step.
@@ -367,22 +485,25 @@ These projects are not added to the
 :ref:`global targets <Global Targets>`.
 
 
-examples
-^^^^^^^^
+``examples`` Projects
+^^^^^^^^^^^^^^^^^^^^^
 
 These projects are not added to the
 :ref:`global targets <Global Targets>`.
 
-templates
-^^^^^^^^^
+``templates`` Projects
+^^^^^^^^^^^^^^^^^^^^^^
 
 These projects are not added to the
 :ref:`global targets <Global Targets>`.
+
+
 
 
 IDEs
 ----
 
+.. todo:: Add documentation about how to use the most common IDEs with YCM.
 
 
 

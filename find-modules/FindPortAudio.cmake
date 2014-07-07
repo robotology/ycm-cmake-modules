@@ -2,10 +2,22 @@
 # FindPortAudio
 # -------------
 #
+# Try to find the PortAudio library.
 
-# Copyright: (C) 2008 RobotCub Consortium
-# Authors: Paul Fitzpatrick, Hatice Kose-Bagci
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
+#=============================================================================
+# Copyright 2008 RobotCub Consortium
+#   Authors: Paul Fitzpatrick <paulfitz@alum.mit.edu>
+#            Hatice Kose-Bagci
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
 
 # hacked together for unix by Paul Fitzpatrick
 # updated to work on windows by Hatice Kose-Bagci

@@ -2,18 +2,31 @@
 # FindODE
 # -------
 #
-# Options:
-# USE_ODE_DOUBLE  -use double precision ode libraries
-# ODE_STATIC      -link against static libraries
+# Options::
 #
-# On exit create the following variables:
-# ODE_INCLUDE_DIRS  - Directories to include to use ODE
-# ODE_LIBRARIES     - Default library to link against to use ODE
-# ODE_FOUND         - If false, library not found
+#  USE_ODE_DOUBLE  -use double precision ode libraries
+#  ODE_STATIC      -link against static libraries
+#
+# On exit create the following variables::
+#
+#  ODE_INCLUDE_DIRS  - Directories to include to use ODE
+#  ODE_LIBRARIES     - Default library to link against to use ODE
+#  ODE_FOUND         - If false, library not found
 
-# Copyright: (C) 2009 RobotCub Consortium
-# Authors: Lorenzo Natale and Vadim Tikhanoff
-# CopyPolicy: Released under the terms of the GNU GPL v2.0.
+#=============================================================================
+# Copyright 2009 RobotCub Consortium
+#   Authors: Lorenzo Natale <lorenzo.natale@iit.it>
+#            Vadim Tikhanoff <vadim.tikhanoff@iit.it>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
 
 
 # Dec 2009, reorganized to handle new windows ode versions.

@@ -3,21 +3,32 @@
 # --------------
 #
 # Try to find the GtkDatabox library.
-# Once done this will define the following variables:
+# Once done this will define the following variables::
 #
-# GtkDatabox_FOUND         - System has GtkDatabox
-# GtkDatabox_INCLUDE_DIRS  - GtkDatabox include directory
-# GtkDatabox_LIBRARIES     - GtkDatabox libraries
-# GtkDatabox_DEFINITIONS   - Additional compiler flags for GtkDatabox
-# GtkDatabox_VERSION       - GtkDatabox version
-# GtkDatabox_MAJOR_VERSION - GtkDatabox major version
-# GtkDatabox_MINOR_VERSION - GtkDatabox minor version
-# GtkDatabox_PATCH_VERSION - GtkDatabox patch version
-# GtkDatabox_TWEAK_VERSION - GtkDatabox tweak version
+#  GtkDatabox_FOUND         - System has GtkDatabox
+#  GtkDatabox_INCLUDE_DIRS  - GtkDatabox include directory
+#  GtkDatabox_LIBRARIES     - GtkDatabox libraries
+#  GtkDatabox_DEFINITIONS   - Additional compiler flags for GtkDatabox
+#  GtkDatabox_VERSION       - GtkDatabox version
+#  GtkDatabox_MAJOR_VERSION - GtkDatabox major version
+#  GtkDatabox_MINOR_VERSION - GtkDatabox minor version
+#  GtkDatabox_PATCH_VERSION - GtkDatabox patch version
+#  GtkDatabox_TWEAK_VERSION - GtkDatabox tweak version
 
-# Copyright (C) 2012, 2013  iCub Facility, Istituto Italiano di Tecnologia
-# Author: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
+#=============================================================================
+# Copyright 2012-2013 iCub Facility, Istituto Italiano di Tecnologia
+#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
+
 
 include(StandardFindModule)
 standard_find_module(GtkDatabox gtkdatabox)

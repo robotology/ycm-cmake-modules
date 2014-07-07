@@ -33,6 +33,7 @@ Packaging Helper Modules
 
    /module/InstallBasicPackageFiles
    /module/AddUninstallTarget
+   /module/YCMDefaultDirs
 
 
 
@@ -83,6 +84,7 @@ Find Package Modules
    /module/FindYamlCpp
 
 
+
 .. _`Build Package Modules`:
 
 Build Package Modules
@@ -112,3 +114,25 @@ These modules are patched versions of the ones included in CMake.
 
    /module/ExternalProject
    /module/CMakeParseArguments
+
+
+
+.. _`Deprecated Modules`:
+
+Deprecated Modules
+==================
+
+.. warning:: These modules are deprecated and should not be used in new code.
+
+.. toctree::
+   :maxdepth: 1
+
+   /module/FindGthread
+   /module/FindGtkMM
+   /module/FindGtkMMUnix
+   /module/FindGtkMMWin32
+   /module/FindGtkPlus
+   /module/FindGtkWin32
+   /module/MacroExtractVersion
+   /module/MacroStandardFindModule
+   /module/MacroUninstallTarget

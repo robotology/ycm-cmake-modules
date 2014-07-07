@@ -1,3 +1,18 @@
+#=============================================================================
+# Copyright 2000-2014 Kitware, Inc.
+# Copyright 2000-2011 Insight Software Consortium
+# Copyright 2014 iCub Facility, Istituto Italiano di Tecnologia
+#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
 
 macro(ADD_TEST_MACRO NAME COMMAND)
   string(REPLACE "." "/" dir "${NAME}")

@@ -1,7 +1,19 @@
-# Copyright (C) 2000-2014 Kitware, Inc.
-# Copyright (C) 2014  iCub Facility, Istituto Italiano di Tecnologia
-# Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-# CopyPolicy: Released under the terms of the 3-clause BSD License
+# This module should not be used outside YCM.
+
+#=============================================================================
+# Copyright 2000-2014 Kitware, Inc.
+# Copyright 2014 iCub Facility, Istituto Italiano di Tecnologia
+#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
 
 # Original file: <CMake Repository>/Source/CMakeVersionSource.cmake
 #                git revision: 2622bc3f65162bf6d6cb5838da6999f8b5ca75cf

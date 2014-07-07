@@ -2,7 +2,8 @@
 # FindOpenCV
 # ----------
 #
-# Find OpenCV - variables set:
+# Find OpenCV - variables set::
+#
 #  OpenCV_FOUND
 #  OpenCV_LIBRARIES
 #  OpenCV_INCLUDE_DIRS
@@ -10,6 +11,23 @@
 # This script is a combination from multiple sources that use
 # different variable names; the names are reconciled at the end
 # of the script.
+#
+# .. todo:: Check if this module is still needed with recent CMake releases.
+# .. todo:: Check if the license is correct
+
+#=============================================================================
+# Copyright 2009 Benoit Rat
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
+
 
 ###########################################################
 #                  Find OpenCV Library

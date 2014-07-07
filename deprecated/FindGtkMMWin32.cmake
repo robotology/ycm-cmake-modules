@@ -1,29 +1,54 @@
-# Copyright: (C) 2009 RobotCub Consortium
-# Authors: Giorgio Metta, Alessandro Scalzo and Lorenzo Natale
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
+#.rst:
+# FindGtkMMWin32 (Replaced by :cmake:module:`FindGTK2`)
+# -----------------------------------------------------
 #
-# Searches gtkmm on windows.
-# Assumes that the environment variable GTKMM_BASEPATH is set to the place
-# where GTKMM libs have been unpacked/installed. Users that want to install
-# gtkmm manually must define GTKMM_BASEPATH accordingly.
+# .. warning:: This module is deprecated. You should use :cmake:module:`FindGTK2` instead.
 #
+# Searches GtkMM on Windows.
+#
+# Assumes that the environment variable ``GTKMM_BASEPATH`` is set to the place
+# where GtkMM libs have been unpacked/installed. Users that want to install
+# gtkmm manually must define ``GTKMM_BASEPATH`` accordingly.
+#
+# Creates::
+#
+#  GtkMM_INCLUDE_DIRS   - Directories to include to use GTKMM
+#  GtkMM_LIBRARIES      - Files to link against to use GTKMM
+#  GtkMM_C_FLAGS        - Flags to pass to the C/C++ compiler for GTKMM.
+#  GtkMM_FOUND          - If false, don't try to use GTKMM
+#  GtkMM_VERSION        - version info
+#  GtkMM_MAJOR_VERSION  - major version
+#  GtkMM_MINOR_VERSION  - minor version
+
+#=============================================================================
+# Copyright 2009 RobotCub Consortium
+#   Authors: Giorgio Metta <giorgio.metta@iit.it>
+#            Alessandro Scalzo <alessandro.scalzo@iit.it>
+#            Lorenzo Natale <lorenzo.natale@iit.it>
+#            Stephen Hart <stephen.hart@nasa.gov>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
+
+
 # Added: 03/11/2011, Lorenzo
-# Support gtkmm x64, search also using GTKMM64_BASEPATH (this variable is set by the installer).
+# Support gtkmm x64, search also using GTKMM64_BASEPATH (this variable is set by
+# the installer).
 #
-# Creates:
-# GtkMM_INCLUDE_DIRS   - Directories to include to use GTKMM
-# GtkMM_LIBRARIES      - Files to link against to use GTKMM
-# GtkMM_C_FLAGS        - Flags to pass to the C/C++ compiler for GTKMM.
-# GtkMM_FOUND          - If false, don't try to use GTKMM
-# GtkMM_VERSION        - version info
-# GtkMM_MAJOR_VERSION  - major version
-# GtkMM_MINOR_VERSION  - minor version
 
 # 14/04/11, Lorenzo Natale: Added version info -- for now fake
-# 03/11/11, Lorenzo Natale: Specifically handle Visual Studio 10 (see branch MSVC_VERSION EQUAL 1600) to avoid runtime error
-#           when running gyarpmanager. Previous version was linking vs9 lib/dlls. If VS 10 dlls/libs are not available with the
-#           version of GTKMM you use, update to newer version (e.g. 2.22).
-
+# 03/11/11, Lorenzo Natale: Specifically handle Visual Studio 10 (see branch
+#           MSVC_VERSION EQUAL 1600) to avoid runtime error when running
+#           gyarpmanager. Previous version was linking vs9 lib/dlls.
+#           If VS 10 dlls/libs are not available with the version of GTKMM you
+#           use, update to newer version (e.g. 2.22).
 
 include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
 ycm_deprecated_warning("FindGtkMMWin32.cmake is deprecated. Use FindGTK2 from CMake instead.")

@@ -1,21 +1,40 @@
-# Copyright: (C) 2009 RobotCub Consortium
-# Authors: Giorgio Metta, Lorenzo Natale, Stephen Hart
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
+#.rst:
+# FindGtkMMUnix (Replaced by :cmake:module:`FindGTK2`)
+# ----------------------------------------------------
+#
+# .. warning:: This module is deprecated. You should use :cmake:module:`FindGTK2` instead.
+#
+# Creates::
+#
+#  GTKMM_INCLUDE_DIR   - Directories to include to use GTKMM
+#  GTKMM_LINK_FLAGS    - Files to link against to use GTKMM
+#  GTKMM_LINK_DIR      - Directories containing libraries to use GTKMM
+#  GtkMM_FOUND         - If false, don't try to use GTKMM
+#  GtkMM_VERSION_MAJOR
+#  GtkMM_VERSION_MINOR
 
-# Creates:
-# GTKMM_INCLUDE_DIR   - Directories to include to use GTKMM
-# GTKMM_LINK_FLAGS    - Files to link against to use GTKMM
-# GTKMM_LINK_DIR      - Directories containing libraries to use GTKMM
-# GtkMM_FOUND         - If false, don't try to use GTKMM
-# GtkMM_VERSION_MAJOR
-# GtkMM_VERSION_MINOR
+#=============================================================================
+# Copyright 2009 RobotCub Consortium
+#   Authors: Giorgio Metta <giorgio.metta@iit.it>
+#            Lorenzo Natale <lorenzo.natale@iit.it>
+#            Stephen Hart <stephen.hart@nasa.gov>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
+
 
 # gtkmm and libglademm seem to be coupled in FindGtkMMWin32.cmake
 # so mirror that behavior here
 
 # 13/04/2011: added variable to store version (GTKMM_VERSION is copied to GtkMM_VERSION)
 # Split GTKMM_VERSION into GtkMM_VERSION_MAJOR and GtkMM_VERSION_MAJOR
-
 
 include(${CMAKE_CURRENT_list_DIR}/YCMDeprecatedWarning.cmake)
 ycm_deprecated_warning("FindGtkMMUnix.cmake is deprecated. Use FindGTK2 from CMake instead.")

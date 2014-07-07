@@ -36,8 +36,6 @@
 #
 # .. variable:: NON_INTERACTIVE_BUILD
 #
-# TODO Rename NON_INTERACTIVE_BUILD -> YCM_NON_INTERACTIVE_BUILD
-#
 # .. variable:: YCM_BOOTSTRAP_BASE_ADDRESS
 #
 # .. variable:: YCM_SKIP_HASH_CHECK
@@ -47,10 +45,19 @@
 
 # TODO Add variable YCM_INSTALL_PREFIX
 
-
-# Copyright (C) 2013, 2014  iCub Facility, Istituto Italiano di Tecnologia
-# Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
+#=============================================================================
+# Copyright 2013-2014 iCub Facility, Istituto Italiano di Tecnologia
+#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
 
 
 if(DEFINED __YCMEPHELPER_INCLUDED)
@@ -68,8 +75,8 @@ set(_ycm_CMakeParseArguments_sha1sum 0c4d3f7ed248145cbeb67cbd6fd7190baf2e4517)
 set(_ycm_ExternalProject_sha1sum     3a575c379969d8ae2f40dddc79db139aab0de39f)
 
 # Files in all projects that need to bootstrap YCM
-set(_ycm_IncludeUrl_sha1sum          81b82a7036fd4cf9905e4aeeb6b01b258e54c805)
-set(_ycm_YCMBootstrap_sha1sum        0fef2f7d9421fb6ae045d38b822cbcaed9054fd5)
+set(_ycm_IncludeUrl_sha1sum          6d865c7d82ea88b655417a7e7b438d049e0f0655)
+set(_ycm_YCMBootstrap_sha1sum        39aae494b6706887af042d2bef83bed1fa278c3b)
 
 
 ########################################################################
@@ -578,7 +585,7 @@ endfunction()
 ########################################################################
 # _YCM_EP_ADD_EDIT_CACHE_STEP
 #
-# Add "edit-cache" step for cmake repositories.
+# Add "edit_cache" step for cmake repositories.
 
 function(_YCM_EP_ADD_EDIT_CACHE_STEP _name)
     # edit cache target for cmake projects

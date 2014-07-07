@@ -1,28 +1,47 @@
+#.rst:
+# FindGtkPlus (Replaced by :cmake:module:`FindGTK2`)
+# --------------------------------------------------
+#
+# .. warning:: This module is deprecated. You should use :cmake:module:`FindGTK2` instead.
+#
 # Try to find GTK+ library
 #
-# On exit set:
-# GtkPlus_FOUND
-# GtkPlus_LIBRARIES
-# GtkPlus_INCLUDE_DIRS
+# On exit set::
 #
-# Old variables:
+#  GtkPlus_FOUND
+#  GtkPlus_LIBRARIES
+#  GtkPlus_INCLUDE_DIRS
 #
-# GTKPLUS_FOUND
-# GTKPLUS_LIBRARY_DIR
-# GTKPLUS_LINK_FLAGS
-# GTKPLUS_C_FLAGS
-# GTKPLUS_INCLUDE_DIR
+# Old variables::
+#
+#  GTKPLUS_FOUND
+#  GTKPLUS_LIBRARY_DIR
+#  GTKPLUS_LINK_FLAGS
+#  GTKPLUS_C_FLAGS
+#  GTKPLUS_INCLUDE_DIR
 
+#=============================================================================
+# Copyright 2009 RobotCub Consortium
+#   Authors: Alessandro Scalzo <alessandro.scalzo@iit.it>
+#            Lorenzo Natale <lorenzo.natale@iit.it>
+#            Paul Fitzpatrick <paulfitz@alum.mit.edu>
+#            Gianluca Massera <gianluca.massera@istc.cnr.it>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
 
-# Copyright: (C) 2009 RobotCub Consortium
-# Authors: Alessandro Scalzo, Lorenzo Natale, Paul Fitzpatrick, Gianluca Massera
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
 # Tried to make variables uniform with cmake "standards"
 # Now set GtkPlus_* variables (respect capitalization rule).
 # Maintain backwards compatibiliy.
 # Lorenzo Natale 14/05/2010
-
 
 include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
 ycm_deprecated_warning("FindGtkPlus.cmake is deprecated. Use FindGTK2 from CMake instead.")
