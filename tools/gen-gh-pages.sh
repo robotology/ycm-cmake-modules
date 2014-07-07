@@ -85,3 +85,5 @@ rm -Rf build-docs
 
 git add gh-pages/ index.html
 git commit -q -m "Generate documentation"
+
+git checkout -q master
