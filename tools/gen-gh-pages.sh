@@ -30,6 +30,7 @@ else
     remote=origin
 fi
 
+git checkout -q master || exit 1
 git branch -q -f gh-pages master || exit 1
 git checkout -q gh-pages || exit 1
 #git rm -rf .
@@ -86,4 +87,4 @@ rm -Rf build-docs
 git add gh-pages/ index.html
 git commit -q -m "Generate documentation"
 
-git checkout -q master
+git checkout -q master || exit 1
