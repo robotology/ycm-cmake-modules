@@ -74,13 +74,16 @@ YCM FAQ
 .. _`FAQ:ExternalProject`:
 
 * :**Q**: Why using :cmake:module:`ExternalProject` instead of using
-          git submodules, git externals or similar?
+          git submodules, git externals, svn externals, or similar?
 
   :**A**: :cmake:module:`ExternalProject` supports Git, Subversion, CVS,
           Mercurial, and zipped files, not just git. Also integrating
           these tools in a CMake build would require some work anyway,
           and would make is slower to create a new superbuild project,
           just writing a ``CMakeLists.txt`` file is a lot easier.
+          Also git submodules and git externals in an environment where users
+          do not receive a proper training, introduce more issues than the
+          ones they solve.
 
 
 .. _`FAQ:IncludeUrl`:
