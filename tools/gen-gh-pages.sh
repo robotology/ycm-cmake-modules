@@ -80,6 +80,7 @@ for ref in $branches $tags; do
         echo "    no documentation produced"
     fi
     rm -Rf build-docs/build
+    echo "-------------------------------"
 done
 
 rm -Rf build-docs
@@ -88,3 +89,10 @@ git add gh-pages/ index.html
 git commit -q -m "Generate documentation"
 
 git checkout -q master || exit 1
+
+
+echo
+echo "Finished. You can now push with"
+echo
+echo "     git push --force $remote gh-pages"
+echo
