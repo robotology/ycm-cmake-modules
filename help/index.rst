@@ -20,9 +20,9 @@ can be used outside it initial context.
 YCM is not a replacement to CMake or yet another build system. YCM is just a
 thin layer over CMake.
 It does not add extra dependencies like other build systems, it does not use
-Python, Ruby, or other scripting languages, it is written just using
+Python, Ruby, or other scripting languages, it is written using
 :cmake:manual:`CMake language <cmake-language(7)>`.
-It is just a collection of CMake modules, most of them candidate for being
+It is a collection of CMake modules, most of them candidate for being
 contributed upstream.
 
 
