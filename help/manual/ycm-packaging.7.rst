@@ -1,13 +1,13 @@
-.. cmake-manual-description: YCM User Manual
+.. cmake-manual-description: YCM Packaging support
 
-ycm-user(7)
+ycm-packaging(7)
 ***********
 
 .. only:: html or latex
 
    .. contents::
 
-YCM User Manual
+YCM Packaging Support
 ===============
 
 This is the manual for people who wants to use YCM in their project.
