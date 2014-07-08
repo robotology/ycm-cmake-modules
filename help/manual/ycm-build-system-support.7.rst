@@ -1,14 +1,14 @@
-.. cmake-manual-description: YCM User Manual
+.. cmake-manual-description: YCM Build System Support
 
-ycm-user(7)
-***********
+ycm-build-system-support(7)
+***************************
 
 .. only:: html or latex
 
    .. contents::
 
-YCM User Manual
-===============
+YCM Build System Support
+========================
 
 This is the manual for people who wants to use YCM in their project.
 
