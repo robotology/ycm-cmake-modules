@@ -41,8 +41,8 @@ corresponding subdirectories.
 
 ------------------------------------------------------------------------------
 
-YCM was initially developed by iCub Facility, Istituto Italiano di Tecnologia
-supported by the European Projects:
+YCM is being developed by the iCub Facility, Istituto Italiano di
+Tecnologia.
 
- * WALK-MAN Whole-body Adaptive Locomotion and Manipulation
-   (http://walk-man.eu/)
+Additional support to YCM was received from the FP7 EU project
+WALK-MAN (http://walk-man.eu/)

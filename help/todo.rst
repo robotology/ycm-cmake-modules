@@ -2,8 +2,8 @@
 
 .. cmake-manual-description: Docs TODO
 
-Docs TODO
-*********
+TODO
+****
 
 .. only:: html or latex
 

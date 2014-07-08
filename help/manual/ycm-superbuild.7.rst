@@ -298,11 +298,11 @@ Prints the source and binary directories for all the sub-projects in
  include some CMake module that installs some file, you might find an
  ``install`` target, but it will not install the whole superbuild, but just
  these files.
- 
+
  One known module that adds the ``install`` target is
  ``catkinConfig.cmake`` distributed with `ROS Hydro`_, and usually included
  by running :cmake:command:`find_package(catkin)`.
- 
+
 .. _ROS Hydro: http://wiki.ros.org/hydro
 
 .. _`Component Targets`:
