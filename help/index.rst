@@ -112,7 +112,7 @@ The superbuild automatically provide support for integration with CDash and
 Doxygen to perform automatic compilation, regression tests and generation of the
 documentation for each sub-project.
 
-.. figure:: /images/superbuild-concept.png
+.. figure:: images/superbuild-concept.png
     :width: 800px
     :align: center
     :alt: Superbuild concept
@@ -173,11 +173,11 @@ Additional support to YCM was received from the FP7 EU project `WALK-MAN`_.
 
 .. list-table::
 
-  * - .. image:: /images/iit-logo-icub.png
+  * - .. image:: images/iit-logo-icub.png
         :height: 100px
         :alt: iCub Facility logo
         :target: `iCub Facility`_
-    - .. image:: /images/walkman.png
+    - .. image:: images/walkman.png
         :height: 100px
         :alt: WALK-MAN project logo
         :target: `WALK-MAN`_
