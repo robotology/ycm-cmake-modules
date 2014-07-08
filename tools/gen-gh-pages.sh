@@ -72,9 +72,11 @@ for ref in $branches $tags; do
 
         mv gh-pages/$ref/_sources/ gh-pages/$ref/sources
         mv gh-pages/$ref/_static/ gh-pages/$ref/static
+        mv gh-pages/$ref/_images/ gh-pages/$ref/images
 
         (cd gh-pages/$ref/ && grep -Rl _sources | xargs sed -i 's/_sources/sources/g')
         (cd gh-pages/$ref/ && grep -Rl _static | xargs sed -i 's/_static/static/g')
+        (cd gh-pages/$ref/ && grep -Rl _images | xargs sed -i 's/_images/images/g')
         echo "    done"
     else
         echo "    no documentation produced"
