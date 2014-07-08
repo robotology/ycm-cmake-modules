@@ -60,7 +60,8 @@ Superbuild
 
 A superbuild is in practice a collection of packages (sub-projects) that reside in remote repositories and are managed ad and built independently. The superbuild downloads and 
 compile all individual sub-projects, since this is done using the appropriate SCM tool (GIT, SVN etc) the user gets working repositories in which it can 
-develop (getting updates, making and committing changes).
+develop (getting updates, making and committing changes). The superbuild automatically provide support for integration with CDash and Doxygen to perform automatic compilation, 
+regression tests and generation of the documentation for each sub-project.
 
 .. figure:: /images/superbuild-concept.png
 		:width: 800px
@@ -76,13 +77,14 @@ easily contribute code to all packages they use irrespectively of the repositori
 Reference Manuals
 #################
 
+Detailed documentation is organized in the following documents:
+
 .. toctree::
    :maxdepth: 1
 
-   /manual/ycm-user.7
-   /manual/ycm-superbuild.7
-   /manual/ycm-devel.7
-
+   How you can use YCM support for packaging </manual/ycm-packaging.7>
+   How you can use YCM to make a superbuild </manual/ycm-superbuild.7>
+   Documentation for developers </manual/ycm-devel.7>
    /manual/ycm-modules.7
    /manual/ycm-variables.7
 
