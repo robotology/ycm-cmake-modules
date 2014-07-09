@@ -78,3 +78,25 @@ html_theme_options = {
 html_title = 'YCM %s Documentation' % release
 html_short_title = '%s Documentation' % release
 html_favicon = 'ycm-favicon.ico'
+
+rst_epilog = """
+.. _`Buildyard`: https://github.com/Eyescale/Buildyard
+.. _`CoDyCo Superbuild Repository`: https://github.com/robotology-playground/codyco-superbuild
+.. _`CoDyCo`: http://codyco.eu/
+.. _`ECM`: https://projects.kde.org/projects/kdesupport/extra-cmake-modules
+.. _`Istituto Italiano di Tecnologia`: http://www.iit.it/
+.. _`ROS Hydro`: http://wiki.ros.org/hydro
+.. _`ROS`: http://ros.org/
+.. _`WALK-MAN Superbuild Repository`: https://gitlab.robotology.eu/walkman/walkman
+.. _`WALK-MAN`: http://walk-man.eu/
+.. _`YARP Supported Distributions`: http://wiki.icub.org/wiki/YARP_Supported_Distributions
+.. _`YARP`: http://www.yarp.it/
+.. _`YCM Issue Tracker`: https://github.com/robotology/ycm/issues
+.. _`catkin`: http://wiki.ros.org/catkin
+.. _`iCub Facility`: http://www.iit.it/en/research/departments/icub-facility.html
+.. _`qibuild`: https://community.aldebaran-robotics.com/doc/1-14/qibuild/index.html
+.. _`rosbuild`: http://wiki.ros.org/rosbuild
+.. |lock| image:: /images/lock.png
+    :height: 12
+    :width: 12
+"""

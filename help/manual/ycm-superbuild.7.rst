@@ -303,8 +303,6 @@ Prints the source and binary directories for all the sub-projects in
  ``catkinConfig.cmake`` distributed with `ROS Hydro`_, and usually included
  by running :cmake:command:`find_package(catkin)`.
 
-.. _ROS Hydro: http://wiki.ros.org/hydro
-
 .. _`Component Targets`:
 
 
@@ -511,9 +509,6 @@ IDEs
 
 YCM Superbuild Manual for Maintainers
 =====================================
-
-.. toctre:e:
-   :maxdepth: 1
 
 
 A YCM superbuild is based on the :module:`ExternalProject` CMake module.
@@ -831,3 +826,16 @@ the ``USE_SYSTEM_<PACKAGE>`` variables will be disabled.
 
 This is an useful variable for maintainers, but is not recommended
 for developers.
+
+
+.. _`Examples`:
+
+Examples
+--------
+
+This is a list of known projects using YCM.
+
+* `WALK-MAN`_ FP7 EU project
+  (|lock| `WALK-MAN Superbuild Repository`_)
+* `CoDyCo`_ FP7 EU project
+  (`CoDyCo Superbuild Repository`_)

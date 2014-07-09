@@ -183,10 +183,6 @@ Additional support to YCM was received from the FP7 EU project `WALK-MAN`_.
         :target: `WALK-MAN`_
 
 
-.. _WALK-MAN: http://walk-man.eu/
-.. _iCub Facility: http://www.iit.it/en/research/departments/icub-facility.html
-.. _Istituto Italiano di Tecnologia: http://www.iit.it/
-
 
 .. only:: html or text
 

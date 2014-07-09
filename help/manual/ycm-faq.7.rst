@@ -24,7 +24,7 @@ YCM FAQ
 
 * :**Q**: How do I report a bug or request a feature?
 
-  :**A**: Open a new bug on our `issue tracker`_
+  :**A**: Open a new bug on our `issue tracker <YCM Issue Tracker_>`_
 
 
 .. _`FAQ:cmake-import`:
@@ -169,15 +169,3 @@ YCM FAQ
 * :**Q**: I don't get it, I don't like YCM, I hate you.
 
 * :**A**: Sorry.
-
-
-
-.. _YARP: http://www.yarp.it/
-.. _`issue tracker`: https://github.com/robotology/ycm/issues
-.. _`YARP Supported Distributions`: http://wiki.icub.org/wiki/YARP_Supported_Distributions
-.. _ECM: https://projects.kde.org/projects/kdesupport/extra-cmake-modules
-.. _ROS: http://ros.org/
-.. _catkin: http://wiki.ros.org/catkin
-.. _rosbuild: http://wiki.ros.org/rosbuild
-.. _qibuild: https://community.aldebaran-robotics.com/doc/1-14/qibuild/index.html
-.. _Buildyard: https://github.com/Eyescale/Buildyard
