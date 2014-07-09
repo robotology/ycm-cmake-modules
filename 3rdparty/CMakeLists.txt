@@ -14,11 +14,10 @@
 
 
 option(YCM_NO_3RDPARTY "Disable 3rd party modules." FALSE)
-mark_as_advanced(YARP_NO_3RDPARTY)
+mark_as_advanced(YCM_NO_3RDPARTY)
 
 # Useful 3rd party modules
-if(NOT YCM_NO_3RD_PARTY)
-
+if(NOT YCM_NO_3RDPARTY)
     # FindEigen3.cmake is installed automatically by libeigen3-dev on some
     # Debian and Ubuntu releases
     if(NOT EXISTS ${CMAKE_ROOT}/FindEigen3.cmake)
