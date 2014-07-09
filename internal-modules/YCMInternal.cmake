@@ -95,7 +95,7 @@ file(DOWNLOAD \"${_src}\" \"${_dest}\"
      STATUS _status)
 list(GET _status 0 _status_0)
 if(NOT _status EQUAL 0)
-    file(REMOVE ${_dest})
+    file(REMOVE \"${_dest}\")
     list(GET _status 1 _status_1)
     message(FATAL_ERROR \"Downloading ${_src} - ERROR \${_status_0}: \${_status_1}\")
 endif()
@@ -107,13 +107,13 @@ endif()
         # accepted.
         file(WRITE ${_download_script}
 "cmake_minimum_required(VERSION ${CMAKE_VERSION})
-execute_process(COMMAND ${CMAKE_COMMAND} -P ${_download_script_real}
-                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+execute_process(COMMAND \"${CMAKE_COMMAND}\" -P \"${_download_script_real}\"
+                WORKING_DIRECTORY \"${CMAKE_CURRENT_SOURCE_DIR}\"
                 RESULT_VARIABLE _res_var
                 ERROR_VARIABLE _error_var
                 ERROR_STRIP_TRAILING_WHITESPACE)
 if(NOT \"\${_res_var}\" STREQUAL \"0\")
-    file(REMOVE ${_dest})
+    file(REMOVE \"${_dest}\")
     message(FATAL_ERROR \"Cannot download file ${_src}\\n\${_error_var}\")
 endif()
 ")
@@ -184,6 +184,9 @@ function(_YCM_INSTALL _target)
 
     # Fix DESTINATION for the build directory
     string(REGEX REPLACE ";DESTINATION;${_INSTALL_DESTINATION}(;|$)" ";DESTINATION;${CMAKE_BINARY_DIR}/${_INSTALL_DESTINATION_RELATIVE}\\1" copyARGN "${copyARGN}")
+
+    # Escape white spaces in filenames
+    string(REGEX REPLACE " " "\\\\ " copyARGN "${copyARGN}")
 
     # Write copy script
     set(_ycm_install_script ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/ycm_install_${_target}_${_clean_filename}.cmake)
