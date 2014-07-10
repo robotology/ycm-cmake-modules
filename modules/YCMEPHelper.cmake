@@ -1158,8 +1158,14 @@ macro(YCM_BOOTSTRAP)
         message(FATAL_ERROR "Cannot configure YCM repository")
     endif()
 
+    # On multi-config generators (MSVC and XCode) always build in
+    # "Release" configuration
+    if(CMAKE_CONFIGURATION_TYPES)
+        set(_configuration --config Release)
+    endif()
+
     message(STATUS "Performing uninstall step for 'YCM'")
-    execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target uninstall
+    execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} ${_configuration} --target uninstall
                     WORKING_DIRECTORY ${YCM_BINARY_DIR}
                     ${_quiet_args}
                     RESULT_VARIABLE _result)
@@ -1167,7 +1173,7 @@ macro(YCM_BOOTSTRAP)
     # therefore do not fail with error
 
     message(STATUS "Performing build step for 'YCM'")
-    execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR}
+    execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} ${_configuration}
                     WORKING_DIRECTORY ${YCM_BINARY_DIR}
                     ${_quiet_args}
                     RESULT_VARIABLE _result)
@@ -1176,7 +1182,7 @@ macro(YCM_BOOTSTRAP)
     endif()
 
     message(STATUS "Performing install step for 'YCM'")
-    execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target install
+    execute_process(COMMAND ${CMAKE_COMMAND} --build ${YCM_BINARY_DIR} ${_configuration} --target install
                     WORKING_DIRECTORY ${YCM_BINARY_DIR}
                     ${_quiet_args}
                     RESULT_VARIABLE _result)
