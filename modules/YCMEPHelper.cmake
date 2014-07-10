@@ -179,6 +179,8 @@ macro(_YCM_SETUP)
 
     option(YCM_EP_EXPERT_MODE "Enable all targets for projects in development mode" OFF)
     option(YCM_EP_MAINTAINER_MODE "Enable all targets for projects in development mode" OFF)
+    mark_as_advanced(YCM_EP_EXPERT_MODE
+                     YCM_EP_MAINTAINER_MODE)
 
     if(MSVC_VERSION OR XCODE_VERSION)
         set(_update-all ALL_UPDATE)
