@@ -186,7 +186,7 @@ function(_YCM_INSTALL _target)
     string(REGEX REPLACE ";DESTINATION;${_INSTALL_DESTINATION}(;|$)" ";DESTINATION;${CMAKE_BINARY_DIR}/${_INSTALL_DESTINATION_RELATIVE}\\1" copyARGN "${copyARGN}")
 
     # Escape white spaces in filenames
-    string(REGEX REPLACE " " "\\\\ " copyARGN "${copyARGN}")
+    string(REPLACE " " "\\ " copyARGN "${copyARGN}")
 
     # Write copy script
     set(_ycm_install_script ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/ycm_install_${_target}_${_clean_filename}.cmake)
