@@ -188,6 +188,10 @@ function(_YCM_INSTALL _target)
     # Escape white spaces in filenames
     string(REPLACE " " "\\ " copyARGN "${copyARGN}")
 
+    # Escape brackets
+    string(REPLACE "(" "\\(" copyARGN "${copyARGN}")
+    string(REPLACE ")" "\\)" copyARGN "${copyARGN}")
+
     # On Windows replace slashes in filenames with escaped backslashes
     if(WIN32)
         string(REPLACE "/" "\\\\" copyARGN "${copyARGN}")
