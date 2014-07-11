@@ -188,6 +188,11 @@ function(_YCM_INSTALL _target)
     # Escape white spaces in filenames
     string(REPLACE " " "\\ " copyARGN "${copyARGN}")
 
+    # On Windows replace slashes in filenames with escaped backslashes
+    if(WIN32)
+        string(REPLACE "/" "\\\\" copyARGN "${copyARGN}")
+    endif()
+
     # Write copy script
     set(_ycm_install_script ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/ycm_install_${_target}_${_clean_filename}.cmake)
     set(_ycm_install_stamp_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/ycm_install_${_target}_${_clean_filename}-complete)
