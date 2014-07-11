@@ -1,20 +1,24 @@
 os:
   - linux
   - osx
-  
+
 language: cpp
 
 compiler:
   - gcc
   - clang
-  
+
 env:
   - TRAVIS_BUILD_TYPE=Debug
   - TRAVIS_BUILD_TYPE=Release
 
 matrix:
   allow_failures:
-  - os: osx 
+  - os: osx
+
+branches:
+  except:
+  - gh-pages
 
 before_script:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install cmake; fi
