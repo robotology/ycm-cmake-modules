@@ -69,13 +69,17 @@ _ycm_clean_path("${CMAKE_BINARY_DIR}/install" CMAKE_PREFIX_PATH)
 _ycm_clean_path("${CMAKE_BINARY_DIR}/install" PATH)
 
 
-find_package(YCM QUIET)
-if(COMMAND set_package_properties)
-  set_package_properties(YCM PROPERTIES TYPE RECOMMENDED
-                                        PURPOSE "Used by the build system")
-endif()
-if(YCM_FOUND)
-    return()
+# If the USE_SYSTEM_YCM is explicitly set to false, we just skip to bootstrap.
+if(NOT DEFINED USE_SYSTEM_YCM OR USE_SYSTEM_YCM)
+    find_package(YCM QUIET)
+    if(COMMAND set_package_properties)
+        set_package_properties(YCM PROPERTIES TYPE RECOMMENDED
+                                              PURPOSE "Used by the build system")
+    endif()
+    if(YCM_FOUND)
+        message(STATUS "YCM found in ${YCM_MODULE_DIR}.")
+        return()
+    endif()
 endif()
 
 message(STATUS "YCM not found. Bootstrapping it.")
