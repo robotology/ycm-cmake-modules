@@ -1191,6 +1191,12 @@ macro(YCM_BOOTSTRAP)
     endif()
 
     # Find the package, so that can be used now.
+    if(CMAKE_DISABLE_FIND_PACKAGE_YCM)
+        # We need to disable this flag, in case the the user explicitly enabled
+        # it in order to use the bootstrapped version, otherwise the next
+        # find_package will fail.
+        set(CMAKE_DISABLE_FIND_PACKAGE_YCM FALSE)
+    endif()
     find_package(YCM PATHS ${YCM_INSTALL_DIR} NO_DEFAULT_PATH)
 
     # Reset YCM_DIR variable so that next find_package will fail to locate the package and this will be kept updated
