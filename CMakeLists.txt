@@ -80,8 +80,12 @@ install(FILES ${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmak
 
 include(AddUninstallTarget)
 
-add_custom_target(update-sha1sums
-                  COMMAND ${CMAKE_SOURCE_DIR}/tools/update_sha1sums.sh)
+if(UNIX)
+    # update-sha1sums target makes no sense on windows, since the .sh script
+    # will fail to execute
+    add_custom_target(update-sha1sums
+                      COMMAND ${CMAKE_SOURCE_DIR}/tools/update_sha1sums.sh)
+endif()
 
 enable_testing()
 include(CTest)
