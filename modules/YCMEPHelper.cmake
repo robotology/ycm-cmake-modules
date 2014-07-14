@@ -188,7 +188,7 @@ macro(_YCM_SETUP)
     mark_as_advanced(YCM_EP_EXPERT_MODE
                      YCM_EP_MAINTAINER_MODE)
 
-    elseif("${CMAKE_GENERATOR}" MATCHES "^(Visual Studio|XCode)")
+    if("${CMAKE_GENERATOR}" MATCHES "^(Visual Studio|XCode)")
         set(_update-all ALL_UPDATE)
         set(_fetch-all ALL_FETCH)
         set(_status-all ALL_STATUS)
