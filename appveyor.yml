@@ -1,27 +1,29 @@
 version: 0.0.0.{build}
 
+init:
+  - cmd: git config --global core.autocrlf true
+  - cmd: dir C:\projects
+  - cmd: cmake --version
+  - cmd: msbuild /version
+
 clone_folder: C:\projects\ycm
 
 platform:
   - Win32
+  - x64
 
 configuration:
   - Release
-  - Debug
 
 branches:
   except:
     - gh-pages
 
-install:
-  - cmd: dir C:\projects
-  - cmd: cmake --version
-  - cmd: msbuild /version
-
 before_build:
   - cmd: md C:\projects\ycm\build
   - cmd: cd C:\projects\ycm\build
-  - cmd: cmake -G"Visual Studio 12" -DCMAKE_INSTALL_PREFIX:PATH=C:\projects\ycm\install ..
+  - cmd: if "%platform%"=="Win32" cmake -G"Visual Studio 12" -DCMAKE_INSTALL_PREFIX:PATH=C:\projects\ycm\install -DCPACK_GENERATOR:STRING=WIX ..
+  - cmd: if "%platform%"=="x64" cmake -G"Visual Studio 12 Win64" -DCMAKE_INSTALL_PREFIX:PATH=C:\projects\ycm\install -DCPACK_GENERATOR:STRING=WIX ..
 
 build:
   project: C:\projects\ycm\build\YCM.sln
