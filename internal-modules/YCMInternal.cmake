@@ -127,7 +127,7 @@ endif()
 ")
         if(WIN32)
             # On Windows we change files end of lines to the windows ones
-            file(APPEND ${_download_script} "configure_file(${_orig_dest} ${_dest} NEWLINE_STYLE)\n")
+            file(APPEND ${_download_script} "configure_file(${_orig_dest} ${_dest} NEWLINE_STYLE WIN32)\n")
         else()
             file(APPEND ${_download_script} "configure_file(${_orig_dest} ${_dest} COPY_ONLY)\n")
         endif()
