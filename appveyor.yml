@@ -1,16 +1,34 @@
-version: 1.0.{build}
+version: 0.0.0.{build}
 
-clone_folder: c:\projects\ycm
+clone_folder: C:\projects\ycm
+
+platform:
+  - Win32
+
+configuration:
+  - Release
+  - Debug
+
+branches:
+  except:
+    - gh-pages
 
 install:
-  - cmd: dir c:\projects
-  
-build:
+  - cmd: dir C:\projects
+  - cmd: cmake --version
+  - cmd: msbuild /version
 
-build_script:
-  - cd c:\projects\ycm
-  - md build
-  - cd build
-  - cmake --version
-  - cmake -G"Visual Studio 11" ..
-  - msbuild /m /p:Configuration=Release /p:Platform="Win32" ycm.sln
+before_build:
+  - cmd: md C:\projects\ycm\build
+  - cmd: cd C:\projects\ycm\build
+  - cmd: cmake -G"Visual Studio 12" -DCMAKE_INSTALL_PREFIX:PATH=C:\projects\ycm\install ..
+
+build:
+  project: C:\projects\ycm\build\YCM.sln
+  publish_nuget: true
+
+after_build:
+  - cmd: cmake --build C:\projects\ycm\build --target INSTALL
+
+test_script:
+  - cmd: ctest -VV
