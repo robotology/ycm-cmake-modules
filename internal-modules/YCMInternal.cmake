@@ -133,7 +133,8 @@ string(REPLACE \"/r/n\" \"/n\" _tmp \"\${_tmp}\")
 file(WRITE \"${_dest}\" \"\${_tmp}\")
 ")
         else()
-            file(APPEND ${_download_script} "file(COPY \"${_orig_dest}\" DESTINATION \"${_dest}\")\n")
+            get_filename_component(_dest_dir "${_dest}" DIRECTORY)
+            file(APPEND ${_download_script} "file(COPY \"${_orig_dest}\" DESTINATION \"${_dest_dir}\")\n")
         endif()
 
         add_custom_command(OUTPUT ${_dest} ${_dir}
