@@ -134,7 +134,13 @@ function(_YCM_HASH_CHECK _module)
     # FIXME is there a way to find the module without including it?
     include(${_module} RESULT_VARIABLE _module_file OPTIONAL)
     if(_module_file)
-        file(SHA1 ${_module_file} _module_sha1sum)
+        file(READ ${_module_file} _tmp)
+        if(WIN32)
+            # On windows, the file could have windows-style EOL
+            # This should work for any git configuration for core.autocrlf
+            string(REPLACE "/r/n" "/n" _tmp "${_tmp}")
+        endif()
+        string(SHA1 _module_sha1sum "${_tmp}")
         if(NOT "${_module_sha1sum}" STREQUAL "${_ycm_${_module}_sha1sum}")
             message(AUTHOR_WARNING
 "YCM_BOOTSTRAP HASH mismatch
