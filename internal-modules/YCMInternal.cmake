@@ -27,7 +27,7 @@
 include(CMakeParseArguments)
 
 function(_YCM_TARGET _target)
-    set(_ycm_target_stamp_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}-complete)
+    set(_ycm_target_stamp_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/complete)
     if(NOT TARGET ${_target})
         set(_comment "${ARGV1}")
         if(NOT _comment STREQUAL "")
@@ -77,12 +77,13 @@ function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
         string(REPLACE "<FILE>" "${_file}" _src "${_src}")
 
         set(_dest "${_dir}/${_file}")
+        set(_orig_dest ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/downloads/${_file})
         string(REGEX REPLACE "[/\\.]" "_" _clean_filename "${_file}")
 
 
-        set(_download_script ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/ycm_download_${_target}_${_clean_filename}.cmake)
-        set(_download_script_real ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/ycm_download_${_target}_${_clean_filename}_real.cmake)
-        set(_sha1sum_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/ycm_download_${_target}_${_clean_filename}.sha1sum)
+        set(_download_script ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}.cmake)
+        set(_download_script_real ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}_real.cmake)
+        set(_sha1sum_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}.sha1sum)
 
         file(WRITE ${_sha1sum_file}.tmp "${_sha1}\n")
         execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_sha1sum_file}.tmp ${_sha1sum_file})
@@ -90,12 +91,12 @@ function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
 
         file(WRITE ${_download_script_real}
 "cmake_minimum_required(VERSION ${CMAKE_VERSION})
-file(DOWNLOAD \"${_src}\" \"${_dest}\"
+file(DOWNLOAD \"${_src}\" \"${_orig_dest}\"
      EXPECTED_HASH SHA1=${_sha1} ${ARGN}
      STATUS _status)
 list(GET _status 0 _status_0)
 if(NOT _status EQUAL 0)
-    file(REMOVE \"${_dest}\")
+    file(REMOVE \"${_orig_dest}\")
     list(GET _status 1 _status_1)
     message(FATAL_ERROR \"Downloading ${_src} - ERROR \${_status_0}: \${_status_1}\")
 endif()
@@ -113,7 +114,7 @@ execute_process(COMMAND \"${CMAKE_COMMAND}\" -P \"${_download_script_real}\"
                 ERROR_VARIABLE _error_var
                 ERROR_STRIP_TRAILING_WHITESPACE)
 if(NOT \"\${_res_var}\" STREQUAL \"0\")
-    file(REMOVE \"${_dest}\")
+    file(REMOVE \"${_orig_dest}\")
     if(_error_var MATCHES \"da39a3ee5e6b4b0d3255bfef95601890afd80709\")
         # This is the sha1sum of an empty file. This usually means there was a
         # network problem, but the default message is misleading.
@@ -124,6 +125,12 @@ if(NOT \"\${_res_var}\" STREQUAL \"0\")
     endif()
 endif()
 ")
+        if(WIN32)
+            # On Windows we change files end of lines to the windows ones
+            file(APPEND ${_download_script} "configure_file(${_orig_dest} ${_dest} NEWLINE_STYLE)\n")
+        else()
+            file(APPEND ${_download_script} "configure_file(${_orig_dest} ${_dest} COPY_ONLY)\n")
+        endif()
 
         add_custom_command(OUTPUT ${_dest} ${_dir}
                            COMMAND ${CMAKE_COMMAND} -P ${_download_script}
