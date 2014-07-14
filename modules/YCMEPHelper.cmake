@@ -903,7 +903,7 @@ function(YCM_EP_HELPER _name)
     endif()
 
 
-# Extra steps
+    # Extra steps
     if(YCM_EP_DEVEL_MODE_${_name} OR YCM_EP_MAINTAINER_MODE)
         _ycm_ep_add_configure_step(${_name})
         _ycm_ep_add_fetch_step(${_name})
