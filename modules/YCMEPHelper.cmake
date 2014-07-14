@@ -93,7 +93,7 @@ macro(_YCM_INCLUDE _module)
         include(${_module})
     else()
         # We assume that YCMEPHelper was included using include_url, or that at
-        # least the IncludeUrl command exists.
+        # least the IncludeUrl module can be found by CMake.
         if(NOT COMMAND include_url)
             include(IncludeUrl)
         endif()
