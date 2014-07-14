@@ -127,9 +127,13 @@ endif()
 ")
         if(WIN32)
             # On Windows we change files end of lines to the windows ones
-            file(APPEND ${_download_script} "configure_file(${_orig_dest} ${_dest} NEWLINE_STYLE WIN32)\n")
+            file(APPEND ${_download_script}
+"file(READ \"${_orig_dest}\" _tmp)
+string(REPLACE \"/r/n\" \"/n\" _tmp \"\${_tmp}\")
+file(WRITE \"${_dest}\" \"\${_tmp}\")
+")
         else()
-            file(APPEND ${_download_script} "configure_file(${_orig_dest} ${_dest} COPY_ONLY)\n")
+            file(APPEND ${_download_script} "file(COPY \"${_orig_dest}\" DESTINATION \"${_dest}\")\n")
         endif()
 
         add_custom_command(OUTPUT ${_dest} ${_dir}
