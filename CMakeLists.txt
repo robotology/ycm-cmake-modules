@@ -33,6 +33,7 @@ set(YCM_INSTALL_CMAKE_DIR "${CMAKE_INSTALL_FULL_DATADIR}/YCM/cmake")
 # FIXME
 set(YCM_DOC_DIR ${CMAKE_INSTALL_DOCDIR})
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 add_subdirectory(modules)
 add_subdirectory(find-modules)
