@@ -114,7 +114,14 @@ execute_process(COMMAND \"${CMAKE_COMMAND}\" -P \"${_download_script_real}\"
                 ERROR_STRIP_TRAILING_WHITESPACE)
 if(NOT \"\${_res_var}\" STREQUAL \"0\")
     file(REMOVE \"${_dest}\")
-    message(FATAL_ERROR \"Cannot download file ${_src}\\n\${_error_var}\")
+    if(_error_var MATCHES \"da39a3ee5e6b4b0d3255bfef95601890afd80709\")
+        # This is the sha1sum of an empty file. This usually means there was a
+        # network problem, but the default message is misleading.
+        # We print a different error instead.
+        message(FATAL_ERROR \"Cannot download file ${_src}\\nNetwork problem.\")
+    else()
+        message(FATAL_ERROR \"Cannot download file ${_src}\\n\${_error_var}\")
+    endif()
 endif()
 ")
 
