@@ -40,9 +40,13 @@
 # download fails if a version of the file already exists, unless the
 # ``DOWNLOAD_ALWAYS``.
 #
-# The arguments ``INACTIVITY_TIMEOUT``, ``TIMEOUT``, ``STATUS``,
-# ``LOG``, ``SHOW_PROGRESS``, ``EXPECTED_HASH``, ``EXPECTED_MD5``,
-# ``TLS_VERIFY``, and ``TLS_CAINFO`` are passed to the
+# The arguments ``EXPECTED_HASH``, ``EXPECTED_MD5`` are used to ensure that the
+# file included is the one expected. If the ``<url>`` is a local file (i.e.
+# starts with ``file://``) the hash check is performed also on the file
+# converted to the non-native end-of-line style.
+#
+# The arguments ``INACTIVITY_TIMEOUT``, ``TIMEOUT``, ``STATUS``, ``LOG``,
+# ``SHOW_PROGRESS``, ``TLS_VERIFY``, and ``TLS_CAINFO`` are passed to the
 # ``file(DOWNLOAD)`` command.  See the documentation of the ``file()``
 # command for a detailed description of these arguments.
 #
@@ -132,7 +136,9 @@ macro(INCLUDE_URL _remotefile)
         endif()
     endforeach()
     foreach(_arg STATUS ${_downloadOneValueArgs})
-        if(DEFINED _IU_${_arg})
+        # If the file is local, the hash check is disabled, since this could
+        # fail because of different end of line styles
+        if(DEFINED _IU_${_arg} AND NOT ("${_remotefile}" MATCHES "^file://" AND "${_arg}" MATCHES "^(EXPECTED_HASH|EXPECTED_MD5)$"))
             list(APPEND _downloadArgs ${_arg} ${_IU_${_arg}})
         endif()
     endforeach()
@@ -209,20 +215,31 @@ macro(INCLUDE_URL _remotefile)
 
             file(${_algo} ${_localfile} _hash)
             if(NOT "${_hash}" STREQUAL "${_expected_hash}")
-                set(_error_message
+                if(NOT ("${_remotefile}" MATCHES "^file://" AND "${_arg}" MATCHES "^(EXPECTED_HASH|EXPECTED_MD5)$"))
+                    file(READ ${_localfile} _tmp)
+                    # Switch to the non-native end-of-line style and check again
+                    if(WIN32)
+                        string(REPLACE "/r/n" "/n" _tmp "${_tmp}")
+                    else()
+                        string(REPLACE "/n" "/r/n" _tmp "${_tmp}")
+                    endif()
+                    string(${_algo} _hash2 "${_tmp}")
+                    if(NOT "${_hash2}" STREQUAL "${_expected_hash}")
+                        set(_error_message
 "include_url HASH mismatch
   for file: [${_localfile}]
     expected hash: [${_expected_hash}]
       actual hash: [${_hash}]
 ")
-                # Remove the file to be sure that we'll never include
-                #the faulty file
-                file(REMOVE ${_localfile})
+                        # Remove the file to be sure that we'll never include
+                        # the faulty file
+                    endif()
+                endif()
             endif()
         endif()
-
         if(DEFINED _error_message)
             if(_shouldFail  OR  NOT EXISTS ${_tmpFile})
+                file(REMOVE ${_localfile})
                 message(FATAL_ERROR ${_error_message})
             else()
                 message(STATUS ${_error_message})
