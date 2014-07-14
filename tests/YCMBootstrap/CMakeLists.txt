@@ -13,7 +13,7 @@
 #  License text for the above reference.)
 
 cmake_minimum_required(VERSION 2.8.7)
-project(YCM-bootstrap NONE)
+project(YCMbootstrap NONE)
 
 include(FeatureSummary)
 
