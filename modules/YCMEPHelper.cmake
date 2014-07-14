@@ -138,20 +138,21 @@ function(_YCM_HASH_CHECK _module)
     if(_module_file)
         file(SHA1 ${_module_file} _module_sha1sum)
         if(NOT "${_module_sha1sum}" STREQUAL "${_ycm_${_module}_sha1sum}")
-        set(_error_message "YCM_BOOTSTRAP HASH mismatch
+            set(_error_message "YCM_BOOTSTRAP HASH mismatch
   for file: [${_module_file}]
     expected hash: [${_ycm_${_module}_sha1sum}]
       actual hash: [${_module_sha1sum}]
 Perhaps it is outdated or you have local modification. Please consider upgrading it, or contributing your changes to YCM.
 ")
-        if(WIN32)
-            file(READ ${_module_file} _tmp)
-            # On windows, the file could have windows-style EOL
-            # This should work for any git configuration for core.autocrlf
-            string(REPLACE "/r/n" "/n" _tmp "${_tmp}")
-            string(SHA1 _module_sha1sum "${_tmp}")
-            if("${_module_sha1sum}" STREQUAL "${_ycm_${_module}_sha1sum}")
-                unset(_error_message)
+            if(WIN32)
+                file(READ ${_module_file} _tmp)
+                # On windows, the file could have windows-style EOL
+                # This should work for any git configuration for core.autocrlf
+                string(REPLACE "/r/n" "/n" _tmp "${_tmp}")
+                string(SHA1 _module_sha1sum "${_tmp}")
+                if("${_module_sha1sum}" STREQUAL "${_ycm_${_module}_sha1sum}")
+                    unset(_error_message)
+                endif()
             endif()
         endif()
 
