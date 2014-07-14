@@ -25,10 +25,10 @@ include(YCMInternal)
 include(GNUInstallDirs)
 
 set(YCM_BUILD_MODULE_DIR "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/YCM")
-set(YCM_INSTALL_MODULE_DIR "${CMAKE_INSTALL_FULL_DATADIR}/YCM")
+set(YCM_INSTALL_MODULE_DIR "${CMAKE_INSTALL_DATADIR}/YCM")
 
 set(YCM_BUILD_CMAKE_DIR "${CMAKE_BINARY_DIR}")
-set(YCM_INSTALL_CMAKE_DIR "${CMAKE_INSTALL_FULL_DATADIR}/YCM/cmake")
+set(YCM_INSTALL_CMAKE_DIR "${CMAKE_INSTALL_DATADIR}/YCM/cmake")
 
 # FIXME
 set(YCM_DOC_DIR ${CMAKE_INSTALL_DOCDIR})
@@ -64,14 +64,14 @@ install(FILES ${YCM_BUILD_CMAKE_DIR}/YCMConfigVersion.cmake
 # YCMConfig.cmake (build tree)
 set(PACKAGE_YCM_MODULE_DIR "${YCM_BUILD_MODULE_DIR}")
 configure_package_config_file(YCMConfig.cmake.in ${YCM_BUILD_CMAKE_DIR}/YCMConfig.cmake
-                              INSTALL_DESTINATION ${YCM_BUILD_CMAKE_DIR}
+                              INSTALL_DESTINATION ${CMAKE_INSTALL_PREFIX}/${YCM_BUILD_CMAKE_DIR}
                               PATH_VARS YCM_BUILD_MODULE_DIR
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
 # YCMConfig.cmake (installed)
 set(PACKAGE_YCM_MODULE_DIR "${YCM_INSTALL_MODULE_DIR}")
 configure_package_config_file(YCMConfig.cmake.in ${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake
-                              INSTALL_DESTINATION ${YCM_INSTALL_CMAKE_DIR}
+                              INSTALL_DESTINATION ${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_CMAKE_DIR}
                               PATH_VARS YCM_INSTALL_MODULE_DIR
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
