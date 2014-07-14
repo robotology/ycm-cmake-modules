@@ -31,6 +31,7 @@ build:
 
 after_build:
   - cmd: cmake --build C:\projects\ycm\build --target INSTALL
+  - cmd: cmake --build C:\projects\ycm\build --target PACKAGE
 
 test_script:
   - cmd: ctest -VV
