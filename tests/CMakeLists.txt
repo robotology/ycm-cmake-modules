@@ -142,6 +142,26 @@ if(BUILD_TESTING)
   list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/YCMBootstrap-install-dir")
   list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/CMakeFiles/TestPrefix")
 
+  add_test(YCMBootstrap-not-use-system ${CMAKE_CTEST_COMMAND}
+           --build-and-test
+           "${YCM_SOURCE_DIR}/tests/YCMBootstrap"
+           "${YCM_BINARY_DIR}/tests/YCMBootstrap-not-use-system"
+           ${build_generator_args}
+           ${build_makeprogram_args}
+           --build-project YCMBootstrap
+           --build-options "-DYCM_BOOTSTRAP_TEST:STRING=NOT_USE_SYSTEM")
+  list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/YCMBootstrap-not-use-system")
+
+  add_test(YCMBootstrap-disable-find ${CMAKE_CTEST_COMMAND}
+           --build-and-test
+           "${YCM_SOURCE_DIR}/tests/YCMBootstrap"
+           "${YCM_BINARY_DIR}/tests/YCMBootstrap-disable-find"
+           ${build_generator_args}
+           ${build_makeprogram_args}
+           --build-project YCMBootstrap
+           --build-options "-DYCM_BOOTSTRAP_TEST:STRING=DISABLE_FIND")
+  list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/YCMBootstrap-disable-find")
+
   if(NOT EXISTS "${YCM_BINARY_DIR}/CMakeLists.txt")
     configure_file(${YCM_SOURCE_DIR}/tests/test_clean.cmake.in
                    ${YCM_BINARY_DIR}/tests/test_clean.cmake @ONLY)
