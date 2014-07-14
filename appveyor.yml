@@ -35,3 +35,6 @@ after_build:
 
 test_script:
   - cmd: ctest -VV
+
+artifacts:
+  - path: C:\projects\ycm\build\*.msi
