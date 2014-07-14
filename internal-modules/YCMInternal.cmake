@@ -212,8 +212,8 @@ function(_YCM_INSTALL _target)
     endif()
 
     # Write copy script
-    set(_ycm_install_script ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/ycm_install_${_target}_${_clean_filename}.cmake)
-    set(_ycm_install_stamp_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/ycm_install_${_target}_${_clean_filename}-complete)
+    set(_ycm_install_script ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_install_${_clean_filename}.cmake)
+    set(_ycm_install_stamp_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${target}.dir/ycm_install_${_clean_filename}-complete)
 
     file(WRITE ${_ycm_install_script}
 "cmake_minimum_required(VERSION ${CMAKE_VERSION})
