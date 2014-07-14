@@ -474,6 +474,7 @@ endfunction()
 function(_YCM_EP_ADD_CLEAN_STEP _name)
     unset(_cmd)
 # FIXME is _YH_${_name}_CLEAN_COMMAND to the function?
+# FIXME check if this works on MSVC and XCode
 
     if(NOT DEFINED _YH_${_name}_CLEAN_COMMAND OR _YH_${_name}_CLEAN_COMMAND STREQUAL "_")
         set(_cmd ${CMAKE_COMMAND} --build ${${_name}_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target clean)
