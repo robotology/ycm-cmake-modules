@@ -21,6 +21,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
 
 include(YCMVersion)
 include(YCMInternal)
+include(YCMPack)
 
 include(GNUInstallDirs)
 
