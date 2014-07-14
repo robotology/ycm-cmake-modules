@@ -215,6 +215,12 @@ macro(INCLUDE_URL _remotefile)
 
             file(${_algo} ${_localfile} _hash)
             if(NOT "${_hash}" STREQUAL "${_expected_hash}")
+                set(_error_message
+"include_url HASH mismatch
+  for file: [${_localfile}]
+    expected hash: [${_expected_hash}]
+      actual hash: [${_hash}]
+")
                 if(NOT ("${_remotefile}" MATCHES "^file://" AND "${_arg}" MATCHES "^(EXPECTED_HASH|EXPECTED_MD5)$"))
                     file(READ ${_localfile} _tmp)
                     # Switch to the non-native end-of-line style and check again
@@ -224,21 +230,17 @@ macro(INCLUDE_URL _remotefile)
                         string(REPLACE "/n" "/r/n" _tmp "${_tmp}")
                     endif()
                     string(${_algo} _hash2 "${_tmp}")
-                    if(NOT "${_hash2}" STREQUAL "${_expected_hash}")
-                        set(_error_message
-"include_url HASH mismatch
-  for file: [${_localfile}]
-    expected hash: [${_expected_hash}]
-      actual hash: [${_hash}]
-")
-                        # Remove the file to be sure that we'll never include
-                        # the faulty file
+                    if("${_hash2}" STREQUAL "${_expected_hash}")
+                        # This is the same file but with changed end-of-line
+                        # Do not print the error message
+                        unset(_error_message)
                     endif()
                 endif()
             endif()
         endif()
         if(DEFINED _error_message)
             if(_shouldFail  OR  NOT EXISTS ${_tmpFile})
+                # Remove the faulty file to be sure that we'll never include it
                 file(REMOVE ${_localfile})
                 message(FATAL_ERROR ${_error_message})
             else()
