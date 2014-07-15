@@ -23,5 +23,10 @@ set(CPACK_PACKAGE_VERSION_MINOR ${YCM_MINOR_VERSION})
 set(CPACK_PACKAGE_VERSION_PATCH ${YCM_PATCH_VERSION})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "YCM ${YCM_MAJOR_VERSION}.${YCM_MINOR_VERSION}")
 set(CPACK_PACKAGE_ICON "${YCM_SOURCE_DIR}/docs/static/ycm-favicon.ico")
+# On Windows replace slashes in file name with escaped backslashes, as NSIS is picky about Unix paths
+# ans using file(TO_NATIVE_PATH) is not enough, as \s are not escaped
+if(WIN32)
+    string(REPLACE "/" "\\\\" CPACK_PACKAGE_ICON "${CPACK_PACKAGE_ICON}")
+endif()
 
 include(CPack)
