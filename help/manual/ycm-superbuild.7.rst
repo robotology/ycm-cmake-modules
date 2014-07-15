@@ -230,7 +230,7 @@ Global Targets
 ~~~~~~~~~~~~~~
 
 These targets influence all the whole YCM superbuild. In brackets is the
-name of the target on IDEs like Visual Studio and XCode.
+name of the target on IDEs like Visual Studio and Xcode.
 
 
 .. _`target:all`:

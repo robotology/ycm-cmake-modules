@@ -61,7 +61,7 @@ foreach(file \${files})
 endforeach(file)
 ")
 
-if("${CMAKE_GENERATOR}" MATCHES "^(Visual Studio|XCode)")
+if("${CMAKE_GENERATOR}" MATCHES "^(Visual Studio|Xcode)")
     set(_uninstall "UNINSTALL")
 else()
     set(_uninstall "uninstall")

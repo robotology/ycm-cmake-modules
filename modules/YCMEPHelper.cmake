@@ -197,7 +197,7 @@ macro(_YCM_SETUP)
     mark_as_advanced(YCM_EP_EXPERT_MODE
                      YCM_EP_MAINTAINER_MODE)
 
-    if("${CMAKE_GENERATOR}" MATCHES "^(Visual Studio|XCode)")
+    if("${CMAKE_GENERATOR}" MATCHES "^(Visual Studio|Xcode)")
         set(_update-all ALL_UPDATE)
         set(_fetch-all ALL_FETCH)
         set(_status-all ALL_STATUS)
@@ -483,7 +483,7 @@ endfunction()
 function(_YCM_EP_ADD_CLEAN_STEP _name)
     unset(_cmd)
 # FIXME is _YH_${_name}_CLEAN_COMMAND to the function?
-# FIXME check if this works on MSVC and XCode
+# FIXME check if this works on MSVC and Xcode
 
     if(NOT DEFINED _YH_${_name}_CLEAN_COMMAND OR _YH_${_name}_CLEAN_COMMAND STREQUAL "_")
         set(_cmd ${CMAKE_COMMAND} --build ${${_name}_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target clean)
@@ -1174,7 +1174,7 @@ macro(YCM_BOOTSTRAP)
         message(FATAL_ERROR "Cannot configure YCM repository")
     endif()
 
-    # On multi-config generators (MSVC and XCode) always build in
+    # On multi-config generators (MSVC and Xcode) always build in
     # "Release" configuration
     if(CMAKE_CONFIGURATION_TYPES)
         set(_configuration --config Release)
