@@ -133,7 +133,7 @@ string(REPLACE \"/r/n\" \"/n\" _tmp \"\${_tmp}\")
 file(WRITE \"${_dest}\" \"\${_tmp}\")
 ")
         else()
-            file(APPEND ${_download_script} "execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different \"${_orig_dest}\" \"${_dest}\"")
+            file(APPEND ${_download_script} "execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different \"${_orig_dest}\" \"${_dest}\")")
         endif()
 
         add_custom_command(OUTPUT ${_dest} ${_dir}
