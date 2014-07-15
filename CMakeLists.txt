@@ -25,7 +25,7 @@ include(YCMPack)
 
 include(GNUInstallDirs)
 
-set(YCM_BUILD_MODULE_DIR "${CMAKE_INSTALL_DATADIR}/YCM")
+set(YCM_BUILD_MODULE_DIR "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/YCM")
 set(YCM_INSTALL_MODULE_DIR "${CMAKE_INSTALL_DATADIR}/YCM")
 
 set(YCM_BUILD_CMAKE_DIR "${CMAKE_BINARY_DIR}")
@@ -63,17 +63,30 @@ install(FILES ${YCM_BUILD_CMAKE_DIR}/YCMConfigVersion.cmake
         DESTINATION ${YCM_INSTALL_CMAKE_DIR})
 
 # YCMConfig.cmake (build tree)
-get_filename_component(PACKAGE_YCM_MODULE_DIR "${CMAKE_BINARY_DIR}/${PACKAGE_YCM_MODULE_DIR}" ABSOLUTE)
-configure_package_config_file(YCMConfig.cmake.in ${YCM_BUILD_CMAKE_DIR}/YCMConfig.cmake
-                              INSTALL_DESTINATION ${CMAKE_INSTALL_PREFIX}/${YCM_BUILD_CMAKE_DIR}
-                              PATH_VARS YCM_BUILD_MODULE_DIR
+# HACK: configure_package_config_file uses a
+# file(RELATIVE_PATH ... ... "${CMAKE_INSTALL_PREFIX}" )
+# to set the PACKAGE_PREFIX_DIR variable. This means that all the variables
+# in the build tree config file will use the absolute path, and that the
+# PACKAGE_PREFIX_DIR variable will contain the actual prefix where the package
+# is being installed.
+# This is probably not a problem, but in order to have only relative paths we
+# temporarily save the CMAKE_INSTALL_PREFIX variable and replace it with
+# CMAKE_BINARY_DIR.
+set(_CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
+get_filename_component(YCM_MODULE_DIR "${YCM_BUILD_MODULE_DIR}" ABSOLUTE)
+configure_package_config_file(YCMConfig.cmake.in "${YCM_BUILD_CMAKE_DIR}/YCMConfig.cmake"
+                              INSTALL_DESTINATION "${YCM_BUILD_CMAKE_DIR}"
+                              PATH_VARS YCM_MODULE_DIR
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+set(CMAKE_INSTALL_PREFIX "${_CMAKE_INSTALL_PREFIX}")
+unset(_CMAKE_INSTALL_PREFIX)
 
 # YCMConfig.cmake (installed)
-get_filename_component(PACKAGE_YCM_MODULE_DIR "${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_MODULE_DIR}" ABSOLUTE)
-configure_package_config_file(YCMConfig.cmake.in ${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake
-                              INSTALL_DESTINATION ${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_CMAKE_DIR}
-                              PATH_VARS YCM_INSTALL_MODULE_DIR
+get_filename_component(YCM_MODULE_DIR "${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_MODULE_DIR}" ABSOLUTE)
+configure_package_config_file(YCMConfig.cmake.in "${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
+                              INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_CMAKE_DIR}"
+                              PATH_VARS YCM_MODULE_DIR
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
 install(FILES ${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake
