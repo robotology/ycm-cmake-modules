@@ -77,7 +77,7 @@ function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
         string(REPLACE "<FILE>" "${_file}" _src "${_src}")
 
         set(_dest "${_dir}/${_file}")
-        set(_orig_dest ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/downloads/${_file})
+        set(_orig_dest "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/downloads/${_file}")
         string(REGEX REPLACE "[/\\.]" "_" _clean_filename "${_file}")
 
 
