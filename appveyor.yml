@@ -37,4 +37,4 @@ test_script:
   - cmd: ctest -VV
 
 artifacts:
-  - path: 'C:\projects\ycm\build\**\*.msi'
+  - path: '**\*.msi'
