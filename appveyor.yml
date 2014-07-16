@@ -27,7 +27,6 @@ before_build:
 
 build:
   project: C:\projects\ycm\build\YCM.sln
-  publish_nuget: true
 
 after_build:
   - cmd: cmake --build C:\projects\ycm\build --target INSTALL
