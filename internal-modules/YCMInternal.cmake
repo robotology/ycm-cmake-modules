@@ -174,7 +174,8 @@ function(_YCM_INSTALL _target)
     # Parse arguments
     set(_options )
     set(_oneValueArgs DESTINATION
-                      RENAME)
+                      RENAME
+                      COMPONENT)
     set(_multiValueArgs FILES
                         DIRECTORY
                         PROGRAMS
@@ -187,6 +188,11 @@ function(_YCM_INSTALL _target)
 
     # Get relative installation destination
     string(REGEX REPLACE "^${CMAKE_INSTALL_PREFIX}/" "" _INSTALL_DESTINATION_RELATIVE ${_INSTALL_DESTINATION})
+
+    # Remove COMPONENT argument
+    if(DEFINED _INSTALL_COMPONENT)
+        string(REGEX REPLACE ";COMPONENT;${_INSTALL_COMPONENT}(;|$)" "\\1" copyARGN "${copyARGN}")
+    endif()
 
     if(_INSTALL_FILES)
         list(INSERT copyARGN 0 INSTALL TYPE FILE FILES)
