@@ -27,6 +27,11 @@ set(CPACK_PACKAGE_ICON "${YCM_SOURCE_DIR}/docs/static/ycm-favicon.ico")
 # ans using file(TO_NATIVE_PATH) is not enough, as \s are not escaped
 if(WIN32)
     string(REPLACE "/" "\\\\" CPACK_PACKAGE_ICON "${CPACK_PACKAGE_ICON}")
+    # Produce an installer for 64bit windows
+    if("${CMAKE_GENERATOR}" MATCHES "Win64")
+        set(CMAKE_CL_64 TRUE)
+        set(CPACK_WIX_SIZEOF_VOID_P 8)
+    endif()
 endif()
 
 include(CPack)
