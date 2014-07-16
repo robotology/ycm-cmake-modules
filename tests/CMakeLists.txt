@@ -161,6 +161,9 @@ if(BUILD_TESTING)
            --build-options "-DYCM_BOOTSTRAP_TEST:STRING=DISABLE_FIND")
   list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/YCMBootstrap-disable-find")
 
+  # Add download folder to the list of files deleted by test_clean
+  list(APPEND TEST_BUILD_DIRS "${YCM_SOURCE_DIR}/tests/YCMBootstrap/external")
+
   if(NOT EXISTS "${YCM_BINARY_DIR}/CMakeLists.txt")
     configure_file(${YCM_SOURCE_DIR}/tests/test_clean.cmake.in
                    ${YCM_BINARY_DIR}/tests/test_clean.cmake @ONLY)
