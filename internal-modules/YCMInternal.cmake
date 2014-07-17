@@ -27,22 +27,22 @@
 include(CMakeParseArguments)
 
 function(_YCM_TARGET _target)
-    set(_ycm_target_stamp_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/complete)
+    set(_ycm_target_stamp_file "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/complete")
     if(NOT TARGET ${_target})
         set(_comment "${ARGV1}")
         if(NOT _comment STREQUAL "")
             set(_comment COMMENT ${_comment})
         endif()
 
-        add_custom_command(OUTPUT ${_ycm_target_stamp_file}
-                           COMMAND ${CMAKE_COMMAND} -E touch ${_ycm_target_stamp_file}
-                           WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        add_custom_command(OUTPUT "${_ycm_target_stamp_file}"
+                           COMMAND "${CMAKE_COMMAND}" -E touch "${_ycm_target_stamp_file}"
+                           WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
                            ${_comment}
                            VERBATIM)
-        set_property(SOURCE ${_ycm_target_stamp_file} PROPERTY SYMBOLIC 1)
-        add_custom_target(${_target} ALL DEPENDS ${_ycm_target_stamp_file})
+        set_property(SOURCE "${_ycm_target_stamp_file}" PROPERTY SYMBOLIC 1)
+        add_custom_target(${_target} ALL DEPENDS "${_ycm_target_stamp_file}")
     endif()
-    set(_ycm_target_stamp_file ${_ycm_target_stamp_file} PARENT_SCOPE)
+    set(_ycm_target_stamp_file "${_ycm_target_stamp_file}" PARENT_SCOPE)
 endfunction()
 
 
@@ -90,15 +90,15 @@ function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
             string(MAKE_C_IDENTIFIER "${_file}" _clean_filename)
         endif()
 
-        set(_download_script ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}.cmake)
-        set(_download_script_real ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}_real.cmake)
-        set(_sha1sum_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}.sha1sum)
+        set(_download_script "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}.cmake")
+        set(_download_script_real "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}_real.cmake")
+        set(_sha1sum_file "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}.sha1sum")
 
-        file(WRITE ${_sha1sum_file}.tmp "${_sha1}\n")
-        execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_sha1sum_file}.tmp ${_sha1sum_file})
-        file(REMOVE ${_sha1sum_file}.tmp)
+        file(WRITE "${_sha1sum_file}.tmp" "${_sha1}\n")
+        execute_process(COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${_sha1sum_file}.tmp" "${_sha1sum_file}")
+        file(REMOVE "${_sha1sum_file}.tmp")
 
-        file(WRITE ${_download_script_real}
+        file(WRITE "${_download_script_real}"
 "cmake_minimum_required(VERSION ${CMAKE_VERSION})
 file(DOWNLOAD \"${_src}\" \"${_orig_dest}\"
      EXPECTED_HASH SHA1=${_sha1} ${ARGN}
@@ -142,18 +142,18 @@ string(REPLACE \"/r/n\" \"/n\" _tmp \"\${_tmp}\")
 file(WRITE \"${_dest}\" \"\${_tmp}\")
 ")
         else()
-            file(APPEND ${_download_script} "execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different \"${_orig_dest}\" \"${_dest}\")")
+            file(APPEND "${_download_script}" "execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different \"${_orig_dest}\" \"${_dest}\")")
         endif()
 
-        add_custom_command(OUTPUT ${_dest} ${_dir}
-                           COMMAND ${CMAKE_COMMAND} -P ${_download_script}
-                           WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                           DEPENDS ${_sha1sum_file}
+        add_custom_command(OUTPUT "${_dest}" "${_dir}"
+                           COMMAND "${CMAKE_COMMAND}" -P "${_download_script}"
+                           WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+                           DEPENDS "${_sha1sum_file}"
                            COMMENT "Downloading file ${_file} from ${_desc} (ref ${_ref})")
 
         add_custom_command(APPEND
-                           OUTPUT ${_ycm_target_stamp_file}
-                           DEPENDS ${_dest})
+                           OUTPUT "${_ycm_target_stamp_file}"
+                           DEPENDS "${_dest}")
 
         set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${_dest})
     endforeach()
@@ -196,7 +196,7 @@ function(_YCM_INSTALL _target)
     list(REMOVE_AT copyARGN 0)
 
     # Get relative installation destination
-    string(REGEX REPLACE "^${CMAKE_INSTALL_PREFIX}/" "" _INSTALL_DESTINATION_RELATIVE ${_INSTALL_DESTINATION})
+    string(REGEX REPLACE "^${CMAKE_INSTALL_PREFIX}/" "" _INSTALL_DESTINATION_RELATIVE "${_INSTALL_DESTINATION}")
 
     # Remove COMPONENT argument
     if(DEFINED _INSTALL_COMPONENT)
@@ -213,16 +213,16 @@ function(_YCM_INSTALL _target)
         else()
             set(_clean_filename ${_INSTALL_FILES})
             if(IS_ABSOLUTE "${_clean_filename}")
-                string(REPLACE "${CMAKE_CURRENT_BINARY_DIR}/" "" _clean_filename ${_clean_filename})
-                string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" _clean_filename ${_clean_filename})
+                string(REPLACE "${CMAKE_CURRENT_BINARY_DIR}/" "" _clean_filename "${_clean_filename}")
+                string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" _clean_filename "${_clean_filename}")
             endif()
         endif()
     elseif(_INSTALL_DIRECTORY)
         list(INSERT copyARGN 0 INSTALL TYPE FILE FILES)
         set(_clean_filename ${_INSTALL_DIRECTORY})
         if(IS_ABSOLUTE "${_clean_filename}")
-            string(REPLACE "${CMAKE_CURRENT_BINARY_DIR}/" "" _clean_filename ${_clean_filename})
-            string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" _clean_filename ${_clean_filename})
+            string(REPLACE "${CMAKE_CURRENT_BINARY_DIR}/" "" _clean_filename "${_clean_filename}")
+            string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" _clean_filename "${_clean_filename}")
         endif()
     else()
         message(FATAL_ERROR "Not yet supported")
@@ -255,10 +255,10 @@ function(_YCM_INSTALL _target)
     endif()
 
     # Write copy script
-    set(_ycm_install_script ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_install_${_clean_filename}.cmake)
-    set(_ycm_install_stamp_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_install_${_clean_filename}-complete)
+    set(_ycm_install_script "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_install_${_clean_filename}.cmake")
+    set(_ycm_install_stamp_file "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_install_${_clean_filename}-complete")
 
-    file(WRITE ${_ycm_install_script}
+    file(WRITE "${_ycm_install_script}"
 "cmake_minimum_required(VERSION ${CMAKE_VERSION})
 set(_DESTDIR \$ENV{DESTDIR})
 set(ENV{DESTDIR} )
@@ -267,36 +267,36 @@ set(ENV{DESTDIR} \${_DESTDIR})
 ")
 
     # Add custom command
-    add_custom_command(OUTPUT ${_ycm_install_stamp_file}
-                       COMMAND ${CMAKE_COMMAND} -P ${_ycm_install_script}
-                       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    add_custom_command(OUTPUT "${_ycm_install_stamp_file}"
+                       COMMAND "${CMAKE_COMMAND}" -P "${_ycm_install_script}"
+                       WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
                        COMMENT "")
-    set_property(SOURCE ${_ycm_install_stamp_file} PROPERTY SYMBOLIC 1)
+    set_property(SOURCE "${_ycm_install_stamp_file}" PROPERTY SYMBOLIC 1)
 
     # Set file level dependencies for the
     add_custom_command(APPEND
-                       OUTPUT ${_ycm_target_stamp_file}
-                       DEPENDS ${_ycm_install_stamp_file})
+                       OUTPUT "${_ycm_target_stamp_file}"
+                       DEPENDS "${_ycm_install_stamp_file}")
 
     # Generate a list of output and dependencies
-    foreach(_file ${_INSTALL_FILES} ${_INSTALL_DIRECTORY} ${_INSTALL_PROGRAMS})
-        list(APPEND _depends ${_file})
+    foreach(_file IN LISTS _INSTALL_FILES _INSTALL_DIRECTORY _INSTALL_PROGRAMS)
+        list(APPEND _depends "${_file}")
         if(_INSTALL_RENAME)
-            set(_out ${_INSTALL_DESTINATION_RELATIVE}/${_INSTALL_RENAME})
+            set(_out "${_INSTALL_DESTINATION_RELATIVE}/${_INSTALL_RENAME}")
         else()
             get_filename_component(_out "${_file}" NAME)
-            set(_out ${_INSTALL_DESTINATION_RELATIVE}/${_out})
+            set(_out "${_INSTALL_DESTINATION_RELATIVE}/${_out}")
         endif()
-        list(APPEND _output ${_out})
+        list(APPEND _output "${_out}")
 
-        add_custom_command(OUTPUT  ${_out}
-                           DEPENDS ${_file}
+        add_custom_command(OUTPUT  "${_out}"
+                           DEPENDS "${_file}"
                            COMMENT "")
 
         add_custom_command(APPEND
-                           OUTPUT ${_ycm_install_stamp_file}
-                           DEPENDS ${_out})
+                           OUTPUT "${_ycm_install_stamp_file}"
+                           DEPENDS "${_out}")
 
-        set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${_out})
+        set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${_out}")
     endforeach()
 endfunction()
