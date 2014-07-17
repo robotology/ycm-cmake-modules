@@ -203,8 +203,8 @@ function(_YCM_INSTALL _target)
     else()
         message(FATAL_ERROR "Not yet supported")
     endif()
-    string(REGEX REPLACE "^${CMAKE_CURRENT_BINARY_DIR}/" "" _clean_filename ${_clean_filename})
-    string(REGEX REPLACE "[/\\.]" "_" _clean_filename "${_clean_filename}")
+
+    string(MAKE_C_IDENTIFIER ${_clean_filename} _clean_filename)
 
     # Fix DESTINATION for the build directory
     string(REGEX REPLACE ";DESTINATION;${_INSTALL_DESTINATION}(;|$)" ";DESTINATION;${CMAKE_BINARY_DIR}/${_INSTALL_DESTINATION_RELATIVE}\\1" copyARGN "${copyARGN}")
