@@ -37,4 +37,4 @@ script:
   - make install
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cd ../build_xcode; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then xcodebuild; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then xcodebuild -target test; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then xcodebuild -target RUN_TESTS; fi
