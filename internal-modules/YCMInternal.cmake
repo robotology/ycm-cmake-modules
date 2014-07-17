@@ -218,7 +218,16 @@ function(_YCM_INSTALL _target)
         message(FATAL_ERROR "Not yet supported")
     endif()
 
-    string(MAKE_C_IDENTIFIER ${_clean_filename} _clean_filename)
+    if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.12)
+        # Just a reminder to remove this when we change cmake minimum required version
+        message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.12. You can remove this.")
+    endif()
+    if(CMAKE_VERSION VERSION_LESS 2.8.12)
+        string(REGEX REPLACE "[/\\.]" "_" _clean_filename "${_clean_filename}")
+        string(REGEX REPLACE "^([0-9])" "_\\1" _clean_filename "${_clean_filename}")
+    else()
+        string(MAKE_C_IDENTIFIER ${_clean_filename} _clean_filename)
+    endif()
 
     # Fix DESTINATION for the build directory
     string(REGEX REPLACE ";DESTINATION;${_INSTALL_DESTINATION}(;|$)" ";DESTINATION;${CMAKE_BINARY_DIR}/${_INSTALL_DESTINATION_RELATIVE}\\1" copyARGN "${copyARGN}")
