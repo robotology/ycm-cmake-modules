@@ -236,7 +236,7 @@ function(_YCM_INSTALL _target)
         string(REGEX REPLACE "[/\\.]" "_" _clean_filename "${_clean_filename}")
         string(REGEX REPLACE "^([0-9])" "_\\1" _clean_filename "${_clean_filename}")
     else()
-        string(MAKE_C_IDENTIFIER ${_clean_filename} _clean_filename)
+        string(MAKE_C_IDENTIFIER "${_clean_filename}" _clean_filename)
     endif()
 
     # Fix DESTINATION for the build directory
