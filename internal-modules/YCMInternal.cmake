@@ -78,8 +78,17 @@ function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
 
         set(_dest "${_dir}/${_file}")
         set(_orig_dest "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/downloads/${_file}")
-        string(REGEX REPLACE "[/\\.]" "_" _clean_filename "${_file}")
 
+        if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.12)
+            # Just a reminder to remove this when we change cmake minimum required version
+            message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.12. You can remove this.")
+        endif()
+        if(CMAKE_VERSION VERSION_LESS 2.8.12)
+            string(REGEX REPLACE "[/\\.]" "_" _clean_filename "${_file}")
+            string(REGEX REPLACE "^([0-9])" "_\\1" _clean_filename "${_clean_filename}")
+        else()
+            string(MAKE_C_IDENTIFIER "${_file}" _clean_filename)
+        endif()
 
         set(_download_script ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}.cmake)
         set(_download_script_real ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}_real.cmake)
