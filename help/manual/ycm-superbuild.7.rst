@@ -7,6 +7,9 @@ ycm-superbuild(7)
 
    .. contents::
 
+
+.. _`YCM Superbuild Manual`:
+
 YCM Superbuild
 ==============
 
@@ -17,6 +20,14 @@ build several other projects.
 The superbuild will check if a package is available on the system, and,
 if it is not, it will download its source code build and install it.
 
+A YCM superbuild supports out of the box:
+
+* User mode
+* Developer mode
+* Demos
+* Automatic integration with CDash.
+* Automatic documentation generation using doxygen.
+* Generation of dependency graphs using dot.
 
 Depending on your reason for using a YCM superbuild, you should skip to
 the appropriate section:
