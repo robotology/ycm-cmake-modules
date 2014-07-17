@@ -10,134 +10,95 @@ ycm-build-system-support(7)
 YCM Build System Support
 ========================
 
-This is the manual for people who wants to use YCM in their project.
-
-YCM can be used in different ways:
-
- * Extra module mode:
-
-   * :ref:`Generic Modules` that add functionalities to CMake that might
-     be useful in your project.
-
-   * :ref:`Find Package Modules`, that help in finding software on the
-     system.
-
-   * :ref:`Packaging Helper Modules`, that are useful to simplify the
-     generation of a package that can be used by other packages.
-
-   * Support for new CMake features in older CMake versions.
-
-   * Support for new features in CMake before these are actually
-     released.
-
-   * Support for 3rd party CMake modules.
-
- * Superbuild mode:
-
-   * :ref:`Superbuild Helper Modules`, that are useful to create a
-     superbuild that downloads and build several packages.
-
-   A YCM superbuild supports out of the box:
-
-   * User mode
-   * Developer mode
-   * Demos
-   * Automatic integration with CDash.
-   * Automatic documentation generation using doxygen.
-   * Generation of dependency graphs using dot.
+YCM offers a few macros and Find scripts that can be used in your build system.
 
 
+  * :ref:`Generic Modules` that add functionalities to CMake that might
+    be useful in your project.
 
+  * :ref:`Find Package Modules`, that help in finding software on the
+    system.
 
+  * :ref:`Packaging Helper Modules`, that are useful to simplify the
+    generation of a package that can be used by other packages.
 
-How to Use YCM in Your Project
-------------------------------
+  * Support for new CMake features in older CMake versions.
 
-.. toctree::
-   :maxdepth: 1
+  * Support for new features in CMake before these are actually
+    released.
 
-In order to use YCM in your project, your software will have to depend
-on CMake 2.8.7 or later. Therefore your ``CMakeLists.txt`` file should
-include a :cmake:command:`cmake_minimum_required` call to set the
-:cmake:variable:`CMAKE_MINIMUM_REQUIRED_VERSION` and the relative
-CMake policies.
+  * Support for 3rd party CMake modules.
 
+YCM also offers functionalities to make a superbuild. Documentation for this can be found elsewhere (see: :ref:`YCM Superbuild Manual`).
+
+A practical example
+===================
+
+Suppose you have created a package that contains a library, called ``TemplatePkg``. You want to package this library, providing versioning, 
+installation rules for header as well as binary files and cmake files for finding and using the library within other projects.
+
+This is the code you need to add to your CMakeLists.txt:
 
 .. code-block:: cmake
 
-    cmake_minimum_required(VERSION 2.8.7)
+    cmake_minimum_required(VERSION 2.8.11)
+    project(TemplatePkg CXX)
 
+    # declare a variable with the name of the project
+    set(VARS_PREFIX "TEMPLATE_PKG")
 
-If you want to use some module not available in CMake 2.8.7, you have to
-enable the relative variables, see :variable:`YCM_USE_CMAKE_2_8_8`,
-:variable:`YCM_USE_CMAKE_2_8_12`, :variable:`YCM_USE_CMAKE_3_0`,
-:variable:`YCM_USE_CMAKE_NEXT`, and :variable:`YCM_USE_CMAKE_PROPOSED`.
+    # ser variables that store version number
+    set(${VARS_PREFIX}_MAJOR_VERSION 0)
+    set(${VARS_PREFIX}_MINOR_VERSION 0)
+    set(${VARS_PREFIX}_PATCH_VERSION 1)
+    set(${VARS_PREFIX}_VERSION ${${VARS_PREFIX}_MAJOR_VERSION}.${${VARS_PREFIX}_MINOR_VERSION}.${${VARS_PREFIX}_PATCH_VERSION})
 
-.. code-block:: cmake
+    # find and use YCM
+    find_package(YCM REQUIRED)
 
-    set(YCM_USE_CMAKE_2_8_8 TRUE) # Enables modules from CMake 2.8.8
-    set(YCM_USE_CMAKE_2_8_12 TRUE) # Enables modules from CMake 2.8.12
-    set(YCM_USE_CMAKE_3_0 TRUE) # Enables modules from CMake 2.8.12
-    set(YCM_USE_CMAKE_NEXT TRUE) # Enables modules from CMake git repository
-    set(YCM_USE_CMAKE_PROPOSED TRUE) # Enables unmerged patches to CMake modules
+    # DANIELE: do we need this??
+    include(YCMDefaultDirs)
+    ycm_default_dirs(${VARS_PREFIX})
 
+    # add sources
+    add_subdirectory(src)
 
-If you want to use 3rd party modules you have to enable the
-:variable:`YCM_USE_3RDPARTY` variable.
+So far nothing special. We have declared our library, added source codes and included YCM.
 
-.. code-block:: cmake
-
-    set(YCM_USE_3RDPARTY TRUE) # Enables 3rd party modules
-
-
-If you want to enable the deprecated modules, you have to enable the
-:variable:`YCM_USE_DEPRECATED` variable. Please note that these modules
-are deprecated for a reason, are not supported, might contain bugs, and
-could be removed in future releases, therefore they should not be used
-in new code.
+We now need to instruct CMake to install the library and generate ``CMake`` (FindTemplatePkg.cmake) 
+have also been generated so that ``TemplatePkg`` can be found using ``CMake``.
 
 .. code-block:: cmake
 
-    set(YCM_USE_DEPRECATED TRUE) # Enables 3rd party modules
+    # include macro for installing packaging files and invoke it
+    include(InstallBasicPackageFiles)
+    install_basic_package_files(TemplatePkg VARS_PREFIX ${VARS_PREFIX}
+                                        VERSION ${${VARS_PREFIX}_VERSION}
+                                        COMPATIBILITY SameMajorVersion
+                                        TARGETS_PROPERTY ${VARS_PREFIX}_TARGETS
+                                        NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
 
-YCM can be both a hard dependency or a soft dependency in your project.
-In the first case, your package will not build if the YCM package is not
-installed, in the second case, if it is not installed, it will be
-downloaded and built during the configure phase of your project.
-
-
-In order to make it a hard dependency, you can just use it like any
-other package:
-
-.. code-block:: cmake
-
-   # Find YCM
-   find_package(YCM [version] REQUIRED)
-
-This is the recommended mode to use it when you just want to use YCM
-modules, because in this way you will not need a network connection
-when building it the package.
-
-
-In order to make it a soft dependency, you will need to include
-``tools/YCMBootstrap.cmake`` and ``modules/IncludeUrl.cmake`` in
-your project (It must be in some folder included in
-:variable:`CMAKE_MODULE_PATH` for your project) and then
+Finally we add uninstall rules
 
 .. code-block:: cmake
 
-   # Uncomment the next line to specify a tag or a version.
-   # set(YCM_TAG [tag, branch, or commit hash])
+    include(AddUninstallTarget)
 
-   # Bootstrap YCM
-   include(YCMBootstrap)
+Now you can compile the package by simply doing:
 
-This is the suggested method when you build a superbuild. Downloading
-all your project would require a network connection anyway, therefore
-you will need to install
+.. code-block:: guess
+
+   mkdir build
+   cd build
+   cmake ../
+   make
+   mske install
+
+If you check inside the build directory or /usr/local/lib you should see that make install has built the project and installed header files and the library correctly, along with
+CMakeFiles ``FindTemplatePkg.cmake``.
 
 
-In both cases, you can use YCM modules right after this declaration.
+Example code can be downloaded from: git@gitlab.robotology.eu:walkman/template-pkg.git
 
-
+DANIELE: check how to do bootstrap it did not work for me.
