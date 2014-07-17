@@ -289,8 +289,11 @@ set(ENV{DESTDIR} \${_DESTDIR})
         endif()
         list(APPEND _output "${_out}")
 
+        # Xcode generator requires at least one COMMAND, otherwise it will not
+        # generate a target, therefore we add an empty command.
         add_custom_command(OUTPUT  "${_out}"
                            DEPENDS "${_file}"
+                           COMMAND ""
                            COMMENT "")
 
         add_custom_command(APPEND
