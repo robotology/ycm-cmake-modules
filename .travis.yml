@@ -2,39 +2,38 @@ os:
   - linux
   - osx
 
-language: cpp
-
-compiler:
-  - gcc
-  - clang
+language: c++
 
 env:
-  - TRAVIS_BUILD_TYPE=Debug
-  - TRAVIS_BUILD_TYPE=Release
+  - TRAVIS_BUILD_TYPE=Debug TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+  - TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+  - TRAVIS_BUILD_TYPE=Debug TRAVIS_CMAKE_GENERATOR="Xcode"
+  - TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Xcode"
 
 matrix:
-  allow_failures:
-  - os: osx
+  exclude:
+    - os: linux
+      env: TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Xcode"
+    - os: linux
+      env: TRAVIS_BUILD_TYPE=Debug TRAVIS_CMAKE_GENERATOR="Xcode"
 
 branches:
   except:
   - gh-pages
+  - appveyor
+
+install:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install cmake; fi
 
 before_script:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install cmake; fi
   - cmake --version
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then mkdir ../build_xcode; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cd ../build_xcode; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cmake .. -GXcode -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install_xcode; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cd ../build; fi
+  - cmake .. -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install
 
 script:
-  - make
-  - make test
-  - make install
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cd ../build_xcode; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then xcodebuild; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then xcodebuild -target RUN_TESTS; fi
+  - cmake --build . --config ${TRAVIS_BUILD_TYPE}
+
+after_success:
+  - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target install
+  - ctest --build . --config ${TRAVIS_BUILD_TYPE}

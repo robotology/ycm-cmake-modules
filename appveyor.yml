@@ -18,6 +18,7 @@ configuration:
 branches:
   except:
     - gh-pages
+    - travis
 
 before_build:
   - cmd: md C:\projects\ycm\build
