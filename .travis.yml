@@ -23,10 +23,9 @@ branches:
   - appveyor
 
 install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install cmake; fi
+  - cmake --version
 
 before_script:
-  - cmake --version
   - mkdir build
   - cd build
   - cmake .. -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install
