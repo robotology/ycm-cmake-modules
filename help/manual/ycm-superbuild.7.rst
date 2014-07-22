@@ -93,7 +93,7 @@ have to adjust some environment variables
     export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:${PROJECT_SOURCE_DIR}/build/install/
 
 You can add these lines (replacing ``${PROJECT_SOURCE_DIR}`` with the
-folder where you downloaded your project) to your .bashrc file if you
+folder where you downloaded your project) to your ``~/.bashrc`` file if you
 don't want to have to execute them manually every time.
 
 
@@ -128,9 +128,12 @@ OS X
 ----
 
 On OS X you have the option to generate a GNU Makefile or an Xcode project.
-If you choose to use the Makefile then you can follow the same steps of the Linux installation guide. Only the environmental variables change, as explained later.
+If you choose to use the Makefile then you can follow the same steps of the
+Linux installation guide. Only the environmental variables change, as explainedù
+later.
 
-If you choose to generate the Xcode project you have to follow the following steps:
+If you choose to generate the Xcode project you have to follow the following
+steps:
 
 .. code-block:: sh
 
@@ -147,7 +150,8 @@ Now, if you run
 the superbuild will download and install all the required projects that
 cannot be found on the system.
 The above command builds the project with the default configuration of Xcode.
-You can also open the project into the Xcode IDE and build it from there, or explicitly specify the configuration at command line:
+You can also open the project into the Xcode IDE and build it from there, or
+explicitly specify the configuration at command line:
 
 .. code-block:: sh
 
@@ -168,8 +172,9 @@ have to adjust some environment variables
     export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:${PROJECT_SOURCE_DIR}/build/install/
 
 You can add these lines (replacing ``${PROJECT_SOURCE_DIR}`` with the
-folder where you downloaded your project) to your .bashrc file (or the correct file for your shell) if you
-don't want to have to execute them manually every time.
+folder where you downloaded your project) to your ``~/.bashrc`` file (or the
+correct file for your shell) if you don't want to have to execute them manually
+every time.
 
 In order to compile just one project (and all the projects on which this
 project depends) you can just run instead
@@ -204,6 +209,10 @@ If you don't remember the name of the targets you can type
    xcodebuild -list
 
 for a list of the targets in the project.
+
+
+.. todo:: Add Xcode screenshot and instructions for using the GUI
+
 
 Windows
 -------
@@ -590,8 +599,12 @@ These projects are not added to the
 IDEs
 ----
 
-.. todo:: Add documentation about how to use the most common IDEs with YCM.
-
+.. todo::
+   Add documentation about how to use the most common IDEs with YCM.
+    * Xcode
+    * QtCreator
+    * MSVC
+    * Maybe more.
 
 
 .. _`YCM Superbuild Manual for Maintainers`:

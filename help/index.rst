@@ -128,14 +128,12 @@ or system libraries (not shown).
 Developers in ``bar-project`` develop their own packages (e.g. ``fancy-vision``,
 ``fancy-speech``) and creates a build which uses these packages and others from
 external repositories.
-Packages from ``foo-project`` can be reused. Because the superbuild downalods
-and compiles the source code and keep.. code-block:: cmake
-s it under revision control developers of
+Since from ``foo-project`` can be reused.
+Because the superbuild downloads
+and compiles the source code and keep it under revision control developers of
 ``foo-project`` and ``bar-project`` can easily contribute code to all packages
 they use irrespectively of the repositories in which they are maintained.
 
-
-.. _GitHub: https://www.github.com/
 
 
 Reference Manuals
@@ -148,7 +146,7 @@ Detailed documentation is organized in the following documents:
 
    YCM installation instructions </manual/ycm-installing.7>
    How to use YCM in your project </manual/ycm-using.7>
-   How to use YCM modules to simplify your build system </manual/ycm-build-system-support.7>
+   How to use YCM to simplify your build system </manual/ycm-build-system-support.7>
    How to use YCM to create a superbuild </manual/ycm-superbuild.7>
    How to use YCM: an example </manual/ycm-superbuild-example.7>
    Documentation for YCM developers </manual/ycm-devel.7>

@@ -24,6 +24,9 @@ TODO How to test changes locally::
   set(YCM_REPOSITORY file:///opt/iit/src/ycm)
 
 
+TODO How to generate the documentation
+
+TODO How to re-generate the documentation and upload it on github gh-pages
 
 Maintainer Mode
 ---------------

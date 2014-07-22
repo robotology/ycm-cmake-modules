@@ -7,16 +7,15 @@ ycm-installing(7)
 
    .. contents::
 
-How to install YCM and use it in Your Project
----------------------------------------------
+Install YCM
+-----------
 
-Download, compile and install the latest version of YCM from:
+Download, compile and install the latest version from `YCM Releases`_ or
+from `YCM Git Repository`_
 
-https://github.com/robotology/ycm/releases
+Unpack it on a directory and compile it:
 
-Un pack it on a directory and compilte it:
-
-.. code-block:: bash
+.. code-block:: sh
 
     cd ycm-master
     mkdir build
