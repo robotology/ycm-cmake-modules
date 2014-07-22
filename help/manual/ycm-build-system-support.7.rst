@@ -10,7 +10,7 @@ ycm-build-system-support(7)
 YCM Build System Support
 ========================
 
-YCM offers a few macros and Find scripts that can be used in your build system.
+YCM offers a few macros and Find scripts that can be used in your build system. See instructions in :manual:`ycm-using(7)`.
 
 
   * :ref:`Generic Modules` that add functionalities to CMake that might
@@ -56,7 +56,6 @@ This is the code you need to add to your CMakeLists.txt:
     # find and use YCM
     find_package(YCM REQUIRED)
 
-    # DANIELE: do we need this??
     include(YCMDefaultDirs)
     ycm_default_dirs(${VARS_PREFIX})
 
@@ -78,8 +77,10 @@ have also been generated so that ``TemplatePkg`` can be found using ``CMake``.
                                         TARGETS_PROPERTY ${VARS_PREFIX}_TARGETS
                                         NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
+This function generates all the configuration files required for other packages to locate and use the library compiled by ``TemplatePkg`` and adds
+the required installation rules for these files.
 
-Finally we add uninstall rules
+Finally we add uninstall rules:
 
 .. code-block:: cmake
 
@@ -93,12 +94,14 @@ Now you can compile the package by simply doing:
    cd build
    cmake ../
    make
-   mske install
+   make install
 
-If you check inside the build directory or /usr/local/lib you should see that make install has built the project and installed header files and the library correctly, along with
-CMakeFiles ``FindTemplatePkg.cmake``.
+If you check inside the build directory or ``/usr/local/lib`` you should see that ``make install`` has built the project and installed header files and the 
+library correctly. The file ``TemplatePkgConfig.cmake`` should be in ``/usr/local/lib/cmake/TemplatePkg/``. 
+This file will be found by other packages when they call:
 
+.. code-block:: cmake
+   
+   find_package(TemplatePkg)
 
 Example code can be downloaded from: git@gitlab.robotology.eu:walkman/template-pkg.git
-
-DANIELE: check how to do bootstrap it did not work for me.

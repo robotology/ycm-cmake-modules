@@ -1,7 +1,7 @@
 .. cmake-manual-description: YCM Superbuild Example
 
 ycm-superbuild-example(7)
-*****************
+*************************
 
 .. only:: html or latex
 
