@@ -78,7 +78,7 @@ the superbuild will download and install all the required projects that
 cannot be found on the system.
 
 After the build, all the subprojects will be installed inside the
-``build/install`` folder, therefore in order to use use it you will
+``build/install`` folder, therefore in order to use it you will
 have to adjust some environment variables
 
 .. code-block:: sh
@@ -153,7 +153,7 @@ You can also open the project into the Xcode IDE and build it from there, or exp
 
 
 After the build, all the subprojects will be installed inside the
-``build/install`` folder, therefore in order to use use it you will
+``build/install`` folder, therefore in order to use it you will
 have to adjust some environment variables
 
 .. code-block:: sh
