@@ -62,7 +62,12 @@ A YCM superbuild can be built like any other CMake project.
 Linux
 -----
 
+Suppose ``<YOUR_PROJECT>`` is the directory in which you downloaded the superbuild project 
+you want to build:
+
 .. code-block:: sh
+
+   cd <YOUR_PROJECT>
 
    mkdir build
    cd build
