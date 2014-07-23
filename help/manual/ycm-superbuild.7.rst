@@ -126,6 +126,7 @@ On OS X you have the option to generate a GNU Makefile or an Xcode project.
 If you choose to use the Makefile then you can follow the same steps of the Linux installation guide. Only the environmental variables change, as explained later.
 
 If you choose to generate the Xcode project you have to follow the following steps:
+
 .. code-block:: sh
 
    mkdir build
@@ -141,7 +142,7 @@ Now, if you run
 the superbuild will download and install all the required projects that
 cannot be found on the system.
 The above command builds the project with the default configuration of Xcode.
-You can also open the project into the Xcode IDE, or explicitly specify the configuration at command line:
+You can also open the project into the Xcode IDE and build it from there, or explicitly specify the configuration at command line:
 
 .. code-block:: sh
 
@@ -192,6 +193,7 @@ After updating some project, you should then rebuild.
    xcodebuild
 
 If you don't remember the name of the targets you can type
+
 .. code-block:: sh
 
    xcodebuild -list
