@@ -319,31 +319,16 @@ function(_YCM_SETUP_GIT)
                      YCM_GIT_SOURCEFORGE_BASE_ADDRESS)
 
 
-    # TYPE GIT STYLE GITLAB_ICUB_ORG
-    set(YCM_GIT_GITLAB_ICUB_ORG_USERNAME "" CACHE STRING "Username to use for IIT iCub Facility Gitlab git repositories")
-    set(YCM_GIT_GITLAB_ICUB_ORG_COMMIT_NAME "" CACHE STRING "Name to use for git commits for IIT iCub Facility Gitlab git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
-    set(YCM_GIT_GITLAB_ICUB_ORG_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for IIT iCub Facility Gitlab git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-    set(YCM_GIT_GITLAB_ICUB_ORG_BASE_ADDRESS "https://gitlab.icub.org/" CACHE STRING "Address to use for IIT iCub Facility Gitlab git repositories")
-    set_property(CACHE YCM_GIT_GITLAB_ICUB_ORG_BASE_ADDRESS PROPERTY STRINGS "https://gitlab.icub.org/"
-                                                                             "git://gitlab.icub.org/"
-                                                                             "ssh://git@gitlab.icub.org/"
-                                                                             "git@gitlab.icub.org:"
-                                                                             "icub:")
-    mark_as_advanced(YCM_GIT_GITLAB_ICUB_ORG_USERNAME
-                     YCM_GIT_GITLAB_ICUB_ORG_COMMIT_NAME
-                     YCM_GIT_GITLAB_ICUB_ORG_COMMIT_EMAIL
-                     YCM_GIT_GITLAB_ICUB_ORG_BASE_ADDRESS)
-
     # TYPE GIT STYLE GITLAB_ROBOTOLOGY
     set(YCM_GIT_GITLAB_ROBOTOLOGY_USERNAME "" CACHE STRING "Username to use for IIT Robotology Gitlab git repositories")
     set(YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_NAME "" CACHE STRING "Name to use for git commits for IIT Robotology Gitlab git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
     set(YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for IIT Robotology Gitlab git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-    set(YCM_GIT_GITLAB_ROBOTOLOGY_BASE_ADDRESS "https://gitlab.icub.org/" CACHE STRING "Address to use for IIT Robotology Gitlab git repositories")
-    set_property(CACHE YCM_GIT_GITLAB_ROBOTOLOGY_BASE_ADDRESS PROPERTY STRINGS "https://gitlab.icub.org/"
-                                                                               "git://gitlab.icub.org/"
-                                                                               "ssh://git@gitlab.icub.org/"
+    set(YCM_GIT_GITLAB_ROBOTOLOGY_BASE_ADDRESS "https://gitlab.robotology.eu/" CACHE STRING "Address to use for IIT Robotology Gitlab git repositories")
+    set_property(CACHE YCM_GIT_GITLAB_ROBOTOLOGY_BASE_ADDRESS PROPERTY STRINGS "https://gitlab.robotology.eu/"
+                                                                               "git://gitlab.robotology.eu/"
+                                                                               "ssh://git@gitlab.robotology.eu/"
                                                                                "git@gitlab.robotology.eu:"
-                                                                               "icub:")
+                                                                               "robotology:")
     mark_as_advanced(YCM_GIT_GITLAB_ROBOTOLOGY_USERNAME
                      YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_NAME
                      YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_EMAIL
