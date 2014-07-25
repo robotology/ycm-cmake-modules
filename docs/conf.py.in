@@ -101,6 +101,8 @@ rst_epilog = """
 .. _`iCub Facility`: http://www.iit.it/en/research/departments/icub-facility.html
 .. _`qibuild`: https://community.aldebaran-robotics.com/doc/1-14/qibuild/index.html
 .. _`rosbuild`: http://wiki.ros.org/rosbuild
+.. _`SuperbuildExample`: https://gitlab.robotology.eu/superbuild-example
+
 .. |lock| image:: /images/lock.png
     :height: 12
     :width: 12
