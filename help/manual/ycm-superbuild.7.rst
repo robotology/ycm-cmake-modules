@@ -129,7 +129,7 @@ OS X
 
 On OS X you have the option to generate a GNU Makefile or an Xcode project.
 If you choose to use the Makefile then you can follow the same steps of the
-Linux installation guide. Only the environmental variables change, as explainedù
+Linux installation guide. Only the environmental variables change, as explained
 later.
 
 If you choose to generate the Xcode project you have to follow the following
