@@ -29,11 +29,9 @@ Notice that we will *not* download these subprojects individually. The
 superbuild will do that for us, all we need to do is to get the superbuild
 sources, for example cloning the git repository:
 
-.. todo:: Add the correct example url
-
 .. code-block:: sh
 
-   git clone <example url>
+   git clone git@github.com:robotology/superbuild-example.git
 
 We will set the ``SUPERBUILD_ROOT`` environment variable to the folder that was
 just created by git. This is not necessary, but if you don't do it you will have
@@ -164,11 +162,44 @@ Create the files  ``cmake/BuildTemplatePkg.cmake`` and
                              COMPONENT superbuild
                              DEPENDS TemplatePkg)
 
-Now you can try your superbuild.
+Now you can compile the superbuild:
 
 .. code-block:: sh
 
    mkdir build
    cd build
    cmake ..
+   make
+
+This will download the subprojects ``TemplatePkg`` and ``TemplateExe`` by cloning 
+their repositories. Sources will be in the directory ``superbuild``:
+
+.. code-block:: sh
+
+   $ cd ..
+   $ ls superbuild
+   TemplateExe  TemplatePkg
+   $ ls superbuild/TemplateExe/
+   AUTHORS  CMakeLists.txt  COPYING  doc  README  src
+   ...
+
+Binaries for the two subprojects are insted in ``build/install``. For example you can verify 
+that the library form ``TemplatePkg`` and the executable in ``TemplateExe`` have been 
+correctly compiled:
+
+.. code-block:: sh
+
+   $ ls build/install/
+   bin  include  lib
+   $ ls build/install/lib
+   cmake  libtemplate-lib.so  libtemplate-lib.so.0.0.1
+   $ ls build/install/bin
+   template-exe
+
+Code
+====
+
+The code of this superbuild example can be found here:
+
+   git@github.com:robotology/superbuild-example.git
 
