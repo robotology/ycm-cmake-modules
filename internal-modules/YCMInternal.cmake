@@ -290,10 +290,12 @@ set(ENV{DESTDIR} \${_DESTDIR})
         list(APPEND _output "${_out}")
 
         # Xcode generator requires at least one COMMAND, otherwise it will not
-        # generate a target, therefore we add an empty command.
+        # generate a target.
+        # On the other hand MSVC does not like empty commands, therefore we add
+        # an empty echo command to make everyone happy.
         add_custom_command(OUTPUT  "${_out}"
                            DEPENDS "${_file}"
-                           COMMAND ""
+                           COMMAND "${CMAKE_COMMAND}" -E echo_append
                            COMMENT "")
 
         add_custom_command(APPEND
