@@ -171,8 +171,8 @@ Now you can compile the superbuild:
    cmake ..
    make
 
-This will download the subprojects ``TemplatePkg`` and ``TemplateExe`` by cloning 
-their repositories. Sources will be in the directory ``superbuild``:
+This will download the subprojects ``TemplatePkg`` and ``TemplateExe`` by
+cloning their repositories. Sources will be in the directory ``superbuild``:
 
 .. code-block:: sh
 
@@ -183,9 +183,9 @@ their repositories. Sources will be in the directory ``superbuild``:
    AUTHORS  CMakeLists.txt  COPYING  doc  README  src
    ...
 
-Binaries for the two subprojects are insted in ``build/install``. For example you can verify 
-that the library form ``TemplatePkg`` and the executable in ``TemplateExe`` have been 
-correctly compiled:
+Binaries for the two subprojects are insted in ``build/install``. For example
+you can verify that the library form ``TemplatePkg`` and the executable in
+``TemplateExe`` have been correctly compiled:
 
 .. code-block:: sh
 
