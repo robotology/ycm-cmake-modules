@@ -148,7 +148,7 @@ Detailed documentation is organized in the following documents:
    How to use YCM in your project </manual/ycm-using.7>
    How to use YCM to simplify your build system </manual/ycm-build-system-support.7>
    How to use YCM to create a superbuild </manual/ycm-superbuild.7>
-   How to use YCM: an example </manual/ycm-superbuild-example.7>
+   Using and writing a YCM superbuild: an example </manual/ycm-superbuild-example.7>
    Documentation for YCM developers </manual/ycm-devel.7>
 
 
