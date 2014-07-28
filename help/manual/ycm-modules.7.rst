@@ -94,6 +94,7 @@ Build Package Modules
    :maxdepth: 1
 
    /module/BuildECM
+   /module/BuildEigen3
    /module/BuildGazeboYARPPlugins
    /module/BuildGooCanvas
    /module/BuildICUB

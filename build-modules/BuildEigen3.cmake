@@ -1,5 +1,11 @@
+#.rst:
+# BuildEigen3
+# -----------
+#
+# Eigen3
+
 #=============================================================================
-# Copyright 2013-2014 iCub Facility, Istituto Italiano di Tecnologia
+# Copyright 2014 iCub Facility, Istituto Italiano di Tecnologia
 #   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 #
 # Distributed under the OSI-approved BSD License (the "License");
@@ -12,14 +18,8 @@
 # (To distribute this file outside of YCM, substitute the full
 #  License text for the above reference.)
 
+include(YCMEPHelper)
 
-set(YCM_BUILD_MODULES BuildECM.cmake
-                      BuildGooCanvas.cmake
-                      BuildTinyXML.cmake
-                      BuildYARP.cmake
-                      BuildICUB.cmake
-                      BuildGazeboYARPPlugins.cmake
-                      BuildEigen3.cmake)
-
-_ycm_install(build-modules FILES ${YCM_BUILD_MODULES}
-                           DESTINATION ${YCM_INSTALL_MODULE_DIR}/build-modules)
+ycm_ep_helper(Eigen3 TYPE HG
+                     STYLE BITBUCKET
+                     REPOSITORY eigen/eigen)
