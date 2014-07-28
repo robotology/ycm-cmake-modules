@@ -11,7 +11,7 @@
 #    [COMPONENT <component>] (default = "external")
 #    [REPOSITORY <repo>]
 #    [EXCLUDE_FROM_ALL <0|1>]
-#   #--Git only arguments-----------
+#   #--Git and Hg only arguments-----------
 #    [TAG <tag>]
 #   #--Svn only arguments-----------
 #    [REVISION <revision>]
@@ -372,6 +372,33 @@ endfunction()
 
 
 ########################################################################
+# _YCM_SETUP_HG
+#
+# Internal function to perform HG setup.
+
+unset(__YCM_HG_SETUP_CALLED CACHE)
+function(_YCM_SETUP_HG)
+    if(DEFINED __YCM_HG_SETUP_CALLED)
+        return()
+    endif()
+    set(__YCM_GIT_SETUP_CALLED 1 CACHE INTERNAL "")
+
+    find_package(Hg QUIET)
+    if(NOT HG_EXECUTABLE)
+        message(FATAL_ERROR "Please install Mercurial")
+    endif()
+
+    # TYPE HG STYLE BITBUCKET
+    set(YCM_HG_BITBUCKET_BASE_ADDRESS "https://bitbucket.org/" CACHE STRING "Address to use for Bitbucket mercurial repositories")
+    set_property(CACHE YCM_HG_BITBUCKET_BASE_ADDRESS PROPERTY STRINGS "https://bitbucket.org/"
+                                                                      "ssh://hg@bitbucket.org/")
+    mark_as_advanced(YCM_HG_BITBUCKET_USERNAME
+                     YCM_HG_BITBUCKET_BASE_ADDRESS)
+
+endfunction()
+
+
+########################################################################
 # _YCM_EP_ADD_UPDATE_STEP
 #
 # Add "update" step for any repository.
@@ -429,7 +456,7 @@ endfunction()
 ########################################################################
 # _YCM_EP_ADD_STATUS_STEP
 #
-# Add "status" step for git and svn repositories.
+# Add "status" step for git, svn and hg repositories.
 
 function(_YCM_EP_ADD_STATUS_STEP _name)
     unset(_cmd)
@@ -437,6 +464,8 @@ function(_YCM_EP_ADD_STATUS_STEP _name)
         set(_cmd COMMAND ${GIT_EXECUTABLE} status)
     elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
         set(_cmd COMMAND ${Subversion_SVN_EXECUTABLE} status)
+    elseif("${_YH_${_name}_TYPE}" STREQUAL "HG")
+        set(_cmd COMMAND ${HG_EXECUTABLE} status)
     endif()
 
     if(DEFINED _cmd)
@@ -655,9 +684,9 @@ function(YCM_EP_HELPER _name)
     set(_oneValueArgs TYPE
                       STYLE
                       COMPONENT
-                      REPOSITORY
                       EXCLUDE_FROM_ALL
-                      TAG         # GIT only
+                      REPOSITORY  # GIT, SVN and HG
+                      TAG         # GIT and HG only
                       REVISION    # SVN only
                       USERNAME    # SVN only
                       PASSWORD    # SVN only
@@ -688,13 +717,15 @@ function(YCM_EP_HELPER _name)
     if(NOT DEFINED _YH_${_name}_TYPE)
         message(FATAL_ERROR "Missing TYPE argument")
     endif()
-    if(NOT "x${_YH_${_name}_TYPE}" MATCHES "^x(GIT|SVN)$")
+    if(NOT "x${_YH_${_name}_TYPE}" MATCHES "^x(GIT|SVN|HG)$")
         message(FATAL_ERROR "Unsupported VCS TYPE:\n  ${_YH_${_name}_TYPE}\n")
     endif()
     if("${_YH_${_name}_TYPE}" STREQUAL "GIT")
       # TODO Check GIT arguments
     elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
       # TODO Check SVN arguments
+    elseif("${_YH_${_name}_TYPE}" STREQUAL "HG")
+      # TODO Check HG arguments
     endif()
 
     if(NOT DEFINED _YH_${_name}_STYLE)
@@ -868,7 +899,17 @@ function(YCM_EP_HELPER _name)
         if(DEFINED _YH_${_name}_TRUST_CERT)
             list(APPEND ${_name}_REPOSITORY_ARGS SVN_TRUST_CERT ${_YH_${_name}_TRUST_CERT})
         endif()
+    elseif("${_YH_${_name}_TYPE}" STREQUAL "HG")
+        # Specific setup for Mercurial
+        _ycm_setup_hg()
+
+        list(APPEND ${_name}_REPOSITORY_ARGS HG_REPOSITORY ${YCM_HG_${_YH_${_name}_STYLE}_BASE_ADDRESS}${_YH_${_name}_REPOSITORY})
+
+        if(DEFINED _YH_${_name}_TAG)
+            list(APPEND ${_name}_REPOSITORY_ARGS HG_TAG ${_YH_${_name}_TAG})
+        endif()
     endif()
+
 
     option(YCM_EP_DEVEL_MODE_${_name} "Enable development targets for the \"${_name}\" project" OFF)
     if("${_YH_${_name}_COMPONENT}" STREQUAL "external")
