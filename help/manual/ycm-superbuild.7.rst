@@ -295,10 +295,18 @@ running adding ``-DUSE_SYSTEM_<PACKAGE>:BOOL=FALSE`` to the
 
 
 
-Note that the superbuild will disable the
-:ref:`update target <target:project-update>` for the projects in
-:variable:`YCM_EP_DEVEL_MODE_<PROJECT>`, you will have to update them
-manually.
+Note that the :ref:`update target <target:project-update>` will be disabled for
+projects in :variable:`YCM_EP_DEVEL_MODE_<PROJECT>`, and they will not be
+updated unless the user updates them manually.
+An automatic update in a modified project, would require a manual intervention
+anyway.
+Also when working with branches the update performed by
+:cmake:module:`ExternalProject` could switch branch or checkout a specific tag
+or commit, and, even though no work should be lost, the user might not know how
+to recover it.
+For this reason the update target is disabled for the projects that the user
+will modify, and it is enabled only if the :variable:`YCM_EP_EXPERT_MODE`
+variable is enabled.
 
 
 .. _`Expert Mode`:
@@ -306,8 +314,8 @@ manually.
 Expert Mode
 -----------
 
-The :variable:`YCM_EP_EXPERT_MODE`` variable will set the YCM
-Superbuild in "expert mode". This is disabled by default.
+The :variable:`YCM_EP_EXPERT_MODE` variable will set the YCM superbuild in
+"expert mode". This is disabled by default.
 This means that all the projects that are in "developer mode" will have
 all the targets enabled (including the update step) and that the
 :ref:`update <target:project-update>` and similar targets will keep
