@@ -2,4 +2,4 @@
 *.orig
 *.pyc
 /build/
-tests/YCMBootstrap/external/
+/tests/YCMBootstrap/external/
