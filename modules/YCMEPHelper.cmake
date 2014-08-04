@@ -682,16 +682,21 @@ function(_YCM_EP_ADD_OPEN_STEP _name)
 
     unset(_cmd)
     if("${CMAKE_GENERATOR}" MATCHES "Xcode")
-        set(_cmd open ${_binary_dir}/${_name}.xcodeproj)
+        set(_cmd open "${_binary_dir}/${_name}.xcodeproj")
+    elseif("${CMAKE_GENERATOR}" MATCHES "Visual Studio")
+        set(_cmd "${_binary_dir}/${_name}.sln")
     endif()
 
     if(DEFINED _cmd)
-        ExternalProject_Add_Step(${_name}
+        ExternalProject_Add_Step(${_name} open
+                COMMAND ${CMAKE_COMMAND} -E echo \"\"
                 COMMAND ${_cmd}
-                WORKING_DIRECTORY ${_source_dir}
+                WORKING_DIRECTORY "${_source_dir}"
+                DEPENDEES configure
                 EXCLUDE_FROM_MAIN 1
                 COMMENT "Opening ${_name}..."
                 ALWAYS 1)
+        ExternalProject_Add_StepTargets(${_name} NO_DEPENDS open)
     endif()
 endfunction()
 
