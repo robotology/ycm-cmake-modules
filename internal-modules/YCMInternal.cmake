@@ -105,6 +105,13 @@ function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
 
         file(WRITE "${_download_script_real}"
 "cmake_minimum_required(VERSION ${CMAKE_VERSION})
+if(EXISTS \"${_orig_dest}\")
+    file(SHA1 \"${_orig_dest}\" _sha1)
+    if(\"\${_sha1}\" STREQUAL \"${_sha1}\")
+        message(STATUS \"Using file ${_file} previously downloaded from ${_desc} (ref ${_ref})\")
+        return()
+    endif()
+endif()
 file(DOWNLOAD \"${_src}\" \"${_orig_dest}\"
      EXPECTED_HASH SHA1=${_sha1} ${ARGN}
      STATUS _status)
