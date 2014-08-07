@@ -32,7 +32,12 @@ find_program(SPHINX_EXECUTABLE
   DOC "Sphinx Documentation Builder (sphinx-doc.org)"
   )
 
-mark_as_advanced(SPHINX_TEXT)
+mark_as_advanced(SPHINX_EXECUTABLE
+                 SPHINX_MAN
+                 SPHINX_HTML
+                 SPHINX_SINGLEHTML
+                 SPHINX_QTHELP
+                 SPHINX_TEXT)
 
 if(NOT SPHINX_MAN AND NOT SPHINX_HTML AND NOT SPHINX_SINGLEHTML AND NOT SPHINX_QTHELP AND NOT SPHINX_TEXT)
   return()
@@ -53,7 +58,7 @@ set(conf_copyright "Copyright 2013-2014  iCub Facility, Istituto Italiano di Tec
 
 set(conf_docs "${YCM_SOURCE_DIR}/help")
 set(conf_path "${CMAKE_CURRENT_SOURCE_DIR}")
-set(conf_version "${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}.${YCM_VERSION_MINOR}")
+set(conf_version "${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}.${YCM_VERSION_TWEAK}")
 set(conf_release "${YCM_VERSION}")
 configure_file(conf.py.in conf.py @ONLY)
 
@@ -75,6 +80,7 @@ if(SPHINX_QTHELP)
     NAMES qcollectiongenerator
     DOC "qcollectiongenerator tool"
     )
+  mark_as_advanced(QCOLLECTIONGENERATOR_EXECUTABLE)
   if (NOT QCOLLECTIONGENERATOR_EXECUTABLE)
     message(FATAL_ERROR "QCOLLECTIONGENERATOR_EXECUTABLE (qcollectiongenerator) not found!")
   endif()
@@ -88,9 +94,9 @@ if(SPHINX_QTHELP)
     # Workaround sphinx configurability:
     # https://bitbucket.org/birkenfeld/sphinx/issue/1448/make-qthelp-more-configurable
     COMMAND ${CMAKE_COMMAND} "-DQTHELP_DIR=${CMAKE_CURRENT_BINARY_DIR}/qthelp/"
-      "-DYCM_VERSION=${YCM_VERSION_MAJOR}${YCM_VERSION_MINOR}${YCM_VERSION_PATCH}"
+      "-DYCM_VERSION=${YCM_VERSION_MAJOR}${YCM_VERSION_MINOR}"
       -P "${CMAKE_CURRENT_SOURCE_DIR}/fixup_qthelp_names.cmake"
-    COMMAND qcollectiongenerator "${CMAKE_CURRENT_BINARY_DIR}/qthelp/CMake.qhcp"
+    COMMAND qcollectiongenerator "${CMAKE_CURRENT_BINARY_DIR}/qthelp/YCM.qhcp"
   )
 endif()
 
@@ -129,7 +135,7 @@ if(SPHINX_MAN)
       set(name "${CMAKE_MATCH_1}")
       set(sec "${CMAKE_MATCH_2}")
       install(FILES "${CMAKE_CURRENT_BINARY_DIR}/man/${name}.${sec}"
-              DESTINATION "${CMAKE_MAN_DIR}/man${sec}")
+              DESTINATION "${YCM_MAN_DIR}/man${sec}")
     endif()
   endforeach()
 endif()
@@ -151,7 +157,7 @@ if(SPHINX_SINGLEHTML)
 endif()
 
 if(SPHINX_QTHELP)
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/qthelp/CMake-${YCM_VERSION_MAJOR}${YCM_VERSION_MINOR}${YCM_VERSION_PATCH}.qch"
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/qthelp/YCM-${YCM_VERSION_MAJOR}${YCM_VERSION_MINOR}.qch"
           DESTINATION "${YCM_DOC_DIR}"
           )
 endif()

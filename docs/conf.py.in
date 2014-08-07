@@ -26,7 +26,7 @@ release = '@conf_release@' # full version string
 
 primary_domain = 'cmake'
 
-intersphinx_mapping = {'cmake': ('http://cmake.org/cmake/help/v3.0', '@conf_path@/cmake-objects.inv')}
+intersphinx_mapping = {'cmake': ('http://cmake.org/cmake/help/git-master', '@conf_path@/cmake-objects.inv')}
 extlinks = {'ycm-issue':('https://github.com/robotology/ycm/issues/%s', 'YCM issue #'),
             'ycm-commit':('https://github.com/robotology/ycm/commit/%s', ''),
             'cmake-issue': ('http://www.cmake.org/Bug/view.php?id=%s', 'CMake issue #'),
