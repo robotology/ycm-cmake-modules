@@ -23,6 +23,9 @@ branches:
   - appveyor
 
 install:
+  - sudo add-apt-repository -y ppa:robotology/ppa
+  - sudo apt-get update
+  - sudo apt-get install cmake
   - cmake --version
 
 before_script:
