@@ -36,4 +36,17 @@ if(WIN32)
     endif()
 endif()
 
+if(EXISTS ${CMAKE_SOURCE_DIR}/.gitignore)
+    file(STRINGS ${CMAKE_SOURCE_DIR}/.gitignore CPACK_SOURCE_IGNORE_FILES)
+    list(REMOVE_ITEM CPACK_SOURCE_IGNORE_FILES "/downloads/")
+    string(REPLACE "*" ".*" CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES}")
+endif()
+list(APPEND CPACK_SOURCE_IGNORE_FILES .git
+                                      .gitignore
+                                      .mailmap
+                                      .travis.yml
+                                      appveyor.yml)
+
+set(CPACK_SOURCE_PACKAGE_FILE_NAME "ycm-${CPACK_PACKAGE_VERSION}-offline")
+
 include(CPack)

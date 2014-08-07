@@ -22,4 +22,4 @@ set(YCM_BUILD_MODULES BuildECM.cmake
                       BuildEigen3.cmake)
 
 _ycm_install(build-modules FILES ${YCM_BUILD_MODULES}
-                           DESTINATION ${YCM_INSTALL_MODULE_DIR}/build-modules)
+                           DESTINATION "${YCM_INSTALL_MODULE_DIR}/build-modules")

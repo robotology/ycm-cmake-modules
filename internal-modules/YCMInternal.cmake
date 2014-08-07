@@ -78,6 +78,11 @@ function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
 
         set(_dest "${_dir}/${_file}")
         set(_orig_dest "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/downloads/${_file}")
+        set(_offline_dest "${CMAKE_SOURCE_DIR}/downloads/${_target}/${_file}")
+
+        if(EXISTS "${_offline_dest}")
+            execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_offline_dest}" "${_orig_dest}")
+        endif()
 
         if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.12)
             # Just a reminder to remove this when we change cmake minimum required version
@@ -100,6 +105,13 @@ function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
 
         file(WRITE "${_download_script_real}"
 "cmake_minimum_required(VERSION ${CMAKE_VERSION})
+if(EXISTS \"${_orig_dest}\")
+    file(SHA1 \"${_orig_dest}\" _sha1)
+    if(\"\${_sha1}\" STREQUAL \"${_sha1}\")
+        message(STATUS \"Using file ${_file} previously downloaded from ${_desc} (ref ${_ref})\")
+        return()
+    endif()
+endif()
 file(DOWNLOAD \"${_src}\" \"${_orig_dest}\"
      EXPECTED_HASH SHA1=${_sha1} ${ARGN}
      STATUS _status)
@@ -142,7 +154,11 @@ string(REPLACE \"/r/n\" \"/n\" _tmp \"\${_tmp}\")
 file(WRITE \"${_dest}\" \"\${_tmp}\")
 ")
         else()
-            file(APPEND "${_download_script}" "execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different \"${_orig_dest}\" \"${_dest}\")")
+            file(APPEND "${_download_script}" "execute_process(COMMAND \"${CMAKE_COMMAND}\" -E copy_if_different \"${_orig_dest}\" \"${_dest}\")\n")
+        endif()
+
+        if(YCM_MAINTAINER_MODE)
+            file(APPEND "${_download_script}" "execute_process(COMMAND \"${CMAKE_COMMAND}\" -E copy_if_different \"${_orig_dest}\" \"${_offline_dest}\")\n")
         endif()
 
         add_custom_command(OUTPUT "${_dest}" "${_dir}"
