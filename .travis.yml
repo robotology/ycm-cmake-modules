@@ -23,9 +23,7 @@ branches:
   - appveyor
 
 install:
-  - sudo add-apt-repository -y ppa:robotology/ppa
-  - sudo apt-get update
-  - sudo apt-get install cmake
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo add-apt-repository -y ppa:robotology/ppa; sudo apt-get update; sudo apt-get install cmake; fi
   - cmake --version
 
 before_script:
