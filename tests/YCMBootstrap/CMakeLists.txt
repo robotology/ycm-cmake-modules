@@ -26,14 +26,14 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_BINARY_DIR}/cmake")
 get_filename_component(YCM_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../" REALPATH)
 get_filename_component(YCM_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}/../../" REALPATH)
 
-file(COPY ${YCM_SOURCE_DIR}/tools/YCMBootstrap.cmake
-          ${YCM_SOURCE_DIR}/modules/IncludeUrl.cmake
-          DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/cmake)
+file(COPY "${YCM_SOURCE_DIR}/tools/YCMBootstrap.cmake"
+          "${YCM_SOURCE_DIR}/modules/IncludeUrl.cmake"
+          DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake")
 
 # Download files from local file system
 set(YCM_BOOTSTRAP_BASE_ADDRESS file://${YCM_SOURCE_DIR} CACHE STRING "Base address of YCM repository")
 
-if(EXISTS ${YCM_SOURCE_DIR}/.git)
+if(EXISTS "${YCM_SOURCE_DIR}/.git")
     find_package(Git REQUIRED)
     execute_process(COMMAND "${GIT_EXECUTABLE}" rev-list --max-count=1 HEAD
                     WORKING_DIRECTORY ${YCM_SOURCE_DIR}
@@ -44,7 +44,7 @@ if(EXISTS ${YCM_SOURCE_DIR}/.git)
         set(YCM_TAG "${head_sha}")
     endif()
 
-    if(NOT EXISTS ${YCM_SOURCE_DIR}/.git/shallow)
+    if(NOT EXISTS "${YCM_SOURCE_DIR}/.git/shallow")
         # This is a proper git repo, we can clone from it.
         set(YCM_STYLE LOCAL)
         set(YCM_REPOSITORY file://${YCM_SOURCE_DIR})

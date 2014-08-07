@@ -90,7 +90,7 @@ if(SPHINX_QTHELP)
     COMMAND ${CMAKE_COMMAND} "-DQTHELP_DIR=${CMAKE_CURRENT_BINARY_DIR}/qthelp/"
       "-DYCM_VERSION=${YCM_VERSION_MAJOR}${YCM_VERSION_MINOR}${YCM_VERSION_PATCH}"
       -P "${CMAKE_CURRENT_SOURCE_DIR}/fixup_qthelp_names.cmake"
-    COMMAND qcollectiongenerator ${CMAKE_CURRENT_BINARY_DIR}/qthelp/CMake.qhcp
+    COMMAND qcollectiongenerator "${CMAKE_CURRENT_BINARY_DIR}/qthelp/CMake.qhcp"
   )
 endif()
 
@@ -103,11 +103,11 @@ foreach(format ${doc_formats})
   add_custom_command(
     OUTPUT ${doc_format_output}
     COMMAND ${SPHINX_EXECUTABLE}
-            -c ${CMAKE_CURRENT_BINARY_DIR}
-            -d ${CMAKE_CURRENT_BINARY_DIR}/doctrees
+            -c "${CMAKE_CURRENT_BINARY_DIR}"
+            -d "${CMAKE_CURRENT_BINARY_DIR}/doctrees"
             -b ${format}
-            ${YCM_SOURCE_DIR}/help
-            ${CMAKE_CURRENT_BINARY_DIR}/${format}
+            "${YCM_SOURCE_DIR}/help"
+            "${CMAKE_CURRENT_BINARY_DIR}/${format}"
             > ${doc_format_log} # log stdout, pass stderr
     ${${format}_extra_commands}
     DEPENDS ${doc_format_last}
@@ -122,36 +122,36 @@ endforeach()
 add_custom_target(documentation ALL DEPENDS ${doc_format_outputs})
 
 if(SPHINX_MAN)
-  file(GLOB man_rst RELATIVE ${YCM_SOURCE_DIR}/help/manual
-    ${YCM_SOURCE_DIR}/help/manual/*.[1-9].rst)
+  file(GLOB man_rst RELATIVE "${YCM_SOURCE_DIR}/help/manual"
+    "${YCM_SOURCE_DIR}/help/manual/*.[1-9].rst")
   foreach(m ${man_rst})
     if("x${m}" MATCHES "^x(.+)\\.([1-9])\\.rst$")
       set(name "${CMAKE_MATCH_1}")
       set(sec "${CMAKE_MATCH_2}")
-      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/man/${name}.${sec}
-              DESTINATION ${CMAKE_MAN_DIR}/man${sec})
+      install(FILES "${CMAKE_CURRENT_BINARY_DIR}/man/${name}.${sec}"
+              DESTINATION "${CMAKE_MAN_DIR}/man${sec}")
     endif()
   endforeach()
 endif()
 
 if(SPHINX_HTML)
-  install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html
-          DESTINATION ${YCM_DOC_DIR}
+  install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/html"
+          DESTINATION "${YCM_DOC_DIR}"
           PATTERN .buildinfo EXCLUDE
           PATTERN objects.inv EXCLUDE
           )
 endif()
 
 if(SPHINX_SINGLEHTML)
-  install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/singlehtml
-          DESTINATION ${YCM_DOC_DIR}
+  install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/singlehtml"
+          DESTINATION "${YCM_DOC_DIR}"
           PATTERN .buildinfo EXCLUDE
           PATTERN objects.inv EXCLUDE
           )
 endif()
 
 if(SPHINX_QTHELP)
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/qthelp/CMake-${YCM_VERSION_MAJOR}${YCM_VERSION_MINOR}${YCM_VERSION_PATCH}.qch
-          DESTINATION ${YCM_DOC_DIR}
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/qthelp/CMake-${YCM_VERSION_MAJOR}${YCM_VERSION_MINOR}${YCM_VERSION_PATCH}.qch"
+          DESTINATION "${YCM_DOC_DIR}"
           )
 endif()

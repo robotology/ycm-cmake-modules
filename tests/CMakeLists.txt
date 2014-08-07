@@ -165,10 +165,10 @@ if(BUILD_TESTING)
   list(APPEND TEST_BUILD_DIRS "${YCM_SOURCE_DIR}/tests/YCMBootstrap/external")
 
   if(NOT EXISTS "${YCM_BINARY_DIR}/CMakeLists.txt")
-    configure_file(${YCM_SOURCE_DIR}/tests/test_clean.cmake.in
-                   ${YCM_BINARY_DIR}/tests/test_clean.cmake @ONLY)
+    configure_file("${YCM_SOURCE_DIR}/tests/test_clean.cmake.in"
+                   "${YCM_BINARY_DIR}/tests/test_clean.cmake" @ONLY)
     add_custom_target(test_clean
-      COMMAND ${CMAKE_COMMAND} -P ${YCM_BINARY_DIR}/tests/test_clean.cmake
+      COMMAND ${CMAKE_COMMAND} -P "${YCM_BINARY_DIR}/tests/test_clean.cmake"
       COMMENT "Removing test build directories."
       )
   endif()

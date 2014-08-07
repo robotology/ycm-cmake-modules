@@ -62,11 +62,11 @@ endif()
 include(CMakePackageConfigHelpers)
 
 # YCMConfigVersion.cmake file (same for build tree and intall)
-write_basic_package_version_file(${YCM_BUILD_CMAKE_DIR}/YCMConfigVersion.cmake
+write_basic_package_version_file("${YCM_BUILD_CMAKE_DIR}/YCMConfigVersion.cmake"
                                  VERSION ${YCM_VERSION}
                                  COMPATIBILITY AnyNewerVersion)
-install(FILES ${YCM_BUILD_CMAKE_DIR}/YCMConfigVersion.cmake
-        DESTINATION ${YCM_INSTALL_CMAKE_DIR})
+install(FILES "${YCM_BUILD_CMAKE_DIR}/YCMConfigVersion.cmake"
+        DESTINATION "${YCM_INSTALL_CMAKE_DIR}")
 
 # YCMConfig.cmake (build tree)
 # HACK: configure_package_config_file uses a
@@ -95,8 +95,8 @@ configure_package_config_file(YCMConfig.cmake.in "${CMAKE_BINARY_DIR}/${CMAKE_FI
                               PATH_VARS YCM_MODULE_DIR
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
-install(FILES ${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake
-        DESTINATION ${YCM_INSTALL_CMAKE_DIR}
+install(FILES "${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
+        DESTINATION "${YCM_INSTALL_CMAKE_DIR}"
         RENAME YCMConfig.cmake)
 
 include(AddUninstallTarget)
@@ -105,7 +105,7 @@ if(UNIX)
     # update-sha1sums target makes no sense on windows, since the .sh script
     # will fail to execute
     add_custom_target(update-sha1sums
-                      COMMAND ${CMAKE_SOURCE_DIR}/tools/update_sha1sums.sh)
+                      COMMAND "${CMAKE_SOURCE_DIR}/tools/update_sha1sums.sh")
 endif()
 
 enable_testing()
