@@ -62,16 +62,6 @@ if(EXISTS "${YCM_MODULE_DIR}/cmake-2.8.12"
     endif()
 endif()
 
-if(EXISTS "${YCM_MODULE_DIR}/cmake-2.8.8"
-   AND CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8
-   AND CMAKE_VERSION VERSION_LESS 2.8.8)
-    option(YCM_USE_CMAKE_2_8_8 "Use modules from CMake 2.8.8" ON)
-    mark_as_advanced(YCM_USE_CMAKE_2_8_8)
-    if(YCM_USE_CMAKE_2_8_8)
-        list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-2.8.8/Modules")
-    endif()
-endif()
-
 if(EXISTS "${YCM_MODULE_DIR}/3rdparty")
     option(YCM_USE_3RDPARTY "Use YCM 3rd party modules" ON)
     mark_as_advanced(YCM_USE_3RDPARTY)

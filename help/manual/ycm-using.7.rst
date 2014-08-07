@@ -11,7 +11,7 @@ How to Use YCM in Your Project
 ==============================
 
 In order to use YCM in your project, your software will have to depend
-on CMake 2.8.7 or later. Therefore your ``CMakeLists.txt`` file should
+on CMake 2.8.9 or later. Therefore your ``CMakeLists.txt`` file should
 include a :cmake:command:`cmake_minimum_required` call to set the
 :cmake:variable:`CMAKE_MINIMUM_REQUIRED_VERSION` and the relative
 CMake policies.
@@ -19,25 +19,27 @@ CMake policies.
 
 .. code-block:: cmake
 
-    cmake_minimum_required(VERSION 2.8.7)
+    cmake_minimum_required(VERSION 2.8.9)
 
 Now you have to set variables that control which components are enabled:
 
 
 .. code-block:: cmake
 
-    set(YCM_USE_CMAKE_2_8_8 TRUE) # Enables modules from CMake 2.8.8
     set(YCM_USE_CMAKE_2_8_12 TRUE) # Enables modules from CMake 2.8.12
     set(YCM_USE_CMAKE_3_0 TRUE) # Enables modules from CMake 2.8.12
     set(YCM_USE_CMAKE_NEXT TRUE) # Enables modules from CMake git repository
     set(YCM_USE_CMAKE_PROPOSED TRUE) # Enables unmerged patches to CMake modules
 
 
-These features can be turne off if they are not needed, check the documentation
-to see what functionalities they enable: :variable:`YCM_USE_CMAKE_2_8_8`,
-:variable:`YCM_USE_CMAKE_2_8_12`, :variable:`YCM_USE_CMAKE_3_0`,
-:variable:`YCM_USE_CMAKE_NEXT`, and :variable:`YCM_USE_CMAKE_PROPOSED`.
-Installing YCM
+These features can be turned off if they are not needed.
+
+.. seealso::
+    :variable:`YCM_USE_CMAKE_2_8_12`,
+    :variable:`YCM_USE_CMAKE_3_0`,
+    :variable:`YCM_USE_CMAKE_NEXT`, and
+    :variable:`YCM_USE_CMAKE_PROPOSED`.
+
 If you want to use 3rd party modules you have to enable the
 :variable:`YCM_USE_3RDPARTY` variable.
 
@@ -45,6 +47,8 @@ If you want to use 3rd party modules you have to enable the
 
     set(YCM_USE_3RDPARTY TRUE) # Enables 3rd party modules
 
+.. seealso::
+    :variable:`YCM_USE_3RDPARTY`
 
 If you want to enable the deprecated modules, you have to enable the
 :variable:`YCM_USE_DEPRECATED` variable. Please note that these modules are

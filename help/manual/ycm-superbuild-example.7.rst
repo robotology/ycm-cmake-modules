@@ -96,7 +96,7 @@ Create a ``CMakeLists.txt`` with this content:
 
 .. code-block:: cmake
 
-   cmake_minimum_required(VERSION 2.8.7)
+   cmake_minimum_required(VERSION 2.8.9)
 
    project(example)
 

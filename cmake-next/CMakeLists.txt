@@ -84,26 +84,6 @@ endfunction()
 
 
 ################################################################################
-# Files not available or containing bugs in CMake 2.8.7
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.8)
-    # Just a reminder to remove this when we change cmake version
-    message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.8. You can remove this.")
-endif()
-
-# We assume that the user won't downgrade his cmake, therefore it's not
-# necessary to download and install these files if already included in CMake
-if(CMAKE_VERSION VERSION_LESS 2.8.8 OR YCM_MAINTAINER_MODE)
-    set(_files Copyright.txt                                cc156f64bf5196dfb35f7ae7a4081a434e128ef4
-               Modules/CMakePackageConfigHelpers.cmake      ccb9c0f5c8abaa958f3049e001eeecfc9dc9ec43)
-    _ycm_cmake_next_download_now(v2.8.8 "${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8" "${_files}")
-    install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8"
-            DESTINATION "${YCM_INSTALL_MODULE_DIR}")
-    file(COPY "${CMAKE_CURRENT_BINARY_DIR}/cmake-2.8.8"
-         DESTINATION "${YCM_BUILD_MODULE_DIR}")
-endif()
-
-
-################################################################################
 # Files not available or containing bugs in CMake 2.8.11.2
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.12)
     # Just a reminder to remove this when we change cmake version

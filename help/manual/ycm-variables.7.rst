@@ -14,7 +14,6 @@ Variables that Change Behavior
    :maxdepth: 1
 
    /variable/YCM_USE_3RDPARTY
-   /variable/YCM_USE_CMAKE_2_8_8
    /variable/YCM_USE_CMAKE_2_8_12
    /variable/YCM_USE_CMAKE_3_0
    /variable/YCM_USE_CMAKE_NEXT
