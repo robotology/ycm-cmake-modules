@@ -672,6 +672,35 @@ endfunction()
 
 
 ########################################################################
+# _YCM_EP_ADD_OPEN_STEP
+#
+# Add "open" step for any repository.
+# This step opens the external project for editing
+
+function(_YCM_EP_ADD_OPEN_STEP _name)
+    get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
+
+    unset(_cmd)
+    if("${CMAKE_GENERATOR}" MATCHES "Xcode")
+        set(_cmd open "${_binary_dir}/${_name}.xcodeproj")
+    elseif("${CMAKE_GENERATOR}" MATCHES "Visual Studio")
+        set(_cmd "${_binary_dir}/${_name}.sln")
+    endif()
+
+    if(DEFINED _cmd)
+        ExternalProject_Add_Step(${_name} open
+                COMMAND ${CMAKE_COMMAND} -E echo \"\"
+                COMMAND ${_cmd}
+                WORKING_DIRECTORY "${_source_dir}"
+                DEPENDEES configure
+                EXCLUDE_FROM_MAIN 1
+                COMMENT "Opening ${_name}..."
+                ALWAYS 1)
+        ExternalProject_Add_StepTargets(${_name} NO_DEPENDS open)
+    endif()
+endfunction()
+
+########################################################################
 # YCM_EP_HELPER
 #
 # Helper function to add a repository using ExternalProject
@@ -949,6 +978,7 @@ function(YCM_EP_HELPER _name)
         _ycm_ep_add_clean_step(${_name})
         _ycm_ep_add_edit_cache_step(${_name})
         _ycm_ep_add_print_directories_step(${_name})
+        _ycm_ep_add_open_step(${_name})
         _ycm_ep_add_dependees_steps(${_name})
         if(YCM_EP_EXPERT_MODE OR YCM_EP_MAINTAINER_MODE)
             _ycm_ep_add_update_step(${_name})
