@@ -18,13 +18,14 @@
 # Original file: <CMake Repository>/Source/CMakeVersionSource.cmake
 #                git revision: 2622bc3f65162bf6d6cb5838da6999f8b5ca75cf
 
-set(YCM_MAJOR_VERSION 0)
-set(YCM_MINOR_VERSION 1)
-set(YCM_PATCH_VERSION 0)
-set(YCM_VERSION ${YCM_MAJOR_VERSION}.${YCM_MINOR_VERSION}.${YCM_PATCH_VERSION})
+set(YCM_VERSION_MAJOR 0)
+set(YCM_VERSION_MINOR 1)
+set(YCM_VERSION_PATCH 0)
+set(YCM_VERSION ${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}.${YCM_VERSION_PATCH})
 
 # Try to identify the current development source version.
-set(YCM_VERSION_SOURCE "")
+unset(YCM_VERSION_SOURCE)
+unset(YCM_VERSION_DIRTY)
 if(EXISTS ${YCM_SOURCE_DIR}/.git/HEAD)
   find_package(Git QUIET)
   if(GIT_FOUND)
@@ -64,12 +65,17 @@ if(EXISTS ${YCM_SOURCE_DIR}/.git/HEAD)
       OUTPUT_STRIP_TRAILING_WHITESPACE
       WORKING_DIRECTORY ${YCM_SOURCE_DIR}
       )
+    if(_dirty)
+      set(YCM_VERSION_DIRTY "dirty")
+    endif()
   endif()
 endif()
 
-if(YCM_VERSION_SOURCE)
+if(DEFINED YCM_VERSION_SOURCE)
   set(YCM_VERSION "${YCM_VERSION}~${YCM_VERSION_SOURCE}")
 endif()
-if(_dirty)
-  set(YCM_VERSION "${YCM_VERSION}+dirty")
+if(DEFINED YCM_VERSION_DIRTY)
+  set(YCM_VERSION "${YCM_VERSION}+${YCM_VERSION_DIRTY}")
 endif()
+
+message(STATUS "YCM Version: ${YCM_VERSION}")

@@ -53,7 +53,7 @@ set(conf_copyright "Copyright 2013-2014  iCub Facility, Istituto Italiano di Tec
 
 set(conf_docs "${YCM_SOURCE_DIR}/help")
 set(conf_path "${CMAKE_CURRENT_SOURCE_DIR}")
-set(conf_version "${YCM_MAJOR_VERSION}.${YCM_MINOR_VERSION}.${YCM_PATCH_VERSION}")
+set(conf_version "${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}.${YCM_VERSION_MINOR}")
 set(conf_release "${YCM_VERSION}")
 configure_file(conf.py.in conf.py @ONLY)
 

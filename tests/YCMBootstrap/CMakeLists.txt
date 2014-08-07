@@ -55,7 +55,7 @@ endif()
 
 
 if(NOT DEFINED YCM_TAG)
-    set(YCM_TAG "v${YCM_MAJOR_VERSION}.${YCM_MINOR_VERSION}.${YCM_PATCH_VERSION}")
+    set(YCM_TAG "v${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}.${YCM_VERSION_PATCH}")
 endif()
 
 message("Using YCM_TAG = \"${YCM_TAG}\"")
