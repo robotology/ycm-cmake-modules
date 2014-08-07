@@ -21,6 +21,24 @@ from pygments.lexer import bygroups
 CMakeLexer.tokens["args"].append(('(\\$<)(.+?)(>)',
                                   bygroups(Operator, Name.Variable, Operator)))
 
+# Monkey patch for sphinx generating invalid content for qcollectiongenerator
+# https://bitbucket.org/birkenfeld/sphinx/issue/1435/qthelp-builder-should-htmlescape-keywords
+from sphinx.util.pycompat import htmlescape
+from sphinx.builders.qthelp import QtHelpBuilder
+old_build_keywords = QtHelpBuilder.build_keywords
+def new_build_keywords(self, title, refs, subitems):
+  old_items = old_build_keywords(self, title, refs, subitems)
+  new_items = []
+  for item in old_items:
+    before, rest = item.split("ref=\"", 1)
+    ref, after = rest.split("\"")
+    if ("<" in ref and ">" in ref):
+      new_items.append(before + "ref=\"" + htmlescape(ref) + "\"" + after)
+    else:
+      new_items.append(item)
+  return new_items
+QtHelpBuilder.build_keywords = new_build_keywords
+
 
 from docutils.parsers.rst import Directive, directives
 from docutils.transforms import Transform
@@ -124,6 +142,7 @@ _cmake_index_objs = {
     'prop_cache': _cmake_index_entry('cache property'),
     'prop_dir':   _cmake_index_entry('directory property'),
     'prop_gbl':   _cmake_index_entry('global property'),
+    'prop_inst':  _cmake_index_entry('installed file property'),
     'prop_sf':    _cmake_index_entry('source file property'),
     'prop_test':  _cmake_index_entry('test property'),
     'prop_tgt':   _cmake_index_entry('target property'),
@@ -251,6 +270,7 @@ class CMakeDomain(Domain):
         'prop_cache': ObjType('prop_cache', 'prop_cache'),
         'prop_dir':   ObjType('prop_dir',   'prop_dir'),
         'prop_gbl':   ObjType('prop_gbl',   'prop_gbl'),
+        'prop_inst':  ObjType('prop_inst',  'prop_inst'),
         'prop_sf':    ObjType('prop_sf',    'prop_sf'),
         'prop_test':  ObjType('prop_test',  'prop_test'),
         'prop_tgt':   ObjType('prop_tgt',   'prop_tgt'),
@@ -266,6 +286,7 @@ class CMakeDomain(Domain):
         # 'prop_cache': CMakeObject,
         # 'prop_dir':   CMakeObject,
         # 'prop_gbl':   CMakeObject,
+        # 'prop_inst':  CMakeObject,
         # 'prop_sf':    CMakeObject,
         # 'prop_test':  CMakeObject,
         # 'prop_tgt':   CMakeObject,
@@ -280,6 +301,7 @@ class CMakeDomain(Domain):
         'prop_cache': CMakeXRefRole(),
         'prop_dir':   CMakeXRefRole(),
         'prop_gbl':   CMakeXRefRole(),
+        'prop_inst':  CMakeXRefRole(),
         'prop_sf':    CMakeXRefRole(),
         'prop_test':  CMakeXRefRole(),
         'prop_tgt':   CMakeXRefRole(),
