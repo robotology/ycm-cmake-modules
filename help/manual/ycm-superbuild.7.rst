@@ -520,6 +520,16 @@ Prints the status (using the appropriate SCM command) for a sub-project.
 Edit CMake cache for a sub-project (CMake sub-projects only).
 
 
+.. _`target:project-open`:
+
+``<PROJECT>-open``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Open the project for editing.
+
+.. note:: MSVC and Xcode only
+
+
 .. _`target:project-print-directories`:
 
 ``<PROJECT>-print-directories``
