@@ -97,3 +97,8 @@ if(COMMAND set_package_properties)
     set_package_properties(YCM PROPERTIES DESCRIPTION "A collection of CMake modules and utilities for YARP and friends"
                                           URL "https://github.com/robotology/ycm")
 endif()
+
+
+if(NOT YCM_FIND_QUIETLY)
+    message(STATUS "Found YCM: ${YCM_MODULE_DIR} (found version \"${YCM_VERSION}\")")
+endif()
