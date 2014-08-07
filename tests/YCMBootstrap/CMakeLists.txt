@@ -48,6 +48,16 @@ if(EXISTS "${YCM_SOURCE_DIR}/.git")
         # This is a proper git repo, we can clone from it.
         set(YCM_STYLE LOCAL)
         set(YCM_REPOSITORY file://${YCM_SOURCE_DIR})
+
+        if(EXISTS "${YCM_SOURCE_DIR}/downloads")
+            # Perform initial clone and copy downloads folder to avoid multiple
+            # downloads.
+            execute_process(COMMAND ${GIT_EXECUTABLE} clone "${YCM_REPOSITORY}" "external/YCM"
+                            WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+
+            file(COPY "${YCM_SOURCE_DIR}/downloads"
+                 DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/external/YCM/")
+        endif()
     endif()
 else()
     message("Not a git repository")
