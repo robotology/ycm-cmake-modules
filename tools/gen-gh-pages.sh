@@ -58,7 +58,7 @@ EOF
 rm -Rf gh-pages
 mkdir -p gh-pages
 
-branches=$(git for-each-ref --format="%(refname)" refs/remotes/$remote | grep -v "HEAD\|gh-pages\|travis\|appveyor" | sed "s#refs/remotes/$remote/##")
+branches=$(git for-each-ref --format="%(refname)" refs/remotes/$remote | grep -v "HEAD\|gh-pages\|travis\|appveyor\|ycm-" | sed "s#refs/remotes/$remote/##")
 tags=$(git for-each-ref --format="%(refname)" refs/tags/ | sed "s#refs/tags/##")
 
 for ref in $branches $tags; do
