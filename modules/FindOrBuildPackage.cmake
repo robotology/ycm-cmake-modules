@@ -92,7 +92,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
     endif()
 
 # Check arguments
-    set(_options REQUIRED QUIET)
+    set(_options REQUIRED QUIET MODULE CONFIG NO_MODULE)
     set(_oneValueArgs )
     set(_multiValueArgs )
 
@@ -119,7 +119,18 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
 
 
 # Preliminary find_package to enable/disable USE_SYSTEM_${_PKG} option
-    find_package(${_pkg} ${_findArgs} ${_find_or_build_package_registryArgs} QUIET)
+    # Use the FindPkg.cmake module first
+    if(NOT _${_PKG}_NO_MODULE AND NOT _${_PKG}_CONFIG)
+        # FIXME This might require to check for all the other arguments, or they
+        #       might conflict with the MODULE argument
+        find_package(${_pkg} ${_findArgs} MODULE QUIET)
+    endif()
+
+    # If the module failed, search a PkgConfig.cmake file
+    if(NOT ${_pkg}_FOUND AND NOT ${_PKG}_FOUND) AND NOT _${_PKG}_MODULE)
+        find_package(${_pkg} ${_findArgs} ${_find_or_build_package_registryArgs} CONFIG QUIET)
+    endif()
+
     if(${_pkg}_FOUND OR ${_PKG}_FOUND)
         set(HAVE_SYSTEM_${_PKG} 1)
     endif()
