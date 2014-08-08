@@ -92,7 +92,13 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
     endif()
 
 # Check arguments
-    set(_options REQUIRED QUIET MODULE CONFIG NO_MODULE)
+    set(_options REQUIRED
+                 QUIET
+                 MODULE
+                 CONFIG
+                 NO_MODULE
+                 NO_CMAKE_PACKAGE_REGISTRY
+                 NO_CMAKE_SYSTEM_PACKAGE_REGISTRY)
     set(_oneValueArgs )
     set(_multiValueArgs )
 
@@ -109,10 +115,10 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
         message(AUTHOR_WARNING "Disabling cmake cache is supported since CMake 3.1. You can remove this check")
     endif()
     if(CMAKE_VERSION VERSION_LESS 3.1)
-        if(CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY)
+        if(CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY OR _${_PKG}_NO_CMAKE_PACKAGE_REGISTRY)
             list(APPEND _find_or_build_package_registryArgs NO_CMAKE_PACKAGE_REGISTRY)
         endif()
-        if(CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY)
+        if(CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY OR _${_PKG}_NO_CMAKE_SYSTEM_PACKAGE_REGISTRY)
             list(APPEND _find_or_build_package_registryArgs NO_CMAKE_SYSTEM_PACKAGE_REGISTRY)
         endif()
     endif()
