@@ -127,7 +127,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
     endif()
 
     # If the module failed, search a PkgConfig.cmake file
-    if(NOT ${_pkg}_FOUND AND NOT ${_PKG}_FOUND) AND NOT _${_PKG}_MODULE)
+    if(NOT ${_pkg}_FOUND AND NOT ${_PKG}_FOUND AND NOT _${_PKG}_MODULE)
         find_package(${_pkg} ${_findArgs} ${_find_or_build_package_registryArgs} CONFIG QUIET)
     endif()
 
