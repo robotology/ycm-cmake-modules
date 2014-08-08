@@ -21,11 +21,24 @@
 set(YCM_VERSION_MAJOR 0)
 set(YCM_VERSION_MINOR 1)
 set(YCM_VERSION_PATCH 0)
-set(YCM_VERSION ${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}.${YCM_VERSION_PATCH})
+
+# Clean version.
+set(YCM_VERSION_SHORT "${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}.${YCM_VERSION_PATCH}")
+
+# API version.
+set(YCM_VERSION_API "${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}")
+
+# Full version, including git commit and dirty state.
+set(YCM_VERSION "${YCM_VERSION_SHORT}")
+
+# Package version, including the number of commits.
+# WARNING: YCM_VERSION_PACKAGE is not unique, but it is still useful.
+set(YCM_VERSION_PACKAGE "${YCM_VERSION_SHORT}")
 
 # Try to identify the current development source version.
 unset(YCM_VERSION_SOURCE)
 unset(YCM_VERSION_DIRTY)
+unset(YCM_VERSION_REVISION)
 if(EXISTS ${YCM_SOURCE_DIR}/.git/HEAD)
   find_package(Git QUIET)
   if(GIT_FOUND)
@@ -68,6 +81,27 @@ if(EXISTS ${YCM_SOURCE_DIR}/.git/HEAD)
     if(_dirty)
       set(YCM_VERSION_DIRTY "dirty")
     endif()
+    execute_process(
+      COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0 HEAD
+      OUTPUT_VARIABLE _last_tag
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+      ERROR_QUIET
+      RESULT_VARIABLE _err
+      WORKING_DIRECTORY ${YCM_SOURCE_DIR}
+      )
+    set(_commit HEAD)
+    if(NOT _err)
+      set(_commit ${_last_tag}..${_commit})
+    endif()
+    execute_process(
+      COMMAND ${GIT_EXECUTABLE} rev-list --count ${_commit} --
+      OUTPUT_VARIABLE _commit_count
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+      WORKING_DIRECTORY ${YCM_SOURCE_DIR}
+      )
+    if(_commit_count)
+      set(YCM_VERSION_REVISION "${_commit_count}")
+    endif()
   endif()
 endif()
 
@@ -77,5 +111,8 @@ endif()
 if(DEFINED YCM_VERSION_DIRTY)
   set(YCM_VERSION "${YCM_VERSION}+${YCM_VERSION_DIRTY}")
 endif()
+if(DEFINED YCM_VERSION_REVISION)
+  set(YCM_VERSION_PACKAGE "${YCM_VERSION_PACKAGE}.${YCM_VERSION_REVISION}")
+endif()
 
-message(STATUS "YCM Version: ${YCM_VERSION}")
+message(STATUS "YCM Version: ${YCM_VERSION} (${YCM_VERSION_PACKAGE})")
