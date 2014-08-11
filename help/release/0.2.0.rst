@@ -1,0 +1,8 @@
+YCM 0.2.0 (UNRELEASED) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+* ...

@@ -19,7 +19,7 @@
 #                git revision: 2622bc3f65162bf6d6cb5838da6999f8b5ca75cf
 
 set(YCM_VERSION_MAJOR 0)
-set(YCM_VERSION_MINOR 1)
+set(YCM_VERSION_MINOR 2)
 set(YCM_VERSION_PATCH 0)
 
 # Clean version.
