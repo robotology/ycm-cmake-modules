@@ -60,6 +60,15 @@ add_subdirectory(deprecated)
 add_subdirectory(build-modules)
 add_subdirectory(docs)
 
+# Use the new CMakePackageConfigHelpers from CMake repository in order to use
+# the new INSTALL_PREFIX argument for configure_package_config_file
+if(NOT CMAKE_VERSION VERSION_LESS 3.1)
+    # Just a reminder to update files when a new cmake version is released
+    message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+endif()
+if(CMAKE_VERSION VERSION_LESS 3.1)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}/cmake-next/cmake-next/Modules")
+endif()
 include(CMakePackageConfigHelpers)
 
 # YCMConfigVersion.cmake file (same for build tree and intall)
@@ -70,24 +79,12 @@ install(FILES "${YCM_BUILD_CMAKE_DIR}/YCMConfigVersion.cmake"
         DESTINATION "${YCM_INSTALL_CMAKE_DIR}")
 
 # YCMConfig.cmake (build tree)
-# HACK: configure_package_config_file uses a
-# file(RELATIVE_PATH ... ... "${CMAKE_INSTALL_PREFIX}" )
-# to set the PACKAGE_PREFIX_DIR variable. This means that all the variables
-# in the build tree config file will use the absolute path, and that the
-# PACKAGE_PREFIX_DIR variable will contain the actual prefix where the package
-# is being installed.
-# This is probably not a problem, but in order to have only relative paths we
-# temporarily save the CMAKE_INSTALL_PREFIX variable and replace it with
-# CMAKE_BINARY_DIR.
-set(_CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
-set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
 get_filename_component(YCM_MODULE_DIR "${YCM_BUILD_MODULE_DIR}" ABSOLUTE)
 configure_package_config_file(YCMConfig.cmake.in "${YCM_BUILD_CMAKE_DIR}/YCMConfig.cmake"
                               INSTALL_DESTINATION "${YCM_BUILD_CMAKE_DIR}"
                               PATH_VARS YCM_MODULE_DIR
-                              NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-set(CMAKE_INSTALL_PREFIX "${_CMAKE_INSTALL_PREFIX}")
-unset(_CMAKE_INSTALL_PREFIX)
+                              NO_CHECK_REQUIRED_COMPONENTS_MACRO
+                              INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
 
 # YCMConfig.cmake (installed)
 get_filename_component(YCM_MODULE_DIR "${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_MODULE_DIR}" ABSOLUTE)
