@@ -5,4 +5,11 @@ YCM 0.1.1 (UNRELEASED) Release Notes
 
   .. contents::
 
-* ...
+Changes made since YCM 0.1.0 include the following.
+
+Build System
+============
+
+* If available, use the new ``MESSAGE_NEVER`` argument for the
+  :cmake:command:`file(INSTALL)` command. This will remove the "install" output
+  during the build.
