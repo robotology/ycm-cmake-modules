@@ -5,4 +5,24 @@ YCM 0.2.0 (UNRELEASED) Release Notes
 
   .. contents::
 
-* ...
+Changes made since YCM 0.1 include the following.
+
+CMake Next
+==========
+
+* Updated to CMake commit
+  :cmake-commit:`52584050c2bb0d65b60b0164af6a28c2761d1598`.
+* :cmake:module:`CMakePackageConfigHelpers` module imported.
+
+Build System
+============
+
+* Use the ``INSTALL_PREFIX`` argument for
+  :cmake:module:`CMakePackageConfigHelpers`. This simplifies a lot the creation
+  of the ``YCMConfig.cmake`` file for the binary tree.
+
+Modules
+=======
+
+* InstallBasicPackageFiles: Use the new ``INSTALL_PREFIX`` argument for
+  :cmake:module:`CMakePackageConfigHelpers`
