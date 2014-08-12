@@ -131,7 +131,7 @@ endif()
 # Files not yet available or containing bugs in current CMake release (2.8.12.2)
 
 # Latest revision tested
-set(_ref aaf70719322db96b7a5544964f4104789047f252)
+set(_ref 52584050c2bb0d65b60b0164af6a28c2761d1598)
 
 if(NOT CMAKE_VERSION VERSION_LESS 3.1)
     # Just a reminder to update files when a new cmake version is released
@@ -144,6 +144,10 @@ set(_files Copyright.txt                               84889816c71a04e30e715b89f
            Modules/FindPackageMessage.cmake            dbc69daf94e8a4039286f4ae6a8702af418b253a  # Used by FindPackageHandleStandardArgs
            Modules/FeatureSummary.cmake                e00f3966375f53cb3511af6048a0e1e5a66959d7
            Modules/CMakeParseArguments.cmake           00c393ca7dfd7f9ea9d1a5dc99702dcaffd289af) # Used by FeatureSummary
+
+set(_now_files
+           Modules/CMakePackageConfigHelpers.cmake     0e368e99c163b56239faf2542fa3ae8a04d38eca)
+
 # Some files cannot be parsed due to new-style cmake comments, so we ship
 # an old style commented version
 if(NOT CMAKE_VERSION VERSION_LESS 3.0 OR YCM_MAINTAINER_MODE)
@@ -152,6 +156,8 @@ else()
     file(COPY Modules/FindPkgConfig.cmake DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next")
 endif()
 _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
+_ycm_cmake_next_download_now(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_now_files}")
+
 _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 
