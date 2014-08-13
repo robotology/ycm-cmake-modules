@@ -13,3 +13,4 @@ Build System
 * If available, use the new ``MESSAGE_NEVER`` argument for the
   :cmake:command:`file(INSTALL)` command. This will remove the "install" output
   during the build.
+* Fix ``_YCM_CMAKE_NEXT_DOWNLOAD_NOW`` function on Windows.
