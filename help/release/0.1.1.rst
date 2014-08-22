@@ -14,6 +14,7 @@ Build System
   :cmake:command:`file(INSTALL)` command. This will remove the "install" output
   during the build.
 * Fix ``_YCM_CMAKE_NEXT_DOWNLOAD_NOW`` function on Windows.
+* Use the full version in offline source packages.
 
 
 Modules

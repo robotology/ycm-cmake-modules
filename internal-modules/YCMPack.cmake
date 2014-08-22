@@ -87,6 +87,6 @@ list(APPEND CPACK_SOURCE_IGNORE_FILES .git
                                       .travis.yml
                                       appveyor.yml)
 
-set(CPACK_SOURCE_PACKAGE_FILE_NAME "ycm-${CPACK_PACKAGE_VERSION}-offline")
+set(CPACK_SOURCE_PACKAGE_FILE_NAME "ycm-${YCM_VERSION}-offline")
 
 include(CPack)
