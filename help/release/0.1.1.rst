@@ -14,3 +14,10 @@ Build System
   :cmake:command:`file(INSTALL)` command. This will remove the "install" output
   during the build.
 * Fix ``_YCM_CMAKE_NEXT_DOWNLOAD_NOW`` function on Windows.
+
+
+Modules
+=======
+
+* 3rdparty/FindEigen3: Update to the last revision (see
+  https://bitbucket.org/eigen/eigen/pull-request/76/)
