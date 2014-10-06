@@ -19,7 +19,8 @@ set(YCM_BUILD_MODULES BuildECM.cmake
                       BuildYARP.cmake
                       BuildICUB.cmake
                       BuildGazeboYARPPlugins.cmake
-                      BuildEigen3.cmake)
+                      BuildEigen3.cmake
+                      BuildqpOASIS.cmake)
 
 _ycm_install(build-modules FILES ${YCM_BUILD_MODULES}
                            DESTINATION "${YCM_INSTALL_MODULE_DIR}/build-modules")
