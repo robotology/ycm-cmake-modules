@@ -28,3 +28,4 @@ Modules
   for :cmake:module:`CMakePackageConfigHelpers`.
 * New module :module:`FindqpOASES`.
 * New module :module:`BuildqpOASES`.
+* :module:`StandardFindModule`: Add QUIET argument.
