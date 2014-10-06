@@ -21,4 +21,5 @@ Modules
 =======
 
 * 3rdparty/FindEigen3: Update to the last revision (see
-  https://bitbucket.org/eigen/eigen/pull-request/76/)
+  https://bitbucket.org/eigen/eigen/pull-request/76/).
+* :module:`ExtractVersion`: Unset macro internal variables before exiting.
