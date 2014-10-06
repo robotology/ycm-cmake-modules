@@ -200,6 +200,7 @@ macro(STANDARD_FIND_MODULE _name _pkgconfig_name)
         message(STATUS "${_name}_MINOR_VERSION = ${${_name}_MINOR_VERSION}")
         message(STATUS "${_name}_PATCH_VERSION = ${${_name}_PATCH_VERSION}")
         message(STATUS "${_name}_TWEAK_VERSION = ${${_name}_TWEAK_VERSION}")
+        message(STATUS "${_name}_VERSION_COUNT = ${${_name}_VERSION_COUNT}")
     endif()
 
 endmacro()
