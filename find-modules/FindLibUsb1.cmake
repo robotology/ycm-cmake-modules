@@ -14,8 +14,8 @@
 # Author: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
-include(MacroStandardFindModule)
-macro_standard_find_module(LibUsb1 libusb-1.0 SKIP_CMAKE_CONFIG)
+include(StandardFindModule)
+standard_find_module(LibUsb1 libusb-1.0 SKIP_CMAKE_CONFIG)
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)

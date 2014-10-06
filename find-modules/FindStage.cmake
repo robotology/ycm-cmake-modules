@@ -3,8 +3,9 @@
 # CopyPolicy: Released under the terms of the GNU GPL v2.0.
 
 
-include(MacroStandardFindModule)
-macro_standard_find_module(Stage stage SKIP_CMAKE_CONFIG)
+
+include(StandardFindModule)
+standard_find_module(Stage stage SKIP_CMAKE_CONFIG)
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)

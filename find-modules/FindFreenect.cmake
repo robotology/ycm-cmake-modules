@@ -15,8 +15,8 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
 
-include(MacroStandardFindModule)
-macro_standard_find_module(Freenect libfreenect SKIP_CMAKE_CONFIG)
+include(StandardFindModule)
+standard_find_module(Freenect libfreenect SKIP_CMAKE_CONFIG)
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)
