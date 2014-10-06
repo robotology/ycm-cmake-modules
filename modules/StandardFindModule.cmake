@@ -27,6 +27,7 @@
 #   <name>_MINOR_VERSION - <name> minor version
 #   <name>_PATCH_VERSION - <name> patch version
 #   <name>_TWEAK_VERSION - <name> tweak version
+#   <name>_VERSION_COUNT - Number of version components, 0 to 4
 #
 # For each library that requires to be linked (i.e. "-llib") it creates
 #
