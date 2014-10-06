@@ -19,6 +19,8 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindDRAGONFLYAPI.cmake
                      FindESDCANAPI.cmake
                      FindFFMPEG.cmake
+                     FindFreenect.cmake
+                     FindFTDI.cmake
                      FindGLUT.cmake
                      FindGooCanvas.cmake
                      FindGooCanvasMM.cmake
@@ -27,14 +29,18 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindGtkDataboxMM.cmake
                      FindIPOPT.cmake
                      FindIPP.cmake
+                     FindLibUsb1.cmake
                      FindODE.cmake
                      FindOpenCV.cmake
                      FindOpenGL.cmake
+                     FindOpenNI.cmake
                      FindPLXCANAPI.cmake
                      FindPortAudio.cmake
                      FindqpOASES.cmake
                      FindQt3.cmake
+                     FindReadline.cmake
                      FindSQLite.cmake
+                     FindStage.cmake
                      FindTinyXML.cmake
                      FindYamlCpp.cmake)
 
