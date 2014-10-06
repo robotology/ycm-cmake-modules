@@ -10,6 +10,7 @@
 #   standard_find_module(<name>
 #                        <pkgconfig name>
 #                        [NOT_REQUIRED]
+#                        [QUIET]
 #                        [SKIP_CMAKE_CONFIG]
 #                        [SKIP_PKG_CONFIG])
 #
@@ -41,6 +42,8 @@
 # In a FindXXX.cmake module, this macro can be used at the beginning.
 # The NOT_REQUIRED can be added to avoid failing if the package was not
 # found, but pkg-config is installed.
+# The `QUIET` argument can be used to hide the output from
+# `find_package_handle_standard_args`.
 # If <name>_FOUND is FALSE at the end, more "custom" searches can be
 # used (for windows, etc.)
 #
@@ -79,7 +82,7 @@ include(ExtractVersion)
 
 macro(STANDARD_FIND_MODULE _name _pkgconfig_name)
     string(TOUPPER ${_name} _NAME)
-    cmake_parse_arguments(_OPT_${_NAME} "NOT_REQUIRED;SKIP_CMAKE_CONFIG;SKIP_PKG_CONFIG" "" "" "${ARGN}")
+    cmake_parse_arguments(_OPT_${_NAME} "NOT_REQUIRED;SKIP_CMAKE_CONFIG;SKIP_PKG_CONFIG;QUIET" "" "" ${ARGN})
 
     # Try to use CMake Config file to locate the package
     if(NOT _OPT_${_NAME}_SKIP_CMAKE_CONFIG)
@@ -104,7 +107,10 @@ macro(STANDARD_FIND_MODULE _name _pkgconfig_name)
         mark_as_advanced(${_name}_DIR)
 
         if(${_name}_FOUND)
-            find_package_handle_standard_args(${_name} CONFIG_MODE)
+            set(_${_name}_FIND_QUIETLY ${${_name}_FIND_QUIETLY})
+            set(${_name}_FIND_QUIETLY ${_OPT_${_NAME}_QUIET})
+            find_package_handle_standard_args(${_name} DEFAULT_MSG ${_name}_CONFIG)
+            set(${_name}_FIND_QUIETLY ${_${_name}_FIND_QUIETLY})
         endif()
     endif()
 
@@ -159,7 +165,10 @@ macro(STANDARD_FIND_MODULE _name _pkgconfig_name)
                 set(${_name}_FIND_QUIETLY 1)
             endif()
 
+            set(_${_name}_FIND_QUIETLY ${${_name}_FIND_QUIETLY})
+            set(${_name}_FIND_QUIETLY ${_OPT_${_NAME}_QUIET})
             find_package_handle_standard_args(${_name} DEFAULT_MSG ${_name}_LIBRARIES)
+            set(${_name}_FIND_QUIETLY ${_${_name}_FIND_QUIETLY})
 
             # If NOT_REQUIRED reset the _FIND_REQUIRED variable
             if(_OPT_${_NAME}_NOT_REQUIRED AND DEFINED _${_name}_FIND_REQUIRED)
