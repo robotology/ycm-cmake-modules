@@ -78,6 +78,7 @@ Find Package Modules
    /module/FindOpenGL
    /module/FindPLXCANAPI
    /module/FindPortAudio
+   /module/FindqpOASES
    /module/FindQt3
    /module/FindSQLite
    /module/FindTinyXML
@@ -98,6 +99,7 @@ Build Package Modules
    /module/BuildGazeboYARPPlugins
    /module/BuildGooCanvas
    /module/BuildICUB
+   /module/BuildqpOASES
    /module/BuildTinyXML
    /module/BuildYARP
 
