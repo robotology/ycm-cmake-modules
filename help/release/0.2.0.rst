@@ -24,5 +24,7 @@ Build System
 Modules
 =======
 
-* InstallBasicPackageFiles: Use the new ``INSTALL_PREFIX`` argument for
-  :cmake:module:`CMakePackageConfigHelpers`
+* :module:`InstallBasicPackageFiles`: Use the new ``INSTALL_PREFIX`` argument
+  for :cmake:module:`CMakePackageConfigHelpers`.
+* New module :module:`FindqpOASES`.
+* New module :module:`BuildqpOASES`.

@@ -32,6 +32,7 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindOpenGL.cmake
                      FindPLXCANAPI.cmake
                      FindPortAudio.cmake
+                     FindqpOASES.cmake
                      FindQt3.cmake
                      FindSQLite.cmake
                      FindTinyXML.cmake
