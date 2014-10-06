@@ -1,5 +1,9 @@
+#.rst:
+# FindReadline
+# ------------
+#
 # Try to find GNU Readline, a library for easy editing of command lines.
-# Once done this will define the following variables:
+# Once done this will define the following variables::
 #
 # Readline_FOUND         - System has GNU Readline
 # Readline_INCLUDE_DIRS  - GNU Readline include directory
@@ -17,10 +21,20 @@
 # Readline_LIBRARY_RELEASE - GNU Readline library (release)
 # Readline_LIBRARY_DEBUG - GNU Readline library (debug)
 
-# Copyright (C) 2014  iCub Facility, Istituto Italiano di Tecnologia
-# Authors: Elena Ceseracciu <elena.ceseracciu@iit.it>
-#          Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
+#=============================================================================
+# Copyright 2014 iCub Facility, Istituto Italiano di Tecnologia
+#   Authors: Elena Ceseracciu <elena.ceseracciu@iit.it>
+#            Daniele E. Domenichelli <daniele.domenichelli@iit.it>
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of YCM, substitute the full
+#  License text for the above reference.)
 
 
 include(SelectLibraryConfigurations)

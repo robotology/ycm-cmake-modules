@@ -65,6 +65,8 @@ Find Package Modules
    /module/FindDRAGONFLYAPI
    /module/FindESDCANAPI
    /module/FindFFMPEG
+   /module/FindFreenect
+   /module/FindFTDI
    /module/FindGLUT
    /module/FindGooCanvas
    /module/FindGooCanvasMM
@@ -73,14 +75,18 @@ Find Package Modules
    /module/FindGtkDataboxMM
    /module/FindIPOPT
    /module/FindIPP
+   /module/FindLibUsb1
    /module/FindODE
    /module/FindOpenCV
    /module/FindOpenGL
+   /module/FindOpenNI
    /module/FindPLXCANAPI
    /module/FindPortAudio
    /module/FindqpOASES
+   /module/FindReadline
    /module/FindQt3
    /module/FindSQLite
+   /module/FindStage
    /module/FindTinyXML
    /module/FindYamlCpp
 
