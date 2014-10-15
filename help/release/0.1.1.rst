@@ -25,3 +25,5 @@ Modules
 * :module:`ExtractVersion`: Unset macro internal variables before exiting.
 * Import recent changes from yarp to :module:`FindFFMPEG` and
   :module:`FindPortAudio` modules.
+* :module:`FindOrBuildPackage`: Properly pass a `<PKG>_BUILD_COMPONENTS`
+  variable to `Build<PKG>.cmake`.
