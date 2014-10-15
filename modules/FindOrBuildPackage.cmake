@@ -100,13 +100,17 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
                  NO_CMAKE_PACKAGE_REGISTRY
                  NO_CMAKE_SYSTEM_PACKAGE_REGISTRY)
     set(_oneValueArgs )
-    set(_multiValueArgs )
+    set(_multiValueArgs COMPONENTS)
 
     cmake_parse_arguments(_${_PKG} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
 # Arguments for the find_package command
 # REQUIRED and QUIET will be set when necessary
-    set(_findArgs ${_${_PKG}_UNPARSED_ARGUMENTS})
+    if(DEFINED _${_PKG}_COMPONENTS)
+        set(_findArgs COMPONENTS ${_${_PKG}_COMPONENTS} ${_${_PKG}_UNPARSED_ARGUMENTS})
+    else()
+        set(_findArgs ${_${_PKG}_UNPARSED_ARGUMENTS})
+    endif()
 
     # Disable package cache when not done automatically by CMake
     # This is a workaround for CMake bug #14849
@@ -162,7 +166,8 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
                      VERSION_MINOR
                      VERSION_PATCH
                      VERSION_TWEAK
-                     VERSION_COUNT)
+                     VERSION_COUNT
+                     COMPONENTS)
             unset(_${_PKG}_BUILD_${_var})
             if(DEFINED ${_PKG}_BUILD_${_var})
                 set(_${_PKG}_BUILD_${_var} ${_PKG}_BUILD_${_var})
@@ -176,6 +181,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
             set(${_PKG}_BUILD_VERSION ${_${_PKG}_VERSION})
             extract_version(${_PKG}_BUILD REVERSE_NAME)
         endif()
+        set(${_PKG}_BUILD_COMPONENTS ${_${_PKG}_COMPONENTS})
 
         if(TARGET ${_pkg})
             # Weird. We found the recipe, but this doesn't add a TARGET ${_pkg}
@@ -204,7 +210,8 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
                      VERSION_MINOR
                      VERSION_PATCH
                      VERSION_TWEAK
-                     VERSION_COUNT)
+                     VERSION_COUNT
+                     COMPONENTS)
             if(DEFINED _${_PKG}_BUILD_${_var})
                 set(${_PKG}_BUILD_${_var} _${_PKG}_BUILD_${_var})
             else()
