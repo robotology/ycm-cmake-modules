@@ -27,3 +27,4 @@ Modules
   :module:`FindPortAudio` modules.
 * :module:`FindOrBuildPackage`: Properly pass a `<PKG>_BUILD_COMPONENTS`
   variable to `Build<PKG>.cmake`.
+* :module:`YCMEPHelper`: Fix `edit-cache` step (:ycm-issue:`72`).
