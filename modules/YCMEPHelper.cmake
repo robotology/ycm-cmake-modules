@@ -627,6 +627,9 @@ function(_YCM_EP_ADD_EDIT_CACHE_STEP _name)
     _ep_get_configure_command_id(${_name} _${_name}_configure_command_id)
     if(_${_name}_configure_command_id STREQUAL "cmake")
 
+        get_property(_source_dir TARGET ${_name} PROPERTY _EP_SOURCE_DIR)
+        get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
+
         ExternalProject_Add_Step(${_name} edit_cache
                                  COMMAND ${CMAKE_EDIT_COMMAND} -H${_source_dir} -B${_binary_dir}
                                  WORKING_DIRECTORY ${${_name}_BUILD_DIR}
