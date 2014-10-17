@@ -853,7 +853,8 @@ function(YCM_EP_HELPER _name)
         endforeach()
     endif()
     foreach(_step DOWNLOAD
-                  UPDATE PATCH
+                  UPDATE
+                  PATCH
                   CONFIGURE
                   BUILD
                   INSTALL
