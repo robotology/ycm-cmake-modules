@@ -15,7 +15,7 @@ Introduction
 The package YCM contains a set of CMake files that support creation and
 maintenance of repositories and software packages.
 YCM has been written with the aim of solving some of the problems encountered
-while manaing large research projects but it can be used outside it initial
+while managing large research projects but it can be used outside it initial
 context.
 
 
@@ -48,7 +48,7 @@ patches, developers cannot wait for patches to be integrated.
 Changes are committed directly to the repositories and tested in the field.
 The advantage of this approach is that all developers have access to the source
 code, can compile and commit changes.
-The disadvantage it that this leads to large, monolithc repositories that are
+The disadvantage it that this leads to large, monolithic repositories that are
 difficult to manage and reuse beyond the need of the project.
 
 To address these needs we developed YCM, i.e. a set of CMake helper that
@@ -165,7 +165,7 @@ Detailed documentation is organized in the following documents:
 
 
 
-Aknowledgements
+Acknowledgements
 ###############
 
 YCM is being developed by the `iCub Facility`_,
