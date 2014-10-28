@@ -941,8 +941,8 @@ Maintainer Mode
 ---------------
 
 If the :variable:`YCM_EP_MAINTAINER_MODE` CMake variable is
-enabled, all the targets for all the projects will be disabled, and all
-the ``USE_SYSTEM_<PACKAGE>`` variables will be disabled.
+enabled, all the targets for all the projects will be enabled, including
+the ``update`` step.
 
 This is an useful variable for maintainers, but is not recommended
 for developers.
