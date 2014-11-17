@@ -127,7 +127,7 @@
 #    The current commit log message body.
 #  ``<PREFIX>_GIT_WT_DIRTY``
 #    Whether the current working tree is clean or not.
-
+#
 #
 #  If ``SOURCE_DIR`` is not set, then the ``PROJECT_SOURCE_DIR`` cmake
 #  variable is used.
@@ -135,8 +135,10 @@
 #  If ``PREFIX`` is not set, then the ``PROJECT_NAME`` cmake variable is
 #  used.
 #
-
-#
+#  If ``FATAL`` is set, a fatal error is emitted when the source dir
+#  is not a git repository, or when git was not found. This is disabled
+#  by default to allow downloads from non-git sources (archives,
+#  wrappers, etc.), but can be enabled if required.
 
 #=============================================================================
 # Copyright 2000-2014 Kitware, Inc.
