@@ -166,7 +166,7 @@ Detailed documentation is organized in the following documents:
 
 
 Acknowledgements
-###############
+################
 
 YCM is being developed by the `iCub Facility`_,
 `Istituto Italiano di Tecnologia`_.
