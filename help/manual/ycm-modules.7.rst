@@ -18,6 +18,7 @@ Generic Modules
    :maxdepth: 1
 
    /module/ExtractVersion
+   /module/GitInfo
    /module/IncludeUrl
    /module/StandardFindModule
 

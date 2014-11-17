@@ -15,8 +15,9 @@
 # (To distribute this file outside of YCM, substitute the full
 #  License text for the above reference.)
 
-# Original file: <CMake Repository>/Source/CMakeVersionSource.cmake
-#                git revision: 2622bc3f65162bf6d6cb5838da6999f8b5ca75cf
+
+include(GitInfo)
+
 
 set(YCM_VERSION_MAJOR 0)
 set(YCM_VERSION_MINOR 2)
@@ -35,73 +36,21 @@ set(YCM_VERSION "${YCM_VERSION_SHORT}")
 # WARNING: YCM_VERSION_PACKAGE is not unique, but it is still useful.
 set(YCM_VERSION_PACKAGE "${YCM_VERSION_SHORT}")
 
-# Try to identify the current development source version.
+# Get information from the git repository if available
+git_wt_info(SOURCE_DIR "${YCM_SOURCE_DIR}"
+            PREFIX YCM)
+
 unset(YCM_VERSION_SOURCE)
 unset(YCM_VERSION_DIRTY)
 unset(YCM_VERSION_REVISION)
-if(EXISTS ${YCM_SOURCE_DIR}/.git/HEAD)
-  find_package(Git QUIET)
-  if(GIT_FOUND)
-    execute_process(
-      COMMAND ${GIT_EXECUTABLE} describe HEAD
-      OUTPUT_VARIABLE _tag
-      OUTPUT_STRIP_TRAILING_WHITESPACE
-      ERROR_QUIET
-      WORKING_DIRECTORY ${YCM_SOURCE_DIR}
-      )
-    if(NOT _tag STREQUAL "v${YCM_VERSION}")
-      execute_process(
-        COMMAND ${GIT_EXECUTABLE} log -1 --date=iso HEAD
-        OUTPUT_VARIABLE _log_message
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        WORKING_DIRECTORY ${YCM_SOURCE_DIR}
-        )
-      string(REGEX MATCH "Date: +([0-9-]+)" _unused ${_log_message})
-      string(REPLACE "-" "" _date ${CMAKE_MATCH_1})
-      execute_process(
-        COMMAND ${GIT_EXECUTABLE} rev-parse --verify -q --short=8 HEAD
-        OUTPUT_VARIABLE _head
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        WORKING_DIRECTORY ${YCM_SOURCE_DIR}
-        )
-      if(_head OR _date)
-        set(YCM_VERSION_SOURCE "${_date}+git${_head}")
-        execute_process(
-          COMMAND ${GIT_EXECUTABLE} update-index -q --refresh
-          WORKING_DIRECTORY ${YCM_SOURCE_DIR}
-          )
-      endif()
-    endif()
-    execute_process(
-      COMMAND ${GIT_EXECUTABLE} diff-index --name-only HEAD --
-      OUTPUT_VARIABLE _dirty
-      OUTPUT_STRIP_TRAILING_WHITESPACE
-      WORKING_DIRECTORY ${YCM_SOURCE_DIR}
-      )
-    if(_dirty)
-      set(YCM_VERSION_DIRTY "dirty")
-    endif()
-    execute_process(
-      COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0 HEAD
-      OUTPUT_VARIABLE _last_tag
-      OUTPUT_STRIP_TRAILING_WHITESPACE
-      ERROR_QUIET
-      RESULT_VARIABLE _err
-      WORKING_DIRECTORY ${YCM_SOURCE_DIR}
-      )
-    set(_commit HEAD)
-    if(NOT _err)
-      set(_commit ${_last_tag}..${_commit})
-    endif()
-    execute_process(
-      COMMAND ${GIT_EXECUTABLE} rev-list --count ${_commit} --
-      OUTPUT_VARIABLE _commit_count
-      OUTPUT_STRIP_TRAILING_WHITESPACE
-      WORKING_DIRECTORY ${YCM_SOURCE_DIR}
-      )
-    if(_commit_count)
-      set(YCM_VERSION_REVISION "${_commit_count}")
-    endif()
+if(DEFINED YCM_GIT_WT_HASH)
+  if(NOT "${YCM_GIT_WT_TAG}" STREQUAL "v${YCM_VERSION}")
+    string(REPLACE "-" "" _date ${YCM_GIT_WT_AUTHOR_DATE})
+    set(YCM_VERSION_SOURCE "${_date}.${YCM_GIT_WT_DATE_REVISION}+git${YCM_GIT_WT_HASH_SHORT}")
+    set(YCM_VERSION_REVISION ${YCM_GIT_WT_TAG_REVISION})
+  endif()
+  if(YCM_GIT_WT_DIRTY)
+    set(YCM_VERSION_DIRTY "dirty")
   endif()
 endif()
 

@@ -16,6 +16,7 @@
 set(YCM_MODULES AddUninstallTarget.cmake
                 ExtractVersion.cmake
                 FindOrBuildPackage.cmake
+                GitInfo.cmake
                 IncludeUrl.cmake
                 InstallBasicPackageFiles.cmake
                 StandardFindModule.cmake
