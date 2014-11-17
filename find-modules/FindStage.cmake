@@ -5,13 +5,13 @@
 # Try to find Stage, a library for easy editing of command lines.
 # Once done this will define the following variables::
 #
-# Stage_FOUND         - System has Stage
-# Stage_INCLUDE_DIRS  - Stage include directory
-# Stage_LIBRARIES     - Stage libraries
-# Stage_DEFINITIONS   - Additional compiler flags for Stage
-# Stage_VERSION       - Stage version
-# Stage_MAJOR_VERSION - Stage major version
-# Stage_MINOR_VERSION - Stage minor version
+#  Stage_FOUND         - System has Stage
+#  Stage_INCLUDE_DIRS  - Stage include directory
+#  Stage_LIBRARIES     - Stage libraries
+#  Stage_DEFINITIONS   - Additional compiler flags for Stage
+#  Stage_VERSION       - Stage version
+#  Stage_MAJOR_VERSION - Stage major version
+#  Stage_MINOR_VERSION - Stage minor version
 #
 # Environment variables used to locate the Stage library:
 # READLINE_DIR - Stage root directory

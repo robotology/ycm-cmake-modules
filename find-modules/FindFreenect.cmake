@@ -5,14 +5,14 @@
 # Try to find the Freenect library.
 # Once done this will define the following variables::
 #
-# Freenect_FOUND         - System has Freenect
-# Freenect_INCLUDE_DIRS  - Freenect include directory
-# Freenect_LIBRARIES     - Freenect libraries
-# Freenect_DEFINITIONS   - Additional compiler flags for Freenect
-# Freenect_VERSION       - Freenect version
-# Freenect_MAJOR_VERSION - Freenect major version
-# Freenect_MINOR_VERSION - Freenect minor version
-# Freenect_PATCH_VERSION - Freenect patch version
+#  Freenect_FOUND         - System has Freenect
+#  Freenect_INCLUDE_DIRS  - Freenect include directory
+#  Freenect_LIBRARIES     - Freenect libraries
+#  Freenect_DEFINITIONS   - Additional compiler flags for Freenect
+#  Freenect_VERSION       - Freenect version
+#  Freenect_MAJOR_VERSION - Freenect major version
+#  Freenect_MINOR_VERSION - Freenect minor version
+#  Freenect_PATCH_VERSION - Freenect patch version
 
 #=============================================================================
 # Copyright 2012-2014  iCub Facility, Istituto Italiano di Tecnologia
