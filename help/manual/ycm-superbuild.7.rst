@@ -523,7 +523,7 @@ Edit CMake cache for a sub-project (CMake sub-projects only).
 .. _`target:project-open`:
 
 ``<PROJECT>-open``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 Open the project for editing.
 
