@@ -350,7 +350,7 @@ Build all sub-projects.
 .. _`target:test`:
 
 ``test`` (``TEST``)
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 Run tests for all sub-projects (only if tests are enabled, see
 :cmake:command:`enable_testing()`.
