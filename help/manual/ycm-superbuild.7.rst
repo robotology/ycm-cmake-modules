@@ -347,6 +347,15 @@ name of the target on IDEs like Visual Studio and Xcode.
 Build all sub-projects.
 
 
+.. _`target:test`:
+
+``test`` (``TEST``)
+^^^^^^^^^^^^^^^^^
+
+Run tests for all sub-projects (only if tests are enabled, see
+:cmake:command:`enable_testing()`.
+
+
 .. _`target:update-all`:
 
 ``update-all`` (``ALL_UPDATE``)
@@ -451,6 +460,14 @@ These targets are always available for all the sub-projects:
 
 Builds a sub-project and all its dependees.
 
+
+.. _`target:project-test`:
+
+``<PROJECT>-test``
+^^^^^^^^^^^^^^^^^^
+
+Builds a sub-project and all its dependees and executes its tests (only
+if tests are enabled, see :cmake:command:`enable_testing()`.
 
 
 .. _`Project Targets - Basic Mode`:
