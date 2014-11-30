@@ -67,4 +67,7 @@ ycm_ep_helper(YARP TYPE GIT
                                     -DYARP_DOXYGEN_XML:BOOL=ON
                                     -DYARP_DOXYGEN_TAGFILE:BOOL=ON
                                     -DYARP_COMPILE_BINDINGS:BOOL=ON
-                                    -DCREATE_PYTHON:BOOL=ON)
+                                    -DCREATE_PYTHON:BOOL=ON
+                                    -DYARP_COMPILE_TESTS:BOOL=ON
+                   TEST_BEFORE_INSTALL 1
+                   TEST_EXCLUDE_FROM_MAIN 1)
