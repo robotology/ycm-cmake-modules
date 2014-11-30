@@ -425,7 +425,7 @@ endfunction()
 # Add "configure" step for any repository.
 
 function(_YCM_EP_ADD_CONFIGURE_STEP)
-    # The condigure step is automatically created, we just need to explicitly
+    # The configure step is automatically created, we just need to explicitly
     # make it a target
     ExternalProject_Add_StepTargets(${_name} configure)
 endfunction()
