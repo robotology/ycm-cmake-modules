@@ -30,6 +30,9 @@
 #    [INSTALL_COMMAND]
 #    [TEST_COMMAND]
 #    [CLEAN_COMMAND] (not in ExternalProject)
+#    [TEST_AFTER_INSTALL]
+#    [TEST_BEFORE_INSTALL]
+#    [TEST_EXCLUDE_FROM_MAIN]
 #    )
 #
 #  YCM_BOOTSTRAP()
@@ -432,6 +435,32 @@ endfunction()
 
 
 ########################################################################
+# _YCM_EP_ADD_TEST_STEP
+#
+# Add "test" step for any repository.
+
+function(_YCM_EP_ADD_TEST_STEP)
+    if(DEFINED _YH_${_name}_TEST_COMMAND
+       OR _YH_${_name}_TEST_BEFORE_INSTALL
+       OR _YH_${_name}_TEST_AFTER_INSTALL
+       OR _YH_${_name}_TEST_EXCLUDE_FROM_MAIN)
+        # The test step is automatically created if one of the test
+        # variables is set, we just need to explicitly make it a target
+        ExternalProject_Add_StepTargets(${_name} test)
+
+        # The test target does not exist, therefore add_dependencies
+        # cannot be used. Instead we add a test.
+        add_test(NAME ${_name}_test
+                 COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target ${_name}-test
+                 WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+        set_property(TEST ${_name}_test APPEND PROPERTY LABELS ${_name})
+        set_property(TEST ${_name}_test PROPERTY DEPENDS ${_name})
+    endif()
+endfunction()
+
+
+
+########################################################################
 # _YCM_EP_ADD_FETCH_STEP
 #
 # Add "fetch" step for git repositories.
@@ -632,7 +661,7 @@ function(_YCM_EP_ADD_EDIT_CACHE_STEP _name)
 
         ExternalProject_Add_Step(${_name} edit_cache
                                  COMMAND ${CMAKE_EDIT_COMMAND} -H${_source_dir} -B${_binary_dir}
-                                 WORKING_DIRECTORY ${${_name}_BUILD_DIR}
+                                 WORKING_DIRECTORY ${_binary_dir}
                                  DEPENDEES configure
                                  EXCLUDE_FROM_MAIN 1
                                  COMMENT "Running CMake cache editor for ${_name}..."
@@ -725,7 +754,10 @@ function(YCM_EP_HELPER _name)
                       REVISION    # SVN only
                       USERNAME    # SVN only
                       PASSWORD    # SVN only
-                      TRUST_CERT) # SVN only
+                      TRUST_CERT  # SVN only
+                      TEST_BEFORE_INSTALL
+                      TEST_AFTER_INSTALL
+                      TEST_EXCLUDE_FROM_MAIN)
     set(_multiValueArgs CMAKE_ARGS
                         CMAKE_CACHE_ARGS
                         DEPENDS
@@ -946,6 +978,16 @@ function(YCM_EP_HELPER _name)
         endif()
     endif()
 
+    # Test parameters
+    unset(${_name}_TEST_ARGS)
+    if(_YH_${_name}_TEST_BEFORE_INSTALL)
+        list(APPEND ${_name}_TEST_ARGS TEST_BEFORE_INSTALL 1)
+    elseif(_YH_${_name}_TEST_AFTER_INSTALL)
+        list(APPEND ${_name}_TEST_ARGS TEST_AFTER_INSTALL 1)
+    endif()
+    if(_YH_${_name}_TEST_EXCLUDE_FROM_MAIN)
+        list(APPEND ${_name}_TEST_ARGS TEST_EXCLUDE_FROM_MAIN 1)
+    endif()
 
     option(YCM_EP_DEVEL_MODE_${_name} "Enable development targets for the \"${_name}\" project" OFF)
     if("${_YH_${_name}_COMPONENT}" STREQUAL "external")
@@ -958,6 +1000,7 @@ function(YCM_EP_HELPER _name)
                           ${_name}_ALL_CMAKE_ARGS
                           ${_name}_DEPENDS_ARGS
                           ${_name}_COMMAND_ARGS
+                          ${_name}_TEST_ARGS
                           ${_name}_STEP_ARGS
                           ${_name}_EXTRA_ARGS)
         list(APPEND ${_name}_ARGS "${_arg}")
@@ -975,6 +1018,7 @@ function(YCM_EP_HELPER _name)
 
 
     # Extra steps
+    _ycm_ep_add_test_step(${_name})
     if(YCM_EP_DEVEL_MODE_${_name} OR YCM_EP_MAINTAINER_MODE)
         _ycm_ep_add_configure_step(${_name})
         _ycm_ep_add_fetch_step(${_name})
