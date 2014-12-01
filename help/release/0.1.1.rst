@@ -28,3 +28,5 @@ Modules
 * :module:`FindOrBuildPackage`: Properly pass a ``<PKG>_BUILD_COMPONENTS``
   variable to ``Build<PKG>.cmake``.
 * :module:`YCMEPHelper`: Fix ``edit-cache`` step (:ycm-issue:`72`).
+* :module:`YCMEPHelper`: Documentation, templates and examples are no
+  longer in the :prop_gbl:`YCM_PROJECT` global property.
