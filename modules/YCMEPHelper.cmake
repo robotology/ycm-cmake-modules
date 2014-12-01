@@ -1014,8 +1014,6 @@ function(YCM_EP_HELPER _name)
         # TODO foreach on all the variables?
         set_property(GLOBAL PROPERTY _YCM_${_name}_COMPONENT ${_YH_${_name}_COMPONENT})
         set_property(GLOBAL PROPERTY _YCM_${_name}_DEPENDS ${_YH_${_name}_DEPENDS})
-
-        set_property(GLOBAL APPEND PROPERTY _YCM_${_name}_PROJECTS ${_name})
     endif()
 endfunction()
 
