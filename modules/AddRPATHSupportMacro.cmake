@@ -26,13 +26,11 @@
 # - If the project builds shared libraries it will generate a run-path enabled shared library, i.e. its install name will be resolved only at run time.
 # - In all cases (building executables and/or shared libraries) dependent shared libraries with RPATH support will be properly 
      
-# You have to pass at least 3 variables to the macro:
+# You have to pass at least 2 variables to the macro:
 # - Project_name: a name which identifies the project. This will create a variable to allow the user to disable the support for RPATH
-# - BIN_DIR: directory where you will install the bins
-# - LIB:DIR: directory where you will install the libs
+# - _BIN_DIR: directory where you will install the bins
+# - _LIB_DIRS: list of directories where the libraries are
 #
-# You can also pass additional arguments. This will be interpreted as additional libraries folders, e.g.
-# if you are compiling matlab code, the mex folder.
 # ::
 #
 # include(AddRPATHSupportMacro)
@@ -65,10 +63,13 @@ if(NOT (CMAKE_VERSION VERSION_LESS 2.8.12))
     endif(NOT MSVC)
 
     #Configure RPATH
-    set(CMAKE_MACOSX_RPATH 1) #enable RPATH on OSX. This also suppress warnings on CMake >= 3.0
+    #enable RPATH on OSX. This also suppress warnings on CMake >= 3.0
+    set(CMAKE_MACOSX_RPATH 1)
+    
     # when building, don't use the install RPATH already
     # (but later on when installing)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 
+    
     #build directory by default is built with RPATH
     set(CMAKE_SKIP_BUILD_RPATH  FALSE)
 
@@ -76,29 +77,20 @@ if(NOT (CMAKE_VERSION VERSION_LESS 2.8.12))
     #I assume that the directory is
     # - install_dir/something for binaries
     # - install_dir/lib for libraries
-    list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${_lib_dir}" isSystemDir)
-    if("${isSystemDir}" STREQUAL "-1")
-        #Not a default dir. Add it to rpath in a relative way
-        file(RELATIVE_PATH _rel_path ${_bin_dir} ${_lib_dir})
-        if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-            set(CMAKE_INSTALL_RPATH "@loader_path/${_rel_path}")
-        else()
-            set(CMAKE_INSTALL_RPATH "\$ORIGIN/${_rel_path}")
-        endif()
-    endif("${isSystemDir}" STREQUAL "-1")
-    
-    set(list_var "${ARGN}")
-    foreach(loop_var IN LISTS list_var)
-        file(RELATIVE_PATH _rel_path ${_bin_dir} ${loop_var})
-        if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-            set(CMAKE_INSTALL_RPATH "@loader_path/${_rel_path}")
-        else()
-            set(CMAKE_INSTALL_RPATH "\$ORIGIN/${_rel_path}")
-        endif()
+    foreach(loop_var ${_lib_dir})
+        list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${loop_var}" isSystemDir)
+        if("${isSystemDir}" STREQUAL "-1")
+            #Not a default dir. Add it to rpath in a relative way
+            file(RELATIVE_PATH _rel_path ${_bin_dir} ${loop_var})
+            if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+                set(CMAKE_INSTALL_RPATH "@loader_path/${_rel_path}")
+            else()
+                set(CMAKE_INSTALL_RPATH "\$ORIGIN/${_rel_path}")
+            endif()
+        endif("${isSystemDir}" STREQUAL "-1")
     endforeach()
 
     unset(_rel_path)
-
 
     # add the automatically determined parts of the RPATH
     # which point to directories outside the build tree to the install RPATH
