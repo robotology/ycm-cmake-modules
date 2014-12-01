@@ -36,3 +36,4 @@ Modules
 * Import :module:`FindReadline` new module from YARP.
 * Import :module:`FindStage` new module from YARP.
 * New module :module:`GitInfo`.
+* :module:`YCMEPHelper` now handles tests for sub-projects.

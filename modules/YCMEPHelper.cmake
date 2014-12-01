@@ -30,6 +30,9 @@
 #    [INSTALL_COMMAND]
 #    [TEST_COMMAND]
 #    [CLEAN_COMMAND] (not in ExternalProject)
+#    [TEST_AFTER_INSTALL]
+#    [TEST_BEFORE_INSTALL]
+#    [TEST_EXCLUDE_FROM_MAIN]
 #    )
 #
 #  YCM_BOOTSTRAP()
@@ -72,7 +75,7 @@ set(__YCMEPHELPER_INCLUDED TRUE)
 
 # Files downloaded during YCM bootstrap
 set(_ycm_CMakeParseArguments_sha1sum 0c4d3f7ed248145cbeb67cbd6fd7190baf2e4517)
-set(_ycm_ExternalProject_sha1sum     4145cc1fd9962e3d3a1c11bd94df141d6bded2bb)
+set(_ycm_ExternalProject_sha1sum     fcc4b8c5da3a9d57d7653fe7e5f7ea2307cf938d)
 
 # Files in all projects that need to bootstrap YCM
 set(_ycm_IncludeUrl_sha1sum          211e930b3a8f90a5a19f76920d248636cbabce78)
@@ -425,10 +428,36 @@ endfunction()
 # Add "configure" step for any repository.
 
 function(_YCM_EP_ADD_CONFIGURE_STEP)
-    # The condigure step is automatically created, we just need to explicitly
+    # The configure step is automatically created, we just need to explicitly
     # make it a target
     ExternalProject_Add_StepTargets(${_name} configure)
 endfunction()
+
+
+########################################################################
+# _YCM_EP_ADD_TEST_STEP
+#
+# Add "test" step for any repository.
+
+function(_YCM_EP_ADD_TEST_STEP)
+    if(DEFINED _YH_${_name}_TEST_COMMAND
+       OR _YH_${_name}_TEST_BEFORE_INSTALL
+       OR _YH_${_name}_TEST_AFTER_INSTALL
+       OR _YH_${_name}_TEST_EXCLUDE_FROM_MAIN)
+        # The test step is automatically created if one of the test
+        # variables is set, we just need to explicitly make it a target
+        ExternalProject_Add_StepTargets(${_name} test)
+
+        # The test target does not exist, therefore add_dependencies
+        # cannot be used. Instead we add a test.
+        add_test(NAME ${_name}_test
+                 COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target ${_name}-test
+                 WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+        set_property(TEST ${_name}_test APPEND PROPERTY LABELS ${_name})
+        set_property(TEST ${_name}_test PROPERTY DEPENDS ${_name})
+    endif()
+endfunction()
+
 
 
 ########################################################################
@@ -632,7 +661,7 @@ function(_YCM_EP_ADD_EDIT_CACHE_STEP _name)
 
         ExternalProject_Add_Step(${_name} edit_cache
                                  COMMAND ${CMAKE_EDIT_COMMAND} -H${_source_dir} -B${_binary_dir}
-                                 WORKING_DIRECTORY ${${_name}_BUILD_DIR}
+                                 WORKING_DIRECTORY ${_binary_dir}
                                  DEPENDEES configure
                                  EXCLUDE_FROM_MAIN 1
                                  COMMENT "Running CMake cache editor for ${_name}..."
@@ -725,7 +754,10 @@ function(YCM_EP_HELPER _name)
                       REVISION    # SVN only
                       USERNAME    # SVN only
                       PASSWORD    # SVN only
-                      TRUST_CERT) # SVN only
+                      TRUST_CERT  # SVN only
+                      TEST_BEFORE_INSTALL
+                      TEST_AFTER_INSTALL
+                      TEST_EXCLUDE_FROM_MAIN)
     set(_multiValueArgs CMAKE_ARGS
                         CMAKE_CACHE_ARGS
                         DEPENDS
@@ -946,6 +978,16 @@ function(YCM_EP_HELPER _name)
         endif()
     endif()
 
+    # Test parameters
+    unset(${_name}_TEST_ARGS)
+    if(_YH_${_name}_TEST_BEFORE_INSTALL)
+        list(APPEND ${_name}_TEST_ARGS TEST_BEFORE_INSTALL 1)
+    elseif(_YH_${_name}_TEST_AFTER_INSTALL)
+        list(APPEND ${_name}_TEST_ARGS TEST_AFTER_INSTALL 1)
+    endif()
+    if(_YH_${_name}_TEST_EXCLUDE_FROM_MAIN)
+        list(APPEND ${_name}_TEST_ARGS TEST_EXCLUDE_FROM_MAIN 1)
+    endif()
 
     option(YCM_EP_DEVEL_MODE_${_name} "Enable development targets for the \"${_name}\" project" OFF)
     if("${_YH_${_name}_COMPONENT}" STREQUAL "external")
@@ -958,6 +1000,7 @@ function(YCM_EP_HELPER _name)
                           ${_name}_ALL_CMAKE_ARGS
                           ${_name}_DEPENDS_ARGS
                           ${_name}_COMMAND_ARGS
+                          ${_name}_TEST_ARGS
                           ${_name}_STEP_ARGS
                           ${_name}_EXTRA_ARGS)
         list(APPEND ${_name}_ARGS "${_arg}")
@@ -975,6 +1018,7 @@ function(YCM_EP_HELPER _name)
 
 
     # Extra steps
+    _ycm_ep_add_test_step(${_name})
     if(YCM_EP_DEVEL_MODE_${_name} OR YCM_EP_MAINTAINER_MODE)
         _ycm_ep_add_configure_step(${_name})
         _ycm_ep_add_fetch_step(${_name})
@@ -1004,18 +1048,26 @@ function(YCM_EP_HELPER _name)
     endforeach()
 
     # Set some useful global properties
-    if(NOT _name STREQUAL "YCM")
-        set_property(GLOBAL APPEND PROPERTY YCM_PROJECTS ${_name})
-        get_property(_components GLOBAL PROPERTY YCM_COMPONENTS)
-        list(APPEND _components ${_YH_${_name}_COMPONENT})
-        list(REMOVE_DUPLICATES _components)
-        set_property(GLOBAL PROPERTY YCM_COMPONENTS ${_components})
+    if(NOT "${_name}" STREQUAL "YCM")
+        if(NOT "${_YH_${_name}_COMPONENT}" STREQUAL "documentation"
+           AND NOT "${_YH_${_name}_COMPONENT}" STREQUAL "templates"
+           AND NOT "${_YH_${_name}_COMPONENT}" STREQUAL "examples")
+            set_property(GLOBAL APPEND PROPERTY YCM_PROJECTS ${_name})
+            get_property(_components GLOBAL PROPERTY YCM_COMPONENTS)
+            list(APPEND _components ${_YH_${_name}_COMPONENT})
+            list(REMOVE_DUPLICATES _components)
+            set_property(GLOBAL PROPERTY YCM_COMPONENTS ${_components})
+        elseif("${_YH_${_name}_COMPONENT}" STREQUAL "documentation")
+            set_property(GLOBAL APPEND PROPERTY YCM_DOCUMENTATION ${_name})
+        elseif("${_YH_${_name}_COMPONENT}" STREQUAL "templates")
+            set_property(GLOBAL APPEND PROPERTY YCM_TEMPLATES ${_name})
+        elseif("${_YH_${_name}_COMPONENT}" STREQUAL "examples")
+            set_property(GLOBAL APPEND PROPERTY YCM_EXAMPLES ${_name})
+        endif()
 
         # TODO foreach on all the variables?
         set_property(GLOBAL PROPERTY _YCM_${_name}_COMPONENT ${_YH_${_name}_COMPONENT})
         set_property(GLOBAL PROPERTY _YCM_${_name}_DEPENDS ${_YH_${_name}_DEPENDS})
-
-        set_property(GLOBAL APPEND PROPERTY _YCM_${_name}_PROJECTS ${_name})
     endif()
 endfunction()
 
@@ -1102,27 +1154,22 @@ function(YCM_WRITE_DOT_FILE _filename)
         get_property(_component GLOBAL PROPERTY _YCM_${_proj}_COMPONENT)
         get_property(_dependencies GLOBAL PROPERTY _YCM_${_proj}_DEPENDS)
 
-        if(NOT _component STREQUAL "documentation"
-           AND NOT _component STREQUAL "templates"
-           AND NOT _component STREQUAL "examples")
-
-            set(_${_component}_subgraph  "${_${_component}_subgraph}\n    ${_proj}")
-            foreach(_dep ${_dependencies})
-                list(FIND _projects ${_dep} _is_ycm)
-                if(_is_ycm EQUAL -1)
-                    list(APPEND _found_on_system ${_dep})
-                    list(REMOVE_DUPLICATES _found_on_system)
-                    set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"lightgray\" style=\"dashed\"];")
+        set(_${_component}_subgraph  "${_${_component}_subgraph}\n    ${_proj}")
+        foreach(_dep ${_dependencies})
+            list(FIND _projects ${_dep} _is_ycm)
+            if(_is_ycm EQUAL -1)
+                list(APPEND _found_on_system ${_dep})
+                list(REMOVE_DUPLICATES _found_on_system)
+                set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"lightgray\" style=\"dashed\"];")
+            else()
+                get_property(_dep_component GLOBAL PROPERTY _YCM_${_dep}_COMPONENT)
+                if(_dep_component STREQUAL "external")
+                    set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"gray\"];")
                 else()
-                    get_property(_dep_component GLOBAL PROPERTY _YCM_${_dep}_COMPONENT)
-                    if(_dep_component STREQUAL "external")
-                        set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"gray\"];")
-                    else()
-                        set(_arrows "${_arrows}\n  ${_proj} -> ${_dep};")
-                    endif()
+                    set(_arrows "${_arrows}\n  ${_proj} -> ${_dep};")
                 endif()
-            endforeach()
-        endif()
+            endif()
+        endforeach()
     endforeach()
     foreach(_dep ${_found_on_system})
         set(_found_on_system_subgraph "${_found_on_system_subgraph}\n    ${_dep}")
