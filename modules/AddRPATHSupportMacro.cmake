@@ -110,6 +110,9 @@ if (${_ARS_DEPENDS})
 
     endif()
     #####end RPATH
+else()
+    set(CMAKE_MACOSX_RPATH OFF)
+    set(CMAKE_SKIP_RPATH ON)
 endif()
 
 endmacro(ADD_RPATH_SUPPORT)
