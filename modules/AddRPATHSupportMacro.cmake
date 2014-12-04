@@ -51,7 +51,7 @@
 # License text for the above reference.)
 macro(ADD_RPATH_SUPPORT)
     
-set(_options "")
+set(_options AUTOLINK_LIBS)
 set(_oneValueArgs "")
 set(_multiValueArgs BIN_DIRS
                     LIB_DIRS
@@ -61,19 +61,13 @@ cmake_parse_arguments(_ARS "${_options}"
                            "${_oneValueArgs}"
                            "${_multiValueArgs}"
                            "${ARGN}")
-
+                           
 if (WBITOOLBOX_ENABLE_RPATH)
     #### Settings for rpath
     # if(${CMAKE_MINIMUM_REQUIRED_VERSION} VERSION_GREATER "2.8.12")
     #     message(AUTHOR_WARNING "CMAKE_MINIMUM_REQUIRED_VERSION is now ${CMAKE_MINIMUM_REQUIRED_VERSION}. This check can be removed.")
     # endif()
     if(NOT (CMAKE_VERSION VERSION_LESS 2.8.12))
-        if(NOT MSVC)
-            #add the option to disable RPATH
-            option(${_project_name}_DISABLE_RPATH "Disable RPATH installation for ${_project_name}" FALSE)
-            mark_as_advanced(${_project_name}_DISABLE_RPATH)
-        endif(NOT MSVC)
-
         #Configure RPATH
         #enable RPATH on OSX. This also suppress warnings on CMake >= 3.0
         set(CMAKE_MACOSX_RPATH 1)
@@ -89,16 +83,19 @@ if (WBITOOLBOX_ENABLE_RPATH)
         #I assume that the directory is
         # - install_dir/something for binaries
         # - install_dir/lib for libraries
-        foreach(loop_var ${_lib_dir})
-            list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${loop_var}" isSystemDir)
+        
+        foreach(lib_dir ${_ARS_LIB_DIRS})
+            list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${lib_dir}" isSystemDir)
             if("${isSystemDir}" STREQUAL "-1")
+                foreach(bin_dir ${_ARS_BIN_DIRS})
                 #Not a default dir. Add it to rpath in a relative way
-                file(RELATIVE_PATH _rel_path ${_bin_dir} ${loop_var})
-                if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-                    list(APPEND CMAKE_INSTALL_RPATH "@loader_path/${_rel_path}")
-                else()
-                    list(APPEND CMAKE_INSTALL_RPATH "\$ORIGIN/${_rel_path}")
-                endif()
+                    file(RELATIVE_PATH _rel_path ${bin_dir} ${lib_dir})
+                    if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+                        list(APPEND CMAKE_INSTALL_RPATH "@loader_path/${_rel_path}")
+                    else()
+                        list(APPEND CMAKE_INSTALL_RPATH "\$ORIGIN/${_rel_path}")
+                    endif()
+                endforeach()
             endif("${isSystemDir}" STREQUAL "-1")
         endforeach()
 
@@ -106,14 +103,8 @@ if (WBITOOLBOX_ENABLE_RPATH)
 
         # add the automatically determined parts of the RPATH
         # which point to directories outside the build tree to the install RPATH
-        set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE) #very important!
+        set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ${_ARS_AUTOLINK_LIBS}) #very important!
 
-        if(${_project_name}_DISABLE_RPATH)
-            #what to do? disable RPATH altogether or just revert to the default CMake configuration?
-            #I revert to default
-            unset(CMAKE_INSTALL_RPATH) #remove install rpath
-            set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
-        endif()
     endif()
     #####end RPATH
 endif()
