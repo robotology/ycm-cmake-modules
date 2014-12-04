@@ -25,11 +25,14 @@
 # It will enable the following things:
 # - If the project builds shared libraries it will generate a run-path enabled shared library, i.e. its install name will be resolved only at run time.
 # - In all cases (building executables and/or shared libraries) dependent shared libraries with RPATH support will be properly 
-     
-# You have to pass at least 2 variables to the macro:
-# - Project_name: a name which identifies the project. This will create a variable to allow the user to disable the support for RPATH
-# - _BIN_DIR: directory where you will install the bins
-# - _LIB_DIRS: list of directories where the libraries are
+
+# The macro has the following parameters:
+# Options:
+# - AUTOLINK_LIBS: if passed the macro will automatically adds to the RPATH the path to all the dependent libraries
+# Arguments:
+# - BIN_DIRS list of directories when the targets (bins or shared libraries) will be installed
+# - LIB_DIRS list of directories to be added to the RPATH. These directories will be added "relative" w.r.t. the BIN_DIRS
+# - DEPENDS boolean variable. If TRUE RPATH will be enabled. 
 #
 # ::
 #
@@ -52,10 +55,9 @@
 macro(ADD_RPATH_SUPPORT)
     
 set(_options AUTOLINK_LIBS)
-set(_oneValueArgs "")
+set(_oneValueArgs DEPENDS)
 set(_multiValueArgs BIN_DIRS
-                    LIB_DIRS
-                    DEPENDS)
+                    LIB_DIRS)
                     
 cmake_parse_arguments(_ARS "${_options}"
                            "${_oneValueArgs}"
