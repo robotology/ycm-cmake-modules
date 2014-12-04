@@ -61,8 +61,9 @@ cmake_parse_arguments(_ARS "${_options}"
                            "${_oneValueArgs}"
                            "${_multiValueArgs}"
                            "${ARGN}")
-                           
-if (WBITOOLBOX_ENABLE_RPATH)
+    
+
+if (${_ARS_DEPENDS})
     #### Settings for rpath
     # if(${CMAKE_MINIMUM_REQUIRED_VERSION} VERSION_GREATER "2.8.12")
     #     message(AUTHOR_WARNING "CMAKE_MINIMUM_REQUIRED_VERSION is now ${CMAKE_MINIMUM_REQUIRED_VERSION}. This check can be removed.")
