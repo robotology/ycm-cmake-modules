@@ -843,7 +843,8 @@ function(YCM_EP_HELPER _name)
                             "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}" # Where to do the installation
                             "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"       # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
                             "-DCMAKE_SKIP_RPATH:PATH=\"${CMAKE_SKIP_RPATH}\""
-                            "-DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}")
+                            "-DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}"
+                            "-DPKG_CONFIG_USE_CMAKE_PREFIX_PATH:BOOL=TRUE")
     if(_YH_${_name}_CMAKE_ARGS)
         list(APPEND ${_name}_CMAKE_ARGS ${_YH_${_name}_CMAKE_ARGS})
     endif()
