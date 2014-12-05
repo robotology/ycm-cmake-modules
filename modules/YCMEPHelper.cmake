@@ -21,6 +21,7 @@
 #   #--CMake arguments---------
 #    [CMAKE_ARGS]
 #    [CMAKE_CACHE_ARGS]
+#    [CMAKE_CACHE_DEFAULT_ARGS]
 #    [DEPENDS]
 #    [DOWNLOAD_COMMAND]
 #    [UPDATE_COMMAND]
@@ -760,6 +761,7 @@ function(YCM_EP_HELPER _name)
                       TEST_EXCLUDE_FROM_MAIN)
     set(_multiValueArgs CMAKE_ARGS
                         CMAKE_CACHE_ARGS
+                        CMAKE_CACHE_DEFAULT_ARGS
                         DEPENDS
                         DOWNLOAD_COMMAND
                         UPDATE_COMMAND
@@ -838,23 +840,44 @@ function(YCM_EP_HELPER _name)
     list(APPEND _CMAKE_PREFIX_PATH ${${_name}_INSTALL_DIR})
     list(REMOVE_DUPLICATES _CMAKE_PREFIX_PATH)
     string(REPLACE ";" "|" _CMAKE_PREFIX_PATH "${_CMAKE_PREFIX_PATH}")
-    set(${_name}_CMAKE_ARGS "--no-warn-unused-cli"
-                            "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}"      # Path used by cmake for finding stuff
-                            "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}" # Where to do the installation
-                            "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"       # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
-                            "-DCMAKE_SKIP_RPATH:PATH=\"${CMAKE_SKIP_RPATH}\""
-                            "-DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}"
-                            "-DPKG_CONFIG_USE_CMAKE_PREFIX_PATH:BOOL=TRUE")
+    set(${_name}_ALL_CMAKE_ARGS LIST_SEPARATOR "|")
+
+    # CMAKE_ARGS (Passed to the command line)
+    set(${_name}_CMAKE_ARGS CMAKE_ARGS
+                            "--no-warn-unused-cli")
     if(_YH_${_name}_CMAKE_ARGS)
         list(APPEND ${_name}_CMAKE_ARGS ${_YH_${_name}_CMAKE_ARGS})
     endif()
 
-    set(${_name}_ALL_CMAKE_ARGS CMAKE_ARGS ${${_name}_CMAKE_ARGS})
-
-    if(_YH_${_name}_CMAKE_CACHE_ARGS)
-        list(APPEND ${_name}_ALL_CMAKE_ARGS CMAKE_CACHE_ARGS ${_YH_${_name}_CMAKE_CACHE_ARGS})
+    # CMAKE_CACHE_ARGS (Initial cache, forced)
+    set(${_name}_CMAKE_CACHE_ARGS CMAKE_CACHE_ARGS
+                                  "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}"       # Path used by cmake for finding stuff
+                                  "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}") # Where to do the installation
+    # Extend PKG_CONFIG_PATH for projects using pkg-config. If
+    # CMAKE_MINIMUM_REQUIRED_VERSION is 3.1 or later, this is enabled
+    # by default.
+    if(CMAKE_VERSION VERSION_LESS 3.1)
+        list(APPEND ${_name}_CMAKE_CACHE_ARGS "-DPKG_CONFIG_USE_CMAKE_PREFIX_PATH:BOOL=TRUE")
     endif()
-    list(APPEND ${_name}_ALL_CMAKE_ARGS LIST_SEPARATOR "|")
+    if(_YH_${_name}_CMAKE_CACHE_ARGS)
+        list(APPEND ${_name}_CMAKE_CACHE_ARGS ${_YH_${_name}_CMAKE_CACHE_ARGS})
+    endif()
+
+    # CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
+    set(${_name}_CMAKE_CACHE_DEFAULT_ARGS CMAKE_CACHE_DEFAULT_ARGS
+                                          "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}" # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
+                                          "-DCMAKE_SKIP_RPATH:PATH=${CMAKE_SKIP_RPATH}"
+                                          "-DBUILD_SHARED_LIBS:BOOL=\"${BUILD_SHARED_LIBS}\"")
+    if(_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS)
+        list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS ${_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS})
+    endif()
+    # Remove the "CMAKE_CACHE_DEFAULT_ARGS" until the newest
+    # ExternalProject is imported
+    list(REMOVE_AT ${_name}_CMAKE_CACHE_DEFAULT_ARGS 0)
+
+    list(APPEND ${_name}_ALL_CMAKE_ARGS ${${_name}_CMAKE_ARGS}
+                                        ${${_name}_CMAKE_CACHE_ARGS}
+                                        ${${_name}_CMAKE_CACHE_DEFAULT_ARGS})
 
     foreach(_dep ${_YH_${_name}_DEPENDS})
         if(TARGET ${_dep})
