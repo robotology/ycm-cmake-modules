@@ -18,15 +18,15 @@
 # will be correctly linked during run time by all executables and other
 # shared libraries, but it must not change its install location. This
 # is often the case for libraries installed in the system default
-# library directory (e.g. /usr/lib).
+# library directory (e.g. ``/usr/lib``).
 # In the latter case, instead, the library can be moved anywhere in the
 # file system but at run time the dynamic linker must be able to find
 # it. This is often accomplished by setting environmental variables
-# (i.e. LD_LIBRARY_PATH on Linux).
+# (i.e. ``LD_LIBRARY_PATH`` on Linux).
 # This procedure is usually not desirable for two main reasons:
 # - by setting the variable you are changing the default behaviour
 # of the dynamic linker thus potentially breaking executables (not as
-# destructive as LD_PRELOAD)
+# destructive as ``LD_PRELOAD``)
 # - the variable will be used only by applications spawned by the shell
 # and not by other processes.
 # RPATH is aimed to solve the issues introduced by the second
@@ -54,7 +54,7 @@
 #
 # Arguments:
 #  - ``BIN_DIRS`` list of directories when the targets (bins or shared libraries) will be installed
-#  - ``LIB_DIRS`` list of directories to be added to the RPATH. These directories will be added "relative" w.r.t. the BIN_DIRS
+#  - ``LIB_DIRS`` list of directories to be added to the RPATH. These directories will be added "relative" w.r.t. the ``BIN_DIRS``
 #  - ``DEPENDS`` boolean variable. If ``TRUE`` RPATH will be enabled.
 #
 #=======================================================================
