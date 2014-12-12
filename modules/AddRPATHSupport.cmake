@@ -50,12 +50,12 @@
 # The macro has the following parameters:
 #
 # Options:
-#  - `USE_LINK_PATH`: if passed the macro will automatically adds to the RPATH the path to all the dependent libraries
+#  - ``USE_LINK_PATH``: if passed the macro will automatically adds to the RPATH the path to all the dependent libraries
 #
 # Arguments:
-#  - `BIN_DIRS` list of directories when the targets (bins or shared libraries) will be installed
-#  - `LIB_DIRS` list of directories to be added to the RPATH. These directories will be added "relative" w.r.t. the BIN_DIRS
-#  - `DEPENDS` boolean variable. If TRUE RPATH will be enabled.
+#  - ``BIN_DIRS`` list of directories when the targets (bins or shared libraries) will be installed
+#  - ``LIB_DIRS`` list of directories to be added to the RPATH. These directories will be added "relative" w.r.t. the BIN_DIRS
+#  - ``DEPENDS`` boolean variable. If ``TRUE`` RPATH will be enabled.
 #
 #=======================================================================
 # Copyright 2014 RBCS, Istituto Italiano di Tecnologia
