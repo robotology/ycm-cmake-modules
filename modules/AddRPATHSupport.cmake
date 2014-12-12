@@ -28,7 +28,7 @@
 
 # The macro has the following parameters:
 # Options:
-# - AUTOLINK_LIBS: if passed the macro will automatically adds to the RPATH the path to all the dependent libraries
+# - USE_LINK_PATH: if passed the macro will automatically adds to the RPATH the path to all the dependent libraries
 # Arguments:
 # - BIN_DIRS list of directories when the targets (bins or shared libraries) will be installed
 # - LIB_DIRS list of directories to be added to the RPATH. These directories will be added "relative" w.r.t. the BIN_DIRS
@@ -54,7 +54,7 @@
 # License text for the above reference.)
 macro(ADD_RPATH_SUPPORT)
 
-set(_options AUTOLINK_LIBS)
+set(_options USE_LINK_PATH)
 set(_oneValueArgs DEPENDS)
 set(_multiValueArgs BIN_DIRS
                     LIB_DIRS)
@@ -95,7 +95,7 @@ if (${_ARS_DEPENDS})
 
         # add the automatically determined parts of the RPATH
         # which point to directories outside the build tree to the install RPATH
-        set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ${_ARS_AUTOLINK_LIBS})
+        set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ${_ARS_USE_LINK_PATH})
 
     endif()
 else()
