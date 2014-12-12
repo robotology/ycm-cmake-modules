@@ -21,7 +21,6 @@ Generic Modules
    /module/GitInfo
    /module/IncludeUrl
    /module/StandardFindModule
-   /module/AddRPATHSupport
 
 
 
@@ -36,6 +35,7 @@ Packaging Helper Modules
    /module/InstallBasicPackageFiles
    /module/AddUninstallTarget
    /module/YCMDefaultDirs
+   /module/AddRPATHSupport
 
 
 

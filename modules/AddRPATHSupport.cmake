@@ -2,10 +2,7 @@
 # AddRPATHSupport
 # ---------------
 #
-# Add support to RPATH to your project
-#
-#
-# ::
+# Add support to RPATH to your project::
 #
 #   add_rpath_support([BIN_DIRS dir [dir]]
 #                     [LIB_DIRS dir [dir]]
@@ -56,7 +53,7 @@
 #  - ``BIN_DIRS`` list of directories when the targets (bins or shared libraries) will be installed
 #  - ``LIB_DIRS`` list of directories to be added to the RPATH. These directories will be added "relative" w.r.t. the ``BIN_DIRS``
 #  - ``DEPENDS`` boolean variable. If ``TRUE`` RPATH will be enabled.
-#
+
 #=======================================================================
 # Copyright 2014 RBCS, Istituto Italiano di Tecnologia
 # @author Francesco Romano <francesco.romano@iit.it>
@@ -82,7 +79,7 @@ cmake_parse_arguments(_ARS "${_options}"
                            "${_multiValueArgs}"
                            "${ARGN}")
 
-if (_ARS_DEPENDS)
+if(NOT DEFINED _ARS_DEPENDS OR _ARS_DEPENDS)
     if(NOT CMAKE_VERSION VERSION_LESS 2.8.12)
         # Enable RPATH on OSX. This also suppress warnings on CMake >= 3.0
         set(CMAKE_MACOSX_RPATH TRUE)
@@ -93,9 +90,17 @@ if (_ARS_DEPENDS)
         # Build directory by default is built with RPATH
         set(CMAKE_SKIP_BUILD_RPATH FALSE)
 
+        # Find system implicit lib directories
+        set(_system_lib_dirs ${CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES})
+        if(EXISTS "/etc/debian_version") # is this a debian system ?
+            if(CMAKE_LIBRARY_ARCHITECTURE)
+                list(APPEND _system_lib_dirs "/lib/${CMAKE_LIBRARY_ARCHITECTURE}"
+                                             "/usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}")
+            endif()
+        endif()
         # This is relative RPATH for libraries built in the same project
         foreach(lib_dir ${_ARS_LIB_DIRS})
-            list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${lib_dir}" isSystemDir)
+            list(FIND _system_lib_dirs "${lib_dir}" isSystemDir)
             if("${isSystemDir}" STREQUAL "-1")
                 foreach(bin_dir ${_ARS_BIN_DIRS})
                     file(RELATIVE_PATH _rel_path ${bin_dir} ${lib_dir})
@@ -109,6 +114,7 @@ if (_ARS_DEPENDS)
         endforeach()
 
         unset(_rel_path)
+        unset(_system_lib_dirs)
 
         # add the automatically determined parts of the RPATH
         # which point to directories outside the build tree to the install RPATH
