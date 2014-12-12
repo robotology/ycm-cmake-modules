@@ -65,7 +65,7 @@ cmake_parse_arguments(_ARS "${_options}"
                            "${ARGN}")
 
 
-if (${_ARS_DEPENDS})
+if (_ARS_DEPENDS)
     if(NOT (CMAKE_VERSION VERSION_LESS 2.8.12))
         # Enable RPATH on OSX. This also suppress warnings on CMake >= 3.0
         set(CMAKE_MACOSX_RPATH TRUE)
@@ -98,9 +98,6 @@ if (${_ARS_DEPENDS})
         set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ${_ARS_USE_LINK_PATH})
 
     endif()
-else()
-    set(CMAKE_MACOSX_RPATH OFF)
-    set(CMAKE_SKIP_RPATH ON)
 endif()
 
 endmacro(ADD_RPATH_SUPPORT)
