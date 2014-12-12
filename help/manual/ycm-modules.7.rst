@@ -21,6 +21,7 @@ Generic Modules
    /module/GitInfo
    /module/IncludeUrl
    /module/StandardFindModule
+   /module/AddRPATHSupport
 
 
 
