@@ -66,32 +66,21 @@ cmake_parse_arguments(_ARS "${_options}"
 
 
 if (${_ARS_DEPENDS})
-    #### Settings for rpath
-    # if(${CMAKE_MINIMUM_REQUIRED_VERSION} VERSION_GREATER "2.8.12")
-    #     message(AUTHOR_WARNING "CMAKE_MINIMUM_REQUIRED_VERSION is now ${CMAKE_MINIMUM_REQUIRED_VERSION}. This check can be removed.")
-    # endif()
     if(NOT (CMAKE_VERSION VERSION_LESS 2.8.12))
-        #Configure RPATH
-        #enable RPATH on OSX. This also suppress warnings on CMake >= 3.0
-        set(CMAKE_MACOSX_RPATH 1)
+        # Enable RPATH on OSX. This also suppress warnings on CMake >= 3.0
+        set(CMAKE_MACOSX_RPATH TRUE)
 
-        # when building, don't use the install RPATH already
-        # (but later on when installing)
+        # When building, don't use the install RPATH already
         set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 
-        #build directory by default is built with RPATH
-        set(CMAKE_SKIP_BUILD_RPATH  FALSE)
+        # Build directory by default is built with RPATH
+        set(CMAKE_SKIP_BUILD_RPATH FALSE)
 
-        #This is relative RPATH for libraries built in the same project
-        #I assume that the directory is
-        # - install_dir/something for binaries
-        # - install_dir/lib for libraries
-
+        # This is relative RPATH for libraries built in the same project
         foreach(lib_dir ${_ARS_LIB_DIRS})
             list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${lib_dir}" isSystemDir)
             if("${isSystemDir}" STREQUAL "-1")
                 foreach(bin_dir ${_ARS_BIN_DIRS})
-                #Not a default dir. Add it to rpath in a relative way
                     file(RELATIVE_PATH _rel_path ${bin_dir} ${lib_dir})
                     if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
                         list(APPEND CMAKE_INSTALL_RPATH "@loader_path/${_rel_path}")
@@ -106,10 +95,9 @@ if (${_ARS_DEPENDS})
 
         # add the automatically determined parts of the RPATH
         # which point to directories outside the build tree to the install RPATH
-        set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ${_ARS_AUTOLINK_LIBS}) #very important!
+        set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ${_ARS_AUTOLINK_LIBS})
 
     endif()
-    #####end RPATH
 else()
     set(CMAKE_MACOSX_RPATH OFF)
     set(CMAKE_SKIP_RPATH ON)
