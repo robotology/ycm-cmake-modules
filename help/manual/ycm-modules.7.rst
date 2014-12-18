@@ -35,6 +35,7 @@ Packaging Helper Modules
    /module/InstallBasicPackageFiles
    /module/AddUninstallTarget
    /module/YCMDefaultDirs
+   /module/AddInstallRPATHSupport
 
 
 
