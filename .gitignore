@@ -4,3 +4,4 @@
 /build/
 /tests/YCMBootstrap/external/
 /downloads/
+.DS_Store

@@ -13,7 +13,7 @@
 #  License text for the above reference.)
 
 
-set(YCM_MODULES AddRPATHSupport.cmake
+set(YCM_MODULES AddInstallRPATHSupport.cmake
                 AddUninstallTarget.cmake
                 ExtractVersion.cmake
                 FindOrBuildPackage.cmake
