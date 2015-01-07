@@ -8,8 +8,9 @@ Extra CMake Modules for YARP and friends
 Online documentation is available here: [http://robotology.github.io/ycm](http://robotology.github.io/ycm).
 
 
-[![GitHub version](https://badge.fury.io/gh/robotology%2Fycm.png)](http://badge.fury.io/gh/robotology%2Fycm) 
+[![GitHub Release](https://img.shields.io/github/release/robotology/ycm.svg)](http://github.com/robotology/ycm/releases) 
+[![Github Issues](https://img.shields.io/github/issues/robotology/ycm.svg)](http://github.com/robotology/ycm/issues)
 
 | OS X/Linux |  Windows  |
 |:----------:|:----------|
-| [![Build Status](https://travis-ci.org/robotology/ycm.png?branch=master)](https://travis-ci.org/robotology/ycm) | [![Build status](https://ci.appveyor.com/api/projects/status/a0ek50i2b8nwraif)](https://ci.appveyor.com/project/drdanz/ycm) |
+| [![Build Status](https://img.shields.io/travis/robotology/ycm/master.svg)](https://travis-ci.org/robotology/ycm) | [![Build status](https://img.shields.io/appveyor/ci/drdanz/ycm.svg)](https://ci.appveyor.com/project/drdanz/ycm) |
