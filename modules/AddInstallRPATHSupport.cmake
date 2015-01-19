@@ -97,7 +97,7 @@ if(NOT DEFINED _ARS_DEPENDS OR _ARS_DEPENDS)
     if(CMAKE_VERSION VERSION_LESS 2.8.12 AND ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         message(WARNING "Your CMake version is too old. RPATH support on OS X requires CMake version at least 2.8.12")
     endif()
-    
+
     # Enable RPATH on OSX. This also suppress warnings on CMake >= 3.0
     set(CMAKE_MACOSX_RPATH TRUE)
 
