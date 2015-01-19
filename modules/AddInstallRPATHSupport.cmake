@@ -75,6 +75,11 @@
 #=======================================================================
 # (To distribute this file outside of CMake, substitute the full
 # License text for the above reference.)
+
+
+include(CMakeParseArguments)
+
+
 macro(ADD_INSTALL_RPATH_SUPPORT)
 
 set(_options USE_LINK_PATH)
