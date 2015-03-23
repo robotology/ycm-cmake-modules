@@ -48,7 +48,7 @@ patches, developers cannot wait for patches to be integrated.
 Changes are committed directly to the repositories and tested in the field.
 The advantage of this approach is that all developers have access to the source
 code, can compile and commit changes.
-The disadvantage it that this leads to large, monolithic repositories that are
+The disadvantage is that this leads to large, monolithic repositories that are
 difficult to manage and reuse beyond the need of the project.
 
 To address these needs we developed YCM, i.e. a set of CMake helper that
