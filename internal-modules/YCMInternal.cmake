@@ -161,7 +161,7 @@ file(WRITE \"${_dest}\" \"\${_tmp}\")
             file(APPEND "${_download_script}" "execute_process(COMMAND \"${CMAKE_COMMAND}\" -E copy_if_different \"${_orig_dest}\" \"${_offline_dest}\")\n")
         endif()
 
-        add_custom_command(OUTPUT "${_dest}" "${_dir}"
+        add_custom_command(OUTPUT "${_dest}"
                            COMMAND "${CMAKE_COMMAND}" -P "${_download_script}"
                            WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
                            DEPENDS "${_sha1sum_file}"
