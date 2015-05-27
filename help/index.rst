@@ -51,13 +51,13 @@ code, can compile and commit changes.
 The disadvantage is that this leads to large, monolithic repositories that are
 difficult to manage and reuse beyond the need of the project.
 
-To address these needs we developed YCM, i.e. a set of CMake helper that
+To address these needs we developed YCM, i.e. a set of CMake helpers that
 provide:
 
  * **Build system support**: to develop and package software libraries and
    components.
- * **Superbuild**: prepare and distribute set of packages in source form as a
-   single meta build.
+ * **Superbuild deployment**: prepare and distribute sets of packages in
+   source form as a single meta build.
 
 
 Build System Support
@@ -126,7 +126,7 @@ With YCM you can create a build which download all the components required by
 ``foo-project``, including packages from external repositories (e.g. `GitHub`_)
 or system libraries (not shown).
 Developers in ``bar-project`` develop their own packages (e.g. ``fancy-vision``,
-``fancy-speech``) and creates a build which uses these packages and others from
+``fancy-speech``) and create a build which uses these packages and others from
 external repositories.
 Since from ``foo-project`` can be reused.
 Because the superbuild downloads
