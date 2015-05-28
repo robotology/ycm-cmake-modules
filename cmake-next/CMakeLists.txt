@@ -201,7 +201,6 @@ set(_files Copyright.txt                               be2d273ed3c3559df71debc3f
            Modules/FindMatlab.cmake                    375f5e6cdc3f92b575b9427a677eae318a43dda3)
 
 _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
-_ycm_cmake_next_download_now(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_now_files}")
 
 _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
