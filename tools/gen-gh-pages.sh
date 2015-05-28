@@ -79,7 +79,7 @@ for ref in $branches $tags; do
         (cd gh-pages/$ref/ && grep -Rl _images | xargs sed -i 's/_images/images/g')
         echo "    done"
     else
-        echo "    no documentation produced"
+        echo "    WARNING: no documentation produced"
     fi
     rm -Rf build-docs/build
     echo "-------------------------------"
