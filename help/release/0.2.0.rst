@@ -10,9 +10,18 @@ Changes made since YCM 0.1 include the following.
 CMake Next
 ==========
 
-* Updated to CMake commit
-  :cmake-commit:`52584050c2bb0d65b60b0164af6a28c2761d1598`.
+* Updated to CMake 3.2.2 + commit
+  :cmake-commit:`fcafd0cfc66050ed11c412e9441c4e4b8b54bad1`.
 * :cmake:module:`CMakePackageConfigHelpers` module imported.
+* :cmake:module:`FindLua` module imported.
+* :cmake:module:`FindMatlab` module imported.
+* :cmake:module:`FindArmadillo` module removed (available in CMake
+  2.8.9).
+
+3rd Party
+=========
+
+* Updated to Eigen3 commit e1eac97
 
 Build System
 ============
@@ -20,6 +29,7 @@ Build System
 * Use the ``INSTALL_PREFIX`` argument for
   :cmake:module:`CMakePackageConfigHelpers`. This simplifies a lot the creation
   of the ``YCMConfig.cmake`` file for the binary tree.
+* Fixed warnings with CMake 3.2.
 
 Modules
 =======
@@ -39,3 +49,4 @@ Modules
 * :module:`YCMEPHelper` now handles tests for sub-projects.
 * New module :module:`AddInstallRPATHSupport`: Add RPATH support when
   building executables or shared libraries.
+* :cmake:module:`ExternalProject`: Init only selected git submodules.
