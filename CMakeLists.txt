@@ -62,9 +62,9 @@ add_subdirectory(docs)
 
 # Use the new CMakePackageConfigHelpers from CMake repository in order to use
 # the new INSTALL_PREFIX argument for configure_package_config_file
-if(NOT CMAKE_VERSION VERSION_LESS 3.1)
-    # Just a reminder to update files when a new cmake version is released
-    message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.1)
+    # Just a reminder to remove this when we change cmake version
+    message(AUTHOR_WARNING "CMake minimum required version greater than 3.1. You can remove this.")
 endif()
 if(CMAKE_VERSION VERSION_LESS 3.1)
     list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}/cmake-next/cmake-next/Modules")
