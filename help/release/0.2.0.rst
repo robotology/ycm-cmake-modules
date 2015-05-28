@@ -50,3 +50,4 @@ Modules
 * New module :module:`AddInstallRPATHSupport`: Add RPATH support when
   building executables or shared libraries.
 * :cmake:module:`ExternalProject`: Init only selected git submodules.
+* :module:`YCMEPHelper`: Pass ``PKG_CONFIG_USE_CMAKE_PREFIX_PATH`` to subprojects.
