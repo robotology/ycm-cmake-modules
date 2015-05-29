@@ -861,7 +861,7 @@ function(YCM_EP_HELPER _name)
     # Extend PKG_CONFIG_PATH for projects using pkg-config. If
     # CMAKE_MINIMUM_REQUIRED_VERSION is 3.1 or later, this is enabled
     # by default.
-    if(CMAKE_VERSION VERSION_LESS 3.1)
+    if(CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.1)
         list(APPEND ${_name}_CMAKE_CACHE_ARGS "-DPKG_CONFIG_USE_CMAKE_PREFIX_PATH:BOOL=TRUE")
     endif()
     if(_YH_${_name}_CMAKE_CACHE_ARGS)
