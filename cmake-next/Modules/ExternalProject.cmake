@@ -278,7 +278,7 @@ function(_ep_parse_arguments f name ns args)
     set(is_value 1)
 
     if(arg MATCHES "^[A-Z][A-Z0-9_][A-Z0-9_]+$" AND
-        NOT ((arg STREQUAL "${key}") AND (key STREQUAL "COMMAND")) AND
+        NOT (("x${arg}x" STREQUAL "x${key}x") AND ("x${key}x" STREQUAL "xCOMMANDx")) AND
         NOT arg MATCHES "^(TRUE|FALSE)$")
       if(_ep_keywords_${f} AND arg MATCHES "${_ep_keywords_${f}}")
         set(is_value 0)
@@ -1188,7 +1188,7 @@ function(_ep_write_log_script name step cmd_var)
 
   set(make "")
   set(code_cygpath_make "")
-  if("${command}" MATCHES "^\\$\\(MAKE\\)")
+  if(command MATCHES "^\\$\\(MAKE\\)")
     # GNU make recognizes the string "$(MAKE)" as recursive make, so
     # ensure that it appears directly in the makefile.
     string(REGEX REPLACE "^\\$\\(MAKE\\)" "\${make}" command "${command}")
@@ -1220,7 +1220,7 @@ endif()
 
   # Wrap multiple 'COMMAND' lines up into a second-level wrapper
   # script so all output can be sent to one log file.
-  if("${command}" MATCHES ";COMMAND;")
+  if(command MATCHES ";COMMAND;")
     set(code_execute_process "
 ${code_cygpath_make}
 execute_process(COMMAND \${command} RESULT_VARIABLE result)
