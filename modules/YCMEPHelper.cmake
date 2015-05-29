@@ -849,14 +849,14 @@ function(YCM_EP_HELPER _name)
 
     # CMAKE_ARGS (Passed to the command line)
     set(${_name}_CMAKE_ARGS CMAKE_ARGS
-                            "--no-warn-unused-cli")
+                            "--no-warn-unused-cli"
+                            "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}")       # Path used by cmake for finding stuff
     if(_YH_${_name}_CMAKE_ARGS)
         list(APPEND ${_name}_CMAKE_ARGS ${_YH_${_name}_CMAKE_ARGS})
     endif()
 
     # CMAKE_CACHE_ARGS (Initial cache, forced)
     set(${_name}_CMAKE_CACHE_ARGS CMAKE_CACHE_ARGS
-                                  "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}"       # Path used by cmake for finding stuff
                                   "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}") # Where to do the installation
     # Extend PKG_CONFIG_PATH for projects using pkg-config. If
     # CMAKE_MINIMUM_REQUIRED_VERSION is 3.1 or later, this is enabled
