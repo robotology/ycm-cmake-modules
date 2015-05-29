@@ -51,3 +51,7 @@ Modules
   building executables or shared libraries.
 * :cmake:module:`ExternalProject`: Init only selected git submodules.
 * :module:`YCMEPHelper`: Pass ``PKG_CONFIG_USE_CMAKE_PREFIX_PATH`` to subprojects.
+* :module:`YCMEPHelper`: Prepare for ``CMAKE_CACHE_DEFAULT_ARGS``. The argument
+  is accepted, but not yet passed to :command:`ExternalProject_Add`
+* :module:`YCMEPHelper`: Pass PKG_CONFIG_PATH to non CMake subprojects.
+* :cmake:module:`ExternalProject`: Fix CMP0054 warnings.
