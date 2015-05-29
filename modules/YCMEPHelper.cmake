@@ -219,6 +219,11 @@ macro(_YCM_SETUP)
         set(YCM_BOOTSTRAP_BASE_ADDRESS "https://raw.github.com/robotology/ycm/HEAD/" CACHE STRING "Base address of YCM repository")
         mark_as_advanced(YCM_BOOTSTRAP_BASE_ADDRESS)
     endif()
+
+    # Install directory for all sub-projects
+    # TODO Make this a cached variable for installation outside build
+    #      directory
+    set(_YCM_EP_INSTALL_DIR ${CMAKE_BINARY_DIR}/install)
 endmacro()
 
 
@@ -818,7 +823,7 @@ function(YCM_EP_HELPER _name)
     set(${_name}_SOURCE_DIR ${CMAKE_SOURCE_DIR}/${_YH_${_name}_COMPONENT}/${_name})
     set(${_name}_DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/${_YH_${_name}_COMPONENT})
     set(${_name}_BINARY_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_COMPONENT}/${_name})
-    set(${_name}_INSTALL_DIR ${CMAKE_BINARY_DIR}/install) # TODO Use a cached variable for installation outside build directory
+    set(${_name}_INSTALL_DIR ${_YCM_EP_INSTALL_DIR})
     set(${_name}_TMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_COMPONENT}/${_name}${CMAKE_FILES_DIRECTORY}/YCMTmp)
     set(${_name}_STAMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_COMPONENT}/${_name}${CMAKE_FILES_DIRECTORY}/YCMStamp)
 
@@ -867,7 +872,7 @@ function(YCM_EP_HELPER _name)
     set(${_name}_CMAKE_CACHE_DEFAULT_ARGS CMAKE_CACHE_DEFAULT_ARGS
                                           "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}" # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
                                           "-DCMAKE_SKIP_RPATH:PATH=${CMAKE_SKIP_RPATH}"
-                                          "-DBUILD_SHARED_LIBS:BOOL=\"${BUILD_SHARED_LIBS}\"")
+                                          "-DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}")
     if(_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS)
         list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS ${_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS})
     endif()
