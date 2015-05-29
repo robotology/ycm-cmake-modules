@@ -21,12 +21,24 @@
 include(YCMEPHelper)
 include(FindOrBuildPackage)
 
+
 find_or_build_package(TinyXML QUIET)
 if(COMMAND set_package_properties)
     set_package_properties(TinyXML PROPERTIES PURPOSE "Used by YARP")
 endif()
 
-#find_or_build_package(GooCanvas QUIET)
+find_or_build_package(GooCanvasMM QUIET)
+if(COMMAND set_package_properties)
+    set_package_properties(GooCanvasMM PROPERTIES PURPOSE "Used by YARP")
+endif()
+
+find_or_build_package(GtkDataboxMM QUIET)
+if(COMMAND set_package_properties)
+    set_package_properties(GtkDatabox PROPERTIES PURPOSE "Used by YARP")
+endif()
+
+# find_or_build_package(SQLite)
+
 
 # For bindings
 find_package(SWIG QUIET)
@@ -38,7 +50,8 @@ ycm_ep_helper(YARP TYPE GIT
                    REPOSITORY robotology/yarp.git
                    TAG master
                    DEPENDS TinyXML
-                           GooCanvas
+                           GooCanvasMM
+                           GtkDataboxMM
                    CMAKE_CACHE_ARGS -DCREATE_IDLS:BOOL=ON
                                     -DCREATE_GUIS:BOOL=ON
                                     -DCREATE_SHARED_LIBRARY:BOOL=ON
@@ -62,7 +75,7 @@ ycm_ep_helper(YARP TYPE GIT
                                     -DENABLE_yarpmod_opencv_grabber:BOOL=OFF
                                     -DYARP_CLEAN_API:BOOL=ON
                                     -DYARP_COMPILE_TESTS:BOOL=OFF
-                                    -DCREATE_GYARPBUILDER:BOOL=ON
+                                    -DCREATE_YARPBUILDER:BOOL=ON
                                     -DYARP_COMPILE_EXPERIMENTAL_WRAPPERS:BOOL=ON
                                     -DYARP_DOXYGEN_XML:BOOL=ON
                                     -DYARP_DOXYGEN_TAGFILE:BOOL=ON

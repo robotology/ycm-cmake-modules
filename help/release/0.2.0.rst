@@ -60,3 +60,5 @@ Modules
 * :module:`BuildGooCanvas`: Change command variable style.
 * :module:`YCMEPHelper`: Move CMAKE_PREFIX_PATH to command line arguments. This
   fixes pkg-config not able to detect packages built by YCM.
+* :module:`BuildYARP`: Build and use GooCanvasMM and GtkDataboxMM as
+  dependencies.
