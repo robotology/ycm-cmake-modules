@@ -42,25 +42,21 @@ if(YCM_USE_CMAKE_NEXT)
     list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-next/Modules")
 endif()
 
-if(EXISTS "${YCM_MODULE_DIR}/cmake-3.0"
-   AND CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.0
-   AND CMAKE_VERSION VERSION_LESS 3.0)
-    option(YCM_USE_CMAKE_3_0 "Use modules from CMake 3.0" ON)
-    mark_as_advanced(YCM_USE_CMAKE_3_0)
-    if(YCM_USE_CMAKE_3_0)
-        list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-3.0/Modules")
-    endif()
-endif()
-
-if(EXISTS "${YCM_MODULE_DIR}/cmake-2.8.12"
-   AND CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.12
-   AND CMAKE_VERSION VERSION_LESS 2.8.12)
-    option(YCM_USE_CMAKE_2_8_12 "Use modules from CMake 2.8.12" ON)
-    mark_as_advanced(YCM_USE_CMAKE_2_8_12)
-    if(YCM_USE_CMAKE_2_8_12)
-        list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-2.8.12/Modules")
-    endif()
-endif()
+foreach(_version 3.2
+                 3.1
+                 3.0
+                 2.8.12)
+  if(EXISTS "${YCM_MODULE_DIR}/cmake-${_version}"
+     AND CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS ${_version}
+     AND CMAKE_VERSION VERSION_LESS ${_version})
+      string(REPLACE "." "_" _VERSION ${_version})
+      option(YCM_USE_CMAKE_${_VERSION} "Use modules from CMake ${_version}" ON)
+      mark_as_advanced(YCM_USE_CMAKE_${_VERSION})
+      if(YCM_USE_CMAKE_${_VERSION})
+          list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-${_version}/Modules")
+      endif()
+  endif()
+endforeach()
 
 if(EXISTS "${YCM_MODULE_DIR}/3rdparty")
     option(YCM_USE_3RDPARTY "Use YCM 3rd party modules" ON)

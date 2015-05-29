@@ -53,12 +53,17 @@ Modules
 * :module:`YCMEPHelper`: Pass ``PKG_CONFIG_USE_CMAKE_PREFIX_PATH`` to subprojects.
 * :module:`YCMEPHelper`: Prepare for ``CMAKE_CACHE_DEFAULT_ARGS``. The argument
   is accepted, but not yet passed to :command:`ExternalProject_Add`
-* :module:`YCMEPHelper`: Pass PKG_CONFIG_PATH to non CMake subprojects.
-* :cmake:module:`ExternalProject`: Fix CMP0054 warnings.
+* :module:`YCMEPHelper`: Pass ``PKG_CONFIG_PATH`` to non CMake subprojects.
+* :cmake:module:`ExternalProject`: Fix :cmake:policy:`CMP0054` warnings.
 * New modules :module:`BuildGooCanvasMM` :module:`BuildGtkDatabox`
   :module:`BuildGtkDataboxMM`.
 * :module:`BuildGooCanvas`: Change command variable style.
-* :module:`YCMEPHelper`: Move CMAKE_PREFIX_PATH to command line arguments. This
+* :module:`YCMEPHelper`: Move ``CMAKE_PREFIX_PATH`` to command line arguments. This
   fixes pkg-config not able to detect packages built by YCM.
 * :module:`BuildYARP`: Build and use GooCanvasMM and GtkDataboxMM as
   dependencies.
+
+Variables
+=========
+
+* Update :variable:`YCM_USE_CMAKE_<VERSION>`: variables and relative documentation.

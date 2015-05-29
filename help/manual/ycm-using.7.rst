@@ -23,20 +23,21 @@ CMake policies.
 
 Now you have to set variables that control which components are enabled:
 
-
 .. code-block:: cmake
 
     set(YCM_USE_CMAKE_2_8_12 TRUE) # Enables modules from CMake 2.8.12
-    set(YCM_USE_CMAKE_3_0 TRUE) # Enables modules from CMake 2.8.12
+    set(YCM_USE_CMAKE_3_0 TRUE) # Enables modules from CMake 3.0
+    set(YCM_USE_CMAKE_3_1 TRUE) # Enables modules from CMake 3.1
+    set(YCM_USE_CMAKE_3_2 TRUE) # Enables modules from CMake 3.2
     set(YCM_USE_CMAKE_NEXT TRUE) # Enables modules from CMake git repository
     set(YCM_USE_CMAKE_PROPOSED TRUE) # Enables unmerged patches to CMake modules
 
-
-These features can be turned off if they are not needed.
+These options, with the exception of :variable:`YCM_USE_CMAKE_PROPOSED`
+are turned on by default, but they can be turned off if they are not
+needed.
 
 .. seealso::
-    :variable:`YCM_USE_CMAKE_2_8_12`,
-    :variable:`YCM_USE_CMAKE_3_0`,
+    :variable:`YCM_USE_CMAKE_<VERSION>`,
     :variable:`YCM_USE_CMAKE_NEXT`, and
     :variable:`YCM_USE_CMAKE_PROPOSED`.
 
@@ -46,6 +47,9 @@ If you want to use 3rd party modules you have to enable the
 .. code-block:: cmake
 
     set(YCM_USE_3RDPARTY TRUE) # Enables 3rd party modules
+
+Also this option is turned on by default, but it can be turned off if it
+is not needed.
 
 .. seealso::
     :variable:`YCM_USE_3RDPARTY`
