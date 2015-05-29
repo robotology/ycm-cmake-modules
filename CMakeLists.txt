@@ -67,7 +67,7 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.1)
     message(AUTHOR_WARNING "CMake minimum required version greater than 3.1. You can remove this.")
 endif()
 if(CMAKE_VERSION VERSION_LESS 3.1)
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}/cmake-next/cmake-next/Modules")
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}/cmake-next/cmake-3.1/Modules")
 endif()
 include(CMakePackageConfigHelpers)
 
