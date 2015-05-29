@@ -1,8 +1,8 @@
 #.rst:
-# BuildGooCanvas
-# --------------
+# BuildGtkDatabox
+# ---------------
 #
-# GooCanvas
+# GtkDatabox
 
 #=============================================================================
 # Copyright 2013-2015 iCub Facility, Istituto Italiano di Tecnologia
@@ -22,15 +22,16 @@
 include(YCMEPHelper)
 include(ExternalProject)
 
-ycm_ep_helper(GooCanvas TYPE GIT
-                        STYLE GNOME
-                        REPOSITORY goocanvas.git
-                        TAG goocanvas-1.0
+ycm_ep_helper(GtkDatabox TYPE GIT
+                        STYLE SOURCEFORGE
+                        REPOSITORY gtkdatabox/git
+                        TAG GTK2
                         CONFIGURE_COMMAND <SOURCE_DIR>/configure --enable-maintainer-mode --prefix=<INSTALL_DIR>)
 
-externalproject_add_step(GooCanvas prepare
-                         COMMAND NOCONFIGURE=1 <SOURCE_DIR>/autogen.sh
+externalproject_add_step(GtkDatabox prepare
+                         COMMAND autoreconf --force --install --verbose <SOURCE_DIR>
                          WORKING_DIRECTORY <SOURCE_DIR>
-                         COMMENT "Performing prepare step (autogen.sh) for 'GooCanvas'"
+                         COMMENT "Performing prepare step (autogen.sh) for 'GtkDatabox'"
                          DEPENDEES update
                          DEPENDERS configure)
+

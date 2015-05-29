@@ -106,6 +106,9 @@ Build Package Modules
    /module/BuildEigen3
    /module/BuildGazeboYARPPlugins
    /module/BuildGooCanvas
+   /module/BuildGooCanvasMM
+   /module/BuildGtkDatabox
+   /module/BuildGtkDataboxMM
    /module/BuildICUB
    /module/BuildqpOASES
    /module/BuildTinyXML

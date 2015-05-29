@@ -1,5 +1,5 @@
 #=============================================================================
-# Copyright 2013-2014 iCub Facility, Istituto Italiano di Tecnologia
+# Copyright 2013-2015 iCub Facility, Istituto Italiano di Tecnologia
 #   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 #
 # Distributed under the OSI-approved BSD License (the "License");
@@ -15,6 +15,9 @@
 
 set(YCM_BUILD_MODULES BuildECM.cmake
                       BuildGooCanvas.cmake
+                      BuildGooCanvasMM.cmake
+                      BuildGtkDatabox.cmake
+                      BuildGtkDataboxMM.cmake
                       BuildTinyXML.cmake
                       BuildYARP.cmake
                       BuildICUB.cmake

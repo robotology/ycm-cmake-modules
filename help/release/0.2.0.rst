@@ -55,3 +55,6 @@ Modules
   is accepted, but not yet passed to :command:`ExternalProject_Add`
 * :module:`YCMEPHelper`: Pass PKG_CONFIG_PATH to non CMake subprojects.
 * :cmake:module:`ExternalProject`: Fix CMP0054 warnings.
+* New modules :module:`BuildGooCanvasMM` :module:`BuildGtkDatabox`
+  :module:`BuildGtkDataboxMM`.
+* :module:`BuildGooCanvas`: Change command variable style.
