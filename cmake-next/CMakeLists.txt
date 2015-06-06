@@ -182,16 +182,16 @@ endif()
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.1.3
-# Imported from CMake 3.2.2
+# Imported from CMake 3.2.3
 
 # None
 
 
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (3.2.2)
+# Files not yet available or containing bugs in current CMake release (3.2.3)
 # Imported from latest revision tested
 
-set(_ref fcafd0cfc66050ed11c412e9441c4e4b8b54bad1)
+set(_ref 50a1bd3df13d47167d55fb1584b2c1bc7235884b)
 
 if(NOT CMAKE_VERSION VERSION_LESS 3.3)
     # Just a reminder to update files when a new cmake version is released
@@ -200,7 +200,7 @@ endif()
 
 # Always downloaded and installed until manually updated
 set(_files Copyright.txt                               be2d273ed3c3559df71debc3f07fbe76a31dea28
-           Modules/FindMatlab.cmake                    375f5e6cdc3f92b575b9427a677eae318a43dda3)
+           Modules/FindMatlab.cmake                    b1f3e2f92339e478e476d50cf98c5e071b08b282)
 
 _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
 
