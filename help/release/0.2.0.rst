@@ -17,6 +17,7 @@ CMake Next
 * :cmake:module:`FindMatlab` module imported.
 * :cmake:module:`FindArmadillo` module removed (available in CMake
   2.8.9).
+* :cmake:module:`FindGLEW` module imported.
 
 3rd Party
 =========
