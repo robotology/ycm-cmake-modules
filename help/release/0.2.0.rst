@@ -51,7 +51,8 @@ Modules
 * New module :module:`AddInstallRPATHSupport`: Add RPATH support when
   building executables or shared libraries.
 * :cmake:module:`ExternalProject`: Init only selected git submodules.
-* :module:`YCMEPHelper`: Pass ``PKG_CONFIG_USE_CMAKE_PREFIX_PATH`` to subprojects.
+* :module:`YCMEPHelper`: Pass ``PKG_CONFIG_USE_CMAKE_PREFIX_PATH`` to
+  subprojects.
 * :module:`YCMEPHelper`: Prepare for ``CMAKE_CACHE_DEFAULT_ARGS``. The argument
   is accepted, but not yet passed to :command:`ExternalProject_Add`
 * :module:`YCMEPHelper`: Pass ``PKG_CONFIG_PATH`` to non CMake subprojects.
@@ -59,8 +60,8 @@ Modules
 * New modules :module:`BuildGooCanvasMM` :module:`BuildGtkDatabox`
   :module:`BuildGtkDataboxMM`.
 * :module:`BuildGooCanvas`: Change command variable style.
-* :module:`YCMEPHelper`: Move ``CMAKE_PREFIX_PATH`` to command line arguments. This
-  fixes pkg-config not able to detect packages built by YCM.
+* :module:`YCMEPHelper`: Move ``CMAKE_PREFIX_PATH`` to command line arguments.
+  This fixes pkg-config not able to detect packages built by YCM.
 * :module:`BuildYARP`: Build and use GooCanvasMM and GtkDataboxMM as
   dependencies.
 
