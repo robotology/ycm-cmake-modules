@@ -123,6 +123,7 @@ if(NOT DEFINED _ARS_DEPENDS OR _ARS_DEPENDS)
             endforeach()
         endif("${isSystemDir}" STREQUAL "-1")
     endforeach()
+    list(REMOVE_DUPLICATES CMAKE_INSTALL_RPATH)
 
     unset(_rel_path)
     unset(_system_lib_dirs)
