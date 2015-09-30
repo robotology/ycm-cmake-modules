@@ -87,6 +87,45 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
     string(TOUPPER "${_pkg}" _PKG)
     string(REGEX REPLACE "[^A-Z0-9]" "_" _PKG "${_PKG}")
 
+    # Extract version argument from ARGN (if available)
+    if(${ARGC} GREATER 1)
+        list(GET ARGN 0 _version)
+        # Check all possible find_package arguments
+        foreach(_arg in EXACT
+                        QUIET
+                        MODULE
+                        REQUIRED
+                        COMPONENTS
+                        OPTIONAL_COMPONENTS
+                        CONFIG
+                        NO_MODULE
+                        NO_POLICY_SCOPE
+                        NAMES
+                        CONFIGS
+                        HINTS
+                        PATHS
+                        PATH_SUFFIXES
+                        NO_DEFAULT_PATH
+                        NO_CMAKE_ENVIRONMENT_PATH
+                        NO_CMAKE_PATH
+                        NO_SYSTEM_ENVIRONMENT_PATH
+                        NO_CMAKE_PACKAGE_REGISTRY
+                        NO_CMAKE_BUILDS_PATH
+                        NO_CMAKE_SYSTEM_PATH
+                        NO_CMAKE_SYSTEM_PACKAGE_REGISTRY
+                        CMAKE_FIND_ROOT_PATH_BOTH
+                        ONLY_CMAKE_FIND_ROOT_PATH
+                        NO_CMAKE_FIND_ROOT_PATH)
+            if("${_version}" STREQUAL "${arg}")
+                unset(_version)
+                break()
+            endif()
+        endforeach()
+        if(DEFINED _version)
+            list(REMOVE_AT ARGN 0)
+        endif()
+    endif()
+
     if(${HAVE_${_PKG}})
         return()
     endif()
@@ -133,12 +172,12 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
     if(NOT _${_PKG}_NO_MODULE AND NOT _${_PKG}_CONFIG)
         # FIXME This might require to check for all the other arguments, or they
         #       might conflict with the MODULE argument
-        find_package(${_pkg} ${_findArgs} MODULE QUIET)
+        find_package(${_pkg} ${_version} ${_findArgs} MODULE QUIET)
     endif()
 
     # If the module failed, search a PkgConfig.cmake file
     if(NOT ${_pkg}_FOUND AND NOT ${_PKG}_FOUND AND NOT _${_PKG}_MODULE)
-        find_package(${_pkg} ${_findArgs} ${_find_or_build_package_registryArgs} CONFIG QUIET)
+        find_package(${_pkg} ${_version} ${_findArgs} ${_find_or_build_package_registryArgs} CONFIG QUIET)
     endif()
 
     if(${_pkg}_FOUND OR ${_PKG}_FOUND)
@@ -241,7 +280,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
 
     if(_runFind)
         # Rerun find_package with all the arguments to display output
-        find_package(${_pkg} ${ARGN} ${_find_or_build_package_registryArgs})
+        find_package(${_pkg} ${_version} ${ARGN} ${_find_or_build_package_registryArgs})
     endif()
 
     get_cmake_property(_vars VARIABLES)
