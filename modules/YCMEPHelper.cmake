@@ -869,16 +869,26 @@ function(YCM_EP_HELPER _name)
     endif()
 
     # CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
-    set(${_name}_CMAKE_CACHE_DEFAULT_ARGS CMAKE_CACHE_DEFAULT_ARGS
-                                          "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}" # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
-                                          "-DCMAKE_SKIP_RPATH:PATH=${CMAKE_SKIP_RPATH}"
-                                          "-DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}")
+    unset(${_name}_CMAKE_CACHE_DEFAULT_ARGS)
+    if(NOT CMAKE_BUILD_TYPE STREQUAL "") # CMAKE_BUILD_TYPE is always defined
+        list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}") # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
+    endif()
+    if(DEFINED CMAKE_SKIP_RPATH)
+        list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_SKIP_RPATH:PATH=${CMAKE_SKIP_RPATH}")
+    endif()
+    if(DEFINED BUILD_SHARED_LIBS)
+        list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS "-DBUILD_SHARED_LIBS:PATH=${BUILD_SHARED_LIBS}")
+    endif()
+
     if(_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS)
         list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS ${_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS})
     endif()
-    # Remove the "CMAKE_CACHE_DEFAULT_ARGS" until the newest
-    # ExternalProject is imported
-    list(REMOVE_AT ${_name}_CMAKE_CACHE_DEFAULT_ARGS 0)
+
+    # FIXME Do not add the "CMAKE_CACHE_DEFAULT_ARGS" until the ExternalProject module
+    # is updated from CMake
+#    if(DEFINED ${_name}_CMAKE_CACHE_DEFAULT_ARGS)
+#        set(${_name}_CMAKE_CACHE_DEFAULT_ARGS CMAKE_CACHE_DEFAULT_ARGS ${_name}_CMAKE_CACHE_DEFAULT_ARGS)
+#    endif()
 
     list(APPEND ${_name}_ALL_CMAKE_ARGS ${${_name}_CMAKE_ARGS}
                                         ${${_name}_CMAKE_CACHE_ARGS}

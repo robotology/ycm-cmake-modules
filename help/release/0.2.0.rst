@@ -66,6 +66,8 @@ Modules
   dependencies.
 * :module:`YCMEPHelper`: Fix .dot files generation for modules containing the
   ``-`` character in the name.
+* :module:`YCMEPHelper` Do not force CMake cache default arguments that are not
+  set in the main project.
 
 Variables
 =========
