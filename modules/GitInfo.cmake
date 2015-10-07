@@ -445,20 +445,3 @@ function(git_wt_info)
   endforeach()
 
 endfunction()
-# 
-# set(GIT_INFO_DEBUG 1)
-# git_commit_info(SOURCE_DIR "/opt/iit/src/ycm/"
-#                 PREFIX YCM
-#                 REVISION HEAD
-#                 FATAL)
-# git_commit_info(SOURCE_DIR "/opt/iit/src/yarp/"
-#                 PREFIX YARP
-#                 REVISION HEAD
-#                 FATAL)
-# git_commit_info(SOURCE_DIR "/opt/iit/src/icub-main/"
-#                 PREFIX iCub
-#                 REVISION HEAD
-#                 FATAL)
-# git_wt_info(SOURCE_DIR "/opt/iit/src/ycm/"
-#             PREFIX YCM
-#             FATAL)
