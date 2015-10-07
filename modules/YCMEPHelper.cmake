@@ -107,6 +107,7 @@ macro(_YCM_INCLUDE _module)
         endif()
         include_url(${YCM_BOOTSTRAP_BASE_ADDRESS}/cmake-next/Modules/${_module}.cmake
                     ${_expected_hash_args}
+                    DOWNLOAD_ONCE
                     STATUS _download_status)
         if(NOT _download_status EQUAL 0)
             list(GET 0 _download_status _download_status_0)
