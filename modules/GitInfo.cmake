@@ -264,7 +264,8 @@ function(git_commit_info)
     COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0 ${_GCI_REVISION}
     OUTPUT_VARIABLE ${_GCI_PREFIX}_GIT_COMMIT_TAG
     OUTPUT_STRIP_TRAILING_WHITESPACE
-    WORKING_DIRECTORY "${_GCI_SOURCE_DIR}")
+    WORKING_DIRECTORY "${_GCI_SOURCE_DIR}"
+    RESULT_VARIABLE err)
   if(err)
     set(${_GCI_PREFIX}_GIT_COMMIT_TAG "")
   endif()
