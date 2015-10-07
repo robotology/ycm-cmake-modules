@@ -20,6 +20,8 @@
 #
 #  ``<PREFIX>_GIT_COMMIT_DESCRIBE``
 #    The output of ``git describe <ref>``.
+#  ``<PREFIX>_GIT_COMMIT_DESCRIBE_CONTAINS``
+#    The output of ``git describe --contains <ref>``.
 #  ``<PREFIX>_GIT_COMMIT_TAG``
 #    The most recent tag that is reachable from a commit.
 #  ``<PREFIX>_GIT_COMMIT_REVISION``
@@ -89,6 +91,8 @@
 #
 #  ``<PREFIX>_GIT_WT_DESCRIBE``
 #    The output of ``git describe HEAD``.
+#  ``<PREFIX>_GIT_WT_DESCRIBE_CONTAINS``
+#    The output of ``git describe --contains HEAD``.
 #  ``<PREFIX>_GIT_WT_TAG``
 #    The most recent tag that is reachable from current commit.
 #  ``<PREFIX>_GIT_WT_REVISION``
@@ -243,6 +247,17 @@ function(git_commit_info)
     OUTPUT_VARIABLE ${_GCI_PREFIX}_GIT_COMMIT_DESCRIBE
     OUTPUT_STRIP_TRAILING_WHITESPACE
     WORKING_DIRECTORY "${_GCI_SOURCE_DIR}")
+
+  # Get DESCRIBE_CONTAINS
+  execute_process(
+    COMMAND ${GIT_EXECUTABLE} describe --contains ${_GCI_REVISION}
+    OUTPUT_VARIABLE ${_GCI_PREFIX}_GIT_COMMIT_DESCRIBE
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    WORKING_DIRECTORY "${_GCI_SOURCE_DIR}"
+    RESULT_VARIABLE err)
+  if(err)
+    set(${_GCI_PREFIX}_GIT_COMMIT_DESCRIBE "")
+  endif()
 
   # Get TAG
   execute_process(
