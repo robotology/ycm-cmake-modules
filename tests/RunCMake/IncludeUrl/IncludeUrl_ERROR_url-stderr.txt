@@ -1,0 +1,5 @@
+CMake Error at .*/[Mm]odules/IncludeUrl.cmake:[0-9]+ \(message\):
+  Downloading foo.cmake - ERROR [0-9]+: ".*"
+Call Stack \(most recent call first\):
+  IncludeUrl_ERROR_url.cmake:[0-9]+ \(include_url\)
+  CMakeLists.txt:[0-9]+ \(include\)

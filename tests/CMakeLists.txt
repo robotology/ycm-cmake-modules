@@ -173,4 +173,14 @@ if(BUILD_TESTING)
       )
   endif()
 
+  if(CMAKE_GENERATOR MATCHES "Visual Studio|Xcode")
+    set(CMake_TEST_EXPLICIT_MAKE_PROGRAM "")
+  else()
+    set(CMake_TEST_EXPLICIT_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM}")
+  endif()
+
+  set(CMAKE_CMAKE_COMMAND "${CMAKE_COMMAND}")
+
+  add_subdirectory(RunCMake)
+
 endif()
