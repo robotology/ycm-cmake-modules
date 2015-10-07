@@ -965,8 +965,8 @@ function(YCM_EP_HELPER _name)
                   BUILD
                   INSTALL
                   TEST)
-        if(CMAKE_VERSION VERSION_LESS 3.3.0)
-            # HACK: set(var "" PARENT_SCOPE) before CMake 3.3.0 did not set an empty string, but
+        if(CMAKE_VERSION VERSION_LESS 3.0.0)
+            # HACK: set(var "" PARENT_SCOPE) before CMake 3.0.0 did not set an empty string, but
             # instead unset the variable.
             # Therefore after cmake_parse_arguments, even if the variables are defined, they are not
             # set.
@@ -981,7 +981,7 @@ function(YCM_EP_HELPER _name)
     endforeach()
 
     # CLEAN_COMMAND is not accepted by ExternalProject, so we clean it here
-    if(CMAKE_VERSION VERSION_LESS 3.3.0)
+    if(CMAKE_VERSION VERSION_LESS 3.0.0)
         # HACK: (see previous one)
         if("${ARGN}" MATCHES ";?CLEAN_COMMAND;"  AND  NOT DEFINED _YH_${_name}_CLEAN_COMMAND)
             set(_YH_${_name}_CLEAN_COMMAND "")
