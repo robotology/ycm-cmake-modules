@@ -335,6 +335,7 @@ function(git_commit_info)
 
   # Export variables to the parent scope
   foreach(_var DESCRIBE
+               DESCRIBE_CONTAINS
                TAG
                REVISION
                TAG_REVISION
@@ -396,6 +397,7 @@ function(git_wt_info)
                   REVISION HEAD
                   ${_fatal})
   foreach(_var DESCRIBE
+               DESCRIBE_CONTAINS
                TAG
                REVISION
                TAG_REVISION
@@ -435,6 +437,7 @@ function(git_wt_info)
   # Export variables to the parent scope
 
   foreach(_var DESCRIBE
+               DESCRIBE_CONTAINS
                TAG
                REVISION
                TAG_REVISION
