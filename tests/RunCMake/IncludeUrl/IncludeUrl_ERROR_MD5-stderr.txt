@@ -1,0 +1,10 @@
+CMake Error at .*/[Mm]odules/IncludeUrl.cmake:[0-9]+ \(message\):
+  include_url HASH mismatch
+
+    for file: \[.*/[Tt]ests/RunCMake/IncludeUrl/IncludeUrl_ERROR_MD5-build/CMakeFiles/foo.cmake\]
+      expected hash: \[00000000000000000000000000000000\]
+        actual hash: \[b2f9beea564803b1d50a53f913508cb3\]
+
+Call Stack \(most recent call first\):
+  IncludeUrl_ERROR_MD5.cmake:[0-9]+ \(include_url\)
+  CMakeLists.txt:[0-9]+ \(include\)

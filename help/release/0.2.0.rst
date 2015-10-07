@@ -31,6 +31,7 @@ Build System
   :cmake:module:`CMakePackageConfigHelpers`. This simplifies a lot the creation
   of the ``YCMConfig.cmake`` file for the binary tree.
 * Fixed warnings with CMake 3.2.
+* Added RunCMake unit tests.
 
 Modules
 =======
@@ -68,7 +69,8 @@ Modules
   ``-`` character in the name.
 * :module:`YCMEPHelper`: Do not force CMake cache default arguments that are not
   set in the main project.
-* :module:`"FindOrBuildPackage`:Extract version argument from ARGN".
+* :module:`FindOrBuildPackage`: Extract version argument from ARGN.
+* :module:`IncludeUrl`: Several bug fixes and improvement.
 
 Variables
 =========
