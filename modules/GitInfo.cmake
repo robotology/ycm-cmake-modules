@@ -224,7 +224,8 @@ function(git_commit_info)
     OUTPUT_VARIABLE ${_GCI_PREFIX}_GIT_COMMIT_HASH
     OUTPUT_STRIP_TRAILING_WHITESPACE
     WORKING_DIRECTORY "${_GCI_SOURCE_DIR}"
-    RESULT_VARIABLE err)
+    RESULT_VARIABLE err
+    ERROR_QUIET)
   if(err)
     if(_GCI_FATAL)
       message(FATAL_ERROR "\"${_GCI_REVISION}\" is not a valid revision.")
@@ -254,7 +255,8 @@ function(git_commit_info)
     OUTPUT_VARIABLE ${_GCI_PREFIX}_GIT_COMMIT_DESCRIBE
     OUTPUT_STRIP_TRAILING_WHITESPACE
     WORKING_DIRECTORY "${_GCI_SOURCE_DIR}"
-    RESULT_VARIABLE err)
+    RESULT_VARIABLE err
+    ERROR_QUIET)
   if(err)
     set(${_GCI_PREFIX}_GIT_COMMIT_DESCRIBE "")
   endif()
@@ -265,7 +267,8 @@ function(git_commit_info)
     OUTPUT_VARIABLE ${_GCI_PREFIX}_GIT_COMMIT_TAG
     OUTPUT_STRIP_TRAILING_WHITESPACE
     WORKING_DIRECTORY "${_GCI_SOURCE_DIR}"
-    RESULT_VARIABLE err)
+    RESULT_VARIABLE err
+    ERROR_QUIET)
   if(err)
     set(${_GCI_PREFIX}_GIT_COMMIT_TAG "")
   endif()
