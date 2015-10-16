@@ -23,10 +23,10 @@
 # updated to work on windows by Hatice Kose-Bagci
 
 
-include(MacroStandardFindModule)
+include(StandardFindModule)
 include(FindPackageHandleStandardArgs)
 
-macro_standard_find_module(PortAudio portaudio-2.0)
+standard_find_module(PortAudio portaudio-2.0)
 
 if(NOT PortAudio_FOUND)
   if(WIN32)

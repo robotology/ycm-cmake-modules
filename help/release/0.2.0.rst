@@ -17,12 +17,14 @@ CMake Next
 * :cmake:module:`FindMatlab` module imported.
 * :cmake:module:`FindArmadillo` module removed (available in CMake
   2.8.9).
-* :cmake:module:`FindGLEW` module imported.
+* :module:`FindGLEW` module imported with patch applied to improve
+  detection on windows.
 
 3rd Party
 =========
 
 * Updated to Eigen3 commit e1eac97
+* :module:`FindOctave` imported from https://cmake.org/Wiki/CMakeUserFindOctave
 
 Build System
 ============
@@ -72,8 +74,13 @@ Modules
 * :module:`FindOrBuildPackage`: Extract version argument from ARGN.
 * :module:`IncludeUrl`: Several bug fixes and improvement.
 * New module :module:`FindLibdc1394`.
+* :module:`FindFFMPEG`: Fix for recent ffmpeg version on debian
+* Import :module:`FindFuse` new module from YARP.
+* Import :module:`FindGLFW3` new module from YARP.
+* Import :module:`FindLibOVR` new module from YARP.
 
 Variables
 =========
 
-* Update :variable:`YCM_USE_CMAKE_<VERSION>`: variables and relative documentation.
+* Update :variable:`YCM_USE_CMAKE_<VERSION>`: variables and relative
+  documentation.
