@@ -23,6 +23,7 @@ CMake Next
 =========
 
 * Updated to Eigen3 commit e1eac97
+* :module:`FindOctave` imported from https://cmake.org/Wiki/CMakeUserFindOctave
 
 Build System
 ============

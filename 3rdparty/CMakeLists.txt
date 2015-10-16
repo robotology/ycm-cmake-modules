@@ -50,4 +50,11 @@ BSD license. See accompanying file COPYING.Eigen for details.
                                     DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty"
                                     RENAME COPYING.Eigen)
     endif()
+
+
+    # FindOctave.cmake is taken from here:
+    # https://cmake.org/Wiki/CMakeUserFindOctave
+    _ycm_install(3rdparty-eigen FILES FindOctave.cmake
+                                DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+
 endif()
