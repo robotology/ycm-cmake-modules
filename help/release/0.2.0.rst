@@ -78,6 +78,12 @@ Modules
 * Import :module:`FindFuse` new module from YARP.
 * Import :module:`FindGLFW3` new module from YARP.
 * Import :module:`FindLibOVR` new module from YARP.
+* :module:`FindODE`: Use double precision by default when available.
+* :module:`FindESDCANAPI`: Fixed find library procedure.
+* :module:`FindIPOPT`: Improvements and restored required IPOPT_LINK_FLAGS
+  variable.
+* Import :module:`FindLibv4l2` new module from iCub.
+* Import :module:`FindLibv4lconvert` new module from iCub.
 
 Variables
 =========
