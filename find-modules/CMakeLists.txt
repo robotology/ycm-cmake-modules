@@ -21,6 +21,8 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindFFMPEG.cmake
                      FindFreenect.cmake
                      FindFTDI.cmake
+                     FindFuse.cmake
+                     FindGLFW3.cmake
                      FindGLUT.cmake
                      FindGooCanvas.cmake
                      FindGooCanvasMM.cmake
@@ -30,6 +32,7 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindIPOPT.cmake
                      FindIPP.cmake
                      FindLibdc1394.cmake
+                     FindLibOVR.cmake
                      FindLibUsb1.cmake
                      FindODE.cmake
                      FindOpenCV.cmake

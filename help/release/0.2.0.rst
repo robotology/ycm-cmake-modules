@@ -75,6 +75,9 @@ Modules
 * :module:`IncludeUrl`: Several bug fixes and improvement.
 * New module :module:`FindLibdc1394`.
 * :module:`FindFFMPEG`: Fix for recent ffmpeg version on debian
+* Import :module:`FindFuse` new module from YARP.
+* Import :module:`FindGLFW3` new module from YARP.
+* Import :module:`FindLibOVR` new module from YARP.
 
 Variables
 =========

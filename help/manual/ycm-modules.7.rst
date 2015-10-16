@@ -69,6 +69,8 @@ Find Package Modules
    /module/FindFFMPEG
    /module/FindFreenect
    /module/FindFTDI
+   /module/FindFuse
+   /module/FindGLFW3
    /module/FindGLUT
    /module/FindGooCanvas
    /module/FindGooCanvasMM
@@ -78,6 +80,7 @@ Find Package Modules
    /module/FindIPOPT
    /module/FindIPP
    /module/FindLibdc1394
+   /module/FindLibOVR
    /module/FindLibUsb1
    /module/FindODE
    /module/FindOpenCV
