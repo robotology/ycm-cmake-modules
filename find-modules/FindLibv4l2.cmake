@@ -35,6 +35,6 @@ standard_find_module(Libv4l2 libv4l2)
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)
-    set_package_properties(libv4l2 PROPERTIES DESCRIPTION "Video4Linux or V4L is a video capture and output device API and driver framework for the Linux kernel, supporting many USB webcams, TV tuners, and other devices."
+    set_package_properties(Libv4l2 PROPERTIES DESCRIPTION "Video4Linux or V4L is a video capture and output device API and driver framework for the Linux kernel, supporting many USB webcams, TV tuners, and other devices."
                                               URL "https://www.kernel.org/doc/Documentation/video4linux/v4l2-framework.txt")
 endif()

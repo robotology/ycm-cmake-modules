@@ -31,9 +31,9 @@
 
 
 include(StandardFindModule)
-standard_find_module(libv4lconvert libv4lconvert)
+standard_find_module(Libv4lconvert libv4lconvert)
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)
-    set_package_properties(libv4lconvert PROPERTIES DESCRIPTION "Video4linux frame format conversion library")
+    set_package_properties(Libv4lconvert PROPERTIES DESCRIPTION "Video4linux frame format conversion library")
 endif()
