@@ -45,7 +45,7 @@ Modules
 * :module:`StandardFindModule`: Add QUIET argument.
 * Import :module:`FindFreenect` new module from YARP.
 * Import :module:`FindFTDI` new module from YARP.
-* Import :module:`FindLibUsb1` new module from YARP.
+* Import :module:`FindLibusb1` new module from YARP.
 * Import :module:`FindOpenNI` new module from YARP.
 * Import :module:`FindReadline` new module from YARP.
 * Import :module:`FindStage` new module from YARP.

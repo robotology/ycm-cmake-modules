@@ -81,7 +81,7 @@ Find Package Modules
    /module/FindIPP
    /module/FindLibdc1394
    /module/FindLibOVR
-   /module/FindLibUsb1
+   /module/FindLibusb1
    /module/FindLibv4l2
    /module/FindLibv4lconvert
    /module/FindODE

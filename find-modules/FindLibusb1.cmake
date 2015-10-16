@@ -1,18 +1,18 @@
 #.rst:
-# FindLibUsb1
+# FindLibusb1
 # -----------
 #
-# Try to find the libusb library.
+# Try to find the libusb-1 library.
 # Once done this will define the following variables::
 #
-#  LibUsb1_FOUND         - System has LibUsb1
-#  LibUsb1_INCLUDE_DIRS  - LibUsb1 include directory
-#  LibUsb1_LIBRARIES     - LibUsb1 libraries
-#  LibUsb1_DEFINITIONS   - Additional compiler flags for LibUsb1
-#  LibUsb1_VERSION       - LibUsb1 version
-#  LibUsb1_MAJOR_VERSION - LibUsb1 major version
-#  LibUsb1_MINOR_VERSION - LibUsb1 minor version
-#  LibUsb1_PATCH_VERSION - LibUsb1 patch version
+#  Libusb1_FOUND         - System has libusb-1
+#  Libusb1_INCLUDE_DIRS  - libusb-1 include directory
+#  Libusb1_LIBRARIES     - libusb-1 libraries
+#  Libusb1_DEFINITIONS   - Additional compiler flags for libusb-1
+#  Libusb1_VERSION       - libusb-1 version
+#  Libusb1_MAJOR_VERSION - libusb-1 major version
+#  Libusb1_MINOR_VERSION - libusb-1 minor version
+#  Libusb1_PATCH_VERSION - libusb-1 patch version
 
 #=============================================================================
 # Copyright 2012-2014 iCub Facility, Istituto Italiano di Tecnologia
@@ -30,10 +30,10 @@
 
 
 include(StandardFindModule)
-standard_find_module(LibUsb1 libusb-1.0 SKIP_CMAKE_CONFIG)
+standard_find_module(Libusb1 libusb-1.0 SKIP_CMAKE_CONFIG)
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)
-    set_package_properties(LibUsb1 PROPERTIES DESCRIPTION "Userspace USB programming library"
+    set_package_properties(Libusb1 PROPERTIES DESCRIPTION "Userspace USB programming library"
                                               URL "http://libusb.org/")
 endif()

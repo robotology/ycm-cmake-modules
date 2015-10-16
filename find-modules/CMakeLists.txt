@@ -33,7 +33,7 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindIPP.cmake
                      FindLibdc1394.cmake
                      FindLibOVR.cmake
-                     FindLibUsb1.cmake
+                     FindLibusb1.cmake
                      FindLibv4l2.cmake
                      FindLibv4lconvert.cmake
                      FindODE.cmake
