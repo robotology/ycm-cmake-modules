@@ -77,6 +77,7 @@ Find Package Modules
    /module/FindGtkDataboxMM
    /module/FindIPOPT
    /module/FindIPP
+   /module/FindLibdc1394
    /module/FindLibUsb1
    /module/FindODE
    /module/FindOpenCV

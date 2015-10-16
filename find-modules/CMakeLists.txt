@@ -29,6 +29,7 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindGtkDataboxMM.cmake
                      FindIPOPT.cmake
                      FindIPP.cmake
+                     FindLibdc1394.cmake
                      FindLibUsb1.cmake
                      FindODE.cmake
                      FindOpenCV.cmake

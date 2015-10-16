@@ -71,6 +71,7 @@ Modules
   set in the main project.
 * :module:`FindOrBuildPackage`: Extract version argument from ARGN.
 * :module:`IncludeUrl`: Several bug fixes and improvement.
+* New module :module:`FindLibdc1394`.
 
 Variables
 =========
