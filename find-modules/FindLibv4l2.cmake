@@ -30,8 +30,8 @@
 #  License text for the above reference.)
 
 
-include(MacroStandardFindModule)
-macro_standard_find_module(Libv4l2 libv4l2)
+include(StandardFindModule)
+standard_find_module(Libv4l2 libv4l2)
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)

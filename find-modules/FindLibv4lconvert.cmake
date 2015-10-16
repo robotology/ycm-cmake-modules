@@ -30,8 +30,8 @@
 #  License text for the above reference.)
 
 
-include(MacroStandardFindModule)
-macro_standard_find_module(libv4lconvert libv4lconvert)
+include(StandardFindModule)
+standard_find_module(libv4lconvert libv4lconvert)
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)
