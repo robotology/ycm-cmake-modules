@@ -72,6 +72,7 @@ Modules
 * :module:`FindOrBuildPackage`: Extract version argument from ARGN.
 * :module:`IncludeUrl`: Several bug fixes and improvement.
 * New module :module:`FindLibdc1394`.
+* :module:`FindFFMPEG`: Fix for recent ffmpeg version on debian
 
 Variables
 =========
