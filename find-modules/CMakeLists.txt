@@ -34,6 +34,8 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindLibdc1394.cmake
                      FindLibOVR.cmake
                      FindLibUsb1.cmake
+                     Findlibv4l2.cmake
+                     Findlibv4lconvert.cmake
                      FindODE.cmake
                      FindOpenCV.cmake
                      FindOpenGL.cmake
