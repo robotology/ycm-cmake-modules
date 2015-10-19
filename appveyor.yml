@@ -30,11 +30,11 @@ build:
   project: C:\projects\ycm\build\YCM.sln
 
 after_build:
-  - cmd: cmake --build C:\projects\ycm\build --target INSTALL --config $(configuration)
-  - cmd: cmake --build C:\projects\ycm\build --target PACKAGE --config $(configuration)
+  - cmd: cmake --build C:\projects\ycm\build --target INSTALL --config %CONFIGURATION%
+  - cmd: cmake --build C:\projects\ycm\build --target PACKAGE --config %CONFIGURATION%
 
 test_script:
-  - cmd: ctest -VV -C $(configuration)
+  - cmd: ctest -VV -C %CONFIGURATION%
 
 artifacts:
   - path: 'build\*.msi'
