@@ -34,6 +34,8 @@ Build System
   of the ``YCMConfig.cmake`` file for the binary tree.
 * Fixed warnings with CMake 3.2.
 * Added RunCMake unit tests.
+* Added :variable:`YCM_CMAKE_DOWNLOAD_URL` variable and use github as default
+  download url.
 
 Modules
 =======

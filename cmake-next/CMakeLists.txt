@@ -13,6 +13,13 @@
 #  License text for the above reference.)
 
 
+set(YCM_CMAKE_DOWNLOAD_URL "https://raw.githubusercontent.com/Kitware/CMake/<REF>/<FILE>"
+    CACHE STRING "Url used to download CMake modules")
+set_property(CACHE YCM_CMAKE_DOWNLOAD_URL PROPERTY
+             STRINGS "https://raw.githubusercontent.com/Kitware/CMake/<REF>/<FILE>"
+                     "http://cmake.org/gitweb?p=cmake.git\;a=blob_plain\;f=<FILE>\;hb=<REF>")
+mark_as_advanced(YCM_CMAKE_DOWNLOAD_URL)
+
 function(_YCM_CMAKE_NEXT_WRITE_README _ref _dir)
     file(WRITE "${_dir}/README"
 "Files in this folder and its subfolder come from CMake git repository
@@ -31,7 +38,7 @@ endfunction()
 
 function(_YCM_CMAKE_NEXT_DOWNLOAD _ref _dir _files)
     _ycm_download(cmake-${_ref} "CMake git repository"
-                  "http://cmake.org/gitweb?p=cmake.git;a=blob_plain;f=<FILE>;hb=<REF>"
+                  "${YCM_CMAKE_DOWNLOAD_URL}"
                   "${_ref}" "${_dir}" "${_files}")
     _ycm_cmake_next_write_readme(${_ref} "${_dir}")
 endfunction()
@@ -51,7 +58,8 @@ function(_YCM_CMAKE_NEXT_DOWNLOAD_NOW _ref _dir _files)
         list(GET _files ${_j} _file)
         list(GET _files ${_i} _sha1)
 
-        set(_src "http://cmake.org/gitweb?p=cmake.git;a=blob_plain;f=${_file};hb=${_ref}")
+        string(REPLACE "<REF>" "${_ref}" _src "${YCM_CMAKE_DOWNLOAD_URL}")
+        string(REPLACE "<FILE>" "${_file}" _src "${_src}")
         set(_dest "${_dir}/${_file}")
         set(_orig_dest "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/cmake-${_ref}.dir/downloads/${_file}")
         set(_offline_dest "${CMAKE_SOURCE_DIR}/downloads/cmake-${_ref}/${_file}")
