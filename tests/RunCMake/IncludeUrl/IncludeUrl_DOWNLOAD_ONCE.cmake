@@ -1,5 +1,9 @@
 include(IncludeUrl)
-set(_expected_hash fb50e20c99f1df15ea5f92475de13e07fab47edb)
+if(WIN32)
+  set(_expected_hash 116aab141123ae903a2c81eb7a9f0d61bf4bb010)
+else()
+  set(_expected_hash fb50e20c99f1df15ea5f92475de13e07fab47edb)
+endif()
 
 file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/foo.cmake" "set(FOO 1)\n")
 unset(FOO)

@@ -3,7 +3,7 @@ CMake Error at .*/[Mm]odules/IncludeUrl.cmake:[0-9]+ \(message\):
 
      for file: \[.*/[Tt]ests/RunCMake/IncludeUrl/IncludeUrl_ERROR_SHA1-build/CMakeFiles/foo.cmake\]
       expected hash: \[0000000000000000000000000000000000000000\]
-        actual hash: \[fb50e20c99f1df15ea5f92475de13e07fab47edb\]
+        actual hash: \[[0-9a-f]+\]
 
 Call Stack \(most recent call first\):
   IncludeUrl_ERROR_SHA1.cmake:[0-9]+ \(include_url\)
