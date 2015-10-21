@@ -79,7 +79,7 @@ set(_ycm_CMakeParseArguments_sha1sum 0c4d3f7ed248145cbeb67cbd6fd7190baf2e4517)
 set(_ycm_ExternalProject_sha1sum     2b3ad25b2fe758e8c5d45569824c4abe23b6c6bd)
 
 # Files in all projects that need to bootstrap YCM
-set(_ycm_IncludeUrl_sha1sum          1ededefe901384b3844f802b6064311a0a940675)
+set(_ycm_IncludeUrl_sha1sum          d15310b210a8b8f12beaa761779f804692f29313)
 set(_ycm_YCMBootstrap_sha1sum        c696c89613248c243076b4d8a3dcc3bdd3e2e590)
 
 

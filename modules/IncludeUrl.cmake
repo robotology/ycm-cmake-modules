@@ -17,6 +17,7 @@
 #     [DOWNLOAD_ALWAYS]              # Download the file every time
 #     [OPTIONAL]                     # Do not fail file cannot be included
 #     [RESULT_VARIABLE <variable>]   # The local path for the file included
+#     [RETRIES <retries>]            # Try download <retries> times (default 3)
 #     [QUIET]                        # Don't print anything
 #    #--Download arguments-----------
 #     [INACTIVITY_TIMEOUT <timeout>] # Timeout after <timeout> seconds of inactivity
@@ -60,6 +61,7 @@
 # See the documentation of the :command:`file()` command for further information
 # about these arguments.
 #
+# If the ``RETRIES`` option is specified, the download will be tried
 # If the ``QUIET`` option is specified, the command will emit no output.
 #
 # The arguments ``INACTIVITY_TIMEOUT``, ``TIMEOUT``, ``STATUS``, ``LOG``,
@@ -106,7 +108,8 @@ macro(INCLUDE_URL _remoteFile)
                             EXPECTED_HASH
                             EXPECTED_MD5
                             TLS_VERIFY
-                            TLS_CAINFO)
+                            TLS_CAINFO
+                            RETRIES)
   set(_includeOptions NO_POLICY_SCOPE)
   set(_includeOneValueArgs RESULT_VARIABLE)
 
@@ -130,6 +133,14 @@ macro(INCLUDE_URL _remoteFile)
 
   if(_IU_DOWNLOAD_ONCE AND _IU_DOWNLOAD_ALWAYS)
     message(FATAL_ERROR "DOWNLOAD_ONCE and DOWNLOAD_ALWAYS cannot be specified at the same time")
+  endif()
+
+  if(NOT DEFINED _IU_RETRIES)
+    set(_retries 3)
+  elseif(NOT "${_IU_RETRIES}" MATCHES "^[1-9][0-9]*")
+    message(FATAL_ERROR "RETRIES argument should be a number greater ot equal than 1. Found \"${_IU_RETRIES}\"")
+  else()
+    set(_retries ${_IU_RETRIES})
   endif()
 
   # Find a suitable temp folder (used only in script mode)
@@ -250,56 +261,73 @@ macro(INCLUDE_URL _remoteFile)
       file(RENAME ${_localFile} ${_bakFile})
     endif()
 
-    if(NOT _IU_QUIET)
-       message(STATUS "Downloading ${_filename}")
-    endif()
-    file(DOWNLOAD ${_remoteFile} ${_localFile} ${_downloadArgs})
 
-    # Set the LOG and the STATUS variables if requested by the user
-    if(DEFINED _IU_LOG)
-      set(${_IU_LOG} ${${_IU_LOG}})
-    endif()
+    set(_attempt 0)
+    set(_succeeded 0)
+    while(${_attempt} LESS ${_retries} AND NOT ${_succeeded})
+      math(EXPR _attempt "${_attempt}+1")
+      if(NOT _IU_QUIET)
+        message(STATUS "Downloading ${_filename} - Attempt ${_attempt} of ${_retries}")
+      endif()
+      file(DOWNLOAD ${_remoteFile} ${_localFile} ${_downloadArgs})
 
-    if(DEFINED _IU_STATUS)
-      set(${_IU_STATUS} ${_downloadResult})
-    endif()
+      # Set the LOG and the STATUS variables if requested by the user
+      if(DEFINED _IU_LOG)
+        set(${_IU_LOG} ${${_IU_LOG}})
+      endif()
 
-    unset(_error_message)
-    list(GET _downloadResult 0 _downloadResult_0)
-    if(NOT _downloadResult_0 EQUAL 0)
-      list(GET _downloadResult 1 _downloadResult_1)
-      set(_error_message "Downloading ${_filename} - ERROR ${_downloadResult_0}: ${_downloadResult_1}")
-    else()
-      # CMake does not give a fatal error if hash of the downloaded file
-      # has a wrong hash. A new check is required in order not to include
-      # a "faulty" file (it could be a security issue).
-      if(_shouldCheckHash)
-        file(${_algorithm} ${_localFile} _hash)
-        if(NOT "${_hash}" STREQUAL "${_expectedHash}")
-          set(_error_message
+      if(DEFINED _IU_STATUS)
+        set(${_IU_STATUS} ${_downloadResult})
+      endif()
+
+      unset(_error_message)
+      list(GET _downloadResult 0 _downloadResult_0)
+
+      if(NOT _downloadResult_0 EQUAL 0)
+        list(GET _downloadResult 1 _downloadResult_1)
+        set(_error_message "Downloading ${_filename} - ERROR ${_downloadResult_0}: ${_downloadResult_1}")
+      else()
+        # CMake does not give a fatal error if hash of the downloaded file
+        # has a wrong hash. A new check is required in order not to include
+        # a "faulty" file (it could be a security issue).
+        if(_shouldCheckHash)
+          file(${_algorithm} "${_localFile}" _hash)
+          if(NOT "${_hash}" STREQUAL "${_expectedHash}")
+            set(_error_message
 "include_url HASH mismatch
-  for file: [${_localFile}]
+   for file: [${_localFile}]
     expected hash: [${_expectedHash}]
       actual hash: [${_hash}]
 ")
-          if(NOT ("${_remoteFile}" MATCHES "^file://" AND "${_arg}" MATCHES "^(EXPECTED_HASH|EXPECTED_MD5)$"))
-            # Check again he hash using the non-native end-of-line style
-            file(READ ${_localFile} _content)
-            if(CMAKE_HOST_WIN32)
-              string(REPLACE "/r/n" "/n" _content "${_content}")
-            else()
-              string(REPLACE "/n" "/r/n" _content "${_content}")
-            endif()
-            string(${_algorithm} _hash "${_content}")
-            if("${_hash}" STREQUAL "${_expectedHash}")
-              # This is the same file but with changed end-of-line
-              # Do not print the error message
-              unset(_error_message)
+            if(NOT ("${_remoteFile}" MATCHES "^file://" AND "${_arg}" MATCHES "^(EXPECTED_HASH|EXPECTED_MD5)$"))
+              # Check again he hash using the non-native end-of-line style
+              file(READ ${_localFile} _content)
+              if(CMAKE_HOST_WIN32)
+                string(REPLACE "/r/n" "/n" _content "${_content}")
+              else()
+                string(REPLACE "/n" "/r/n" _content "${_content}")
+              endif()
+              string(${_algorithm} _hash "${_content}")
+              if("${_hash}" STREQUAL "${_expectedHash}")
+                # This is the same file but with changed end-of-line
+                # Do not print the error message
+                unset(_error_message)
+              endif()
             endif()
           endif()
         endif()
       endif()
-    endif()
+      if(NOT DEFINED _error_message)
+        set(_succeeded 1)
+      else()
+        if(${_attempt} LESS ${_retries})
+          if(NOT _IU_QUIET)
+            message(STATUS "${_error_message}")
+          endif()
+          file(REMOVE "${_localFile}")
+        endif()
+      endif()
+    endwhile()
 
     if(DEFINED _error_message)
       # There was a problem during download. Remove the faulty file to be sure
@@ -371,4 +399,7 @@ macro(INCLUDE_URL _remoteFile)
   unset(_shouldFail)
   unset(_content)
   unset(_error_message)
+  unset(_attempt)
+  unset(_succeeded)
+  unset(_retries)
 endmacro()

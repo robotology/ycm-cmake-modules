@@ -1,0 +1,22 @@
+-- Downloading foo.cmake - Attempt 1 of 5
+-- Downloading foo.cmake - SUCCESS
+-- Downloading foo.cmake - Attempt 1 of 5
+-- Downloading foo.cmake - ERROR .*
+-- Downloading foo.cmake - Attempt 2 of 5
+-- Downloading foo.cmake - ERROR .*
+-- Downloading foo.cmake - Attempt 3 of 5
+-- Downloading foo.cmake - ERROR .*
+-- Downloading foo.cmake - Attempt 4 of 5
+-- Downloading foo.cmake - ERROR .*
+-- Downloading foo.cmake - Attempt 5 of 5
+-- Downloading foo.cmake - ERROR .*
+-- Downloading foo.cmake - Attempt 1 of 5
+-- Downloading foo.cmake - ERROR .*
+-- Downloading foo.cmake - Attempt 2 of 5
+-- Downloading foo.cmake - ERROR .*
+-- Downloading foo.cmake - Attempt 3 of 5
+-- Downloading foo.cmake - ERROR .*
+-- Downloading foo.cmake - Attempt 4 of 5
+-- Downloading foo.cmake - ERROR .*
+-- Downloading foo.cmake - Attempt 5 of 5
+-- Configuring incomplete, errors occurred!
