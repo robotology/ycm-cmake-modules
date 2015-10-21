@@ -1,0 +1,5 @@
+CMake Error at .*/[Mm]odules/IncludeUrl.cmake:[0-9]+ \(message\):
+  RETRIES argument should be a number greater ot equal than 1.  Found "FOO"
+Call Stack \(most recent call first\):
+  IncludeUrl_ERROR_RETRIES_notanumber.cmake:[0-9]+ \(include_url\)
+  CMakeLists.txt:[0-9]+ \(include\)
