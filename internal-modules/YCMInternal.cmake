@@ -129,22 +129,40 @@ endif()
         # accepted.
         file(WRITE ${_download_script}
 "cmake_minimum_required(VERSION ${CMAKE_VERSION})
-execute_process(COMMAND \"${CMAKE_COMMAND}\" -P \"${_download_script_real}\"
-                WORKING_DIRECTORY \"${CMAKE_CURRENT_SOURCE_DIR}\"
-                RESULT_VARIABLE _res_var
-                ERROR_VARIABLE _error_var
-                ERROR_STRIP_TRAILING_WHITESPACE)
-if(NOT \"\${_res_var}\" STREQUAL \"0\")
+set(_attempt 0)
+set(_succeeded 0)
+set(_retries 3)
+while(\${_attempt} LESS \${_retries} AND NOT \${_succeeded})
+  math(EXPR _attempt \"\${_attempt}+1\")
+  execute_process(COMMAND \"${CMAKE_COMMAND}\" -P \"${_download_script_real}\"
+                  WORKING_DIRECTORY \"${CMAKE_CURRENT_SOURCE_DIR}\"
+                  RESULT_VARIABLE _res_var
+                  ERROR_VARIABLE _error_var
+                  ERROR_STRIP_TRAILING_WHITESPACE)
+  if(_res_var)
+    if(\${_attempt} EQUAL \${_retries})
+      set(_msgtype FATAL_ERROR)
+    else()
+      set(_msgtype STATUS)
+    endif()
     file(REMOVE \"${_orig_dest}\")
     if(_error_var MATCHES \"da39a3ee5e6b4b0d3255bfef95601890afd80709\")
-        # This is the sha1sum of an empty file. This usually means there was a
-        # network problem, but the default message is misleading.
-        # We print a different error instead.
-        message(FATAL_ERROR \"Cannot download file ${_src}\\nNetwork problem.\")
+      # This is the sha1sum of an empty file. This usually means there was a
+      # network problem, but the default message is misleading.
+      # We print a different error instead.
+      set(_error_message \"  Network problem or not existing file.\\n  \${_error_var}\")
     else()
-        message(FATAL_ERROR \"Cannot download file ${_src}\\n\${_error_var}\")
+      set(_error_message \"\${_error_var}\")
     endif()
-endif()
+    if(NOT \${_attempt} EQUAL \${_retries})
+      message(STATUS \"Cannot download file ${_src}\\n\${_error_message}.\\n  Retrying.\\n\")
+    else()
+      message(FATAL_ERROR \"Cannot download file ${_src}\\n\${_error_message}\")
+    endif()
+  else()
+    set(_succeeded 1)
+  endif()
+endwhile()
 ")
         if(WIN32)
             # On Windows we change files end of lines to the windows ones

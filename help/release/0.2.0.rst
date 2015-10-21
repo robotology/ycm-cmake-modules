@@ -36,6 +36,8 @@ Build System
 * Added RunCMake unit tests.
 * Added :variable:`YCM_CMAKE_DOWNLOAD_URL` variable and use github as default
   download url.
+* Try to download the files up to 3 times in order to avoid common network
+  issues.
 
 Modules
 =======
