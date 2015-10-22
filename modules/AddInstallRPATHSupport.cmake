@@ -83,17 +83,29 @@ include(CMakeParseArguments)
 macro(ADD_INSTALL_RPATH_SUPPORT)
 
   set(_options USE_LINK_PATH)
-  set(_oneValueArgs DEPENDS)
+  set(_oneValueArgs )
   set(_multiValueArgs BIN_DIRS
-                      LIB_DIRS)
+                      LIB_DIRS
+                      DEPENDS)
 
   cmake_parse_arguments(_ARS "${_options}"
                              "${_oneValueArgs}"
                              "${_multiValueArgs}"
                              "${ARGN}")
 
-  if(NOT DEFINED _ARS_DEPENDS OR _ARS_DEPENDS)
+  if(NOT DEFINED _ARS_DEPENDS)
+    set(_rpath_available 0)
+  else()
+    set(_rpath_available 1)
+    foreach(_dep ${_ARS_DEPENDS})
+      string(REGEX REPLACE " +" ";" _dep "${_dep}")
+      if(NOT (${_dep}))
+        set(_rpath_available 0)
+      endif()
+    endforeach()
+  endif()
 
+  if(_rpath_available)
     #Check CMake version in OS X. Required >= 2.8.12
     if(CMAKE_VERSION VERSION_LESS 2.8.12 AND ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
       message(WARNING "Your CMake version is too old. RPATH support on OS X requires CMake version at least 2.8.12")
@@ -133,5 +145,8 @@ macro(ADD_INSTALL_RPATH_SUPPORT)
     # which point to directories outside the build tree to the install RPATH
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ${_ARS_USE_LINK_PATH})
   endif()
+
+  unset(_rpath_available)
+  unset(_dep)
 
 endmacro()
