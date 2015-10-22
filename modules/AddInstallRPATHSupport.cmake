@@ -6,7 +6,7 @@
 #
 #   add_install_rpath_support([BIN_DIRS dir [dir]]
 #                             [LIB_DIRS dir [dir]]
-#                             [DEPENDS condition]
+#                             [DEPENDS condition [condition]]
 #                             [USE_LINK_PATH])
 #
 # Normally (depending on the platform) when you install a shared
@@ -53,14 +53,15 @@
 #
 # Options:
 #  - ``USE_LINK_PATH``: if passed the macro will automatically adds to
-#    the RPATH the path to all the dependent libraries
+#    the RPATH the path to all the dependent libraries.
 #
 # Arguments:
 #  - ``BIN_DIRS`` list of directories when the targets (bins or shared
-#    libraries) will be installed
+#    libraries) will be installed.
 #  - ``LIB_DIRS`` list of directories to be added to the RPATH. These
-#    directories will be added "relative" w.r.t. the ``BIN_DIRS``
-#  - ``DEPENDS`` boolean variable. If ``TRUE`` RPATH will be enabled.
+#    directories will be added "relative" w.r.t. the ``BIN_DIRS``.
+#  - ``DEPENDS`` list of conditions that should be TRUE to enable
+#    RPATH, for example ``FOO; NOT BAR``.
 
 #=======================================================================
 # Copyright 2014 RBCS, Istituto Italiano di Tecnologia

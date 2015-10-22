@@ -88,6 +88,9 @@ Modules
   variable.
 * Import :module:`FindLibv4l2` new module from iCub.
 * Import :module:`FindLibv4lconvert` new module from iCub.
+* :module:`AddInstallRPATHSupport`: Accept multiple conditions for the DEPENDS
+  argument. This makes the DEPENDS argument similar to the
+  :cmake:module`CMakeDependentOptions` module.
 
 Variables
 =========
