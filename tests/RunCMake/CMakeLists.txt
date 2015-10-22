@@ -61,4 +61,5 @@ function(add_RunCMake_test_group test types)
   endforeach()
 endfunction()
 
+add_RunCMake_test(AddInstallRPATHSupport)
 add_RunCMake_test(IncludeUrl)
