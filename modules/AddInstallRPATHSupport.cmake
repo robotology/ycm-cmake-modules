@@ -82,20 +82,21 @@ include(CMakeParseArguments)
 
 macro(ADD_INSTALL_RPATH_SUPPORT)
 
-set(_options USE_LINK_PATH)
-set(_oneValueArgs DEPENDS)
-set(_multiValueArgs BIN_DIRS
-                    LIB_DIRS)
+  set(_options USE_LINK_PATH)
+  set(_oneValueArgs DEPENDS)
+  set(_multiValueArgs BIN_DIRS
+                      LIB_DIRS)
 
-cmake_parse_arguments(_ARS "${_options}"
-                           "${_oneValueArgs}"
-                           "${_multiValueArgs}"
-                           "${ARGN}")
+  cmake_parse_arguments(_ARS "${_options}"
+                             "${_oneValueArgs}"
+                             "${_multiValueArgs}"
+                             "${ARGN}")
 
-if(NOT DEFINED _ARS_DEPENDS OR _ARS_DEPENDS)
+  if(NOT DEFINED _ARS_DEPENDS OR _ARS_DEPENDS)
+
     #Check CMake version in OS X. Required >= 2.8.12
     if(CMAKE_VERSION VERSION_LESS 2.8.12 AND ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-        message(WARNING "Your CMake version is too old. RPATH support on OS X requires CMake version at least 2.8.12")
+      message(WARNING "Your CMake version is too old. RPATH support on OS X requires CMake version at least 2.8.12")
     endif()
 
     # Enable RPATH on OSX. This also suppress warnings on CMake >= 3.0
@@ -111,17 +112,17 @@ if(NOT DEFINED _ARS_DEPENDS OR _ARS_DEPENDS)
     endif()
     # This is relative RPATH for libraries built in the same project
     foreach(lib_dir ${_ARS_LIB_DIRS})
-        list(FIND _system_lib_dirs "${lib_dir}" isSystemDir)
-        if("${isSystemDir}" STREQUAL "-1")
-            foreach(bin_dir ${_ARS_BIN_DIRS})
-                file(RELATIVE_PATH _rel_path ${bin_dir} ${lib_dir})
-                if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-                    list(APPEND CMAKE_INSTALL_RPATH "@loader_path/${_rel_path}")
-                else()
-                    list(APPEND CMAKE_INSTALL_RPATH "\$ORIGIN/${_rel_path}")
-                endif()
-            endforeach()
-        endif("${isSystemDir}" STREQUAL "-1")
+      list(FIND _system_lib_dirs "${lib_dir}" isSystemDir)
+      if("${isSystemDir}" STREQUAL "-1")
+        foreach(bin_dir ${_ARS_BIN_DIRS})
+          file(RELATIVE_PATH _rel_path ${bin_dir} ${lib_dir})
+          if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+            list(APPEND CMAKE_INSTALL_RPATH "@loader_path/${_rel_path}")
+          else()
+            list(APPEND CMAKE_INSTALL_RPATH "\$ORIGIN/${_rel_path}")
+          endif()
+        endforeach()
+      endif("${isSystemDir}" STREQUAL "-1")
     endforeach()
     list(REMOVE_DUPLICATES CMAKE_INSTALL_RPATH)
 
@@ -131,6 +132,6 @@ if(NOT DEFINED _ARS_DEPENDS OR _ARS_DEPENDS)
     # add the automatically determined parts of the RPATH
     # which point to directories outside the build tree to the install RPATH
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ${_ARS_USE_LINK_PATH})
-endif()
+  endif()
 
 endmacro()
