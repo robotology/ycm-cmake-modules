@@ -40,7 +40,7 @@
 # hardcode in the binary itself the additional search directories
 # to be passed to the dynamic linker. This works great in conjunction
 # with relative paths.
-# This macro will enable support to RPATH to your project.
+# This command will enable support to RPATH to your project.
 # It will enable the following things:
 #
 #  - If the project builds shared libraries it will generate a run-path
@@ -49,10 +49,10 @@
 #  - In all cases (building executables and/or shared libraries)
 #    dependent shared libraries with RPATH support will be properly
 #
-# The macro has the following parameters:
+# The command has the following parameters:
 #
 # Options:
-#  - ``USE_LINK_PATH``: if passed the macro will automatically adds to
+#  - ``USE_LINK_PATH``: if passed the command will automatically adds to
 #    the RPATH the path to all the dependent libraries.
 #
 # Arguments:
@@ -82,7 +82,12 @@
 include(CMakeParseArguments)
 
 
-macro(ADD_INSTALL_RPATH_SUPPORT)
+function(ADD_INSTALL_RPATH_SUPPORT)
+
+  # If RPATH is disabled in CMake, it is useless to proceed.
+  if(CMAKE_SKIP_RPATH OR (CMAKE_SKIP_INSTALL_RPATH AND CMAKE_SKIP_BUILD_RPATH))
+    return()
+  endif()
 
   set(_options USE_LINK_PATH)
   set(_oneValueArgs )
@@ -112,7 +117,13 @@ macro(ADD_INSTALL_RPATH_SUPPORT)
     endif()
 
     # Enable RPATH on OSX. This also suppress warnings on CMake >= 3.0
-    set(CMAKE_MACOSX_RPATH TRUE)
+    set(CMAKE_MACOSX_RPATH TRUE PARENT_SCOPE)
+
+    # If install RPATH is disabled in CMake, it is useless to evaluate and set
+    # CMAKE_INSTALL_RPATH and CMAKE_INSTALL_RPATH_USE_LINK_PATH
+    if(CMAKE_SKIP_INSTALL_RPATH)
+      return()
+    endif()
 
     # Find system implicit lib directories
     set(_system_lib_dirs ${CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES})
@@ -137,16 +148,12 @@ macro(ADD_INSTALL_RPATH_SUPPORT)
       endif("${isSystemDir}" STREQUAL "-1")
     endforeach()
     list(REMOVE_DUPLICATES CMAKE_INSTALL_RPATH)
-
-    unset(_rel_path)
-    unset(_system_lib_dirs)
+    set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_RPATH} PARENT_SCOPE)
 
     # add the automatically determined parts of the RPATH
     # which point to directories outside the build tree to the install RPATH
-    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ${_ARS_USE_LINK_PATH})
+    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ${_ARS_USE_LINK_PATH} PARENT_SCOPE)
+
   endif()
 
-  unset(_rpath_available)
-  unset(_dep)
-
-endmacro()
+endfunction()
