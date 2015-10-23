@@ -94,10 +94,8 @@ macro(ADD_INSTALL_RPATH_SUPPORT)
                              "${_multiValueArgs}"
                              "${ARGN}")
 
-  if(NOT DEFINED _ARS_DEPENDS)
-    set(_rpath_available 0)
-  else()
-    set(_rpath_available 1)
+  set(_rpath_available 1)
+  if(DEFINED _ARS_DEPENDS)
     foreach(_dep ${_ARS_DEPENDS})
       string(REGEX REPLACE " +" ";" _dep "${_dep}")
       if(NOT (${_dep}))
