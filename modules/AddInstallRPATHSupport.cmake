@@ -56,10 +56,11 @@
 #    the RPATH the path to all the dependent libraries.
 #
 # Arguments:
-#  - ``BIN_DIRS`` list of directories when the targets (bins or shared
-#    libraries) will be installed.
+#  - ``BIN_DIRS`` list of directories when the targets (executable and
+#    plugins) will be installed.
 #  - ``LIB_DIRS`` list of directories to be added to the RPATH. These
-#    directories will be added "relative" w.r.t. the ``BIN_DIRS``.
+#    directories will be added "relative" w.r.t. the ``BIN_DIRS`` and
+#    ``LIB_DIRS``.
 #  - ``DEPENDS`` list of conditions that should be TRUE to enable
 #    RPATH, for example ``FOO; NOT BAR``.
 
@@ -125,7 +126,7 @@ macro(ADD_INSTALL_RPATH_SUPPORT)
     foreach(lib_dir ${_ARS_LIB_DIRS})
       list(FIND _system_lib_dirs "${lib_dir}" isSystemDir)
       if("${isSystemDir}" STREQUAL "-1")
-        foreach(bin_dir ${_ARS_BIN_DIRS})
+        foreach(bin_dir ${_ARS_LIB_DIRS} ${_ARS_BIN_DIRS})
           file(RELATIVE_PATH _rel_path ${bin_dir} ${lib_dir})
           if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
             list(APPEND CMAKE_INSTALL_RPATH "@loader_path/${_rel_path}")
