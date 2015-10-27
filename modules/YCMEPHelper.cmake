@@ -46,6 +46,8 @@
 #
 # .. variable:: YCM_BOOTSTRAP_VERBOSE
 #
+# <YCM_EP_CMAKE_ARGS>
+#
 
 # TODO Add variable YCM_INSTALL_PREFIX
 
@@ -848,53 +850,58 @@ function(YCM_EP_HELPER _name)
     string(REPLACE ";" "|" _CMAKE_PREFIX_PATH "${_CMAKE_PREFIX_PATH}")
     set(${_name}_ALL_CMAKE_ARGS LIST_SEPARATOR "|")
 
+
+    # Default CMAKE_ARGS (Passed to the command line)
+    set(${_name}_YCM_CMAKE_ARGS "--no-warn-unused-cli"
+                                "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}") # Path used by cmake for finding stuff
+
+    # Default CMAKE_CACHE_ARGS (Initial cache, forced)
+    set(${_name}_YCM_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}") # Where to do the installation
+    # Extend PKG_CONFIG_PATH for projects using pkg-config. If
+    # CMAKE_MINIMUM_REQUIRED_VERSION is 3.1 or later, this is enabled
+    # by default.
+    if(CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.1)
+        list(APPEND ${_name}_YCM_CMAKE_CACHE_ARGS "-DPKG_CONFIG_USE_CMAKE_PREFIX_PATH:BOOL=TRUE")
+    endif()
+
+    # Default CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
+    unset(${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS)
+    if(NOT CMAKE_BUILD_TYPE STREQUAL "") # CMAKE_BUILD_TYPE is always defined
+        list(APPEND ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}") # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
+    endif()
+    if(DEFINED CMAKE_SKIP_RPATH)
+        list(APPEND ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_SKIP_RPATH:PATH=${CMAKE_SKIP_RPATH}")
+    endif()
+    if(DEFINED BUILD_SHARED_LIBS)
+        list(APPEND ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS "-DBUILD_SHARED_LIBS:PATH=${BUILD_SHARED_LIBS}")
+    endif()
+
     # CMAKE_ARGS (Passed to the command line)
-    set(${_name}_CMAKE_ARGS CMAKE_ARGS
-                            "--no-warn-unused-cli"
-                            "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}")       # Path used by cmake for finding stuff
+    set(${_name}_CMAKE_ARGS CMAKE_ARGS ${${_name}_YCM_CMAKE_ARGS})
     if(_YH_${_name}_CMAKE_ARGS)
         list(APPEND ${_name}_CMAKE_ARGS ${_YH_${_name}_CMAKE_ARGS})
     endif()
 
     # CMAKE_CACHE_ARGS (Initial cache, forced)
-    set(${_name}_CMAKE_CACHE_ARGS CMAKE_CACHE_ARGS
-                                  "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}") # Where to do the installation
-    # Extend PKG_CONFIG_PATH for projects using pkg-config. If
-    # CMAKE_MINIMUM_REQUIRED_VERSION is 3.1 or later, this is enabled
-    # by default.
-    if(CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.1)
-        list(APPEND ${_name}_CMAKE_CACHE_ARGS "-DPKG_CONFIG_USE_CMAKE_PREFIX_PATH:BOOL=TRUE")
-    endif()
+    set(${_name}_CMAKE_CACHE_ARGS CMAKE_CACHE_ARGS ${${_name}_YCM_CMAKE_CACHE_ARGS})
     if(_YH_${_name}_CMAKE_CACHE_ARGS)
         list(APPEND ${_name}_CMAKE_CACHE_ARGS ${_YH_${_name}_CMAKE_CACHE_ARGS})
     endif()
 
     # CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
-    unset(${_name}_CMAKE_CACHE_DEFAULT_ARGS)
-    if(NOT CMAKE_BUILD_TYPE STREQUAL "") # CMAKE_BUILD_TYPE is always defined
-        list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}") # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
+    if(DEFINED ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS)
+        # FIXME Do not add the "CMAKE_CACHE_DEFAULT_ARGS" until the ExternalProject module
+        # is updated from CMake
+        set(${_name}_CMAKE_CACHE_DEFAULT_ARGS ${${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS})
     endif()
-    if(DEFINED CMAKE_SKIP_RPATH)
-        list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_SKIP_RPATH:PATH=${CMAKE_SKIP_RPATH}")
-    endif()
-    if(DEFINED BUILD_SHARED_LIBS)
-        list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS "-DBUILD_SHARED_LIBS:PATH=${BUILD_SHARED_LIBS}")
-    endif()
-
     if(_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS)
         list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS ${_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS})
     endif()
 
-    # FIXME Do not add the "CMAKE_CACHE_DEFAULT_ARGS" until the ExternalProject module
-    # is updated from CMake
-#    if(DEFINED ${_name}_CMAKE_CACHE_DEFAULT_ARGS)
-#        set(${_name}_CMAKE_CACHE_DEFAULT_ARGS CMAKE_CACHE_DEFAULT_ARGS ${_name}_CMAKE_CACHE_DEFAULT_ARGS)
-#    endif()
-
     list(APPEND ${_name}_ALL_CMAKE_ARGS ${${_name}_CMAKE_ARGS}
                                         ${${_name}_CMAKE_CACHE_ARGS}
                                         ${${_name}_CMAKE_CACHE_DEFAULT_ARGS})
-
+    set(${_name}_CMAKE_ARGS ${${_name_ALL_CMAKE_ARGS}})
     foreach(_dep ${_YH_${_name}_DEPENDS})
         if(TARGET ${_dep})
             get_property(is_ep TARGET ${_dep} PROPERTY _EP_IS_EXTERNAL_PROJECT)
@@ -976,7 +983,12 @@ function(YCM_EP_HELPER _name)
             endif()
         endif()
         if(DEFINED _YH_${_name}_${_step}_COMMAND)
-            string(CONFIGURE "${_YH_${_name}_${_step}_COMMAND}" _YH_${_name}_${_step}_COMMAND @ONLY)
+            # Replace <YCM_EP_CMAKE_ARGS> with the actual value.
+            # CMAKE_ARGS and CMAKE_DEFAULT_ARGS should not end in the
+            # command line, and therefore are not accepted.
+            # Other variables (<SOURCE_DIR> <BINARY_DIR> <INSTALL_DIR>
+            # and <TMP_DIR>) are replaced by ExternalProject.
+            string(REPLACE "<YCM_EP_CMAKE_ARGS>" "${${_name}_YCM_CMAKE_ARGS}" _YH_${_name}_${_step}_COMMAND "${_YH_${_name}_${_step}_COMMAND}")
             list(APPEND ${_name}_COMMAND_ARGS ${_step}_COMMAND "${_YH_${_name}_${_step}_COMMAND}")
         endif()
     endforeach()
