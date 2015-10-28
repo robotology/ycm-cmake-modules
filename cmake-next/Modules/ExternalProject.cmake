@@ -48,6 +48,7 @@
 #    [PATCH_COMMAND cmd...]      # Command to patch downloaded source
 #   #--Configure step-------------
 #    [SOURCE_DIR dir]            # Source dir to be used for build
+#    [CONFIGURE_SOURCE_DIR dir]  # Source dir to be used for configure
 #    [CONFIGURE_COMMAND cmd...]  # Build tree configuration command
 #    [CMAKE_COMMAND /.../cmake]  # Specify alternative cmake executable
 #    [CMAKE_GENERATOR gen]       # Specify generator for native build
@@ -2045,7 +2046,19 @@ function(_ep_add_configure_command name)
       endif()
     endif()
 
-    list(APPEND cmd "${source_dir}")
+    get_property(configure_source_dir_set TARGET ${name} PROPERTY _EP_CONFIGURE_SOURCE_DIR SET)
+    if(configure_source_dir_set)
+      get_property(configure_source_dir TARGET ${name} PROPERTY _EP_CONFIGURE_SOURCE_DIR)
+      if(IS_ABSOLUTE "${configure_source_dir}")
+        list(APPEND cmd "${configure_source_dir}")
+      else()
+        list(APPEND cmd "${source_dir}/${configure_source_dir}")
+        set_property(TARGET ${name} PROPERTY _EP_CONFIGURE_SOURCE_DIR "${source_dir}/${configure_source_dir}")
+      endif()
+    else()
+      list(APPEND cmd "${source_dir}")
+      set_property(TARGET ${name} PROPERTY _EP_CONFIGURE_SOURCE_DIR "${source_dir}")
+    endif()
   endif()
 
   # If anything about the configure command changes, (command itself, cmake
