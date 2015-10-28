@@ -19,6 +19,8 @@ CMake Next
   2.8.9).
 * :module:`FindGLEW` module imported with patch applied to improve
   detection on windows.
+* :module:`ExternalProject`: Handle CONFIGURE_SOURCE_DIR argument in
+  order to support projects in a subdirectory.
 
 3rd Party
 =========
