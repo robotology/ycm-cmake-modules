@@ -96,11 +96,9 @@ Modules
 * :module:`YCMEPHelper`: variables in commands are no longer replaced. Instead
   of passing variables that are internal to YCMEPHelper, the user should use
   ``<SOURCE_DIR>``, ``<BINARY_DIR>``, ``<INSTALL_DIR>``, and ``<TMP_DIR>`` that
-  are automatically replaced by ExternalProject. The additional
-  ``<YCM_EP_CMAKE_ARGS>`` tag is is replaced with arguments that
-  :module:`YCMEPHelper` would pass to the CMake configure command. Using this
-  it is possible to change the CMake command, but still pass the variables
-  required for a superbuild.
+  are automatically replaced by ExternalProject.
+* :module:`YCMEPHelper`: Handle and use CONFIGURE_SOURCE_DIR argument in order
+  to support projects in a subdirectory.
 
 
 Variables

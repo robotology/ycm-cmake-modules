@@ -45,9 +45,6 @@
 # .. variable:: YCM_SKIP_HASH_CHECK
 #
 # .. variable:: YCM_BOOTSTRAP_VERBOSE
-#
-# <YCM_EP_CMAKE_ARGS>
-#
 
 # TODO Add variable YCM_INSTALL_PREFIX
 
@@ -665,11 +662,11 @@ function(_YCM_EP_ADD_EDIT_CACHE_STEP _name)
     _ep_get_configure_command_id(${_name} _${_name}_configure_command_id)
     if(_${_name}_configure_command_id STREQUAL "cmake")
 
-        get_property(_source_dir TARGET ${_name} PROPERTY _EP_SOURCE_DIR)
+        get_property(_configure_source_dir TARGET ${_name} PROPERTY _EP_CONFIGURE_SOURCE_DIR)
         get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
 
         ExternalProject_Add_Step(${_name} edit_cache
-                                 COMMAND ${CMAKE_EDIT_COMMAND} -H${_source_dir} -B${_binary_dir}
+                                 COMMAND ${CMAKE_EDIT_COMMAND} -H${_configure_source_dir} -B${_binary_dir}
                                  WORKING_DIRECTORY ${_binary_dir}
                                  DEPENDEES configure
                                  EXCLUDE_FROM_MAIN 1
@@ -693,15 +690,27 @@ function(_YCM_EP_ADD_PRINT_DIRECTORIES_STEP _name)
     endif()
 
     get_property(_source_dir TARGET ${_name} PROPERTY _EP_SOURCE_DIR)
+    get_property(_configure_source_dir TARGET ${_name} PROPERTY _EP_CONFIGURE_SOURCE_DIR)
     get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
+
+    if("${_source_dir}" STREQUAL "${_configure_source_dir}")
+        set(_source_cmd COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
+                        COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_dir}")
+    else()
+        set(_source_cmd COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} REPOSITORY directory: "
+                        COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_dir}"
+                        COMMAND ${CMAKE_COMMAND} -E echo ""
+                        COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
+                        COMMAND ${CMAKE_COMMAND} -E echo "    ${_configure_source_dir}")
+    endif()
+    set(_binary_cmd COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} BINARY directory: "
+                    COMMAND ${CMAKE_COMMAND} -E echo "    ${_binary_dir}")
 
     ExternalProject_Add_Step(${_name} print-directories
                              COMMAND ${CMAKE_COMMAND} -E echo ""
-                             COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
-                             COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_dir}"
+                             ${_source_cmd}
                              COMMAND ${CMAKE_COMMAND} -E echo ""
-                             COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} BINARY directory: "
-                             COMMAND ${CMAKE_COMMAND} -E echo "    ${_binary_dir}"
+                             ${_binary_cmd}
                              COMMAND ${CMAKE_COMMAND} -E echo ""
                              WORKING_DIRECTORY ${_source_dir}
                              EXCLUDE_FROM_MAIN 1
@@ -732,7 +741,7 @@ function(_YCM_EP_ADD_OPEN_STEP _name)
         ExternalProject_Add_Step(${_name} open
                 COMMAND ${CMAKE_COMMAND} -E echo \"\"
                 COMMAND ${_cmd}
-                WORKING_DIRECTORY "${_source_dir}"
+                WORKING_DIRECTORY "${_binary_dir}"
                 DEPENDEES configure
                 EXCLUDE_FROM_MAIN 1
                 COMMENT "Opening ${_name}..."
@@ -766,7 +775,8 @@ function(YCM_EP_HELPER _name)
                       TRUST_CERT  # SVN only
                       TEST_BEFORE_INSTALL
                       TEST_AFTER_INSTALL
-                      TEST_EXCLUDE_FROM_MAIN)
+                      TEST_EXCLUDE_FROM_MAIN
+                      CONFIGURE_SOURCE_DIR)
     set(_multiValueArgs CMAKE_ARGS
                         CMAKE_CACHE_ARGS
                         CMAKE_CACHE_DEFAULT_ARGS
@@ -982,15 +992,6 @@ function(YCM_EP_HELPER _name)
                 set(_YH_${_name}_${_step}_COMMAND "")
             endif()
         endif()
-        if(DEFINED _YH_${_name}_${_step}_COMMAND)
-            # Replace <YCM_EP_CMAKE_ARGS> with the actual value.
-            # CMAKE_ARGS and CMAKE_DEFAULT_ARGS should not end in the
-            # command line, and therefore are not accepted.
-            # Other variables (<SOURCE_DIR> <BINARY_DIR> <INSTALL_DIR>
-            # and <TMP_DIR>) are replaced by ExternalProject.
-            string(REPLACE "<YCM_EP_CMAKE_ARGS>" "${${_name}_YCM_CMAKE_ARGS}" _YH_${_name}_${_step}_COMMAND "${_YH_${_name}_${_step}_COMMAND}")
-            list(APPEND ${_name}_COMMAND_ARGS ${_step}_COMMAND "${_YH_${_name}_${_step}_COMMAND}")
-        endif()
     endforeach()
 
     # CLEAN_COMMAND is not accepted by ExternalProject, so we clean it here
@@ -1011,7 +1012,9 @@ function(YCM_EP_HELPER _name)
     if(DEFINED _YH_${_name}_EXCLUDE_FROM_ALL)
         list(APPEND ${_name}_EXTRA_ARGS EXCLUDE_FROM_ALL ${_YH_${_name}_EXCLUDE_FROM_ALL})
     endif()
-
+    if(DEFINED _YH_${_name}_CONFIGURE_SOURCE_DIR)
+        list(APPEND ${_name}_EXTRA_ARGS CONFIGURE_SOURCE_DIR ${_YH_${_name}_CONFIGURE_SOURCE_DIR})
+    endif()
 
     # Repository dependent variables
     unset(${_name}_REPOSITORY_ARGS)
