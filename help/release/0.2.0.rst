@@ -108,6 +108,8 @@ Modules
   ``STANDARD_FIND_MODULE_USE_IMPORTED_TARGET_<NAME>`` are specified, and the
   ``TARGET`` argument is given, the ``<NAME>_LIBRARIES`` variable content is
   replaced with the corresponding imported target.
+* :module:`YCMEPHelper`: Propagate CMAKE_SKIP_INSTALL_RPATH flag to all
+  sub-projects.
 
 
 Variables
