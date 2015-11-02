@@ -99,6 +99,7 @@ Modules
   are automatically replaced by ExternalProject.
 * :module:`YCMEPHelper`: Handle and use CONFIGURE_SOURCE_DIR argument in order
   to support projects in a subdirectory.
+* New module :module:`ReplaceImportedTargets`.
 
 
 Variables

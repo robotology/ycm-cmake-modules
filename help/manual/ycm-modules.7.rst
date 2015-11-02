@@ -20,6 +20,7 @@ Generic Modules
    /module/ExtractVersion
    /module/GitInfo
    /module/IncludeUrl
+   /module/ReplaceImportedTargets
    /module/StandardFindModule
 
 
