@@ -100,6 +100,14 @@ Modules
 * :module:`YCMEPHelper`: Handle and use CONFIGURE_SOURCE_DIR argument in order
   to support projects in a subdirectory.
 * New module :module:`ReplaceImportedTargets`.
+* :module:`StandardFindModule`: handle the new ``TARGET`` and
+  ``REPLACE_TARGETS`` arguments, to create automatically the specified
+  imported target and to replace the known targets paths with the
+  relative target name (in pkg-config mode only). If any of the
+  ``STANDARD_FIND_MODULE_USE_IMPORTED_TARGET`` or
+  ``STANDARD_FIND_MODULE_USE_IMPORTED_TARGET_<NAME>`` are specified, and the
+  ``TARGET`` argument is given, the ``<NAME>_LIBRARIES`` variable content is
+  replaced with the corresponding imported target.
 
 
 Variables
