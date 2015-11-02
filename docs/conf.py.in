@@ -103,6 +103,7 @@ rst_epilog = """
 .. _`rosbuild`: http://wiki.ros.org/rosbuild
 .. _`SuperbuildExample`: https://gitlab.robotology.eu/superbuild-example
 .. _`biicode`: http://biicode.com/
+.. _`hunter`: https://github.com/ruslo/hunter
 
 .. |lock| image:: /images/lock.png
     :height: 12

@@ -156,11 +156,20 @@ YCM FAQ
   :**A**: We were not aware of `Buildyard`_ when we started writing YCM.
           Some of the goals of the projects are very similar, but TODO
 
+
 .. _`FAQ:biicode`:
 
 * :**Q**: How is YCM different from `biicode`_
 
   :**A**: TODO.
+
+
+.. _`FAQ:hunter`:
+
+* :**Q**: How is YCM different from `hunter`_
+
+  :**A**: TODO.
+
 
 .. _`FAQ:Other`:
 
