@@ -106,6 +106,7 @@ endfunction()
 #  ExternalProject                  (3.3)          New        Yes
 #  CMakeParseArguments              ---                       Yes
 #  FindGLEW                         ---                       Yes
+#  CMakeFindDependencyMacro         (3.0)
 
 ################################################################################
 # Files not available or containing bugs in CMake 2.8.11.2
@@ -139,6 +140,7 @@ endif()
 if(CMAKE_VERSION VERSION_LESS 3.0 OR YCM_MAINTAINER_MODE)
 
     set(_files Copyright.txt                               84889816c71a04e30e715b89faf10d72a7334839
+               Modules/CMakeFindDependencyMacro.cmake      deb8d8b27adeb39cffd9190916fd5f0e3eca4c24
                Modules/FindFreetype.cmake                  b1a41d0d1321356beccc077495aa0d4c3d57e3a6
                Modules/GNUInstallDirs.cmake                af110b1c08d2ae909dd12b3dff3b8f9ed0f1c335
                Modules/FindLua.cmake                       477a45a0d2554af399492fa2213da72b73315ed1)

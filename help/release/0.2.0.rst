@@ -21,6 +21,7 @@ CMake Next
   detection on windows.
 * :module:`ExternalProject`: Handle CONFIGURE_SOURCE_DIR argument in
   order to support projects in a subdirectory.
+* :cmake:module:`CMakeFindDependencyMacro` module imported.
 
 3rd Party
 =========
@@ -110,7 +111,6 @@ Modules
   replaced with the corresponding imported target.
 * :module:`YCMEPHelper`: Propagate CMAKE_SKIP_INSTALL_RPATH flag to all
   sub-projects.
-
 
 Variables
 =========
