@@ -10,8 +10,8 @@ Changes made since YCM 0.1 include the following.
 CMake Next
 ==========
 
-* Updated to CMake 3.3.2 + commit
-  :cmake-commit:`99c7c23abe6342ca2ecab1f04cf396362bd56930`.
+* Updated to CMake 3.4.0-rc2 + commit
+  :cmake-commit:`b87bed0ff6d724a91bbe5ee97b5608eed588d1af`.
 * :cmake:module:`CMakePackageConfigHelpers` module imported.
 * :cmake:module:`FindLua` module imported.
 * :cmake:module:`FindMatlab` module imported.

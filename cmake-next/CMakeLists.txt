@@ -95,22 +95,24 @@ endfunction()
 # Downloaded modules               CMake Version  Comment    Uncommitted
 #                                  Version        Style      Changes
 #  SelectLibraryConfigurations      2.8.12
+#  CMakeFindDependencyMacro         3.0
 #  FindFreetype                     3.0
-#  GNUInstallDirs                   3.0
 #  FindLua                          3.0
 #  FeatureSummary                   3.1
 #  CMakePackageConfigHelpers        3.1
-#  FindGTK2                         3.1
 #  FindPkgConfig                    3.1            New
-#  FindMatlab                       (3.3)
-#  ExternalProject                  (3.3)          New        Yes
+#  FindMatlab                       3.3
+#  ExternalProject                  3.3            New        Yes
+#  GNUInstallDirs                   3.4
+#  FindGTK2                         3.5
 #  CMakeParseArguments              ---                       Yes
 #  FindGLEW                         ---                       Yes
-#  CMakeFindDependencyMacro         (3.0)
+
+# WARNING FindPackageHandleStandardArgs 3.3 Comment Style -> New
 
 ################################################################################
 # Files not available or containing bugs in CMake 2.8.11.2
-# Imported from CMake 2.8.12.2
+# Imported from CMake tag v2.8.12.2
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.12)
     # Just a reminder to remove this when we change cmake version
     message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.12. You can remove this.")
@@ -129,7 +131,7 @@ endif()
 
 ################################################################################
 # Files not available or containing bugs in CMake 2.8.12.2
-# Imported from CMake 3.0.2
+# Imported from CMake tag v3.0.2
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.0)
     # Just a reminder to remove this when we change cmake version
     message(AUTHOR_WARNING "CMake minimum required version greater than 3.0. You can remove this.")
@@ -142,8 +144,10 @@ if(CMAKE_VERSION VERSION_LESS 3.0 OR YCM_MAINTAINER_MODE)
     set(_files Copyright.txt                               84889816c71a04e30e715b89faf10d72a7334839
                Modules/CMakeFindDependencyMacro.cmake      deb8d8b27adeb39cffd9190916fd5f0e3eca4c24
                Modules/FindFreetype.cmake                  b1a41d0d1321356beccc077495aa0d4c3d57e3a6
-               Modules/GNUInstallDirs.cmake                af110b1c08d2ae909dd12b3dff3b8f9ed0f1c335
-               Modules/FindLua.cmake                       477a45a0d2554af399492fa2213da72b73315ed1)
+               Modules/FindLua.cmake                       477a45a0d2554af399492fa2213da72b73315ed1
+               Modules/FindPackageHandleStandardArgs.cmake 6f694a4c8de523b14ce1dbc44c3f5942fc467fc1  # Used by FindFreetype and FindLua
+               Modules/FindPackageMessage.cmake            eceba493416b1ce30cecbbfad7d4835e80969195  # Used by FindPackageHandleStandardArgs
+               Modules/CMakeParseArguments.cmake           00c393ca7dfd7f9ea9d1a5dc99702dcaffd289af) # Used by FindPackageHandleStandardArgs
     _ycm_cmake_next_download(v3.0.2 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0" "${_files}")
     _ycm_cmake_next_install(v3.0.2 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.0"
                                    DESTINATION "${YCM_INSTALL_MODULE_DIR}")
@@ -152,7 +156,7 @@ endif()
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.0.2
-# Imported from CMake 3.1.3
+# Imported from CMake tag v3.1.3
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.1)
     # Just a reminder to remove this when we change cmake version
     message(AUTHOR_WARNING "CMake minimum required version greater than 3.1. You can remove this.")
@@ -164,11 +168,9 @@ if(CMAKE_VERSION VERSION_LESS 3.1 OR YCM_MAINTAINER_MODE)
 
     set(_files Copyright.txt                               be2d273ed3c3559df71debc3f07fbe76a31dea28
                Modules/FeatureSummary.cmake                3aeab8c56de0ea21a489cc3d90ee47f833c699bc
-               Modules/FindGTK2.cmake                      ffd2211c30aed24d23570b71ed472c6169e1cdd8
-               Modules/FindPackageHandleStandardArgs.cmake a8857b6817a645669f4fa5999081abf34fa25523  # Used by FindGTK2
-               Modules/SelectLibraryConfigurations.cmake   4d1ee73df6dadcb2e51f12059cf48f5e9165bb1e  # Used by FindGTK2
-               Modules/CMakeParseArguments.cmake           8adc20a6a6a0ca5a82338b6edc3cd6e24ba7b3f2  # Used by FindGTK2 and FeatureSummary
-               Modules/FindPackageMessage.cmake            dbc69daf94e8a4039286f4ae6a8702af418b253a) # Used by FindPackageHandleStandardArgs
+               Modules/FindPackageHandleStandardArgs.cmake a8857b6817a645669f4fa5999081abf34fa25523  # Used by FindPkgConfig
+               Modules/FindPackageMessage.cmake            dbc69daf94e8a4039286f4ae6a8702af418b253a  # Used by FindPackageHandleStandardArgs
+               Modules/CMakeParseArguments.cmake           8adc20a6a6a0ca5a82338b6edc3cd6e24ba7b3f2) # Used by FeatureSummary and FindPackageHandleStandardArgs
 
     set(_now_files
                Modules/CMakePackageConfigHelpers.cmake     8d88059037b52bc607cc69ccb073adaef1206d99)
@@ -178,12 +180,11 @@ if(CMAKE_VERSION VERSION_LESS 3.1 OR YCM_MAINTAINER_MODE)
     if(NOT CMAKE_VERSION VERSION_LESS 3.0 OR YCM_MAINTAINER_MODE)
       list(APPEND _files  Modules/FindPkgConfig.cmake    8fbef856c63483a208eddcd0e69ea29f59e48460)
     else()
-      file(COPY Modules/FindPkgConfig.cmake DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next")
+      file(COPY Modules/FindPkgConfig.cmake DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.1")
     endif()
 
     _ycm_cmake_next_download(v3.1.3 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.1" "${_files}")
     _ycm_cmake_next_download_now(v3.1.3 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.1" "${_now_files}")
-
     _ycm_cmake_next_install(v3.1.3 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.1"
                                    DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 endif()
@@ -191,37 +192,75 @@ endif()
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.1.3
-# Imported from CMake 3.2.3
+# Imported from CMake tag v3.2.3
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.2)
+    # Just a reminder to remove this when we change cmake version
+    message(AUTHOR_WARNING "CMake minimum required version greater than 3.2. You can remove this.")
+endif()
 
 # None
+
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.2.3
-# Imported from CMake 3.2.3
+# Imported from CMake tag v3.3.2
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.3)
+    # Just a reminder to remove this when we change cmake version
+    message(AUTHOR_WARNING "CMake minimum required version greater than 3.3. You can remove this.")
+endif()
 
 # None
 
 
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (3.3.2)
+# Files not available or containing bugs in CMake 3.3.2
+# Imported from CMake tag v3.4.0-rc2
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.4)
+    # Just a reminder to remove this when we change cmake version
+    message(AUTHOR_WARNING "CMake minimum required version greater than 3.4. You can remove this.")
+endif()
+
+# We assume that the user won't downgrade his cmake, therefore it's not
+# necessary to download and install these files if already included in CMake
+if(CMAKE_VERSION VERSION_LESS 3.4 OR YCM_MAINTAINER_MODE)
+
+    set(_files Copyright.txt                               be2d273ed3c3559df71debc3f07fbe76a31dea28
+               Modules/FindMatlab.cmake                    83badb542408698081fd580d251a1672b92901d7
+               Modules/GNUInstallDirs.cmake                8afc4cc7af34df7f5b4e94b1d51c98e72cf553da)
+    _ycm_cmake_next_download(v3.4.0-rc2 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.4" "${_files}")
+    _ycm_cmake_next_install(v3.4.0-rc2 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.4"
+                                       DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+endif()
+
+################################################################################
+# Files not yet available or containing bugs in current CMake release (v3.4.0-rc2)
 # Imported from latest revision tested
 
-set(_ref 99c7c23abe6342ca2ecab1f04cf396362bd56930)
+set(_ref b87bed0ff6d724a91bbe5ee97b5608eed588d1af)
 
-if(NOT CMAKE_VERSION VERSION_LESS 3.4)
+if(NOT CMAKE_VERSION VERSION_LESS 3.5)
     # Just a reminder to update files when a new cmake version is released
     message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
 endif()
 
 # Always downloaded and installed until manually updated
 set(_files Copyright.txt                               be2d273ed3c3559df71debc3f07fbe76a31dea28
-           Modules/FindMatlab.cmake                    83badb542408698081fd580d251a1672b92901d7)
+           Modules/FindGTK2.cmake                      cf44cd06a8a809f2ea7ca3e6319c8bcb70a7ba68
+           Modules/SelectLibraryConfigurations.cmake   4d1ee73df6dadcb2e51f12059cf48f5e9165bb1e  # Used by FindGTK2
+           Modules/CMakeParseArguments.cmake           8adc20a6a6a0ca5a82338b6edc3cd6e24ba7b3f2  # Used by FindGTK2 and FindPackageHandleStandardArgs
+           Modules/FindPackageMessage.cmake            dbc69daf94e8a4039286f4ae6a8702af418b253a) # Used by FindPackageHandleStandardArgs
+
+# Some files cannot be parsed due to new-style cmake comments, so we ship
+# an old style commented version
+if(NOT CMAKE_VERSION VERSION_LESS 3.0 OR YCM_MAINTAINER_MODE)
+  list(APPEND _files  Modules/FindPackageHandleStandardArgs.cmake 9a543ff079dc8e313f1dae812688f4be14e25134) # Used by FindGTK2
+else()
+  file(COPY Modules/FindPackageHandleStandardArgs.cmake DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next")
+endif()
 
 _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
-
 _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
-
 
 
 ################################################################################
