@@ -14,9 +14,12 @@
 #  GooCanvas_MINOR_VERSION - GooCanvas minor version
 #  GooCanvas_PATCH_VERSION - GooCanvas patch version
 #  GooCanvas_TWEAK_VERSION - GooCanvas tweak version
+#
+# If the library is found, the imported target ``GooCanvas::goocanvas`` is
+# created.
 
 #=============================================================================
-# Copyright 2012-2013 iCub Facility, Istituto Italiano di Tecnologia
+# Copyright 2012-2015 iCub Facility, Istituto Italiano di Tecnologia
 #   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 #
 # Distributed under the OSI-approved BSD License (the "License");
@@ -31,7 +34,14 @@
 
 
 include(StandardFindModule)
-standard_find_module(GooCanvas goocanvas)
+include(ReplaceImportedTargets)
+include(CMakeFindDependencyMacro)
+
+find_dependency(GTK2)
+
+standard_find_module(GooCanvas goocanvas
+                     TARGET GooCanvas::goocanvas
+                     REPLACE_TARGETS ${GTK2_LIBRARIES})
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)

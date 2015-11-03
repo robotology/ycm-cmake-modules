@@ -103,6 +103,8 @@ Find Package Modules
   variable.
 * Import :module:`FindLibv4l2` new module from iCub.
 * Import :module:`FindLibv4lconvert` new module from iCub.
+* Create imported targets in :module:`FindGooCanvas`, :module:`FindGooCanvasMM`,
+  :module:`FindGtkDatabox`, and :module:`FindGtkDataboxMM` modules.
 
 
 Build Package Modules
