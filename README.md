@@ -13,4 +13,4 @@ Online documentation is available here: [http://robotology.github.io/ycm](http:/
 
 | OS X/Linux |  Windows  |
 |:----------:|:----------|
-| [![Build Status](https://img.shields.io/travis/robotology/ycm/master.svg)](https://travis-ci.org/robotology/ycm) | [![Build status](https://img.shields.io/appveyor/ci/drdanz/ycm.svg)](https://ci.appveyor.com/project/drdanz/ycm) |
+| [![Build Status](https://img.shields.io/travis/robotology/ycm/master.svg)](https://travis-ci.org/robotology/ycm) | [![Build status](https://img.shields.io/appveyor/ci/robotology/ycm.svg)](https://ci.appveyor.com/project/robotology/ycm) |
