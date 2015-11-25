@@ -10,6 +10,7 @@ Online documentation is available here: [http://robotology.github.io/ycm](http:/
 
 [![GitHub Release](https://img.shields.io/github/release/robotology/ycm.svg)](http://github.com/robotology/ycm/releases) 
 [![Github Issues](https://img.shields.io/github/issues/robotology/ycm.svg)](http://github.com/robotology/ycm/issues)
+[![DOI](https://zenodo.org/badge/4387/robotology/ycm.svg)](https://zenodo.org/badge/latestdoi/4387/robotology/ycm)
 
 | OS X/Linux |  Windows  |
 |:----------:|:----------|
