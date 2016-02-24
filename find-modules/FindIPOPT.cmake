@@ -16,8 +16,10 @@
 #  IPOPT_FOUND        - If false, don't try to use IPOPT
 
 #=============================================================================
-# Copyright 2008-2010 RobotCub Consortium
+# Copyright (C) 2008-2010 RobotCub Consortium
+# Copyright (C) 2016 iCub Facility - Istituto Italiano di Tecnologia
 #   Authors: Ugo Pattacini <ugo.pattacini@iit.it>
+#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 #
 # Distributed under the OSI-approved BSD License (the "License");
 # see accompanying file Copyright.txt for details.
@@ -120,27 +122,104 @@ elseif(UNIX)
 
 # Windows platforms
 else()
+    include(SelectLibraryConfigurations)
 
     set(IPOPT_DIR $ENV{IPOPT_DIR} CACHE PATH "Path to IPOPT build directory")
 
     set(IPOPT_INCLUDE_DIRS ${IPOPT_DIR}/include/coin)
-    find_library(IPOPT_LIBRARIES_RELEASE libipopt  ${IPOPT_DIR}/lib
-                                                   ${IPOPT_DIR}/lib/coin
-                                                   NO_DEFAULT_PATH)
-    find_library(IPOPT_LIBRARIES_DEBUG   libipoptD ${IPOPT_DIR}/lib
-                                                   ${IPOPT_DIR}/lib/coin
-                                                   NO_DEFAULT_PATH)
+    find_library(IPOPT_IPOPT_LIBRARY_RELEASE libipopt ${IPOPT_DIR}/lib
+                                                      ${IPOPT_DIR}/lib/coin
+                                                      NO_DEFAULT_PATH)
+    find_library(IPOPT_IPOPT_LIBRARY_DEBUG   libipoptD ${IPOPT_DIR}/lib
+                                                       ${IPOPT_DIR}/lib/coin
+                                                       NO_DEFAULT_PATH)
 
-    if(IPOPT_LIBRARIES_RELEASE AND IPOPT_LIBRARIES_DEBUG)
-        set(IPOPT_LIBRARIES optimized ${IPOPT_LIBRARIES_RELEASE} debug ${IPOPT_LIBRARIES_DEBUG})
-    elseif(IPOPT_LIBRARIES_RELEASE)
-        set(IPOPT_LIBRARIES ${IPOPT_LIBRARIES_RELEASE})
-    elseif(IPOPT_LIBRARIES_DEBUG)
-        set(IPOPT_LIBRARIES ${IPOPT_LIBRARIES_DEBUG})
+    select_library_configurations(IPOPT_IPOPT)
+    set(IPOPT_LIBRARIES ${IPOPT_IPOPT_LIBRARY})
+
+    # Some old version of binary releases of IPOPT have Intel fortran
+    # libraries embedded in the library, newer releases require them to
+    # be explicitly linked.
+    if(IPOPT_IPOPT_LIBRARY)
+        # FIXME Remove this check when CMake 2.8.11 or later is required
+        if(NOT CMAKE_VERSION VERSION_LESS 2.8.11)
+            get_filename_component(_MSVC_BINDIR "${CMAKE_LINKER}" PATH)
+        else()
+            get_filename_component(_MSVC_DIR "${CMAKE_LINKER}" DIRECTORY)
+        endif()
+
+        # Find the lib.exe executable
+        find_program(LIB_EXECUTABLE
+                     NAMES lib.exe
+                     HINTS "${_MSVC_BINDIR}"
+                           "C:/Program Files/Microsoft Visual Studio 10.0/VC/bin"
+                           "C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC/bin"
+                           "C:/Program Files/Microsoft Visual Studio 11.0/VC/bin"
+                           "C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/bin"
+                           "C:/Program Files/Microsoft Visual Studio 12.0/VC/bin"
+                           "C:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/bin"
+                           "C:/Program Files/Microsoft Visual Studio 14.0/VC/bin"
+                           "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin"
+                     DOC "Path to the lib.exe executable")
+        mark_as_advanced(LIB_EXECUTABLE)
+
+        # backup PATH environment variable
+        set(_path $ENV{PATH})
+
+        # Add th MSVC "Common7/IDE" dir containing the dlls in the PATH when needed.
+        get_filename_component(_MSVC_LIBDIR "${_MSVC_BINDIR}/../../Common7/IDE" ABSOLUTE)
+        if(NOT EXISTS "${_MSVC_LIBDIR}")
+            get_filename_component(_MSVC_LIBDIR "${_MSVC_BINDIR}/../../../Common7/IDE" ABSOLUTE)
+        endif()
+
+        if(EXISTS "${_MSVC_LIBDIR}")
+            set(_MSVC_LIBDIR_FOUND 0)
+            file(TO_CMAKE_PATH "$ENV{PATH}" _env_path)
+            foreach(_dir ${_env_path})
+                if("${_dir}" STREQUAL ${_MSVC_LIBDIR})
+                    set(_MSVC_LIBDIR_FOUND 1)
+                endif()
+            endforeach()
+            if(NOT _MSVC_LIBDIR_FOUND)
+                file(TO_NATIVE_PATH "${_MSVC_LIBDIR}" _MSVC_LIBDIR)
+                set(ENV{PATH} "$ENV{PATH};${_MSVC_LIBDIR}")
+            endif()
+        endif()
+
+        if(IPOPT_IPOPT_LIBRARY_RELEASE)
+            set(_IPOPT_LIB ${IPOPT_IPOPT_LIBRARY_RELEASE})
+        else()
+            set(_IPOPT_LIB ${IPOPT_IPOPT_LIBRARY_DEBUG})
+        endif()
+
+        execute_process(COMMAND ${LIB_EXECUTABLE} /list "${_IPOPT_LIB}"
+                        OUTPUT_VARIABLE _lib_output)
+
+        set(ENV{PATH} "${_path}")
+        unset(_path)
+
+        if(NOT "${_lib_output}" MATCHES "libifcoremd.dll")
+            # FIXME Remove this check when CMake 2.8.11 or later is required
+            if(NOT CMAKE_VERSION VERSION_LESS 2.8.11)
+                get_filename_component(_IPOPT_IPOPT_LIBRARY_DIR "${_IPOPT_LIB}" PATH)
+            else()
+                get_filename_component(_IPOPT_IPOPT_LIBRARY_DIR "${_IPOPT_LIB}" DIRECTORY)
+            endif()
+
+            foreach(_lib ifconsol
+                         libifcoremd
+                         libifportmd
+                         libmmd
+                         libirc
+                         svml_dispmd)
+                string(TOUPPER "${_lib}" _LIB)
+                find_library(IPOPT_${_LIB}_LIBRARY_RELEASE ${_lib} ${_IPOPT_IPOPT_LIBRARY_DIR})
+                find_library(IPOPT_${_LIB}_LIBRARY_DEBUG ${_lib}d ${_IPOPT_IPOPT_LIBRARY_DIR})
+                select_library_configurations(IPOPT_${_LIB})
+                list(APPEND IPOPT_LIBRARIES ${IPOPT_${_LIB}_LIBRARY})
+            endforeach()
+        endif()
     endif()
-
-    set(IPOPT_LIBRARIES_RELEASE "")
-    set(IPOPT_LIBRARIES_DEBUG "")
 
     set(IPOPT_DEFINITIONS "")
     if(MSVC)
