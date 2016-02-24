@@ -105,6 +105,7 @@ Find Package Modules
 * Import :module:`FindLibv4lconvert` new module from iCub.
 * Create imported targets in :module:`FindGooCanvas`, :module:`FindGooCanvasMM`,
   :module:`FindGtkDatabox`, and :module:`FindGtkDataboxMM` modules.
+* :module:`FindIPOPT` supports IPOPT from new iCub binary releases.
 
 
 Build Package Modules
