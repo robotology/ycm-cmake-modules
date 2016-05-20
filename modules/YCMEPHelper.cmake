@@ -994,6 +994,10 @@ function(YCM_EP_HELPER _name)
             if("${ARGN}" MATCHES ";?${_step}_COMMAND;"  AND  NOT DEFINED _YH_${_name}_${_step}_COMMAND)
                 set(_YH_${_name}_${_step}_COMMAND "")
             endif()
+
+            if(DEFINED _YH_${_name}_${_step}_COMMAND)
+                list(APPEND ${_name}_COMMAND_ARGS ${_step}_COMMAND "${_YH_${_name}_${_step}_COMMAND}")
+            endif()
         endif()
     endforeach()
 
