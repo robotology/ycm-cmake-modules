@@ -86,26 +86,27 @@ Find Package Modules
 --------------------
 
 * New module :module:`FindqpOASES`.
-* Import :module:`FindFreenect` new module from YARP.
-* Import :module:`FindFTDI` new module from YARP.
-* Import :module:`FindLibusb1` new module from YARP.
-* Import :module:`FindOpenNI` new module from YARP.
-* Import :module:`FindReadline` new module from YARP.
-* Import :module:`FindStage` new module from YARP.
+* Import :module:`FindFreenect` new module from `YARP Git Repository`_.
+* Import :module:`FindFTDI` new module from `YARP Git Repository`_.
+* Import :module:`FindLibusb1` new module from `YARP Git Repository`_.
+* Import :module:`FindOpenNI` new module from `YARP Git Repository`_.
+* Import :module:`FindReadline` new module from `YARP Git Repository`_.
+* Import :module:`FindStage` new module from `YARP Git Repository`_.
 * New module :module:`FindLibdc1394`.
 * :module:`FindFFMPEG`: Fix for recent ffmpeg version on debian
-* Import :module:`FindFuse` new module from YARP.
-* Import :module:`FindGLFW3` new module from YARP.
-* Import :module:`FindLibOVR` new module from YARP.
+* Import :module:`FindFuse` new module from `YARP Git Repository`_.
+* Import :module:`FindGLFW3` new module from `YARP Git Repository`_.
+* Import :module:`FindLibOVR` new module from `YARP Git Repository`_.
 * :module:`FindODE`: Use double precision by default when available.
 * :module:`FindESDCANAPI`: Fixed find library procedure.
 * :module:`FindIPOPT`: Improvements and restored required IPOPT_LINK_FLAGS
   variable.
-* Import :module:`FindLibv4l2` new module from iCub.
-* Import :module:`FindLibv4lconvert` new module from iCub.
+* Import :module:`FindLibv4l2` new module from `iCub Git Repository`_.
+* Import :module:`FindLibv4lconvert` new module from `iCub Git Repository`_.
 * Create imported targets in :module:`FindGooCanvas`, :module:`FindGooCanvasMM`,
   :module:`FindGtkDatabox`, and :module:`FindGtkDataboxMM` modules.
-* :module:`FindIPOPT` supports IPOPT from new iCub binary releases.
+* :module:`FindIPOPT` supports IPOPT from new binary releases of the
+  `iCub Git Repository`_.
 
 
 Build Package Modules
@@ -149,8 +150,9 @@ CMake Next
 3rd Party
 ---------
 
-* Updated to Eigen3 commit e1eac97
+* Updated to `Eigen Mercurial Repository`_ commit e1eac97
 * :module:`FindOctave` imported from https://cmake.org/Wiki/CMakeUserFindOctave
+* :module:`FindQCustomPlot` imported from `OVITO Git Repository`_.
 
 
 Variables
