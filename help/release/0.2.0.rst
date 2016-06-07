@@ -41,6 +41,9 @@ Generic Modules
   ``STANDARD_FIND_MODULE_USE_IMPORTED_TARGET_<NAME>`` are specified, and the
   ``TARGET`` argument is given, the ``<NAME>_LIBRARIES`` variable content is
   replaced with the corresponding imported target.
+* :module:`StandardFindModule`: Ensure that include directories exists.
+* :module:`StandardFindModule`: Fix `INTERFACE_COMPILE_{DEFINITIONS,OPTIONS}`
+  properties.
 
 
 Packaging Helper Modules
@@ -53,6 +56,7 @@ Packaging Helper Modules
 * :module:`AddInstallRPATHSupport`: Accept multiple conditions for the DEPENDS
   argument. This makes the DEPENDS argument similar to the
   :cmake:module`CMakeDependentOptions` module.
+* fix :module:`AddInstallRPATHSupport` for installation in system path
 
 
 Superbuild Helper Modules
@@ -107,6 +111,11 @@ Find Package Modules
   :module:`FindGtkDatabox`, and :module:`FindGtkDataboxMM` modules.
 * :module:`FindIPOPT` supports IPOPT from new binary releases of the
   `iCub Git Repository`_.
+* :module:`FindIPOPT` supports IPOPT from the coinor-libipopt-dev debian
+  package.
+* :module:`FindGLFW3` improves detection on windows.
+* Fixed :module:`FindGLUT` module on Window 64 bit.
+* Fixed stray `;` character in :module:`FindODE`.
 
 
 Build Package Modules
