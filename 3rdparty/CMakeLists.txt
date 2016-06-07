@@ -30,31 +30,37 @@ if(NOT YCM_NO_3RDPARTY OR YCM_MAINTAINER_MODE)
                       "https://bitbucket.org/eigen/eigen/raw/<REF>/<FILE>"
                       ${_ref} "${_dir}" "${_files}")
         file(WRITE "${_dir}/README.Eigen"
-"Files in this folder and its subfolder come from Eigen mercurial repository
-(ref ${_ref}):
+"Some of the files in this folder and its subfolder come from the Eigen mercurial
+repository (ref ${_ref}):
 
   https://bitbucket.org/eigen/eigen
-
-They were imported exactly as they are on the original repository, in
-order to import new features.
 
 Redistribution and use is allowed according to the terms of the 2-clause
 BSD license. See accompanying file COPYING.Eigen for details.
 ")
 
-
-        _ycm_install(3rdparty-eigen FILES "${CMAKE_CURRENT_BINARY_DIR}/eigen3/cmake/FindEigen3.cmake"
+        _ycm_install(3rdparty-eigen FILES "${_dir}/cmake/FindEigen3.cmake"
                                     DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
-        _ycm_install(3rdparty-eigen FILES "${CMAKE_CURRENT_BINARY_DIR}/eigen3/COPYING.BSD"
+        _ycm_install(3rdparty-eigen FILES "${_dir}/COPYING.BSD"
                                     DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty"
                                     RENAME COPYING.Eigen)
+
+        _ycm_install(3rdparty-eigen FILES "${_dir}/README.Eigen"
+                                    DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+
     endif()
 
 
-    # FindOctave.cmake is taken from here:
+    # FindOctave.cmake is taken from CMake wiki:
     # https://cmake.org/Wiki/CMakeUserFindOctave
-    _ycm_install(3rdparty-eigen FILES FindOctave.cmake
-                                DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+    _ycm_install(3rdparty-cmake-wiki FILES cmake-wiki/FindOctave.cmake
+                                     DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+
+    _ycm_install(3rdparty-cmake-wiki FILES cmake-wiki/COPYING.CMake-wiki
+                                     DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+
+    _ycm_install(3rdparty-cmake-wiki FILES cmake-wiki/README.CMake-wiki
+                                     DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
 endif()
