@@ -85,7 +85,7 @@ list(APPEND CPACK_SOURCE_IGNORE_FILES .git
                                       .gitignore
                                       .mailmap
                                       .travis.yml
-                                      appveyor.yml)
+                                      .appveyor.yml)
 
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "ycm-${YCM_VERSION}-offline")
 
