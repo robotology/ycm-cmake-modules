@@ -82,6 +82,7 @@ if(EXISTS ${CMAKE_SOURCE_DIR}/.gitignore)
     string(REPLACE "*" ".*" CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES}")
 endif()
 list(APPEND CPACK_SOURCE_IGNORE_FILES .git
+                                      .gitattributes
                                       .gitignore
                                       .mailmap
                                       .travis.yml
