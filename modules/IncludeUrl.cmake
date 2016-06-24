@@ -237,8 +237,11 @@ macro(INCLUDE_URL _remoteFile)
   # at the time
   # file(LOCK) was added in CMake 3.2, therefore calling it in older version
   # will fail.
+  # The RESULT_VARIABLE parameter is necessary, otherwise IncludeUrl will 
+  # fail on filesystems without lock support
   if(NOT CMAKE_VERSION VERSION_LESS 3.2)
-    file(LOCK "${_lockFile}")
+    file(LOCK "${_lockFile}"
+         RESULT_VARIABLE _IU_LOCK_RESULT)
   endif()
 
   set(_shouldDownload 0)
@@ -371,7 +374,8 @@ macro(INCLUDE_URL _remoteFile)
 
   # Download is finished, we can now release the lock
   if(NOT CMAKE_VERSION VERSION_LESS 3.2)
-    file(LOCK "${_lockFile}" RELEASE)
+    file(LOCK "${_lockFile}" RELEASE
+         RESULT_VARIABLE _IU_LOCK_RELEASE_RESULT)
   endif()
 
   if(NOT EXISTS "${_localFile}" AND NOT _IU_OPTIONAL)
