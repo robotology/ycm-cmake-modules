@@ -17,6 +17,7 @@ set(YCM_MODULES AddInstallRPATHSupport.cmake
                 AddUninstallTarget.cmake
                 ExtractVersion.cmake
                 FindOrBuildPackage.cmake
+                GetAllCMakeProperties.cmake
                 GitInfo.cmake
                 IncludeUrl.cmake
                 InstallBasicPackageFiles.cmake

@@ -18,6 +18,7 @@ Generic Modules
    :maxdepth: 1
 
    /module/ExtractVersion
+   /module/GetAllCMakeProperties
    /module/GitInfo
    /module/IncludeUrl
    /module/ReplaceImportedTargets
@@ -81,10 +82,12 @@ Find Package Modules
    /module/FindIPOPT
    /module/FindIPP
    /module/FindLibdc1394
+   /module/FindLibedit
    /module/FindLibOVR
    /module/FindLibusb1
    /module/FindLibv4l2
    /module/FindLibv4lconvert
+   /module/FindNVIDIACg
    /module/FindODE
    /module/FindOpenCV
    /module/FindOpenGL

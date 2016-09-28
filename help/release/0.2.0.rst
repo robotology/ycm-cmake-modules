@@ -44,6 +44,8 @@ Generic Modules
 * :module:`StandardFindModule`: Ensure that include directories exists.
 * :module:`StandardFindModule`: Fix `INTERFACE_COMPILE_{DEFINITIONS,OPTIONS}`
   properties.
+* New module :module:`GetAllCMakeProperties`.
+* :module:`StandardFindModule` Fix QUIET argument.
 
 
 Packaging Helper Modules
@@ -116,6 +118,8 @@ Find Package Modules
 * :module:`FindGLFW3` improves detection on windows.
 * Fixed :module:`FindGLUT` module on Window 64 bit.
 * Fixed stray `;` character in :module:`FindODE`.
+* New module :module:`FindLibedit`.
+* New module :module:`FindNVIDIACg`.
 
 
 Build Package Modules

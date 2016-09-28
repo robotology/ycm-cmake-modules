@@ -32,10 +32,12 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindIPOPT.cmake
                      FindIPP.cmake
                      FindLibdc1394.cmake
+                     FindLibedit.cmake
                      FindLibOVR.cmake
                      FindLibusb1.cmake
                      FindLibv4l2.cmake
                      FindLibv4lconvert.cmake
+                     FindNVIDIACg.cmake
                      FindODE.cmake
                      FindOpenCV.cmake
                      FindOpenGL.cmake
