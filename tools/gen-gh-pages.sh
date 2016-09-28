@@ -59,9 +59,9 @@ rm -Rf gh-pages
 mkdir -p gh-pages
 
 branches=$(git for-each-ref --format="%(refname)" refs/remotes/$remote | grep -v "HEAD\|gh-pages\|travis\|appveyor\|ycm-\|/pr/" | sed "s#refs/remotes/$remote/##")
-tags=$(git for-each-ref --format="%(refname)" refs/tags/ | sed "s#refs/tags/##")
+tags=$(git for-each-ref --format="%(refname)" refs/tags/ | sed "s#refs/tags/##" | sort -V)
 
-for ref in $branches $tags; do
+for ref in $tags $branches; do
     echo Generating documentation for ref $ref
     (cd build-docs && git checkout -q $ref)
     mkdir build-docs/build
