@@ -163,7 +163,7 @@ CMake Next
 3rd Party
 ---------
 
-* Updated to `Eigen Mercurial Repository`_ commit e1eac97
+* Updated to `Eigen Mercurial Repository`_ commit 00094bd
 * :module:`FindOctave` imported from https://cmake.org/Wiki/CMakeUserFindOctave
 * :module:`FindQCustomPlot` imported from `OVITO Git Repository`_.
 

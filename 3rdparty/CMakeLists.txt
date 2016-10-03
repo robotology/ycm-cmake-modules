@@ -22,8 +22,8 @@ if(NOT YCM_NO_3RDPARTY OR YCM_MAINTAINER_MODE)
     # Debian and Ubuntu releases
     if(NOT EXISTS "${CMAKE_ROOT}/FindEigen3.cmake" OR YCM_MAINTAINER_MODE)
         set(_files COPYING.BSD             8fa159b3e41e0a44e10ea224cbb83e66ae02885e
-                   cmake/FindEigen3.cmake  54e260f7a9390822773b255a674fdd3d3b93c8f6)
-        set(_ref e1eac97)
+                   cmake/FindEigen3.cmake  b042fd7a06a98b114e3399fdf4c6202ce73eaa80)
+        set(_ref 00094bd)
         set(_dir "${CMAKE_CURRENT_BINARY_DIR}/eigen3")
 
         _ycm_download(3rdparty-eigen "Eigen mercurial repository"
