@@ -146,8 +146,8 @@ CMake Proposed Modules
 CMake Next
 ----------
 
-* Updated to CMake 3.4.0-rc2 + commit
-  :cmake-commit:`b87bed0ff6d724a91bbe5ee97b5608eed588d1af`.
+* Updated to CMake 3.6.2 + commit
+  :cmake-commit:`2d4aeb1ff1550f11ea84346fbe81b8bc34cc5ba7`.
 * :cmake:module:`CMakePackageConfigHelpers` module imported.
 * :cmake:module:`FindLua` module imported.
 * :cmake:module:`FindMatlab` module imported.
