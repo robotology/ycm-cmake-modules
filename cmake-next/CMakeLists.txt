@@ -263,6 +263,7 @@ if(CMAKE_VERSION VERSION_LESS 3.5 OR YCM_MAINTAINER_MODE)
 
 endif()
 
+
 ################################################################################
 # Files not available or containing bugs in CMake 3.5.2
 # Imported from CMake tag v3.6.2
@@ -275,12 +276,23 @@ endif()
 
 
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (v3.6.2)
+# Files not available or containing bugs in CMake 3.6.3
+# Imported from CMake tag v3.7.0
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.7)
+  # Just a reminder to remove this when we change cmake version
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.7. You can remove this.")
+endif()
+
+# None
+
+
+################################################################################
+# Files not yet available or containing bugs in current CMake release (v3.7.0)
 # Imported from latest revision tested
 
-# set(_ref 2d4aeb1ff1550f11ea84346fbe81b8bc34cc5ba7)
+# set(_ref 5cfc2e926af645840c6a0464451af18f08528879)
 #
-# if(NOT CMAKE_VERSION VERSION_LESS 3.7)
+# if(NOT CMAKE_VERSION VERSION_LESS 3.8)
 #     # Just a reminder to update files when a new cmake version is released
 #     message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
 # endif()
