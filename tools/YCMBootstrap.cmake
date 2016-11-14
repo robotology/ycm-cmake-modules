@@ -58,7 +58,7 @@ function(_YCM_CLEAN_PATH _path _envvar)
     if(NOT WIN32)
         string(REPLACE ";" ":" _var_new "${_var_new}")
     endif()
-    set(ENV{${_envvar}} ${_var_new})
+    set(ENV{${_envvar}} "${_var_new}")
 endfunction()
 
 
