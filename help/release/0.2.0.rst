@@ -20,6 +20,8 @@ Build System
   download url.
 * Try to download the files up to 3 times in order to avoid common network
   issues.
+* ``YCMBootstrap``: Fix env variables list truncated to first element in
+  Windows (#100).
 
 
 Modules
