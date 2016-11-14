@@ -309,10 +309,17 @@ endif()
 # Always downloaded and installed until manually updated
 set(_files Copyright.txt                               142359ab254d35db46c6d3d29a06d6cf2d570919
            Modules/FindSWIG.cmake                      dea8c36114b8fcd934118a0fc86c0641cd191c18  # Required to use this version of UseSWIG
-           Modules/FindPackageHandleStandardArgs.cmake 1f71d36d60c70e83d6bd1f2ec09003ed445cec68  # Used by FindSWIG
            Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
            Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3  # Used by FindPackageHandleStandardArgs
            Modules/UseSWIG.cmake                       f8b84e85b40b4430a5cf69c7fbdcf4d86e941f6e)
+  # Some files cannot be parsed due to new-style cmake comments, so we ship
+  # an old style commented version
+  # Also CMake 3.3 and older do not accept string(APPEND)
+  if(NOT CMAKE_VERSION VERSION_LESS 3.4 OR YCM_MAINTAINER_MODE)
+    list(APPEND _files  Modules/FindPackageHandleStandardArgs.cmake 1f71d36d60c70e83d6bd1f2ec09003ed445cec68) # Used by FindSWIG
+  else()
+    file(COPY Modules/FindPackageHandleStandardArgs.cmake DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next")
+  endif()
 
 _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
 _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
