@@ -105,6 +105,7 @@ endfunction()
 #  GNUInstallDirs                   3.4
 #  FindGTK2                         3.5
 #  FindMatlab                       3.7
+#  UseSWIG                          master
 #  CMakeParseArguments              ---                       Yes
 #  FindGLEW                         ---                       Yes
 
@@ -298,19 +299,21 @@ endif()
 # Files not yet available or containing bugs in current CMake release (v3.7.0)
 # Imported from latest revision tested
 
-# set(_ref 5cfc2e926af645840c6a0464451af18f08528879)
-#
-# if(NOT CMAKE_VERSION VERSION_LESS 3.8)
-#     # Just a reminder to update files when a new cmake version is released
-#     message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
-# endif()
-#
-# # Always downloaded and installed until manually updated
-# set(_files )
-#
-# _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
-# _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
-#                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+set(_ref 4a4be0301bd9c6062738e87892cbe5bd8d900a49)
+
+if(NOT CMAKE_VERSION VERSION_LESS 3.8)
+    # Just a reminder to update files when a new cmake version is released
+    message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+endif()
+
+# Always downloaded and installed until manually updated
+set(_files Copyright.txt                               142359ab254d35db46c6d3d29a06d6cf2d570919
+           Modules/FindSWIG.cmake                      dea8c36114b8fcd934118a0fc86c0641cd191c18  # Required to use this version of UseSWIG
+           Modules/UseSWIG.cmake                       f8b84e85b40b4430a5cf69c7fbdcf4d86e941f6e)
+
+_ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
+_ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
+                                DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 
 
 ################################################################################
