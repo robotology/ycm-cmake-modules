@@ -148,18 +148,20 @@ CMake Proposed Modules
 CMake Next
 ----------
 
-* Updated to CMake v3.7.0 (commit
-  :cmake-commit:`5cfc2e926af645840c6a0464451af18f08528879`).
-* :cmake:module:`CMakePackageConfigHelpers` module imported.
-* :cmake:module:`FindLua` module imported.
-* :cmake:module:`FindMatlab` module imported.
+* Updated to CMake v3.7.0 + commit
+  :cmake-commit:`4a4be0301bd9c6062738e87892cbe5bd8d900a49`).
+* :cmake:module:`CMakePackageConfigHelpers` module imported from CMake 3.1.
+* :cmake:module:`FindLua` module imported from CMake 3.0.
+* :cmake:module:`FindMatlab` module imported from CMake 3.7.
 * :cmake:module:`FindArmadillo` module removed (available in CMake
   2.8.9).
 * :module:`FindGLEW` module imported with patch applied to improve
   detection on windows.
 * :module:`ExternalProject`: Handle CONFIGURE_SOURCE_DIR argument in
   order to support projects in a subdirectory.
-* :cmake:module:`CMakeFindDependencyMacro` module imported.
+* :cmake:module:`CMakeFindDependencyMacro` module imported from CMake 3.0.
+* :cmake:module:`FindSWIG` and :cmake:module:`UseSWIG` modules imported from
+  CMake master.
 
 
 3rd Party
