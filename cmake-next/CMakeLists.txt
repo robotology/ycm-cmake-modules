@@ -101,10 +101,10 @@ endfunction()
 #  FeatureSummary                   3.1
 #  CMakePackageConfigHelpers        3.1
 #  FindPkgConfig                    3.1            New
-#  FindMatlab                       3.3
 #  ExternalProject                  3.3            New        Yes
 #  GNUInstallDirs                   3.4
 #  FindGTK2                         3.5
+#  FindMatlab                       3.7
 #  CMakeParseArguments              ---                       Yes
 #  FindGLEW                         ---                       Yes
 
@@ -224,7 +224,6 @@ endif()
 if(CMAKE_VERSION VERSION_LESS 3.4 OR YCM_MAINTAINER_MODE)
 
   set(_files Copyright.txt                               be2d273ed3c3559df71debc3f07fbe76a31dea28
-             Modules/FindMatlab.cmake                    83badb542408698081fd580d251a1672b92901d7
              Modules/GNUInstallDirs.cmake                8afc4cc7af34df7f5b4e94b1d51c98e72cf553da)
   _ycm_cmake_next_download(v3.4.3 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.4" "${_files}")
   _ycm_cmake_next_install(v3.4.3 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.4"
@@ -283,7 +282,16 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.7)
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.7. You can remove this.")
 endif()
 
-# None
+# We assume that the user won't downgrade his cmake, therefore it's not
+# necessary to download and install these files if already included in CMake
+if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
+
+  set(_files Copyright.txt                               142359ab254d35db46c6d3d29a06d6cf2d570919
+             Modules/FindMatlab.cmake                    fab238dfd6bc346af6cfbc4c0a3b7af48f19c09c)
+  _ycm_cmake_next_download(v3.7.0 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.7" "${_files}")
+  _ycm_cmake_next_install(v3.7.0 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.7"
+                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+endif()
 
 
 ################################################################################
