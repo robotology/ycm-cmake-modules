@@ -20,7 +20,7 @@ include(GitInfo)
 
 
 set(YCM_VERSION_MAJOR 0)
-set(YCM_VERSION_MINOR 2)
+set(YCM_VERSION_MINOR 3)
 set(YCM_VERSION_PATCH 0)
 
 # Clean version.
