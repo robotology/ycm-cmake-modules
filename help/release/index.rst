@@ -12,7 +12,7 @@ YCM 0.2 Series
 .. toctree::
    :maxdepth: 1
 
-   YCM 0.2.0 (UNRELEASED) <0.2.0>
+   YCM 0.2.0 (2016-11-17) <0.2.0>
 
 YCM 0.1 Series
 --------------
