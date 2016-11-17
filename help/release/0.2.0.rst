@@ -59,7 +59,7 @@ Packaging Helper Modules
   building executables or shared libraries.
 * :module:`AddInstallRPATHSupport`: Accept multiple conditions for the DEPENDS
   argument. This makes the DEPENDS argument similar to the
-  :cmake:module`CMakeDependentOptions` module.
+  :cmake:module:`CMakeDependentOptions` module.
 * fix :module:`AddInstallRPATHSupport` for installation in system path
 
 
