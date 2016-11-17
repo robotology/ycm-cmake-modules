@@ -149,7 +149,7 @@ CMake Next
 ----------
 
 * Updated to CMake v3.7.0 + commit
-  :cmake-commit:`4a4be0301bd9c6062738e87892cbe5bd8d900a49`).
+  :cmake-commit:`ab4a9a98266fb29008cecc9649a91fc844c541f5`).
 * :cmake:module:`CMakePackageConfigHelpers` module imported from CMake 3.1.
 * :cmake:module:`FindLua` module imported from CMake 3.0.
 * :cmake:module:`FindMatlab` module imported from CMake 3.7.

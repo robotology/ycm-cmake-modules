@@ -299,7 +299,7 @@ endif()
 # Files not yet available or containing bugs in current CMake release (v3.7.0)
 # Imported from latest revision tested
 
-set(_ref 4a4be0301bd9c6062738e87892cbe5bd8d900a49)
+set(_ref ab4a9a98266fb29008cecc9649a91fc844c541f5)
 
 if(NOT CMAKE_VERSION VERSION_LESS 3.8)
     # Just a reminder to update files when a new cmake version is released
@@ -311,7 +311,7 @@ set(_files Copyright.txt                               142359ab254d35db46c6d3d29
            Modules/FindSWIG.cmake                      dea8c36114b8fcd934118a0fc86c0641cd191c18  # Required to use this version of UseSWIG
            Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
            Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3  # Used by FindPackageHandleStandardArgs
-           Modules/UseSWIG.cmake                       f8b84e85b40b4430a5cf69c7fbdcf4d86e941f6e)
+           Modules/UseSWIG.cmake                       c38d7f23edb63600804830df08ff16534e78cb25)
   # Some files cannot be parsed due to new-style cmake comments, so we ship
   # an old style commented version
   # Also CMake 3.3 and older do not accept string(APPEND)
