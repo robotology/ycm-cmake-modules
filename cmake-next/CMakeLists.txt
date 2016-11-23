@@ -91,9 +91,9 @@ function(_YCM_CMAKE_NEXT_DOWNLOAD_NOW _ref _dir _files)
 endfunction()
 
 
-
-# Downloaded modules               CMake Version  Comment    Uncommitted
-#                                  Version        Style      Changes
+# Downloaded modules               CMake Version  Comment   string(APPEND)  Uncommitted
+#                                  Version        Style                     Changes
+#                                                 (req 3.0) (req 3.4)
 #  SelectLibraryConfigurations      2.8.12
 #  CMakeFindDependencyMacro         3.0
 #  FindFreetype                     3.0
@@ -101,15 +101,16 @@ endfunction()
 #  FeatureSummary                   3.1
 #  CMakePackageConfigHelpers        3.1
 #  FindPkgConfig                    3.1            New
-#  ExternalProject                  3.3            New        Yes
+#  ExternalProject                  3.3            New                       Yes
 #  GNUInstallDirs                   3.4
 #  FindGTK2                         3.5
 #  FindMatlab                       3.7
-#  UseSWIG                          master
-#  CMakeParseArguments              ---                       Yes
-#  FindGLEW                         ---                       Yes
-
-# WARNING FindPackageHandleStandardArgs 3.3 Comment Style -> New
+#  UseSWIG                          master                   Yes
+#  CMakeParseArguments              ---                                      Yes
+#  FindGLEW                         ---                                      Yes
+#
+# Changes in dependencies
+#  FindPackageHandleStandardArgs                   3.3       3.7
 
 ################################################################################
 # Files not available or containing bugs in CMake 2.8.11.2
@@ -175,12 +176,13 @@ if(CMAKE_VERSION VERSION_LESS 3.1 OR YCM_MAINTAINER_MODE)
   set(_now_files
              Modules/CMakePackageConfigHelpers.cmake     8d88059037b52bc607cc69ccb073adaef1206d99)
 
-  # Some files cannot be parsed due to new-style cmake comments, so we ship
-  # an old style commented version
-  if(NOT CMAKE_VERSION VERSION_LESS 3.0 OR YCM_MAINTAINER_MODE)
+  # FindPkgConfig uses the new comment style, so we ship an old-style commented
+  # version
+  if(CMAKE_SUPPORTS_NEW_STYLE_COMMENTS OR YCM_MAINTAINER_MODE)
     list(APPEND _files  Modules/FindPkgConfig.cmake    8fbef856c63483a208eddcd0e69ea29f59e48460)
   else()
-    file(COPY Modules/FindPkgConfig.cmake DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.1")
+    file(COPY v3.1/FindPkgConfig.cmake
+         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.1/Modules")
   endif()
 
   _ycm_cmake_next_download(v3.1.3 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.1" "${_files}")
@@ -247,14 +249,25 @@ if(CMAKE_VERSION VERSION_LESS 3.5 OR YCM_MAINTAINER_MODE)
   set(_files Copyright.txt                               4a4e319a92c005163903c4ae537669d0026bae7d
              Modules/FindGTK2.cmake                      49af0a4282a353269ad0e938775c594d0e1319c7
              Modules/SelectLibraryConfigurations.cmake   4d1ee73df6dadcb2e51f12059cf48f5e9165bb1e  # Used by FindGTK2
-             Modules/CMakeParseArguments.cmake           ed00144eafa83bd6653f3915456080265b54159b  # Used by FindGTK2 and FindPackageHandleStandardArgs
              Modules/FindPackageMessage.cmake            dbc69daf94e8a4039286f4ae6a8702af418b253a) # Used by FindPackageHandleStandardArgs
-  # Some files cannot be parsed due to new-style cmake comments, so we ship
-  # an old style commented version
-  if(NOT CMAKE_VERSION VERSION_LESS 3.0 OR YCM_MAINTAINER_MODE)
+
+  # Since CMake 3.3, FindPackageHandleStandardArgs uses the new comment style,
+  # so we ship an old-style commented version
+  if(CMAKE_SUPPORTS_NEW_STYLE_COMMENTS OR YCM_MAINTAINER_MODE)
     list(APPEND _files  Modules/FindPackageHandleStandardArgs.cmake 9a543ff079dc8e313f1dae812688f4be14e25134) # Used by FindGTK2
   else()
-    file(COPY Modules/FindPackageHandleStandardArgs.cmake DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.5")
+    file(COPY v3.5.2/FindPackageHandleStandardArgs.cmake
+         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.5/Modules")
+  endif()
+
+  # Since CMake 3.5, CMakeParseArguments.cmake was replaced by the
+  # cmake_parse_arguments command and the file is empty, therefore we import
+  # the older version for CMake 3.4 and earlier
+  if(CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS OR YCM_MAINTAINER_MODE)
+    list(APPEND _files  Modules/CMakeParseArguments.cmake           ed00144eafa83bd6653f3915456080265b54159b)  # Used by FindGTK2 and FindPackageHandleStandardArgs
+  else()
+    file(COPY v3.4.3/CMakeParseArguments.cmake
+         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.5/Modules")
   endif()
 
   _ycm_cmake_next_download(v3.5.2 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.5" "${_files}")
@@ -309,17 +322,38 @@ endif()
 # Always downloaded and installed until manually updated
 set(_files Copyright.txt                               142359ab254d35db46c6d3d29a06d6cf2d570919
            Modules/FindSWIG.cmake                      dea8c36114b8fcd934118a0fc86c0641cd191c18  # Required to use this version of UseSWIG
-           Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
-           Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3  # Used by FindPackageHandleStandardArgs
-           Modules/UseSWIG.cmake                       c38d7f23edb63600804830df08ff16534e78cb25)
-  # Some files cannot be parsed due to new-style cmake comments, so we ship
-  # an old style commented version
-  # Also CMake 3.3 and older do not accept string(APPEND)
-  if(NOT CMAKE_VERSION VERSION_LESS 3.4 OR YCM_MAINTAINER_MODE)
-    list(APPEND _files  Modules/FindPackageHandleStandardArgs.cmake 1f71d36d60c70e83d6bd1f2ec09003ed445cec68) # Used by FindSWIG
-  else()
-    file(COPY Modules/FindPackageHandleStandardArgs.cmake DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next")
-  endif()
+           Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178) # Used by FindPackageHandleStandardArgs
+
+# Since CMake 3.3, FindPackageHandleStandardArgs uses the new comment style,
+# so we ship an old-style commented version
+# Since CMake 3.7, FindPackageHandleStandardArgs uses string(APPEND)
+if(CMAKE_SUPPORTS_STRING_APPEND OR YCM_MAINTAINER_MODE)
+  list(APPEND _files  Modules/FindPackageHandleStandardArgs.cmake 1f71d36d60c70e83d6bd1f2ec09003ed445cec68)  # Used by FindSWIG
+elseif(CMAKE_SUPPORTS_STRING_APPEND)
+  file(COPY v3.7.0/FindPackageHandleStandardArgs.cmake
+       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+else()
+  file(COPY v3.5.2/FindPackageHandleStandardArgs.cmake
+       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+endif()
+
+# UseSWIG uses "string(APPEND)"
+if(CMAKE_SUPPORTS_STRING_APPEND OR YCM_MAINTAINER_MODE)
+  list(APPEND _files  Modules/UseSWIG.cmake                       c38d7f23edb63600804830df08ff16534e78cb25)
+else()
+  file(COPY master/UseSWIG.cmake
+       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+endif()
+
+# Since CMake 3.5, CMakeParseArguments.cmake was replaced by the
+# cmake_parse_arguments command and the file is empty, therefore we import
+# the older version for CMake 3.4 and earlier
+if(CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS OR YCM_MAINTAINER_MODE)
+  list(APPEND _files  Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
+else()
+  file(COPY v3.4.3/CMakeParseArguments.cmake
+       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+endif()
 
 _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
 _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
@@ -330,9 +364,9 @@ _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-nex
 # Files with patches not yet merged in CMake master
 
 # Always installed
-set(YCM_CMAKE_PROPOSED_FILES Modules/ExternalProject.cmake
-                             Modules/CMakeParseArguments.cmake
-                             Modules/FindGLEW.cmake)
+set(YCM_CMAKE_PROPOSED_FILES proposed/ExternalProject.cmake
+                             proposed/CMakeParseArguments.cmake
+                             proposed/FindGLEW.cmake)
 set(YCM_CMAKE_PROPOSED_EXTRA_FILES  Copyright.txt # Must be redistributed together with CMake files
                                     README)       # Overwrite README generated by _ycm_cmake_next_download
 _ycm_cmake_next_install(proposed FILES ${YCM_CMAKE_PROPOSED_FILES}
