@@ -251,9 +251,9 @@ function(_YCM_INSTALL _target)
     set(_options )
     set(_oneValueArgs DESTINATION
                       RENAME
-                      COMPONENT)
+                      COMPONENT
+                      DIRECTORY)
     set(_multiValueArgs FILES
-                        DIRECTORY
                         PROGRAMS
                         PERMISSIONS)
     cmake_parse_arguments(_INSTALL "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")

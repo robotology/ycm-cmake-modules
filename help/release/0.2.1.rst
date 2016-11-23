@@ -11,3 +11,12 @@ Build System
 ============
 
 * Fix build tree not installed correctly the first time that "make" is executed.
+
+
+Modules
+=======
+
+CMake Next
+----------
+
+* Fix imported files for older CMake versions.
