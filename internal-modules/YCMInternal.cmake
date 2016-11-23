@@ -27,22 +27,55 @@
 include(CMakeParseArguments)
 
 function(_YCM_TARGET _target)
-    set(_ycm_target_stamp_file "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/complete")
+    set(_ycm_target_stamp_file "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_target-complete")
+    set(_ycm_download_stamp_file "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download-complete")
+    set(_ycm_localinstall_stamp_file "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_localinstall-complete")
+
     if(NOT TARGET ${_target})
         set(_comment "${ARGV1}")
         if(NOT _comment STREQUAL "")
             set(_comment COMMENT ${_comment})
         endif()
 
+        # Custom command for target
         add_custom_command(OUTPUT "${_ycm_target_stamp_file}"
                            COMMAND "${CMAKE_COMMAND}" -E touch "${_ycm_target_stamp_file}"
                            WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-                           ${_comment}
-                           VERBATIM)
+                           ${_comment})
         set_property(SOURCE "${_ycm_target_stamp_file}" PROPERTY SYMBOLIC 1)
-        add_custom_target(${_target} ALL DEPENDS "${_ycm_target_stamp_file}")
+
+        # Custom command for download phase
+        add_custom_command(OUTPUT "${_ycm_download_stamp_file}"
+                           COMMAND "${CMAKE_COMMAND}" -E touch "${_ycm_download_stamp_file}"
+                           COMMENT "")
+        set_property(SOURCE "${_ycm_download_stamp_file}" PROPERTY SYMBOLIC 1)
+
+        # Custom command for local install phase
+        add_custom_command(OUTPUT "${_ycm_localinstall_stamp_file}"
+                           COMMAND "${CMAKE_COMMAND}" -E touch "${_ycm_localinstall_stamp_file}"
+                           COMMENT "")
+        set_property(SOURCE "${_ycm_localinstall_stamp_file}" PROPERTY SYMBOLIC 1)
+
+        # Dependencies
+        #    - target depends on localinstall
+        #    - localinstall depends on download
+        add_custom_command(APPEND
+                           OUTPUT "${_ycm_localinstall_stamp_file}"
+                           DEPENDS "${_ycm_download_stamp_file}")
+
+        add_custom_command(APPEND
+                           OUTPUT "${_ycm_target_stamp_file}"
+                           DEPENDS "${_ycm_localinstall_stamp_file}")
+
+        # Custom target
+        add_custom_target(${_target}
+                          ALL
+                          DEPENDS "${_ycm_target_stamp_file}")
+
     endif()
     set(_ycm_target_stamp_file "${_ycm_target_stamp_file}" PARENT_SCOPE)
+    set(_ycm_download_stamp_file "${_ycm_download_stamp_file}" PARENT_SCOPE)
+    set(_ycm_localinstall_stamp_file "${_ycm_localinstall_stamp_file}" PARENT_SCOPE)
 endfunction()
 
 
@@ -186,7 +219,7 @@ file(WRITE \"${_dest}\" \"\${_tmp}\")
                            COMMENT "Downloading file ${_file} from ${_desc} (ref ${_ref})")
 
         add_custom_command(APPEND
-                           OUTPUT "${_ycm_target_stamp_file}"
+                           OUTPUT "${_ycm_download_stamp_file}"
                            DEPENDS "${_dest}")
 
         set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${_dest})
@@ -299,10 +332,10 @@ function(_YCM_INSTALL _target)
     endif()
 
     # Write copy script
-    set(_ycm_install_script "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_install_${_clean_filename}.cmake")
-    set(_ycm_install_stamp_file "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_install_${_clean_filename}-complete")
+    set(_ycm_localinstall_script "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_localinstall_${_clean_filename}.cmake")
+    set(_ycm_install_stamp_file_${_clean_filename} "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_localinstall_${_clean_filename}-complete")
 
-    file(WRITE "${_ycm_install_script}"
+    file(WRITE "${_ycm_localinstall_script}"
 "cmake_minimum_required(VERSION ${CMAKE_VERSION})
 set(_DESTDIR \$ENV{DESTDIR})
 set(ENV{DESTDIR} )
@@ -311,16 +344,17 @@ set(ENV{DESTDIR} \${_DESTDIR})
 ")
 
     # Add custom command
-    add_custom_command(OUTPUT "${_ycm_install_stamp_file}"
-                       COMMAND "${CMAKE_COMMAND}" -P "${_ycm_install_script}"
+    add_custom_command(OUTPUT "${_ycm_install_stamp_file_${_clean_filename}}"
+                       COMMAND "${CMAKE_COMMAND}" -P "${_ycm_localinstall_script}"
                        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+                       DEPENDS "${_ycm_download_stamp_file}"
                        COMMENT "")
-    set_property(SOURCE "${_ycm_install_stamp_file}" PROPERTY SYMBOLIC 1)
+    set_property(SOURCE "${_ycm_localinstall_stamp_file}" PROPERTY SYMBOLIC 1)
 
     # Set file level dependencies for the
     add_custom_command(APPEND
-                       OUTPUT "${_ycm_target_stamp_file}"
-                       DEPENDS "${_ycm_install_stamp_file}")
+                       OUTPUT "${_ycm_localinstall_stamp_file}"
+                       DEPENDS "${_ycm_install_stamp_file_${_clean_filename}}")
 
     # Generate a list of output and dependencies
     foreach(_file IN LISTS _INSTALL_FILES _INSTALL_DIRECTORY _INSTALL_PROGRAMS)
@@ -343,7 +377,7 @@ set(ENV{DESTDIR} \${_DESTDIR})
                            COMMENT "")
 
         add_custom_command(APPEND
-                           OUTPUT "${_ycm_install_stamp_file}"
+                           OUTPUT "${_ycm_install_stamp_file_${_clean_filename}}"
                            DEPENDS "${_out}")
 
         set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${_out}")
