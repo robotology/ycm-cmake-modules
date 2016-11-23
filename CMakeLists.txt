@@ -16,6 +16,27 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(YCM NONE)
 
+
+# Features supported by newer cmake versions
+if(NOT CMAKE_VERSION VERSION_LESS 3.5)
+  set(CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS 1)
+else()
+  set(CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS 0)
+endif()
+
+if(NOT CMAKE_VERSION VERSION_LESS 3.4)
+  set(CMAKE_SUPPORTS_STRING_APPEND 1)
+else()
+  set(CMAKE_SUPPORTS_STRING_APPEND 0)
+endif()
+
+if(NOT CMAKE_VERSION VERSION_LESS 3.0)
+  set(CMAKE_SUPPORTS_NEW_STYLE_COMMENTS 1)
+else()
+  set(CMAKE_SUPPORTS_NEW_STYLE_COMMENTS 0)
+endif()
+
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/internal-modules")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
 
@@ -23,11 +44,17 @@ include(YCMVersion)
 include(YCMInternal)
 
 if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
-    option(YCM_MAINTAINER_MODE "Enable maintainer mode (download all files and enable CPack)" FALSE)
+    option(YCM_MAINTAINER_MODE "Enable maintainer mode (download all files and enable CPack) - Latest CMake version is recommended" FALSE)
     mark_as_advanced(YCM_MAINTAINER_MODE)
 endif()
 
 if(YCM_MAINTAINER_MODE)
+    if(NOT CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS OR
+       NOT CMAKE_SUPPORTS_STRING_APPEND OR
+       NOT CMAKE_SUPPORTS_NEW_STYLE_COMMENTS)
+        message(AUTHOR_WARNING "Maintainer mode enabled, but not all required features supported by CMake. YCM build might not be usable.")
+    endif()
+
     if(NOT EXISTS "${CMAKE_SOURCE_DIR}/.git")
         message(WARNING "Cannot enable maintainer mode outside a git repository. The YCM_MAINTAINER_MODE option will be disabled.")
         unset(YCM_MAINTAINER_MODE)

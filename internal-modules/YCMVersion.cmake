@@ -1,4 +1,23 @@
+#.rst:
+# YCMVersion
+# ----------
+#
 # This module should not be used outside YCM.
+#
+# Variables defined by this module::
+#
+#  YCM_VERSION          - Full version, including git commit and dirty state.
+#  YCM_VERSION_MAJOR    - YCM major version
+#  YCM_VERSION_MINOR    - YCM minor version
+#  YCM_VERSION_PATCH    - YCM patch version
+#  YCM_VERSION_REVISION - Number of commits since latest release
+#  YCM_VERSION_API      - YCM API version
+#  YCM_VERSION_SHORT    - YCM clean version (Not unique, includes the number
+#                         of commits since latest tag).
+#  YCM_VERSION_SOURCE   - YCM source version (includes commit date and hash
+#                         information)
+#  YCM_VERSION_DIRTY    - "dirty" if the source tree is contains uncommitted
+#                         changes, empry otherwise
 
 #=============================================================================
 # Copyright 2000-2014 Kitware, Inc.
@@ -15,26 +34,15 @@
 # (To distribute this file outside of YCM, substitute the full
 #  License text for the above reference.)
 
-
 include(GitInfo)
-
 
 set(YCM_VERSION_MAJOR 0)
 set(YCM_VERSION_MINOR 3)
 set(YCM_VERSION_PATCH 0)
 
-# Clean version.
-set(YCM_VERSION_SHORT "${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}.${YCM_VERSION_PATCH}")
 
-# API version.
 set(YCM_VERSION_API "${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}")
-
-# Full version, including git commit and dirty state.
-set(YCM_VERSION "${YCM_VERSION_SHORT}")
-
-# Package version, including the number of commits.
-# WARNING: YCM_VERSION_PACKAGE is not unique, but it is still useful.
-set(YCM_VERSION_PACKAGE "${YCM_VERSION_SHORT}")
+set(YCM_VERSION_SHORT "${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}.${YCM_VERSION_PATCH}")
 
 # Get information from the git repository if available
 git_wt_info(SOURCE_DIR "${YCM_SOURCE_DIR}"
@@ -44,10 +52,10 @@ unset(YCM_VERSION_SOURCE)
 unset(YCM_VERSION_DIRTY)
 unset(YCM_VERSION_REVISION)
 if(DEFINED YCM_GIT_WT_HASH)
-  if(NOT "${YCM_GIT_WT_TAG}" STREQUAL "v${YCM_VERSION}")
+  if(YCM_GIT_WT_TAG_REVISION GREATER 0)
+    set(YCM_VERSION_REVISION ${YCM_GIT_WT_TAG_REVISION})
     string(REPLACE "-" "" _date ${YCM_GIT_WT_AUTHOR_DATE})
     set(YCM_VERSION_SOURCE "${_date}.${YCM_GIT_WT_DATE_REVISION}+git${YCM_GIT_WT_HASH_SHORT}")
-    set(YCM_VERSION_REVISION ${YCM_GIT_WT_TAG_REVISION})
   endif()
   if(YCM_GIT_WT_DIRTY)
     set(YCM_VERSION_DIRTY "dirty")
@@ -55,13 +63,19 @@ if(DEFINED YCM_GIT_WT_HASH)
 endif()
 
 if(DEFINED YCM_VERSION_SOURCE)
-  set(YCM_VERSION "${YCM_VERSION}~${YCM_VERSION_SOURCE}")
+  if(NOT "${YCM_GIT_WT_TAG}" STREQUAL "v${YCM_VERSION_SHORT}")
+    set(YCM_VERSION "${YCM_VERSION_SHORT}.${YCM_VERSION_SOURCE}")
+  else()
+    set(YCM_VERSION "${YCM_VERSION_SHORT}.${YCM_VERSION_REVISION}-${YCM_VERSION_SOURCE}")
+  endif()
+  set(YCM_VERSION_SHORT "${YCM_VERSION_SHORT}.${YCM_VERSION_REVISION}")
+elseif(NOT "${YCM_GIT_WT_TAG}" STREQUAL "v${YCM_VERSION_SHORT}")
+  set(YCM_VERSION "${YCM_VERSION_SHORT}~dev")
+else()
+  set(YCM_VERSION "${YCM_VERSION_SHORT}")
 endif()
 if(DEFINED YCM_VERSION_DIRTY)
   set(YCM_VERSION "${YCM_VERSION}+${YCM_VERSION_DIRTY}")
 endif()
-if(DEFINED YCM_VERSION_REVISION)
-  set(YCM_VERSION_PACKAGE "${YCM_VERSION_PACKAGE}.${YCM_VERSION_REVISION}")
-endif()
 
-message(STATUS "YCM Version: ${YCM_VERSION} (${YCM_VERSION_PACKAGE})")
+message(STATUS "YCM Version: ${YCM_VERSION} (${YCM_VERSION_SHORT})")
