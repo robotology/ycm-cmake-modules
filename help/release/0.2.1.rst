@@ -11,7 +11,7 @@ Build System
 ============
 
 * Fix build tree not installed correctly the first time that "make" is executed.
-
+* Improved versioning system (`YCM_VERSION_PACKAGE` was removed).
 
 Modules
 =======
