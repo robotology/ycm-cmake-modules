@@ -181,7 +181,7 @@ if(CMAKE_VERSION VERSION_LESS 3.1 OR YCM_MAINTAINER_MODE)
   if(CMAKE_SUPPORTS_NEW_STYLE_COMMENTS OR YCM_MAINTAINER_MODE)
     list(APPEND _files  Modules/FindPkgConfig.cmake    8fbef856c63483a208eddcd0e69ea29f59e48460)
   else()
-    file(COPY v3.1/FindPkgConfig.cmake
+    file(COPY v3.1.3/FindPkgConfig.cmake
          DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.1/Modules")
   endif()
 
