@@ -104,7 +104,7 @@ macro(_YCM_INCLUDE _module)
         if(NOT YCM_SKIP_HASH_CHECK)
             set(_expected_hash_args EXPECTED_HASH SHA1=${_ycm_${_module}_sha1sum})
         endif()
-        include_url(${YCM_BOOTSTRAP_BASE_ADDRESS}/cmake-next/Modules/${_module}.cmake
+        include_url(${YCM_BOOTSTRAP_BASE_ADDRESS}/cmake-next/proposed/${_module}.cmake
                     ${_expected_hash_args}
                     DOWNLOAD_ONCE
                     STATUS _download_status)
