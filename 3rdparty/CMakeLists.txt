@@ -60,7 +60,7 @@ BSD license. See accompanying file COPYING.Eigen for details.
     set(_dir "${CMAKE_CURRENT_BINARY_DIR}/ovito")
 
     _ycm_download(3rdparty-ovito "OVITO (The Open Visualization Tool) git repository"
-                  "https://sourceforge.net/p/ovito/git/ci/<REF>/tree/<FILE>?format=raw"
+                  "https://gitlab.com/stuko/ovito/raw/<REF>/<FILE>"
                   ${_ref} "${_dir}" "${_files}")
 
     file(WRITE "${_dir}/README.OVITO"
