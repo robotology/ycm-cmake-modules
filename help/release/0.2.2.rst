@@ -1,4 +1,4 @@
-YCM 0.2.2 (UNRELEASED) Release Notes
+YCM 0.2.2 (2016-11-28) Release Notes
 ************************************
 
 .. only:: html
