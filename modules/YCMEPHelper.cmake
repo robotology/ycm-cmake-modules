@@ -791,6 +791,22 @@ function(YCM_EP_HELPER _name)
                         CLEAN_COMMAND)
 
     cmake_parse_arguments(_YH_${_name} "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
+    # HACK: set(var "" PARENT_SCOPE) before CMake 3.0.0 did not set an empty
+    #       string, but instead unset the variable.
+    #       For compatibility with older versions, cmake_parse_arguments, keeps
+    #       the same behaviour, therefore they are not set.
+    foreach(_step DOWNLOAD
+                  UPDATE
+                  PATCH
+                  CONFIGURE
+                  BUILD
+                  INSTALL
+                  TEST
+                  CLEAN)
+        if("${ARGN}" MATCHES ";?${_step}_COMMAND;"  AND  NOT DEFINED _YH_${_name}_${_step}_COMMAND)
+            set(_YH_${_name}_${_step}_COMMAND "")
+        endif()
+    endforeach()
 
     # Allow to override parameters by setting variables
     foreach(_arg ${_oneValueArgs} ${_multiValueArgs})
@@ -986,29 +1002,10 @@ function(YCM_EP_HELPER _name)
                   BUILD
                   INSTALL
                   TEST)
-        if(CMAKE_VERSION VERSION_LESS 3.0.0)
-            # HACK: set(var "" PARENT_SCOPE) before CMake 3.0.0 did not set an empty string, but
-            # instead unset the variable.
-            # Therefore after cmake_parse_arguments, even if the variables are defined, they are not
-            # set.
-            if("${ARGN}" MATCHES ";?${_step}_COMMAND;"  AND  NOT DEFINED _YH_${_name}_${_step}_COMMAND)
-                set(_YH_${_name}_${_step}_COMMAND "")
-            endif()
-
-            if(DEFINED _YH_${_name}_${_step}_COMMAND)
-                list(APPEND ${_name}_COMMAND_ARGS ${_step}_COMMAND "${_YH_${_name}_${_step}_COMMAND}")
-            endif()
+        if(DEFINED _YH_${_name}_${_step}_COMMAND)
+            list(APPEND ${_name}_COMMAND_ARGS ${_step}_COMMAND "${_YH_${_name}_${_step}_COMMAND}")
         endif()
     endforeach()
-
-    # CLEAN_COMMAND is not accepted by ExternalProject, so we clean it here
-    if(CMAKE_VERSION VERSION_LESS 3.0.0)
-        # HACK: (see previous one)
-        if("${ARGN}" MATCHES ";?CLEAN_COMMAND;"  AND  NOT DEFINED _YH_${_name}_CLEAN_COMMAND)
-            set(_YH_${_name}_CLEAN_COMMAND "")
-        endif()
-    endif()
-
 
     if("${_YH_${_name}_COMPONENT}" STREQUAL "documentation")
         set(${_name}_STEP_ARGS SCM_DISCONNECTED 0)
