@@ -42,6 +42,7 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindOpenCV.cmake
                      FindOpenGL.cmake
                      FindOpenNI.cmake
+                     FindOpenNI2.cmake
                      FindPLXCANAPI.cmake
                      FindPortAudio.cmake
                      FindqpOASES.cmake
