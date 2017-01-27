@@ -7,7 +7,11 @@ YCM 0.4.0 (UNRELEASED) Release Notes
 
 Changes made since YCM 0.2 include the following.
 
+Modules
+=======
+
 Find Package Modules
 --------------------
 
-* Added :module:`FindOpenNI2`
+* New module :module:`FindOpenNI2`
+* New module :module:`FindZFP`
