@@ -22,7 +22,7 @@ endif()
 # Choose a configuration that was built if none is given.
 if(NOT CTEST_CONFIGURATION_TYPE)
   set(CTEST_CMD "@CMAKE_CTEST_COMMAND@@CMAKE_EXECUTABLE_SUFFIX@")
-  get_filename_component(CTEST_DIR "${CTEST_CMD}" PATH)
+  get_filename_component(CTEST_DIR "${CTEST_CMD}" DIRECTORY)
   get_filename_component(CTEST_EXE "${CTEST_CMD}" NAME)
   foreach(cfg Release Debug MinSizeRel RelWithDebInfo)
     if(NOT CTEST_CONFIGURATION_TYPE)

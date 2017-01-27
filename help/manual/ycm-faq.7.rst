@@ -43,17 +43,14 @@ YCM FAQ
 * :**Q**: Can you actually use any module from a newer version of CMake?
 
   :**A**: No, modules using features that have been added in CMake
-          source code cannot be imported directly. For example
-          :cmake:manual:`expressions generators <cmake-generator-expressions(7)>`
-          and :cmake:ref:`bracket comments <Bracket Comment>` cannot be
-          used with CMake 2.8.9.
+          source code cannot be imported directly.
           Nonetheless it is possible to supply a patched version of the
           module that does not use these features.
 
 
 .. _`FAQ:cmake-version`:
 
-* :**Q**: Why support CMake 2.8.9?
+* :**Q**: Why support CMake 3.0?
   :**A**: YCM was historically written to support `YARP`_, therefore the
           supported CMake versions are the same supported by `YARP`_.
           See `YARP Supported Distributions`_ for details.

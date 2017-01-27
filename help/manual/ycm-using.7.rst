@@ -11,7 +11,7 @@ How to Use YCM in Your Project
 ==============================
 
 In order to use YCM in your project, your software will have to depend
-on CMake 2.8.9 or later. Therefore your ``CMakeLists.txt`` file should
+on CMake 3.0 or later. Therefore your ``CMakeLists.txt`` file should
 include a :cmake:command:`cmake_minimum_required` call to set the
 :cmake:variable:`CMAKE_MINIMUM_REQUIRED_VERSION` and the relative
 CMake policies.
@@ -19,14 +19,12 @@ CMake policies.
 
 .. code-block:: cmake
 
-    cmake_minimum_required(VERSION 2.8.9)
+    cmake_minimum_required(VERSION 3.0)
 
 Now you have to set variables that control which components are enabled:
 
 .. code-block:: cmake
 
-    set(YCM_USE_CMAKE_2_8_12 TRUE) # Enables modules from CMake 2.8.12
-    set(YCM_USE_CMAKE_3_0 TRUE) # Enables modules from CMake 3.0
     set(YCM_USE_CMAKE_3_1 TRUE) # Enables modules from CMake 3.1
     set(YCM_USE_CMAKE_3_2 TRUE) # Enables modules from CMake 3.2
     set(YCM_USE_CMAKE_NEXT TRUE) # Enables modules from CMake git repository
@@ -103,7 +101,7 @@ These files must be in a folder included in :cmake:variable:`CMAKE_MODULE_PATH`
 for your project:
 
 .. code-block:: cmake
-   
+
    list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 Now you can include ``YCMBootstrap.cmake``:

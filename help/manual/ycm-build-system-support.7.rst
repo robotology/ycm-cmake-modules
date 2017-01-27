@@ -48,7 +48,7 @@ This is the code you need to add to your CMakeLists.txt:
 
 .. code-block:: cmake
 
-    cmake_minimum_required(VERSION 2.8.11)
+    cmake_minimum_required(VERSION 3.0)
     project(TemplatePkg CXX)
 
     # declare a variable with the name of the project
