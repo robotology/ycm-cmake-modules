@@ -104,7 +104,7 @@ before_install:
 
 before_script:
   - cd $PROJECT_DIR_ABS
-  - mkdir build install
+  - mkdir build
   - cd build
   # Configure the project
   - >-
@@ -136,7 +136,6 @@ before_script:
           cmake \
             -G"${TRAVIS_CMAKE_GENERATOR}" \
             -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} \
-            -DCMAKE_INSTALL_PREFIX=/app/install \
             -DYCM_MAINTAINER_MODE=ON \
             ..'
     fi
@@ -159,14 +158,14 @@ script:
           cmake --build . --config ${TRAVIS_BUILD_TYPE}'
     fi
 
-after_success:
   # Install and test the project
   - >-
     if [[ "$TRAVIS_OS_NAME" = "osx" ]] ; then
       cmake --build . --config ${TRAVIS_BUILD_TYPE} --target install
       ctest --build . --config ${TRAVIS_BUILD_TYPE}
     elif [[ "$TRAVIS_OS_NAME" = "linux" ]] ; then
-      docker run -it --rm \
+      docker run -it \
+        --name imagewithdepsname \
         -v "$PROJECT_DIR_ABS:/app" \
         -w /app/build \
         -v "$CMAKE_CACHE_DIR/$CMAKE_DIR:/cmake" \
@@ -176,6 +175,7 @@ after_success:
         imagewithdeps \
         sh -c 'PATH=$CMAKE_PATH:$PATH XDG_DATA_DIRS=$CMAKE_XDG:$XGD_DATA_DIRS
           cmake --build . --config ${TRAVIS_BUILD_TYPE} --target install'
+        docker commit imagewithdepsname imagewithycm
       docker run -it --rm \
         -v "$PROJECT_DIR_ABS:/app" \
         -w /app/build \
@@ -183,7 +183,7 @@ after_success:
         -e CMAKE_PATH=/cmake/bin/ \
         -e CMAKE_XDG=/cmake/share \
         -e TRAVIS_BUILD_TYPE \
-        imagewithdeps \
+        imagewithycm \
         sh -c 'PATH=$CMAKE_PATH:$PATH XDG_DATA_DIRS=$CMAKE_XDG:$XGD_DATA_DIRS
           ctest --build . --config ${TRAVIS_BUILD_TYPE}'
     fi
