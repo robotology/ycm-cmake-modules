@@ -48,6 +48,8 @@ matrix:
       env: CMAKE_VER=3.6.2 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
   # Allow failures on jobs with experimental features
   allow_failures:
+    - env: CMAKE_VER=3.0.2 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+    - env: CMAKE_VER=3.0.2 TRAVIS_CMAKE_GENERATOR="Ninja"
     - env: CMAKE_VER=3.8.0-rc2 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
     - env: CMAKE_VER=3.8.0-rc2 TRAVIS_CMAKE_GENERATOR="Ninja"
   fast_finish: true
