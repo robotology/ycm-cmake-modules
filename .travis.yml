@@ -1,11 +1,9 @@
 sudo: false
 dist: trusty
-osx_image: xcode7.3
 language: cpp
 
 os:
   - linux
-  # - osx
 
 services:
   - docker
@@ -47,12 +45,12 @@ env:
     - CMAKE_CACHE_DIR=$HOME/.cmake
 
 matrix:
-  # Remove matrix.include entry and enable globally osx os when the test of
-  # multiple CMake versions will be implemented
   include:
     - os: osx
+      osx_image: xcode7.3
       env: CMAKE_VER=3.6.2 TRAVIS_CMAKE_GENERATOR="Xcode"
     - os: osx
+      osx_image: xcode7.3
       env: CMAKE_VER=3.6.2 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
   exclude:
     - os: linux
