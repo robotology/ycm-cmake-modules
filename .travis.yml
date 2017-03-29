@@ -36,6 +36,7 @@ env:
     - PROJECT_DIR_ABS=$TRAVIS_BUILD_DIR
     - TRAVIS_BUILD_TYPE=Release
     - CMAKE_CACHE_DIR=$HOME/.cmake
+    - CTEST_OUTPUT_ON_FAILURE=1
 
 matrix:
   include:
@@ -175,7 +176,8 @@ script:
         -e CMAKE_PATH=/cmake/bin/ \
         -e CMAKE_XDG=/cmake/share \
         -e TRAVIS_BUILD_TYPE \
+        -e CTEST_OUTPUT_ON_FAILURE \
         imagewithycm \
         sh -c 'PATH=$CMAKE_PATH:$PATH XDG_DATA_DIRS=$CMAKE_XDG:$XGD_DATA_DIRS
-          ctest -DCTEST_OUTPUT_ON_FAILURE=1 --build . --config ${TRAVIS_BUILD_TYPE}'
+          ctest --build . --config ${TRAVIS_BUILD_TYPE}'
     fi
