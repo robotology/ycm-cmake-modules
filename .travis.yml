@@ -13,6 +13,7 @@ compiler: gcc
 env:
   matrix:
     # Unix Makefiles
+    - CMAKE_VER=3.0.2 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
     - CMAKE_VER=3.1.3 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
     - CMAKE_VER=3.2.3 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
     - CMAKE_VER=3.3.2 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
@@ -88,22 +89,29 @@ cache:
 before_install:
   - >-
     if [[ "$TRAVIS_OS_NAME" = "linux" ]] ; then
-      # Retrieve the docker image
-      docker pull ubuntu
-      # Install dependencies into the docker image
-      docker run -it \
-        --name baseimage \
-        ubuntu \
-        sh -c 'apt-get update && apt-get install make libidn11 ninja-build'
-      docker commit baseimage imagewithdeps
-      # Download the CMake version archive and cache it
+      # Set project variables
       cd $PROJECT_DIR_ABS
       CMAKE_VER_SPLIT=(${CMAKE_VER//./ })
       CMAKE_MAJOR=${CMAKE_VER_SPLIT[0]}
       CMAKE_MINOR=${CMAKE_VER_SPLIT[1]}
       CMAKE_PATCH=${CMAKE_VER_SPLIT[2]}
       CMAKE_ARCH=x86_64
+      CMAKE_DEPS=(make libidn11 ninja-build)
+      if [ "$CMAKE_VER" = "3.0.2" ] ; then
+        CMAKE_DEPS+=(libc6-i386)
+        CMAKE_ARCH=i386
+      fi
       CMAKE_DIR=cmake-$CMAKE_MAJOR.$CMAKE_MINOR.$CMAKE_PATCH-Linux-$CMAKE_ARCH
+      # Retrieve the docker image
+      docker pull ubuntu
+      # Install dependencies into the docker image
+      docker run -it \
+        --name baseimage \
+        -e CMAKE_DEPS="${CMAKE_DEPS[*]}" \
+        ubuntu \
+        sh -c 'apt-get update && apt-get install -y $CMAKE_DEPS'
+      docker commit baseimage imagewithdeps
+      # Download the CMake version archive and cache it
       if [ ! -d $CMAKE_CACHE_DIR/$CMAKE_DIR ] ; then
         cd $CMAKE_CACHE_DIR
         curl -N "https://cmake.org/files/v$CMAKE_MAJOR.$CMAKE_MINOR/$CMAKE_DIR.tar.gz" | tar xz
