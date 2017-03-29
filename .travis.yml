@@ -195,5 +195,5 @@ script:
         -e TRAVIS_BUILD_TYPE \
         imagewithycm \
         sh -c 'PATH=$CMAKE_PATH:$PATH XDG_DATA_DIRS=$CMAKE_XDG:$XGD_DATA_DIRS
-          ctest --build . --config ${TRAVIS_BUILD_TYPE}'
+          ctest -DCTEST_OUTPUT_ON_FAILURE=1 --build . --config ${TRAVIS_BUILD_TYPE}'
     fi
