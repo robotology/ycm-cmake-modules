@@ -71,7 +71,7 @@ before_install:
       CMAKE_MINOR=${CMAKE_VER_SPLIT[1]}
       CMAKE_PATCH=${CMAKE_VER_SPLIT[2]}
       CMAKE_ARCH=x86_64
-      CMAKE_DEPS=(make libidn11 ninja-build)
+      CMAKE_DEPS=(make libidn11 ninja-build git)
       if [ "$CMAKE_VER" = "3.0.2" ] ; then
         CMAKE_DEPS+=(libc6-i386)
         CMAKE_ARCH=i386
