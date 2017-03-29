@@ -14,6 +14,7 @@ compiler: gcc
 
 env:
   matrix:
+    # Unix Makefiles
     - CMAKE_VER=3.1.3 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
     - CMAKE_VER=3.2.3 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
     - CMAKE_VER=3.3.2 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
@@ -22,6 +23,7 @@ env:
     - CMAKE_VER=3.6.3 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
     - CMAKE_VER=3.7.2 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
     - CMAKE_VER=3.8.0-rc2 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+    # Xcode
     - CMAKE_VER=3.1.3 TRAVIS_CMAKE_GENERATOR="Xcode"
     - CMAKE_VER=3.2.3 TRAVIS_CMAKE_GENERATOR="Xcode"
     - CMAKE_VER=3.3.2 TRAVIS_CMAKE_GENERATOR="Xcode"
@@ -30,6 +32,15 @@ env:
     - CMAKE_VER=3.6.3 TRAVIS_CMAKE_GENERATOR="Xcode"
     - CMAKE_VER=3.7.2 TRAVIS_CMAKE_GENERATOR="Xcode"
     - CMAKE_VER=3.8.0-rc2 TRAVIS_CMAKE_GENERATOR="Xcode"
+    # Ninja
+    - CMAKE_VER=3.1.3 TRAVIS_CMAKE_GENERATOR="Ninja"
+    - CMAKE_VER=3.2.3 TRAVIS_CMAKE_GENERATOR="Ninja"
+    - CMAKE_VER=3.3.2 TRAVIS_CMAKE_GENERATOR="Ninja"
+    - CMAKE_VER=3.4.3 TRAVIS_CMAKE_GENERATOR="Ninja"
+    - CMAKE_VER=3.5.2 TRAVIS_CMAKE_GENERATOR="Ninja"
+    - CMAKE_VER=3.6.3 TRAVIS_CMAKE_GENERATOR="Ninja"
+    - CMAKE_VER=3.7.2 TRAVIS_CMAKE_GENERATOR="Ninja"
+    - CMAKE_VER=3.8.0-rc2 TRAVIS_CMAKE_GENERATOR="Ninja"
   global:
     - PROJECT_DIR_ABS=$TRAVIS_BUILD_DIR
     - TRAVIS_BUILD_TYPE=Release
@@ -63,6 +74,7 @@ matrix:
   # Allow failures on jobs with experimental features
   allow_failures:
     - env: CMAKE_VER=3.8.0-rc2 TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+    - env: CMAKE_VER=3.8.0-rc2 TRAVIS_CMAKE_GENERATOR="Ninja"
     - env: CMAKE_VER=3.8.0-rc2 TRAVIS_CMAKE_GENERATOR="Xcode"
   fast_finish: true
 
@@ -84,7 +96,7 @@ before_install:
       docker run -it \
         --name baseimage \
         ubuntu \
-        sh -c 'apt-get update && apt-get install make libidn11'
+        sh -c 'apt-get update && apt-get install make libidn11 ninja-build'
       docker commit baseimage imagewithdeps
       # Download the CMake version archive and cache it
       cd $PROJECT_DIR_ABS
