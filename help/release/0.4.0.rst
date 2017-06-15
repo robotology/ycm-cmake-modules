@@ -21,3 +21,8 @@ Find Package Modules
 
 * New module :module:`FindOpenNI2`
 * New module :module:`FindZFP`
+* :module:`FindACE`: preserve the state of ``CMAKE_TRY_COMPILE_CONFIGURATION``
+* :module:`FindGLFW3`: improve detection on win32
+* :module:`FindLibOVR`: Update FindLibOVR for MSVC 2015
+* :module:`FindLibOVR`: Fix FindLibOVR debug output
+* :module:`FindLibOVR`: Fix library version
