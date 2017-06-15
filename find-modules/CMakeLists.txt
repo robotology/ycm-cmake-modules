@@ -42,6 +42,7 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindOpenCV.cmake
                      FindOpenGL.cmake
                      FindOpenNI.cmake
+                     FindOpenNI2.cmake
                      FindPLXCANAPI.cmake
                      FindPortAudio.cmake
                      FindqpOASES.cmake
@@ -50,7 +51,8 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindSQLite.cmake
                      FindStage.cmake
                      FindTinyXML.cmake
-                     FindYamlCpp.cmake)
+                     FindYamlCpp.cmake
+                     FindZFP.cmake)
 
 _ycm_install(find-modules FILES ${YCM_FIND_MODULES}
                           DESTINATION "${YCM_INSTALL_MODULE_DIR}/find-modules")

@@ -13,7 +13,7 @@
 #  License text for the above reference.)
 
 
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 3.0)
 project(YCM NONE)
 
 
@@ -30,12 +30,6 @@ else()
   set(CMAKE_SUPPORTS_STRING_APPEND 0)
 endif()
 
-if(NOT CMAKE_VERSION VERSION_LESS 3.0)
-  set(CMAKE_SUPPORTS_NEW_STYLE_COMMENTS 1)
-else()
-  set(CMAKE_SUPPORTS_NEW_STYLE_COMMENTS 0)
-endif()
-
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/internal-modules")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
@@ -49,9 +43,7 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
 endif()
 
 if(YCM_MAINTAINER_MODE)
-    if(NOT CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS OR
-       NOT CMAKE_SUPPORTS_STRING_APPEND OR
-       NOT CMAKE_SUPPORTS_NEW_STYLE_COMMENTS)
+    if(NOT CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS OR NOT CMAKE_SUPPORTS_STRING_APPEND)
         message(AUTHOR_WARNING "Maintainer mode enabled, but not all required features supported by CMake. YCM build might not be usable.")
     endif()
 

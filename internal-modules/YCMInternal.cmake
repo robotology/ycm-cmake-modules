@@ -117,16 +117,7 @@ function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
             execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_offline_dest}" "${_orig_dest}")
         endif()
 
-        if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.12)
-            # Just a reminder to remove this when we change cmake minimum required version
-            message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.12. You can remove this.")
-        endif()
-        if(CMAKE_VERSION VERSION_LESS 2.8.12)
-            string(REGEX REPLACE "[/\\.]" "_" _clean_filename "${_file}")
-            string(REGEX REPLACE "^([0-9])" "_\\1" _clean_filename "${_clean_filename}")
-        else()
-            string(MAKE_C_IDENTIFIER "${_file}" _clean_filename)
-        endif()
+        string(MAKE_C_IDENTIFIER "${_file}" _clean_filename)
 
         set(_download_script "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}.cmake")
         set(_download_script_real "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_download_${_clean_filename}_real.cmake")
@@ -295,16 +286,7 @@ function(_YCM_INSTALL _target)
         message(FATAL_ERROR "Not yet supported")
     endif()
 
-    if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 2.8.12)
-        # Just a reminder to remove this when we change cmake minimum required version
-        message(AUTHOR_WARNING "CMake minimum required version greater than 2.8.12. You can remove this.")
-    endif()
-    if(CMAKE_VERSION VERSION_LESS 2.8.12)
-        string(REGEX REPLACE "[/\\.]" "_" _clean_filename "${_clean_filename}")
-        string(REGEX REPLACE "^([0-9])" "_\\1" _clean_filename "${_clean_filename}")
-    else()
-        string(MAKE_C_IDENTIFIER "${_clean_filename}" _clean_filename)
-    endif()
+    string(MAKE_C_IDENTIFIER "${_clean_filename}" _clean_filename)
 
     # Fix DESTINATION for the build directory
     string(REGEX REPLACE ";DESTINATION;${_INSTALL_DESTINATION}(;|$)" ";DESTINATION;${CMAKE_BINARY_DIR}/${_INSTALL_DESTINATION_RELATIVE}\\1" copyARGN "${copyARGN}")
@@ -326,8 +308,7 @@ function(_YCM_INSTALL _target)
         # Just a reminder to remove this when we change cmake minimum required version
         message(AUTHOR_WARNING "CMake minimum required version greater than 3.1. You can remove this.")
     endif()
-    # FIXME change this to CMake 3.1 as soon as it is released
-    if(NOT CMAKE_VERSION VERSION_LESS 3.0.20140628)
+    if(NOT CMAKE_VERSION VERSION_LESS 3.1)
         list(APPEND copyARGN MESSAGE_NEVER)
     endif()
 

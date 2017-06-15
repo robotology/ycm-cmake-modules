@@ -56,9 +56,7 @@ foreach(_version 3.7
                  3.4
                  3.3
                  3.2
-                 3.1
-                 3.0
-                 2.8.12)
+                 3.1)
   if(EXISTS "${YCM_MODULE_DIR}/cmake-${_version}"
      AND CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS ${_version}
      AND CMAKE_VERSION VERSION_LESS ${_version})
