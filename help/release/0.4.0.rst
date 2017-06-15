@@ -26,3 +26,5 @@ Find Package Modules
 * :module:`FindLibOVR`: Update FindLibOVR for MSVC 2015
 * :module:`FindLibOVR`: Fix FindLibOVR debug output
 * :module:`FindLibOVR`: Fix library version
+* :module:`FindIPOPT`: Add workaround for
+  https://github.com/robotology/icub-main/issues/418
