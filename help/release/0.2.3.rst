@@ -1,4 +1,4 @@
-YCM 0.2.3 (UNRELEASED) Release Notes
+YCM 0.2.3 (2017-06-15) Release Notes
 ************************************
 
 .. only:: html
@@ -20,5 +20,5 @@ Generic Modules
 Superbuild Helper Modules
 -------------------------
 
-* Fixed  empty commands for CMake > 3.0bootstrap address in
+* Fixed  empty commands for CMake > 3.0 bootstrap address in
   :module:`YCMEPHelper` (robotology-playground/robotology-superbuild#15)
