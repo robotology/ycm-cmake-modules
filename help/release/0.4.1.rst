@@ -6,3 +6,11 @@ YCM 0.4.1 (UNRELEASED) Release Notes
   .. contents::
 
 Changes made since YCM 0.4.0 include the following.
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`GetAllCMakeProperties`: Add CMake policy stack PUSH and POP
