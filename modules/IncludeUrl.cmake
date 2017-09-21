@@ -75,7 +75,7 @@
 # argument.
 
 #=============================================================================
-# Copyright 2013-2015 iCub Facility, Istituto Italiano di Tecnologia
+# Copyright 2013-2015 Istituto Italiano di Tecnologia (IIT)
 # Copyright 2013-2015 Daniele E. Domenichelli <ddomenichelli@drdanz.it>
 #
 # Distributed under the OSI-approved BSD License (the "License");

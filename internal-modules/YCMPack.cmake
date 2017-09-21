@@ -1,7 +1,7 @@
 # This module should not be used outside YCM.
 
 #=============================================================================
-# Copyright 2014 iCub Facility, Istituto Italiano di Tecnologia
+# Copyright 2014 Istituto Italiano di Tecnologia (IIT)
 #   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 #
 # Distributed under the OSI-approved BSD License (the "License");
@@ -15,7 +15,7 @@
 #  License text for the above reference.)
 
 set(CPACK_PACKAGE_NAME "YCM")
-set(CPACK_PACKAGE_VENDOR "iCub Facility, Istituto Italiano di Tecnologia")
+set(CPACK_PACKAGE_VENDOR "Istituto Italiano di Tecnologia (IIT)")
 
 set(CPACK_PACKAGE_VERSION_MAJOR "${YCM_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${YCM_VERSION_MINOR}")
