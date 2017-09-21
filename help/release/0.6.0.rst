@@ -6,3 +6,17 @@ YCM 0.6.0 (UNRELEASED) Release Notes
   .. contents::
 
 Changes made since YCM 0.4 include the following.
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`AddInstallRPATHSupport`: A dded a new variable ``INSTALL_NAME_DIR``
+  to specify the absolute installation path of the libraries.
+
+Find Package Modules
+--------------------
+
+* :module:`FindACE`: Remove ``ACE_HAS_STRING_HASH`` check
