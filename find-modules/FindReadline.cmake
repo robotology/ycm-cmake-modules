@@ -24,7 +24,7 @@
 #  Readline_LIBRARY_DEBUG - GNU Readline library (debug)
 
 #=============================================================================
-# Copyright 2014 iCub Facility, Istituto Italiano di Tecnologia
+# Copyright 2014 Istituto Italiano di Tecnologia (IIT)
 #   Authors: Elena Ceseracciu <elena.ceseracciu@iit.it>
 #            Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 #

@@ -21,7 +21,7 @@
 
 #=============================================================================
 # Copyright (C) 2008-2010 RobotCub Consortium
-# Copyright (C) 2016 iCub Facility - Istituto Italiano di Tecnologia
+# Copyright (C) 2016 Istituto Italiano di Tecnologia (IIT)
 #   Authors: Ugo Pattacini <ugo.pattacini@iit.it>
 #   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 #
