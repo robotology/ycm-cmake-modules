@@ -84,6 +84,43 @@ See accompanying file COPYING.OVITO for details.
                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
 
+    # FindGLIB2.cmake, FindGStreamer.cmake, FindGStreamerPluginsBase.cmake, and
+    # MacroFindStreamerLibrary.cmake are imported from qt-gstreamer
+    set(_files cmake/modules/COPYING-CMAKE-SCRIPTS           ff3ed70db4739b3c6747c7f624fe2bad70802987
+               cmake/modules/FindGLIB2.cmake                 fcef73a8fbe6c4fa830bc116f930cbdef054413e
+               cmake/modules/FindGStreamer.cmake             2c0c46b3e3b0d089f351c29c38cf568a95e51502
+               cmake/modules/FindGStreamerPluginsBase.cmake  cf7e0c75fc342d208da0b4742f71e0879be60797
+               cmake/modules/MacroFindGStreamerLibrary.cmake e1f17ff410ffd579c4d916e0314cc8dad27c7977)
+    set(_ref ea0d273008316e875a2f6496c0f5f3fa1fcfb6b8)
+    set(_dir "${CMAKE_CURRENT_BINARY_DIR}/qt-gstreamer")
+    _ycm_download(3rdparty-qt-gstreamer "qt-gstreamer git repository"
+                  "https://raw.githubusercontent.com/GStreamer/qt-gstreamer/<REF>/<FILE>"
+                  ${_ref} "${_dir}" "${_files}")
+
+    file(WRITE "${_dir}/README.qt-gstreamer"
+"Some of the files in this folder and its subfolder come from the qt-gstreamer
+git repository (ref ${_ref}):
+
+  https://github.com/GStreamer/qt-gstreamer
+
+Redistribution and use is allowed according to the terms of the 3-clause
+BSD license. See accompanying file COPYING.qt-gstreamer for details.
+")
+
+    _ycm_install(3rdparty-qt-gstreamer FILES "${_dir}/cmake/modules/FindGLIB2.cmake"
+                                             "${_dir}/cmake/modules/FindGStreamer.cmake"
+                                             "${_dir}/cmake/modules/FindGStreamerPluginsBase.cmake"
+                                             "${_dir}/cmake/modules/MacroFindGStreamerLibrary.cmake"
+                                       DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+
+    _ycm_install(3rdparty-qt-gstreamer FILES "${_dir}/cmake/modules/COPYING-CMAKE-SCRIPTS"
+                                       DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty"
+                                       RENAME COPYING.qt-gstreamer)
+
+    _ycm_install(3rdparty-qt-gstreamer FILES "${_dir}/README.qt-gstreamer"
+                                       DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+
+
     # FindOctave.cmake is taken from CMake wiki:
     # https://cmake.org/Wiki/CMakeUserFindOctave
     _ycm_install(3rdparty-cmake-wiki FILES cmake-wiki/FindOctave.cmake

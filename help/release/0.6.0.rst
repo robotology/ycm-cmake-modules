@@ -20,3 +20,10 @@ Find Package Modules
 --------------------
 
 * :module:`FindACE`: Remove ``ACE_HAS_STRING_HASH`` check
+
+3rd Party
+---------
+
+* :module:`FindGLIB2`, :module:`FindGStreamer`,
+  :module:`FindGStreamerPluginsBase`, and :module:`MacroFindGStreamerLibrary`
+  modules imported from `qt-gstreamer Git Repository`_.
