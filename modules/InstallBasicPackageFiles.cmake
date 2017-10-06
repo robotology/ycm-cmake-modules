@@ -15,6 +15,7 @@
 #                              VERSION <version>
 #                              COMPATIBILITY <compatibility>
 #                              TARGETS_PROPERTY <property_name>
+#                              TARGETS_PROPERTIES <property1_name> <property1_name>
 #                              [NO_SET_AND_CHECK_MACRO]
 #                              [NO_CHECK_REQUIRED_COMPONENTS_MACRO]
 #                              [VARS_PREFIX <prefix>] # (default = "<name>")
@@ -153,7 +154,8 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
                       VARS_PREFIX
                       DESTINATION
                       NAMESPACE)
-    set(_multiValueArgs EXTRA_PATH_VARS_SUFFIX)
+    set(_multiValueArgs EXTRA_PATH_VARS_SUFFIX
+                        TARGETS_PROPERTIES)
     cmake_parse_arguments(_IBPF "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
     if(NOT DEFINED _IBPF_VARS_PREFIX)
@@ -168,8 +170,12 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
         message(FATAL_ERROR "COMPATIBILITY argument is required")
     endif()
 
-    if(NOT DEFINED _IBPF_TARGETS_PROPERTY)
-        message(FATAL_ERROR "TARGETS_PROPERTY argument is required")
+    if(NOT DEFINED _IBPF_TARGETS_PROPERTY AND NOT DEFINED _IBPF_TARGETS_PROPERTIES)
+        message(FATAL_ERROR "TARGETS_PROPERTY or TARGET_PROPERTIES argument is required")
+    endif()
+
+    if(DEFINED _IBPF_TARGETS_PROPERTY AND DEFINED _IBPF_TARGETS_PROPERTIES)
+        message(FATAL_ERROR "Only one argument between TARGETS_PROPERTY or TARGET_PROPERTIES can be used")
     endif()
 
     if(_IBPF_UPPERCASE_FILENAMES AND _IBPF_LOWERCASE_FILENAMES)
@@ -257,7 +263,15 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
 
     # Get targets from GLOBAL PROPERTY
-    get_property(_targets GLOBAL PROPERTY ${_IBPF_TARGETS_PROPERTY})
+    if(DEFINED _IBPF_TARGETS_PROPERTY)
+        get_property(_targets GLOBAL PROPERTY ${_IBPF_TARGETS_PROPERTY})
+    else()
+        set(_targets)
+        foreach(_prop ${_IBPF_TARGETS_PROPERTIES})
+            get_property(_prop_val GLOBAL PROPERTY ${_prop})
+            list(APPEND _targets ${_prop_val})
+        endforeach()
+    endif()
     foreach(_target ${_targets})
         list(APPEND ${_IBPF_VARS_PREFIX}_TARGETS ${_Name}::${_target})
     endforeach()

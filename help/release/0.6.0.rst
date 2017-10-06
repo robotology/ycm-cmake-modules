@@ -20,6 +20,8 @@ Find Package Modules
 --------------------
 
 * :module:`FindACE`: Remove ``ACE_HAS_STRING_HASH`` check
+* :module:`InstallBasicPackagesFiles`: Add ``TARGETS_PROPERTIES`` argument to
+  support multiple target properties.
 
 3rd Party
 ---------
