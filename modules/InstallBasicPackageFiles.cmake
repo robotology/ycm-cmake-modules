@@ -15,7 +15,7 @@
 #                              VERSION <version>
 #                              COMPATIBILITY <compatibility>
 #                              TARGETS_PROPERTY <property_name>
-#                              TARGETS_PROPERTIES <property1_name> <property1_name>
+#                              TARGETS_PROPERTIES <property1_name> <property2_name>
 #                              [NO_SET_AND_CHECK_MACRO]
 #                              [NO_CHECK_REQUIRED_COMPONENTS_MACRO]
 #                              [VARS_PREFIX <prefix>] # (default = "<name>")
