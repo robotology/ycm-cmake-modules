@@ -24,6 +24,7 @@
 #                              [NAMESPACE <namespace>] # (default = "<name>::")
 #                              [EXTRA_PATH_VARS_SUFFIX path1 [path2 ...]]
 #                              [UPPERCASE_FILENAMES | LOWERCASE_FILENAMES]
+#                              [DEPENDENCIES <dependency1> <dependency2>]
 #                             )
 #
 # Depending on UPPERCASE_FILENAMES and LOWERCASE_FILENAMES, this
@@ -38,6 +39,13 @@
 # ``<name>-config-version.cmake.in`` is searched, and the convention
 # is chosed according to the file found. If no file was found, the
 # uppercase convention is used.
+#
+# The ``DEPENDENCIES`` flag can be used to set a list of dependencies
+# that will be searched using the :command:`find_dependency` command
+# from the :module:`CMakeFindDependencyMacro` module.
+# When using a custom template file, the ``@PACKAGE_DEPENDENCIES@``
+# string is replaced with the code checking for the dependencies
+# specified by this argument.
 #
 # Each file is generated twice, one for the build directory and one for
 # the installation directory.  The ``DESTINATION`` argument can be
@@ -158,7 +166,8 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
                       NAMESPACE)
     set(_multiValueArgs EXTRA_PATH_VARS_SUFFIX
                         TARGETS
-                        TARGETS_PROPERTIES)
+                        TARGETS_PROPERTIES
+                        DEPENDENCIES)
     cmake_parse_arguments(_IBPF "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
     if(NOT DEFINED _IBPF_VARS_PREFIX)
@@ -311,6 +320,8 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
 set(${_IBPF_VARS_PREFIX}_INCLUDEDIR \"@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDEDIR@\")
 
+@PACKAGE_DEPENDENCIES@
+
 if(NOT TARGET ${_target})
   include(\"\${CMAKE_CURRENT_LIST_DIR}/${_targets_filename}\")
 endif()
@@ -320,6 +331,19 @@ set(${_Name}_LIBRARIES ${${_IBPF_VARS_PREFIX}_TARGETS})
 set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDEDIR})
 ")
     endif()
+
+
+    # Prepare dependencies
+    unset(PACKAGE_DEPENDENCIES)
+    if(DEFINED _IBPF_DEPENDENCIES)
+        string(APPEND PACKAGE_DEPENDENCIES "#### Expanded from @PACKAGE_DEPENDENCIES@ by install_basic_package_files() ####\n\n")
+        string(APPEND PACKAGE_DEPENDENCIES "include(CMakeFindDependencyMacro)\n")
+        foreach(_dep ${_IBPF_DEPENDENCIES})
+            string(APPEND PACKAGE_DEPENDENCIES "find_dependency(${_dep})\n")
+        endforeach()
+        string(APPEND PACKAGE_DEPENDENCIES "\n###############################################################################\n")
+    endif()
+
 
     # <name>Config.cmake (build tree)
     foreach(p ${_build_path_vars_suffix})
@@ -366,4 +390,5 @@ set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDEDIR})
             DESTINATION ${_IBPF_DESTINATION}
             FILE ${_targets_filename})
 
+    unset(PACKAGE_DEPENDENCIES)
 endfunction()
