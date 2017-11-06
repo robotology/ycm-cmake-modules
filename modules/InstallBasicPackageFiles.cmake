@@ -312,7 +312,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     # If there is no Config.cmake.in file, write a basic one
     set(_config_cmake_in ${CMAKE_SOURCE_DIR}/${_config_filename}.in)
     if(NOT EXISTS ${_config_cmake_in})
-        set(_config_cmake_in ${CMAKE_BINARY_DIR}/${_config_filename}.in)
+        set(_config_cmake_in ${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.in)
         file(WRITE ${_config_cmake_in}
 "set(${_IBPF_VARS_PREFIX}_VERSION \@${_IBPF_VARS_PREFIX}_VERSION\@)
 
@@ -369,11 +369,11 @@ set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDEDIR})
         endif()
     endforeach()
     configure_package_config_file(${_config_cmake_in}
-                                  ${CMAKE_BINARY_DIR}/${_config_filename}.install
+                                  ${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install
                                   INSTALL_DESTINATION ${_IBPF_DESTINATION}
                                   PATH_VARS ${_install_path_vars}
                                   ${configure_package_config_file_extra_args})
-    install(FILES ${CMAKE_BINARY_DIR}/${_config_filename}.install
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install
             DESTINATION ${_IBPF_DESTINATION}
             RENAME ${_config_filename})
 
