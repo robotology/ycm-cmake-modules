@@ -294,7 +294,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
         endforeach()
     endif()
     foreach(_target ${_targets})
-        list(APPEND ${_IBPF_VARS_PREFIX}_TARGETS ${_Name}::${_target})
+        list(APPEND ${_IBPF_VARS_PREFIX}_TARGETS ${_IBPF_NAMESPACE}${_target})
     endforeach()
     list(GET ${_IBPF_VARS_PREFIX}_TARGETS 0 _target)
 
