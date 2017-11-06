@@ -14,6 +14,7 @@
 #  install_basic_package_files(<Name>
 #                              VERSION <version>
 #                              COMPATIBILITY <compatibility>
+#                              TARGETS <target1> <target2>
 #                              TARGETS_PROPERTY <property_name>
 #                              TARGETS_PROPERTIES <property1_name> <property2_name>
 #                              [NO_SET_AND_CHECK_MACRO]
@@ -112,8 +113,9 @@
 # :command:`install(EXPORT)` in the installation directory.
 # The targets are exported using the value for the ``NAMESPACE``
 # argument as namespace.
-# The targets should be listed in a global property, that must be passed
-# to the function using the ``TARGETS_PROPERTY`` argument
+# The targets can be passed using the `TARGETS` argument or using a global
+# property, that can be passed to the function using the ``TARGETS_PROPERTY``
+# argument
 
 #=============================================================================
 # Copyright 2013 Istituto Italiano di Tecnologia (IIT)
@@ -155,6 +157,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
                       DESTINATION
                       NAMESPACE)
     set(_multiValueArgs EXTRA_PATH_VARS_SUFFIX
+                        TARGETS
                         TARGETS_PROPERTIES)
     cmake_parse_arguments(_IBPF "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
@@ -165,17 +168,23 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     if(NOT DEFINED _IBPF_VERSION)
         message(FATAL_ERROR "VERSION argument is required")
     endif()
+    if(NOT DEFINED ${_IBPF_VARS_PREFIX}_VERSION)
+        set(${_IBPF_VARS_PREFIX}_VERSION ${_IBPF_VERSION})
+    endif()
 
     if(NOT DEFINED _IBPF_COMPATIBILITY)
         message(FATAL_ERROR "COMPATIBILITY argument is required")
     endif()
 
-    if(NOT DEFINED _IBPF_TARGETS_PROPERTY AND NOT DEFINED _IBPF_TARGETS_PROPERTIES)
+    if(NOT DEFINED _IBPF_TARGETS AND
+       NOT DEFINED _IBPF_TARGETS_PROPERTY AND
+       NOT DEFINED _IBPF_TARGETS_PROPERTIES)
         message(FATAL_ERROR "TARGETS_PROPERTY or TARGET_PROPERTIES argument is required")
     endif()
 
-    if(DEFINED _IBPF_TARGETS_PROPERTY AND DEFINED _IBPF_TARGETS_PROPERTIES)
-        message(FATAL_ERROR "Only one argument between TARGETS_PROPERTY or TARGET_PROPERTIES can be used")
+    if((DEFINED _IBPF_TARGETS AND (DEFINED _IBPF_TARGETS_PROPERTY OR DEFINED _IBPF_TARGETS_PROPERTIES)) OR
+       (DEFINED _IBPF_TARGETS_PROPERTY AND DEFINED _IBPF_TARGETS_PROPERTIES))
+        message(FATAL_ERROR "Only one argument between TARGETS, TARGETS_PROPERTY, and TARGET_PROPERTIES can be used")
     endif()
 
     if(_IBPF_UPPERCASE_FILENAMES AND _IBPF_LOWERCASE_FILENAMES)
@@ -262,8 +271,11 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
 
 
-    # Get targets from GLOBAL PROPERTY
-    if(DEFINED _IBPF_TARGETS_PROPERTY)
+    # Get targets from TARGETS argument or from GLOBAL PROPERTY/PROPERTIES set
+    # in TARGETS_PROPERTY or TARGETS_PROPERTIES arguments
+    if(DEFINED _IBPF_TARGETS)
+        set(_targets ${_IBPF_TARGETS})
+    elseif(DEFINED _IBPF_TARGETS_PROPERTY)
         get_property(_targets GLOBAL PROPERTY ${_IBPF_TARGETS_PROPERTY})
     else()
         set(_targets)
