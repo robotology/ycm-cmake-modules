@@ -34,8 +34,8 @@
 #  - ``<Name>Config.cmake`` or ``<name>-config.cmake``
 #  - ``<Name>Targets.cmake`` or ``<name>-targets.cmake``
 #
-# If neither UPPERCASE_FILENAMES nor LOWERCASE_FILENAMES is set, a file
-# ``<Name>ConfigVersion.cmake.in`` or
+# If neither ``UPPERCASE_FILENAMES`` nor ``LOWERCASE_FILENAMES`` is
+# set, a file ``<Name>ConfigVersion.cmake.in`` or
 # ``<name>-config-version.cmake.in`` is searched, and the convention
 # is chosed according to the file found. If no file was found, the
 # uppercase convention is used.
