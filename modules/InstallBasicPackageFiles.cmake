@@ -316,7 +316,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
                DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDE_DIR OR
                DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDE_DIR)
           string(APPEND _get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDE_DIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDE_DIR\@\")")
-          string(APPEND _get_include_dir "set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDE_DIR})")
+          string(APPEND _set_include_dir "set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDE_DIR})")
         else()
           set(_set_include_dir "set(${_Name}_INCLUDE_DIRS")
           foreach(_target ${${_IBPF_VARS_PREFIX}_TARGETS})
