@@ -153,7 +153,7 @@
 
 
 if(COMMAND install_basic_package_files)
-    return()
+  return()
 endif()
 
 
@@ -164,173 +164,173 @@ include(CMakeParseArguments)
 
 function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
-    # TODO check that _Name does not contain "-" characters
+  # TODO check that _Name does not contain "-" characters
 
-    set(_options NO_SET_AND_CHECK_MACRO
-                 NO_CHECK_REQUIRED_COMPONENTS_MACRO
-                 UPPERCASE_FILENAMES
-                 LOWERCASE_FILENAMES
-                 NO_COMPATIBILITY_VARS)
-    set(_oneValueArgs VERSION
-                      COMPATIBILITY
-                      TARGETS_PROPERTY
-                      VARS_PREFIX
-                      DESTINATION
-                      NAMESPACE
-                      CONFIG_TEMPLATE)
-    set(_multiValueArgs EXTRA_PATH_VARS_SUFFIX
-                        TARGETS
-                        TARGETS_PROPERTIES
-                        DEPENDENCIES)
-    cmake_parse_arguments(_IBPF "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
+  set(_options NO_SET_AND_CHECK_MACRO
+               NO_CHECK_REQUIRED_COMPONENTS_MACRO
+               UPPERCASE_FILENAMES
+               LOWERCASE_FILENAMES
+               NO_COMPATIBILITY_VARS)
+  set(_oneValueArgs VERSION
+                    COMPATIBILITY
+                    TARGETS_PROPERTY
+                    VARS_PREFIX
+                    DESTINATION
+                    NAMESPACE
+                    CONFIG_TEMPLATE)
+  set(_multiValueArgs EXTRA_PATH_VARS_SUFFIX
+                      TARGETS
+                      TARGETS_PROPERTIES
+                      DEPENDENCIES)
+  cmake_parse_arguments(_IBPF "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
-    if(NOT DEFINED _IBPF_VARS_PREFIX)
-        set(_IBPF_VARS_PREFIX ${_Name})
-    endif()
+  if(NOT DEFINED _IBPF_VARS_PREFIX)
+    set(_IBPF_VARS_PREFIX ${_Name})
+  endif()
 
-    if(NOT DEFINED _IBPF_VERSION)
-        message(FATAL_ERROR "VERSION argument is required")
-    endif()
+  if(NOT DEFINED _IBPF_VERSION)
+    message(FATAL_ERROR "VERSION argument is required")
+  endif()
 
-    if(NOT DEFINED _IBPF_COMPATIBILITY)
-        message(FATAL_ERROR "COMPATIBILITY argument is required")
-    endif()
+  if(NOT DEFINED _IBPF_COMPATIBILITY)
+    message(FATAL_ERROR "COMPATIBILITY argument is required")
+  endif()
 
-    if(NOT DEFINED _IBPF_TARGETS AND
-       NOT DEFINED _IBPF_TARGETS_PROPERTY AND
-       NOT DEFINED _IBPF_TARGETS_PROPERTIES)
-        message(FATAL_ERROR "TARGETS_PROPERTY or TARGET_PROPERTIES argument is required")
-    endif()
+  if(NOT DEFINED _IBPF_TARGETS AND
+     NOT DEFINED _IBPF_TARGETS_PROPERTY AND
+     NOT DEFINED _IBPF_TARGETS_PROPERTIES)
+    message(FATAL_ERROR "TARGETS_PROPERTY or TARGET_PROPERTIES argument is required")
+  endif()
 
-    if((DEFINED _IBPF_TARGETS AND (DEFINED _IBPF_TARGETS_PROPERTY OR DEFINED _IBPF_TARGETS_PROPERTIES)) OR
-       (DEFINED _IBPF_TARGETS_PROPERTY AND DEFINED _IBPF_TARGETS_PROPERTIES))
-        message(FATAL_ERROR "Only one argument between TARGETS, TARGETS_PROPERTY, and TARGET_PROPERTIES can be used")
-    endif()
+  if((DEFINED _IBPF_TARGETS AND (DEFINED _IBPF_TARGETS_PROPERTY OR DEFINED _IBPF_TARGETS_PROPERTIES)) OR
+     (DEFINED _IBPF_TARGETS_PROPERTY AND DEFINED _IBPF_TARGETS_PROPERTIES))
+    message(FATAL_ERROR "Only one argument between TARGETS, TARGETS_PROPERTY, and TARGET_PROPERTIES can be used")
+  endif()
 
-    if(_IBPF_UPPERCASE_FILENAMES AND _IBPF_LOWERCASE_FILENAMES)
-        message(FATAL_ERROR "UPPERCASE_FILENAMES and LOWERCASE_FILENAMES arguments cannot be used together")
-    endif()
+  if(_IBPF_UPPERCASE_FILENAMES AND _IBPF_LOWERCASE_FILENAMES)
+    message(FATAL_ERROR "UPPERCASE_FILENAMES and LOWERCASE_FILENAMES arguments cannot be used together")
+  endif()
 
-    # Path for installed cmake files
-    if(NOT DEFINED _IBPF_DESTINATION)
-        if(WIN32 AND NOT CYGWIN)
-            set(_IBPF_DESTINATION CMake)
-        else()
-            set(_IBPF_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${_Name})
-        endif()
-    endif()
-
-    if(NOT DEFINED _IBPF_NAMESPACE)
-        set(_IBPF_NAMESPACE "${_Name}::")
-    endif()
-
-    if(_IBPF_NO_SET_AND_CHECK_MACRO)
-        list(APPEND configure_package_config_file_extra_args NO_SET_AND_CHECK_MACRO)
-    endif()
-
-    if(_IBPF_NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-        list(APPEND configure_package_config_file_extra_args NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-    endif()
-
-
-    # Get targets from TARGETS argument or from GLOBAL PROPERTY/PROPERTIES set
-    # in TARGETS_PROPERTY or TARGETS_PROPERTIES arguments
-    if(DEFINED _IBPF_TARGETS)
-        set(_targets ${_IBPF_TARGETS})
-    elseif(DEFINED _IBPF_TARGETS_PROPERTY)
-        get_property(_targets GLOBAL PROPERTY ${_IBPF_TARGETS_PROPERTY})
+  # Path for installed cmake files
+  if(NOT DEFINED _IBPF_DESTINATION)
+    if(WIN32 AND NOT CYGWIN)
+      set(_IBPF_DESTINATION CMake)
     else()
-        set(_targets)
-        foreach(_prop ${_IBPF_TARGETS_PROPERTIES})
-            get_property(_prop_val GLOBAL PROPERTY ${_prop})
-            list(APPEND _targets ${_prop_val})
-        endforeach()
+      set(_IBPF_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${_Name})
     endif()
-    foreach(_target ${_targets})
-        list(APPEND ${_IBPF_VARS_PREFIX}_TARGETS ${_IBPF_NAMESPACE}${_target})
+  endif()
+
+  if(NOT DEFINED _IBPF_NAMESPACE)
+    set(_IBPF_NAMESPACE "${_Name}::")
+  endif()
+
+  if(_IBPF_NO_SET_AND_CHECK_MACRO)
+    list(APPEND configure_package_config_file_extra_args NO_SET_AND_CHECK_MACRO)
+  endif()
+
+  if(_IBPF_NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+    list(APPEND configure_package_config_file_extra_args NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+  endif()
+
+
+  # Get targets from TARGETS argument or from GLOBAL PROPERTY/PROPERTIES set
+  # in TARGETS_PROPERTY or TARGETS_PROPERTIES arguments
+  if(DEFINED _IBPF_TARGETS)
+    set(_targets ${_IBPF_TARGETS})
+  elseif(DEFINED _IBPF_TARGETS_PROPERTY)
+    get_property(_targets GLOBAL PROPERTY ${_IBPF_TARGETS_PROPERTY})
+  else()
+    set(_targets)
+    foreach(_prop ${_IBPF_TARGETS_PROPERTIES})
+      get_property(_prop_val GLOBAL PROPERTY ${_prop})
+      list(APPEND _targets ${_prop_val})
     endforeach()
-    list(GET ${_IBPF_VARS_PREFIX}_TARGETS 0 _first_target)
+  endif()
+  foreach(_target ${_targets})
+    list(APPEND ${_IBPF_VARS_PREFIX}_TARGETS ${_IBPF_NAMESPACE}${_target})
+  endforeach()
+  list(GET ${_IBPF_VARS_PREFIX}_TARGETS 0 _first_target)
 
 
-    # Set input file for config, and ensure that _IBPF_UPPERCASE_FILENAMES
-    # and _IBPF_LOWERCASE_FILENAMES are set correctly
-    unset(_config_cmake_in)
-    if(DEFINED _IBPF_CONFIG_TEMPLATE)
-        if(NOT EXISTS "${_IBPF_CONFIG_TEMPLATE}")
-            message(FATAL_ERROR "Config template file \"${_IBPF_CONFIG_TEMPLATE}\" not found")
-        endif()
-        set(_config_cmake_in "${_IBPF_CONFIG_TEMPLATE}")
-        if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
-            if("${_IBPF_CONFIG_TEMPLATE}" MATCHES "${_Name}Config.cmake.in")
-                set(_IBPF_UPPERCASE_FILENAMES 1)
-            elseif("${_IBPF_CONFIG_TEMPLATE}" MATCHES "${_name}-config.cmake.in")
-                set(_IBPF_LOWERCASE_FILENAMES 1)
-            else()
-                set(_IBPF_UPPERCASE_FILENAMES 1)
-            endif()
-        endif()
+  # Set input file for config, and ensure that _IBPF_UPPERCASE_FILENAMES
+  # and _IBPF_LOWERCASE_FILENAMES are set correctly
+  unset(_config_cmake_in)
+  if(DEFINED _IBPF_CONFIG_TEMPLATE)
+    if(NOT EXISTS "${_IBPF_CONFIG_TEMPLATE}")
+      message(FATAL_ERROR "Config template file \"${_IBPF_CONFIG_TEMPLATE}\" not found")
+    endif()
+    set(_config_cmake_in "${_IBPF_CONFIG_TEMPLATE}")
+    if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
+      if("${_IBPF_CONFIG_TEMPLATE}" MATCHES "${_Name}Config.cmake.in")
+        set(_IBPF_UPPERCASE_FILENAMES 1)
+      elseif("${_IBPF_CONFIG_TEMPLATE}" MATCHES "${_name}-config.cmake.in")
+        set(_IBPF_LOWERCASE_FILENAMES 1)
+      else()
+        set(_IBPF_UPPERCASE_FILENAMES 1)
+      endif()
+    endif()
+  else()
+    string(TOLOWER "${_Name}" _name)
+    if(EXISTS "${CMAKE_SOURCE_DIR}/${_Name}Config.cmake.in")
+      set(_config_cmake_in "${CMAKE_SOURCE_DIR}/${_Name}Config.cmake.in")
+      if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
+        set(_IBPF_UPPERCASE_FILENAMES 1)
+      endif()
+    elseif(EXISTS "${CMAKE_SOURCE_DIR}/${_name}-config.cmake.in")
+      set(_config_cmake_in "${CMAKE_SOURCE_DIR}/${_name}-config.cmake.in")
+      if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
+        set(_IBPF_LOWERCASE_FILENAMES 1)
+      endif()
+    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${_Name}Config.cmake.in")
+      set(_config_cmake_in "${CMAKE_CURRENT_SOURCE_DIR}/${_Name}Config.cmake.in")
+      if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
+        set(_IBPF_UPPERCASE_FILENAMES 1)
+      endif()
+    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${_name}-config.cmake.in")
+      set(_config_cmake_in "${CMAKE_CURRENT_SOURCE_DIR}/${_name}-config.cmake.in")
+      if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
+        set(_IBPF_LOWERCASE_FILENAMES 1)
+      endif()
     else()
-        string(TOLOWER "${_Name}" _name)
-        if(EXISTS "${CMAKE_SOURCE_DIR}/${_Name}Config.cmake.in")
-            set(_config_cmake_in "${CMAKE_SOURCE_DIR}/${_Name}Config.cmake.in")
-            if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
-                set(_IBPF_UPPERCASE_FILENAMES 1)
-            endif()
-        elseif(EXISTS "${CMAKE_SOURCE_DIR}/${_name}-config.cmake.in")
-            set(_config_cmake_in "${CMAKE_SOURCE_DIR}/${_name}-config.cmake.in")
-            if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
-                set(_IBPF_LOWERCASE_FILENAMES 1)
-            endif()
-        elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${_Name}Config.cmake.in")
-            set(_config_cmake_in "${CMAKE_CURRENT_SOURCE_DIR}/${_Name}Config.cmake.in")
-            if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
-                set(_IBPF_UPPERCASE_FILENAMES 1)
-            endif()
-        elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${_name}-config.cmake.in")
-            set(_config_cmake_in "${CMAKE_CURRENT_SOURCE_DIR}/${_name}-config.cmake.in")
-            if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
-                set(_IBPF_LOWERCASE_FILENAMES 1)
-            endif()
+      # If there is no Config.cmake.in file, write a basic one
+      # Choose the name for the file
+      if(_IBPF_LOWERCASE_FILENAMES)
+        set(_config_cmake_in "${CMAKE_CURRENT_BINARY_DIR}/${_name}-config.cmake")
+      else()
+        set(_config_cmake_in "${CMAKE_CURRENT_BINARY_DIR}/${_Name}Config.cmake.in")
+      endif()
+
+      # Generate the compatibility code
+      unset(_compatibility_vars)
+      if(NOT _IBPF_NO_COMPATIBILITY_VARS)
+        unset(_get_include_dir_code)
+        unset(_set_include_dir_code)
+        if(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_INCLUDEDIR OR
+           DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDEDIR OR
+           DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDEDIR OR
+           DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDEDIR)
+          set(_get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDEDIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDEDIR\@\")")
+          set(_set_include_dir "set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDEDIR})")
+        elseif(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_INCLUDE_DIR OR
+               DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDE_DIR OR
+               DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDE_DIR OR
+               DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDE_DIR)
+          string(APPEND _get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDE_DIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDE_DIR\@\")")
+          string(APPEND _get_include_dir "set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDE_DIR})")
         else()
-            # If there is no Config.cmake.in file, write a basic one
-            # Choose the name for the file
-            if(_IBPF_LOWERCASE_FILENAMES)
-                set(_config_cmake_in "${CMAKE_CURRENT_BINARY_DIR}/${_name}-config.cmake")
-            else()
-                set(_config_cmake_in "${CMAKE_CURRENT_BINARY_DIR}/${_Name}Config.cmake.in")
-            endif()
+          set(_set_include_dir "set(${_Name}_INCLUDE_DIRS")
+          foreach(_target ${${_IBPF_VARS_PREFIX}_TARGETS})
+            string(APPEND _get_include_dir "get_property(${_IBPF_VARS_PREFIX}_INCLUDE_DIR TARGET ${_target} PROPERTY INTERFACE_INCLUDE_DIRECTORIES)")
+            string(APPEND _set_include_dir " \${${_IBPF_VARS_PREFIX}_INCLUDE_DIR}")
+          endforeach()
+            string(APPEND _set_include_dir ")")
+        endif()
 
-            # Generate the compatibility code
-            unset(_compatibility_vars)
-            if(NOT _IBPF_NO_COMPATIBILITY_VARS)
-                unset(_get_include_dir_code)
-                unset(_set_include_dir_code)
-                if(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_INCLUDEDIR OR
-                   DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDEDIR OR
-                   DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDEDIR OR
-                   DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDEDIR)
-                    set(_get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDEDIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDEDIR\@\")")
-                    set(_set_include_dir "set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDEDIR})")
-                elseif(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_INCLUDE_DIR OR
-                       DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDE_DIR OR
-                       DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDE_DIR OR
-                       DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDE_DIR)
-                    string(APPEND _get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDE_DIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDE_DIR\@\")")
-                    string(APPEND _get_include_dir "set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDE_DIR})")
-                else()
-                    set(_set_include_dir "set(${_Name}_INCLUDE_DIRS")
-                    foreach(_target ${${_IBPF_VARS_PREFIX}_TARGETS})
-                      string(APPEND _get_include_dir "get_property(${_IBPF_VARS_PREFIX}_INCLUDE_DIR TARGET ${_target} PROPERTY INTERFACE_INCLUDE_DIRECTORIES)")
-                      string(APPEND _set_include_dir " \${${_IBPF_VARS_PREFIX}_INCLUDE_DIR}")
-                    endforeach()
-                    string(APPEND _set_include_dir ")")
-                endif()
+        set(_compatibility_vars "# Compatibility\n${_get_include_dir}\n\nset(${_Name}_LIBRARIES ${${_IBPF_VARS_PREFIX}_TARGETS})\n${_set_include_dir}")
+      endif()
 
-                set(_compatibility_vars "# Compatibility\n${_get_include_dir}\n\nset(${_Name}_LIBRARIES ${${_IBPF_VARS_PREFIX}_TARGETS})\n${_set_include_dir}")
-            endif()
-
-            # Write the file
-            file(WRITE "${_config_cmake_in}"
+      # Write the file
+      file(WRITE "${_config_cmake_in}"
 "set(${_IBPF_VARS_PREFIX}_VERSION \@PACKAGE_VERSION\@)
 
 \@PACKAGE_INIT\@
@@ -343,123 +343,122 @@ endif()
 
 ${_compatibility_vars}
 ")
-            set(_IBPF_UPPERCASE_FILENAMES 1)
-        endif()
+      set(_IBPF_UPPERCASE_FILENAMES 1)
     endif()
+  endif()
 
 
-    # Select output file names
-    if(_IBPF_UPPERCASE_FILENAMES)
-        set(_config_filename ${_Name}Config.cmake)
-        set(_version_filename ${_Name}ConfigVersion.cmake)
-        set(_targets_filename ${_Name}Targets.cmake)
-    elseif(_IBPF_LOWERCASE_FILENAMES)
-        set(_config_filename ${_name}-config.cmake)
-        set(_version_filename ${_name}-config-version.cmake)
-        set(_targets_filename ${_name}-targets.cmake)
+  # Select output file names
+  if(_IBPF_UPPERCASE_FILENAMES)
+    set(_config_filename ${_Name}Config.cmake)
+    set(_version_filename ${_Name}ConfigVersion.cmake)
+    set(_targets_filename ${_Name}Targets.cmake)
+  elseif(_IBPF_LOWERCASE_FILENAMES)
+    set(_config_filename ${_name}-config.cmake)
+    set(_version_filename ${_name}-config-version.cmake)
+    set(_targets_filename ${_name}-targets.cmake)
+  endif()
+
+  # Make relative paths absolute (needed later on) and append the
+  # defined variables to _(build|install)_path_vars_suffix
+  foreach(p BINDIR          BIN_DIR
+            SBINDIR         SBIN_DIR
+            LIBEXECDIR      LIBEXEC_DIR
+            SYSCONFDIR      SYSCONF_DIR
+            SHAREDSTATEDIR  SHAREDSTATE_DIR
+            LOCALSTATEDIR   LOCALSTATE_DIR
+            LIBDIR          LIB_DIR
+            INCLUDEDIR      INCLUDE_DIR
+            OLDINCLUDEDIR   OLDINCLUDE_DIR
+            DATAROOTDIR     DATAROOT_DIR
+            DATADIR         DATA_DIR
+            INFODIR         INFO_DIR
+            LOCALEDIR       LOCALE_DIR
+            MANDIR          MAN_DIR
+            DOCDIR          DOC_DIR
+            ${_IBPF_EXTRA_PATH_VARS_SUFFIX})
+    if(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_${p})
+      list(APPEND _build_path_vars_suffix ${p})
+      list(APPEND _build_path_vars "${_IBPF_VARS_PREFIX}_${p}")
     endif()
-
-    # Make relative paths absolute (needed later on) and append the
-    # defined variables to _(build|install)_path_vars_suffix
-    foreach(p BINDIR          BIN_DIR
-              SBINDIR         SBIN_DIR
-              LIBEXECDIR      LIBEXEC_DIR
-              SYSCONFDIR      SYSCONF_DIR
-              SHAREDSTATEDIR  SHAREDSTATE_DIR
-              LOCALSTATEDIR   LOCALSTATE_DIR
-              LIBDIR          LIB_DIR
-              INCLUDEDIR      INCLUDE_DIR
-              OLDINCLUDEDIR   OLDINCLUDE_DIR
-              DATAROOTDIR     DATAROOT_DIR
-              DATADIR         DATA_DIR
-              INFODIR         INFO_DIR
-              LOCALEDIR       LOCALE_DIR
-              MANDIR          MAN_DIR
-              DOCDIR          DOC_DIR
-              ${_IBPF_EXTRA_PATH_VARS_SUFFIX})
-        if(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_${p})
-            list(APPEND _build_path_vars_suffix ${p})
-            list(APPEND _build_path_vars "${_IBPF_VARS_PREFIX}_${p}")
-        endif()
-        if(DEFINED BUILD_${_IBPF_VARS_PREFIX}_${p})
-            list(APPEND _build_path_vars_suffix ${p})
-            list(APPEND _build_path_vars "${_IBPF_VARS_PREFIX}_${p}")
-        endif()
-        if(DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_${p})
-            list(APPEND _install_path_vars_suffix ${p})
-            list(APPEND _install_path_vars "${_IBPF_VARS_PREFIX}_${p}")
-        endif()
-        if(DEFINED INSTALL_${_IBPF_VARS_PREFIX}_${p})
-            list(APPEND _install_path_vars_suffix ${p})
-            list(APPEND _install_path_vars "${_IBPF_VARS_PREFIX}_${p}")
-        endif()
-    endforeach()
-
-
-    # <name>ConfigVersion.cmake file (same for build tree and intall)
-    write_basic_package_version_file("${CMAKE_BINARY_DIR}/${_version_filename}"
-                                     VERSION ${_IBPF_VERSION}
-                                     COMPATIBILITY ${_IBPF_COMPATIBILITY})
-    install(FILES "${CMAKE_BINARY_DIR}/${_version_filename}"
-            DESTINATION ${_IBPF_DESTINATION})
-
-
-    # Prepare PACKAGE_DEPENDENCIES variable
-    unset(PACKAGE_DEPENDENCIES)
-    if(DEFINED _IBPF_DEPENDENCIES)
-        string(APPEND PACKAGE_DEPENDENCIES "#### Expanded from @PACKAGE_DEPENDENCIES@ by install_basic_package_files() ####\n\n")
-        string(APPEND PACKAGE_DEPENDENCIES "include(CMakeFindDependencyMacro)\n")
-        foreach(_dep ${_IBPF_DEPENDENCIES})
-            string(APPEND PACKAGE_DEPENDENCIES "find_dependency(${_dep})\n")
-        endforeach()
-        string(APPEND PACKAGE_DEPENDENCIES "\n###############################################################################\n")
+    if(DEFINED BUILD_${_IBPF_VARS_PREFIX}_${p})
+      list(APPEND _build_path_vars_suffix ${p})
+      list(APPEND _build_path_vars "${_IBPF_VARS_PREFIX}_${p}")
     endif()
+    if(DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_${p})
+      list(APPEND _install_path_vars_suffix ${p})
+      list(APPEND _install_path_vars "${_IBPF_VARS_PREFIX}_${p}")
+    endif()
+    if(DEFINED INSTALL_${_IBPF_VARS_PREFIX}_${p})
+      list(APPEND _install_path_vars_suffix ${p})
+      list(APPEND _install_path_vars "${_IBPF_VARS_PREFIX}_${p}")
+    endif()
+  endforeach()
 
-    # Prepare PACKAGE_VERSION variable
-    set(PACKAGE_VERSION ${_IBPF_VERSION})
 
-    # <name>Config.cmake (build tree)
-    foreach(p ${_build_path_vars_suffix})
-        if(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_${p})
-            set(${_IBPF_VARS_PREFIX}_${p} "${${_IBPF_VARS_PREFIX}_BUILD_${p}}")
-        elseif(DEFINED BUILD_${_IBPF_VARS_PREFIX}_${p})
-            set(${_IBPF_VARS_PREFIX}_${p} "${BUILD_${_IBPF_VARS_PREFIX}_${p}}")
-        endif()
+  # <name>ConfigVersion.cmake file (same for build tree and intall)
+  write_basic_package_version_file("${CMAKE_BINARY_DIR}/${_version_filename}"
+                                   VERSION ${_IBPF_VERSION}
+                                   COMPATIBILITY ${_IBPF_COMPATIBILITY})
+  install(FILES "${CMAKE_BINARY_DIR}/${_version_filename}"
+          DESTINATION ${_IBPF_DESTINATION})
+
+
+  # Prepare PACKAGE_DEPENDENCIES variable
+  unset(PACKAGE_DEPENDENCIES)
+  if(DEFINED _IBPF_DEPENDENCIES)
+    string(APPEND PACKAGE_DEPENDENCIES "#### Expanded from @PACKAGE_DEPENDENCIES@ by install_basic_package_files() ####\n\n")
+    string(APPEND PACKAGE_DEPENDENCIES "include(CMakeFindDependencyMacro)\n")
+    foreach(_dep ${_IBPF_DEPENDENCIES})
+      string(APPEND PACKAGE_DEPENDENCIES "find_dependency(${_dep})\n")
     endforeach()
-    configure_package_config_file("${_config_cmake_in}"
-                                  "${CMAKE_BINARY_DIR}/${_config_filename}"
-                                  INSTALL_DESTINATION ${CMAKE_BINARY_DIR}
-                                  PATH_VARS ${_build_path_vars}
-                                  ${configure_package_config_file_extra_args}
-                                  INSTALL_PREFIX ${CMAKE_BINARY_DIR})
+    string(APPEND PACKAGE_DEPENDENCIES "\n###############################################################################\n")
+  endif()
 
-    # <name>Config.cmake (installed)
-    foreach(p ${_install_path_vars_suffix})
-        if(DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_${p})
-            set(${_IBPF_VARS_PREFIX}_${p} "${${_IBPF_VARS_PREFIX}_INSTALL_${p}}")
-        elseif(DEFINED INSTALL_${_IBPF_VARS_PREFIX}_${p})
-            set(${_IBPF_VARS_PREFIX}_${p} "${INSTALL_${_IBPF_VARS_PREFIX}_${p}}")
-        endif()
-    endforeach()
-    configure_package_config_file("${_config_cmake_in}"
-                                  "${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install"
-                                  INSTALL_DESTINATION ${_IBPF_DESTINATION}
-                                  PATH_VARS ${_install_path_vars}
-                                  ${configure_package_config_file_extra_args})
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install"
-            DESTINATION ${_IBPF_DESTINATION}
-            RENAME ${_config_filename})
+  # Prepare PACKAGE_VERSION variable
+  set(PACKAGE_VERSION ${_IBPF_VERSION})
+
+  # <name>Config.cmake (build tree)
+  foreach(p ${_build_path_vars_suffix})
+    if(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_${p})
+      set(${_IBPF_VARS_PREFIX}_${p} "${${_IBPF_VARS_PREFIX}_BUILD_${p}}")
+    elseif(DEFINED BUILD_${_IBPF_VARS_PREFIX}_${p})
+      set(${_IBPF_VARS_PREFIX}_${p} "${BUILD_${_IBPF_VARS_PREFIX}_${p}}")
+    endif()
+  endforeach()
+  configure_package_config_file("${_config_cmake_in}"
+                                "${CMAKE_BINARY_DIR}/${_config_filename}"
+                                INSTALL_DESTINATION ${CMAKE_BINARY_DIR}
+                                PATH_VARS ${_build_path_vars}
+                                ${configure_package_config_file_extra_args}
+                                INSTALL_PREFIX ${CMAKE_BINARY_DIR})
+
+  # <name>Config.cmake (installed)
+  foreach(p ${_install_path_vars_suffix})
+    if(DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_${p})
+      set(${_IBPF_VARS_PREFIX}_${p} "${${_IBPF_VARS_PREFIX}_INSTALL_${p}}")
+    elseif(DEFINED INSTALL_${_IBPF_VARS_PREFIX}_${p})
+      set(${_IBPF_VARS_PREFIX}_${p} "${INSTALL_${_IBPF_VARS_PREFIX}_${p}}")
+    endif()
+  endforeach()
+  configure_package_config_file("${_config_cmake_in}"
+                                "${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install"
+                                INSTALL_DESTINATION ${_IBPF_DESTINATION}
+                                PATH_VARS ${_install_path_vars}
+                                ${configure_package_config_file_extra_args})
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install"
+          DESTINATION ${_IBPF_DESTINATION}
+          RENAME ${_config_filename})
 
 
+  # <name>Targets.cmake (build tree)
+  export(TARGETS ${_targets}
+          NAMESPACE ${_IBPF_NAMESPACE}
+          FILE "${CMAKE_BINARY_DIR}/${_targets_filename}")
 
-    # <name>Targets.cmake (build tree)
-    export(TARGETS ${_targets}
-           NAMESPACE ${_IBPF_NAMESPACE}
-           FILE "${CMAKE_BINARY_DIR}/${_targets_filename}")
-
-    # <name>Targets.cmake (installed)
-    install(EXPORT ${_Name}
-            NAMESPACE ${_IBPF_NAMESPACE}
-            DESTINATION ${_IBPF_DESTINATION}
-            FILE "${_targets_filename}")
+  # <name>Targets.cmake (installed)
+  install(EXPORT ${_Name}
+          NAMESPACE ${_IBPF_NAMESPACE}
+          DESTINATION ${_IBPF_DESTINATION}
+          FILE "${_targets_filename}")
 endfunction()
