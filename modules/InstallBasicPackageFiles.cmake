@@ -61,7 +61,8 @@
 # ``NO_CHECK_REQUIRED_COMPONENTS_MACRO`` are passed to this function.
 # See the documentation for the :module:`CMakePackageConfigHelpers`
 # module for further information. The files in the build and install
-# directory are exactly the same.
+# directory are exactly the same. The ``VERSION`` argument is also used
+# to replace the ``@PACKAGE_VERSION@`` string in the configuration file.
 #
 #
 # The ``<Name>Config.cmake`` is generated using
@@ -182,9 +183,6 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     if(NOT DEFINED _IBPF_VERSION)
         message(FATAL_ERROR "VERSION argument is required")
     endif()
-    if(NOT DEFINED ${_IBPF_VARS_PREFIX}_VERSION)
-        set(${_IBPF_VARS_PREFIX}_VERSION ${_IBPF_VERSION})
-    endif()
 
     if(NOT DEFINED _IBPF_COMPATIBILITY)
         message(FATAL_ERROR "COMPATIBILITY argument is required")
@@ -293,7 +291,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
                 set(_config_cmake_in "${CMAKE_CURRENT_BINARY_DIR}/${_Name}Config.cmake.in")
             endif()
             file(WRITE "${_config_cmake_in}"
-"set(${_IBPF_VARS_PREFIX}_VERSION \@${_IBPF_VARS_PREFIX}_VERSION\@)
+"set(${_IBPF_VARS_PREFIX}_VERSION \@PACKAGE_VERSION\@)
 
 @PACKAGE_INIT@
 
@@ -381,6 +379,8 @@ set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDEDIR})
         string(APPEND PACKAGE_DEPENDENCIES "\n###############################################################################\n")
     endif()
 
+    # Prepare PACKAGE_VERSION variable
+    set(PACKAGE_VERSION ${_IBPF_VERSION})
 
     # <name>Config.cmake (build tree)
     foreach(p ${_build_path_vars_suffix})
