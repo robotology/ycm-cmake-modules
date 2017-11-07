@@ -293,11 +293,11 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
             file(WRITE "${_config_cmake_in}"
 "set(${_IBPF_VARS_PREFIX}_VERSION \@PACKAGE_VERSION\@)
 
-@PACKAGE_INIT@
+\@PACKAGE_INIT\@
 
 set(${_IBPF_VARS_PREFIX}_INCLUDEDIR \"@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDEDIR@\")
 
-@PACKAGE_DEPENDENCIES@
+\@PACKAGE_DEPENDENCIES\@
 
 if(NOT TARGET ${_target})
   include(\"\${CMAKE_CURRENT_LIST_DIR}/${_targets_filename}\")
@@ -368,7 +368,7 @@ set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDEDIR})
             DESTINATION ${_IBPF_DESTINATION})
 
 
-    # Prepare dependencies
+    # Prepare PACKAGE_DEPENDENCIES variable
     unset(PACKAGE_DEPENDENCIES)
     if(DEFINED _IBPF_DEPENDENCIES)
         string(APPEND PACKAGE_DEPENDENCIES "#### Expanded from @PACKAGE_DEPENDENCIES@ by install_basic_package_files() ####\n\n")
@@ -426,6 +426,4 @@ set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDEDIR})
             NAMESPACE ${_IBPF_NAMESPACE}
             DESTINATION ${_IBPF_DESTINATION}
             FILE "${_targets_filename}")
-
-    unset(PACKAGE_DEPENDENCIES)
 endfunction()
