@@ -323,7 +323,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
             string(APPEND _get_include_dir "get_property(${_IBPF_VARS_PREFIX}_INCLUDE_DIR TARGET ${_target} PROPERTY INTERFACE_INCLUDE_DIRECTORIES)")
             string(APPEND _set_include_dir " \${${_IBPF_VARS_PREFIX}_INCLUDE_DIR}")
           endforeach()
-            string(APPEND _set_include_dir ")")
+          string(APPEND _set_include_dir ")")
         endif()
 
         set(_compatibility_vars "# Compatibility\n${_get_include_dir}\n\nset(${_Name}_LIBRARIES ${${_IBPF_VARS_PREFIX}_TARGETS})\n${_set_include_dir}")
