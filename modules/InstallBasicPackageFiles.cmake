@@ -246,10 +246,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
       list(APPEND _targets ${_prop_val})
     endforeach()
   endif()
-  foreach(_target ${_targets})
-    list(APPEND ${_IBPF_VARS_PREFIX}_TARGETS ${_IBPF_NAMESPACE}${_target})
-  endforeach()
-  list(GET ${_IBPF_VARS_PREFIX}_TARGETS 0 _first_target)
+  list(GET _targets 0 _first_target)
 
 
   # Set input file for config, and ensure that _IBPF_UPPERCASE_FILENAMES
@@ -323,28 +320,33 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     if(NOT _IBPF_NO_COMPATIBILITY_VARS)
       unset(_get_include_dir_code)
       unset(_set_include_dir_code)
+      unset(_target_list)
+      foreach(_target ${_targets})
+        list(APPEND _target_list ${_IBPF_NAMESPACE}${_target})
+      endforeach()
       if(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_INCLUDEDIR OR
          DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDEDIR OR
          DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDEDIR OR
          DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDEDIR)
-        set(_get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDEDIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDEDIR\@\")")
-        set(_set_include_dir "set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDEDIR})")
+        set(_get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDEDIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDEDIR\@\")\n")
+        set(_set_include_dir "set(${_Name}_INCLUDE_DIRS \"\${${_IBPF_VARS_PREFIX}_INCLUDEDIR}\")")
       elseif(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_INCLUDE_DIR OR
              DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDE_DIR OR
              DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDE_DIR OR
              DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDE_DIR)
-        string(APPEND _get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDE_DIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDE_DIR\@\")")
-        string(APPEND _set_include_dir "set(${_Name}_INCLUDE_DIRS \${${_IBPF_VARS_PREFIX}_INCLUDE_DIR})")
+        set(_get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDE_DIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDE_DIR\@\")\n")
+        set(_set_include_dir "set(${_Name}_INCLUDE_DIRS \"\${${_IBPF_VARS_PREFIX}_INCLUDE_DIR}\")")
       else()
-        set(_set_include_dir "set(${_Name}_INCLUDE_DIRS")
-        foreach(_target ${${_IBPF_VARS_PREFIX}_TARGETS})
-          string(APPEND _get_include_dir "get_property(${_IBPF_VARS_PREFIX}_INCLUDE_DIR TARGET ${_target} PROPERTY INTERFACE_INCLUDE_DIRECTORIES)")
-          string(APPEND _set_include_dir " \${${_IBPF_VARS_PREFIX}_INCLUDE_DIR}")
+        unset(_include_dir_list)
+        foreach(_target ${_targets})
+          set(_get_include_dir "${_get_include_dir}get_property(${_IBPF_VARS_PREFIX}_${_target}_INCLUDE_DIR TARGET ${_IBPF_NAMESPACE}${_target} PROPERTY INTERFACE_INCLUDE_DIRECTORIES)\n")
+          list(APPEND _include_dir_list "\"\${${_IBPF_VARS_PREFIX}_${_target}_INCLUDE_DIR}\"")
         endforeach()
-        string(APPEND _set_include_dir ")")
+        string(REPLACE ";" " " _include_dir_list "${_include_dir_list}")
+        string(REPLACE ";" " " _target_list "${_target_list}")
+        set(_set_include_dir "set(${_Name}_INCLUDE_DIRS ${_include_dir_list})\nlist(REMOVE_DUPLICATES ${_Name}_INCLUDE_DIRS)")
       endif()
-
-      set(_compatibility_vars "# Compatibility\n${_get_include_dir}\n\nset(${_Name}_LIBRARIES ${${_IBPF_VARS_PREFIX}_TARGETS})\n${_set_include_dir}")
+      set(_compatibility_vars "# Compatibility\n${_get_include_dir}\nset(${_Name}_LIBRARIES ${_target_list})\n${_set_include_dir}")
     endif()
 
     # Write the file
@@ -355,7 +357,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
 \@PACKAGE_DEPENDENCIES\@
 
-if(NOT TARGET ${_first_target})
+if(NOT TARGET ${_IBPF_NAMESPACE}${_first_target})
   include(\"\${CMAKE_CURRENT_LIST_DIR}/${_targets_filename}\")
 endif()
 
@@ -411,12 +413,11 @@ ${_compatibility_vars}
   # Prepare PACKAGE_DEPENDENCIES variable
   unset(PACKAGE_DEPENDENCIES)
   if(DEFINED _IBPF_DEPENDENCIES)
-    string(APPEND PACKAGE_DEPENDENCIES "#### Expanded from @PACKAGE_DEPENDENCIES@ by install_basic_package_files() ####\n\n")
-    string(APPEND PACKAGE_DEPENDENCIES "include(CMakeFindDependencyMacro)\n")
+    set(PACKAGE_DEPENDENCIES "#### Expanded from @PACKAGE_DEPENDENCIES@ by install_basic_package_files() ####\n\ninclude(CMakeFindDependencyMacro)\n")
     foreach(_dep ${_IBPF_DEPENDENCIES})
-      string(APPEND PACKAGE_DEPENDENCIES "find_dependency(${_dep})\n")
+      set(PACKAGE_DEPENDENCIES "${PACKAGE_DEPENDENCIES}find_dependency(${_dep})\n")
     endforeach()
-    string(APPEND PACKAGE_DEPENDENCIES "\n###############################################################################\n")
+    set(PACKAGE_DEPENDENCIES "${PACKAGE_DEPENDENCIES}\n###############################################################################\n")
   endif()
 
   # Prepare PACKAGE_VERSION variable
