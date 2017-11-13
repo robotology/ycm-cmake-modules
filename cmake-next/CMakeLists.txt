@@ -199,7 +199,7 @@ endif()
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.6.3
-# Imported from CMake tag v3.7.0
+# Imported from CMake tag v3.7.2
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.6)
   # Just a reminder to remove this when we change cmake version
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.6. You can remove this.")
@@ -211,57 +211,78 @@ if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
 
   set(_files Copyright.txt                               142359ab254d35db46c6d3d29a06d6cf2d570919
              Modules/FindMatlab.cmake                    fab238dfd6bc346af6cfbc4c0a3b7af48f19c09c)
-  _ycm_cmake_next_download(v3.7.0 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.7" "${_files}")
-  _ycm_cmake_next_install(v3.7.0 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.7"
+  _ycm_cmake_next_download(v3.7.2 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.7" "${_files}")
+  _ycm_cmake_next_install(v3.7.2 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.7"
                                  DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 endif()
 
 
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (v3.7.2)
+# Files not available or containing bugs in CMake 3.7.2
+# Imported from CMake tag v3.8.2
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.7)
+  # Just a reminder to remove this when we change cmake version
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.7. You can remove this.")
+endif()
+
+# We assume that the user won't downgrade his cmake, therefore it's not
+# necessary to download and install these files if already included in CMake
+if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
+
+  set(_files Copyright.txt                               510b21e4b3a70f0288bac0d89de8c333a36b159a
+             Modules/FindSWIG.cmake                      dea8c36114b8fcd934118a0fc86c0641cd191c18  # Required to use this version of UseSWIG
+             Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178) # Used by FindPackageHandleStandardArgs
+
+  # Since CMake 3.7, FindPackageHandleStandardArgs uses string(APPEND)
+  if(CMAKE_SUPPORTS_STRING_APPEND OR YCM_MAINTAINER_MODE)
+    list(APPEND _files  Modules/FindPackageHandleStandardArgs.cmake 53300617d441f9cd08375a3599d15e6f60187441)  # Used by FindSWIG
+  else()
+    file(COPY v3.7.0/FindPackageHandleStandardArgs.cmake
+         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+  endif()
+
+  # UseSWIG uses "string(APPEND)"
+  if(CMAKE_SUPPORTS_STRING_APPEND OR YCM_MAINTAINER_MODE)
+    list(APPEND _files  Modules/UseSWIG.cmake                       cf40cd32fdaa22c6c27887324983122ee9cde799)
+  else()
+    file(COPY master/UseSWIG.cmake
+         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+  endif()
+
+  # Since CMake 3.5, CMakeParseArguments.cmake was replaced by the
+  # cmake_parse_arguments command and the file is empty, therefore we import
+  # the older version for CMake 3.4 and earlier
+  if(CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS OR YCM_MAINTAINER_MODE)
+    list(APPEND _files  Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
+  else()
+    file(COPY v3.4.3/CMakeParseArguments.cmake
+         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+  endif()
+
+  _ycm_cmake_next_download(v3.8.2 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8" "${_files}")
+  _ycm_cmake_next_install(v3.8.2 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8"
+                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+endif()
+
+
+
+################################################################################
+# Files not yet available or containing bugs in current CMake release (v3.9.6)
 # Imported from latest revision tested
 
-set(_ref ab4a9a98266fb29008cecc9649a91fc844c541f5)
-
-if(NOT CMAKE_VERSION VERSION_LESS 3.7.2)
-    # Just a reminder to update files when a new cmake version is released
-    message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
-endif()
-
-# Always downloaded and installed until manually updated
-set(_files Copyright.txt                               142359ab254d35db46c6d3d29a06d6cf2d570919
-           Modules/FindSWIG.cmake                      dea8c36114b8fcd934118a0fc86c0641cd191c18  # Required to use this version of UseSWIG
-           Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178) # Used by FindPackageHandleStandardArgs
-
-# Since CMake 3.7, FindPackageHandleStandardArgs uses string(APPEND)
-if(CMAKE_SUPPORTS_STRING_APPEND OR YCM_MAINTAINER_MODE)
-  list(APPEND _files  Modules/FindPackageHandleStandardArgs.cmake 1f71d36d60c70e83d6bd1f2ec09003ed445cec68)  # Used by FindSWIG
-else()
-  file(COPY v3.7.0/FindPackageHandleStandardArgs.cmake
-       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
-endif()
-
-# UseSWIG uses "string(APPEND)"
-if(CMAKE_SUPPORTS_STRING_APPEND OR YCM_MAINTAINER_MODE)
-  list(APPEND _files  Modules/UseSWIG.cmake                       c38d7f23edb63600804830df08ff16534e78cb25)
-else()
-  file(COPY master/UseSWIG.cmake
-       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
-endif()
-
-# Since CMake 3.5, CMakeParseArguments.cmake was replaced by the
-# cmake_parse_arguments command and the file is empty, therefore we import
-# the older version for CMake 3.4 and earlier
-if(CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS OR YCM_MAINTAINER_MODE)
-  list(APPEND _files  Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
-else()
-  file(COPY v3.4.3/CMakeParseArguments.cmake
-       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
-endif()
-
-_ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
-_ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
-                                DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+# set(_ref 67c981fdc25e01ae52daa67c447a03fd05b40634)
+#
+# if(NOT CMAKE_VERSION VERSION_LESS 3.9.6)
+#     # Just a reminder to update files when a new cmake version is released
+#     message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+# endif()
+#
+# # Always downloaded and installed until manually updated
+# set(_files Copyright.txt                               17827332105eeec914e241e0a9c651690ae5b389) # Used by FindPackageHandleStandardArgs
+#
+# _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
+# _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
+#                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 
 
 ################################################################################
