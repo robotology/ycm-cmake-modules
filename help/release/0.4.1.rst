@@ -14,3 +14,8 @@ Generic Modules
 ---------------
 
 * :module:`GetAllCMakeProperties`: Add CMake policy stack PUSH and POP
+
+Superbuild Helper Modules
+-------------------------
+
+* :module:`YCMEPHelper`: Updated GITLAB_ROBOTOLOGY style to the new git address.
