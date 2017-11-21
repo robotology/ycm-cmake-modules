@@ -105,7 +105,7 @@
 # ``NO_CHECK_REQUIRED_COMPONENTS_MACRO`` option, this macro is not generated
 # into the <Name>Config.cmake file.
 #
-# Fianlly, the files in the build and install directory are exactly the same.
+# Finally, the files in the build and install directory are exactly the same.
 #
 # See the documentation of :module:`CMakePackageConfigHelpers` module for
 # further information and references therein.
