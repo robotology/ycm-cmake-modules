@@ -101,7 +101,8 @@ endfunction()
 #  GNUInstallDirs                   3.4
 #  FindGTK2                         3.5                            3.8
 #  FindMatlab                       3.7
-#  UseSWIG                          master         Yes             3.8
+#  UseSWIG                          3.8            Yes             3.8
+#  WriteBasicConfigVersionFile      3.11                                                Yes (CMAKE_ROOT)
 #  CMakeParseArguments              ---                                                 Yes
 #  FindGLEW                         ---                                                 Yes
 #
@@ -267,23 +268,30 @@ endif()
 
 
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (v3.9.6)
+# Files not yet available or containing bugs in current CMake release (v3.10)
 # Imported from latest revision tested
 
-# set(_ref 67c981fdc25e01ae52daa67c447a03fd05b40634)
-#
-# if(NOT CMAKE_VERSION VERSION_LESS 3.9.6)
-#     # Just a reminder to update files when a new cmake version is released
-#     message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
-# endif()
-#
-# # Always downloaded and installed until manually updated
-# set(_files Copyright.txt                               17827332105eeec914e241e0a9c651690ae5b389) # Used by FindPackageHandleStandardArgs
-#
-# _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
-# _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
-#                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+set(_ref 51ccfaacb88303bb2774cead91069e1c25888137)
 
+if(NOT CMAKE_VERSION VERSION_LESS 3.11)
+    # Just a reminder to update files when a new cmake version is released
+    message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+endif()
+
+# We assume that the user won't downgrade his cmake, therefore it's not
+# necessary to download and install these files if already included in CMake
+if(CMAKE_VERSION VERSION_LESS 3.11 OR YCM_MAINTAINER_MODE)
+
+  set(_files Copyright.txt                                        17827332105eeec914e241e0a9c651690ae5b389
+             Modules/BasicConfigVersion-SameMinorVersion.cmake.in 9f8a3d2e75026677375705fa008325d18d24c3d7)
+
+  file(COPY v3.11.0/WriteBasicConfigVersionFile.cmake
+       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+
+  _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
+  _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
+                                  DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+endif()
 
 ################################################################################
 # Files with patches not yet merged in CMake master

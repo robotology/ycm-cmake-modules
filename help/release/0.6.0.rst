@@ -41,6 +41,17 @@ Find Package Modules
 
 * :module:`FindACE`: Remove ``ACE_HAS_STRING_HASH`` check
 
+CMake Next
+----------
+
+* Updated to CMake v3.10 + commit
+  :cmake-commit:`51ccfaacb88303bb2774cead91069e1c25888137`).
+* Imported ``BasicConfigVersion-SameMinorVersion.cmake.in`` from master and
+  modified :cmake:module:`WriteBasicConfigVersionFile`, in order to support
+  ``SameMinorVersion`` compatibility in
+  :command:`write_basic_package_version_file` and in
+  :command:`install_basic_packages_files`.
+
 3rd Party
 ---------
 
