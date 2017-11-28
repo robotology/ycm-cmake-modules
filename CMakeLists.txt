@@ -77,6 +77,7 @@ add_subdirectory(cmake-next)
 add_subdirectory(3rdparty)
 add_subdirectory(deprecated)
 add_subdirectory(build-modules)
+add_subdirectory(style-modules)
 add_subdirectory(docs)
 
 # Use the new CMakePackageConfigHelpers from CMake repository in order to use

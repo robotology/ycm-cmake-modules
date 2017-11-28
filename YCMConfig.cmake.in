@@ -30,6 +30,7 @@ set_and_check(YCM_MODULE_DIR "@PACKAGE_YCM_MODULE_DIR@")
 list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/modules")
 list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/find-modules")
 list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/build-modules")
+list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/style-modules")
 
 # "Newer modules should be found earlier in case of files with the same name,
 # therefore the order is

@@ -266,91 +266,6 @@ function(_YCM_SETUP_GIT)
     set(YCM_GIT_COMMIT_NAME "${_output_name}" CACHE STRING "Name to use for git commits")
     set(YCM_GIT_COMMIT_EMAIL "${_output_email}" CACHE STRING "Email address to use for git commits")
     mark_as_advanced(YCM_GIT_COMMIT_NAME YCM_GIT_COMMIT_EMAIL)
-
-
-    # TYPE GIT STYLE GITHUB
-    set(YCM_GIT_GITHUB_USERNAME "" CACHE STRING "Username to use for github git repositories")
-    set(YCM_GIT_GITHUB_COMMIT_NAME "" CACHE STRING "Name to use for git commits for github git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
-    set(YCM_GIT_GITHUB_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for github git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-    set(YCM_GIT_GITHUB_BASE_ADDRESS "https://github.com/" CACHE STRING "Address to use for github git repositories")
-    set_property(CACHE YCM_GIT_GITHUB_BASE_ADDRESS PROPERTY STRINGS "https://github.com/"
-                                                                    "git://github.com/"
-                                                                    "ssh://git@github.com/"
-                                                                    "git@github.com:"
-                                                                    "github:")
-    mark_as_advanced(YCM_GIT_GITHUB_USERNAME
-                     YCM_GIT_GITHUB_COMMIT_NAME
-                     YCM_GIT_GITHUB_COMMIT_EMAIL
-                     YCM_GIT_GITHUB_BASE_ADDRESS)
-
-
-    # TYPE GIT STYLE KDE
-    set(YCM_GIT_KDE_USERNAME "" CACHE STRING "Username to use for kde git repositories")
-    set(YCM_GIT_KDE_COMMIT_NAME "" CACHE STRING "Name to use for git commits for kde git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
-    set(YCM_GIT_KDE_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for kde git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-    set(YCM_GIT_KDE_BASE_ADDRESS "git://anongit.kde.org/" CACHE STRING "Address to use for kde git repositories")
-    set_property(CACHE YCM_GIT_KDE_BASE_ADDRESS PROPERTY STRINGS "git://anongit.kde.org/"
-                                                                 "ssh://git@git.kde.org/"
-                                                                 "git@git.kde.org:"
-                                                                 "kde:")
-    mark_as_advanced(YCM_GIT_KDE_USERNAME
-                     YCM_GIT_KDE_COMMIT_NAME
-                     YCM_GIT_KDE_COMMIT_EMAIL
-                     YCM_GIT_KDE_BASE_ADDRESS)
-
-
-    # TYPE GIT STYLE GNOME
-    set(YCM_GIT_GNOME_USERNAME "" CACHE STRING "Username to use for gnome git repositories")
-    set(YCM_GIT_GNOME_COMMIT_NAME "" CACHE STRING "Name to use for git commits for gnome git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
-    set(YCM_GIT_GNOME_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for gnome git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-    set(YCM_GIT_GNOME_BASE_ADDRESS "git://git.gnome.org/" CACHE STRING "Address to use for gnome git repositories")
-    set_property(CACHE YCM_GIT_GNOME_BASE_ADDRESS PROPERTY STRINGS "git://git.gnome.org/"
-                                                                   "ssh://git@git.gnome.org/"
-                                                                   "git@git.gnome.org:"
-                                                                   "gnome:")
-    mark_as_advanced(YCM_GIT_GNOME_USERNAME
-                     YCM_GIT_GNOME_COMMIT_NAME
-                     YCM_GIT_GNOME_COMMIT_EMAIL
-                     YCM_GIT_GNOME_BASE_ADDRESS)
-
-
-    # TYPE GIT STYLE SOURCEFORGE
-    set(YCM_GIT_SOURCEFORGE_USERNAME "" CACHE STRING "Username to use for sourceforge git repositories")
-    set(YCM_GIT_SOURCEFORGE_COMMIT_NAME "" CACHE STRING "Name to use for git commits for sourceforge git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
-    set(YCM_GIT_SOURCEFORGE_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for sourceforge git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-    set(YCM_GIT_SOURCEFORGE_BASE_ADDRESS "git://git.code.sf.net/p/" CACHE STRING "Address to use for sourceforge git repositories")
-    set_property(CACHE YCM_GIT_SOURCEFORGE_BASE_ADDRESS PROPERTY STRINGS "git://git.code.sf.net/p/"
-                                                                         "ssh://${YCM_GIT_SOURCEFORGE_USERNAME}@git.code.sf.net/p/"
-                                                                         "${YCM_GIT_SOURCEFORGE_USERNAME}@git.code.sf.net:p/"
-                                                                         "sf:")
-    mark_as_advanced(YCM_GIT_SOURCEFORGE_USERNAME
-                     YCM_GIT_SOURCEFORGE_COMMIT_NAME
-                     YCM_GIT_SOURCEFORGE_COMMIT_EMAIL
-                     YCM_GIT_SOURCEFORGE_BASE_ADDRESS)
-
-
-    # TYPE GIT STYLE GITLAB_ROBOTOLOGY
-    set(YCM_GIT_GITLAB_ROBOTOLOGY_USERNAME "" CACHE STRING "Username to use for IIT Robotology Gitlab git repositories")
-    set(YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_NAME "" CACHE STRING "Name to use for git commits for IIT Robotology Gitlab git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
-    set(YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for IIT Robotology Gitlab git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-    set(YCM_GIT_GITLAB_ROBOTOLOGY_BASE_ADDRESS "https://git.robotology.eu/" CACHE STRING "Address to use for IIT Robotology Gitlab git repositories")
-    set_property(CACHE YCM_GIT_GITLAB_ROBOTOLOGY_BASE_ADDRESS PROPERTY STRINGS "https://git.robotology.eu/"
-                                                                               "ssh://git@git.robotology.eu/"
-                                                                               "git@git.robotology.eu:"
-                                                                               "robotology:")
-    mark_as_advanced(YCM_GIT_GITLAB_ROBOTOLOGY_USERNAME
-                     YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_NAME
-                     YCM_GIT_GITLAB_ROBOTOLOGY_COMMIT_EMAIL
-                     YCM_GIT_GITLAB_ROBOTOLOGY_BASE_ADDRESS)
-
-
-    # TYPE GIT STYLE LOCAL
-    set(YCM_GIT_LOCAL_BASE_ADDRESS "" CACHE INTERNAL "Address to use for local git repositories")
-
-
-    # TYPE GIT STYLE NONE
-    set(YCM_GIT_NONE_BASE_ADDRESS "" CACHE INTERNAL "Address to use for other git repositories")
-
 endfunction()
 
 
@@ -370,13 +285,6 @@ function(_YCM_SETUP_SVN)
     if(NOT Subversion_SVN_EXECUTABLE)
         message(FATAL_ERROR "Please install Svn")
     endif()
-
-    # TYPE SVN STYLE SOURCEFORGE
-    set(YCM_SVN_SOURCEFORGE_USERNAME "" CACHE STRING "Username to use for sourceforge svn repositories")
-    set(YCM_SVN_SOURCEFORGE_PASSWORD "" CACHE STRING "Password to use for sourceforge svn repositories")
-    set(YCM_SVN_SOURCEFORGE_BASE_ADDRESS "https://svn.code.sf.net/p/" CACHE INTERNAL "Address to use for sourceforge svn repositories")
-    mark_as_advanced(YCM_SVN_SOURCEFORGE_USERNAME
-                     YCM_SVN_SOURCEFORGE_PASSWORD)
 endfunction()
 
 
@@ -396,17 +304,6 @@ function(_YCM_SETUP_HG)
     if(NOT HG_EXECUTABLE)
         message(FATAL_ERROR "Please install Mercurial")
     endif()
-
-    # TYPE HG STYLE BITBUCKET
-    set(YCM_HG_BITBUCKET_USERNAME "" CACHE STRING "Name and email to use for Bitbucket hg repositories")
-    set(YCM_HG_BITBUCKET_COMMIT_USERNAME "" CACHE STRING "Name to use for git commits for Butbucket hg repositories (if empty will use YCM_GIT_COMMIT_NAME <YCM_GIT_COMMIT_EMAIL>)")
-    set(YCM_HG_BITBUCKET_BASE_ADDRESS "https://bitbucket.org/" CACHE STRING "Address to use for Bitbucket mercurial repositories")
-    set_property(CACHE YCM_HG_BITBUCKET_BASE_ADDRESS PROPERTY STRINGS "https://bitbucket.org/"
-                                                                      "ssh://hg@bitbucket.org/")
-    mark_as_advanced(YCM_HG_BITBUCKET_USERNAME
-                     YCM_HG_BITBUCKET_COMMIT_USERNAME
-                     YCM_HG_BITBUCKET_BASE_ADDRESS)
-
 endfunction()
 
 
@@ -835,6 +732,7 @@ function(YCM_EP_HELPER _name)
     if(NOT DEFINED _YH_${_name}_STYLE)
         message(FATAL_ERROR "Missing STYLE argument")
     endif()
+    include(Style${_YH_${_name}_STYLE} OPTIONAL)
 
     if(NOT DEFINED _YH_${_name}_REPOSITORY)
         message(FATAL_ERROR "Missing REPOSITORY argument")
@@ -1351,6 +1249,8 @@ macro(YCM_BOOTSTRAP)
     else()
         set(_quiet_args )
     endif()
+
+    include_url(${YCM_BOOTSTRAP_BASE_ADDRESS}/style-modules/StyleGITHUB.cmake)
 
     ycm_ep_helper(YCM TYPE GIT
                       STYLE GITHUB

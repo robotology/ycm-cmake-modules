@@ -44,6 +44,8 @@ Superbuild Helper Modules
 * :module:`YCMEPHelper`: Fixed :command:`ycm_write_dot_file` command not
   generating valid dot files for projects containing the dash character in the
   project name.
+* :module:`YCMEPHelper`: Styles are no longer defined in ``YCMEPHelper.cmake``
+  but in separate style files. This should simplify adding a new style.
 
 Find Package Modules
 --------------------

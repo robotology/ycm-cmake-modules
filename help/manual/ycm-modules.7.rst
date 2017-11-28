@@ -52,6 +52,14 @@ Superbuild Helper Modules
 
    /module/FindOrBuildPackage
    /module/YCMEPHelper
+   /module/StyleBITBUCKET
+   /module/StyleGITHUB
+   /module/StyleGITLAB_ROBOTOLOGY
+   /module/StyleGNOME
+   /module/StyleKDE
+   /module/StyleLOCAL
+   /module/StyleNONE
+   /module/StyleSOURCEFORGE
 
 
 
