@@ -1277,8 +1277,9 @@ function(YCM_WRITE_DOT_FILE _filename)
         set(_found_on_system_subgraph "${_found_on_system_subgraph}\n    ${_dep}")
     endforeach()
 
+    string(REPLACE "-" "_" _project_name ${PROJECT_NAME})
     file(WRITE ${_filename}
-"digraph ${PROJECT_NAME} {
+"digraph ${_project_name} {
   graph [ranksep=\"1.5\", nodesep=\"0.1\" rankdir=\"BT\"];
 ")
 

@@ -41,6 +41,9 @@ Superbuild Helper Modules
 
 * :module:`YCMEPHelper`: Added option ``FOLDER`` (if not set, the ``COMPONENT``
   value is used).
+* :module:`YCMEPHelper`: Fixed :command:`ycm_write_dot_file` command not
+  generating valid dot files for projects containing the dash character in the
+  project name.
 
 Find Package Modules
 --------------------
