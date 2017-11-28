@@ -36,6 +36,12 @@ Generic Modules
   ``<VARS_PREFIX>_LIBRARIES`` and ``<VARS_PREFIX>_INCLUDE_DIRS`` is disabled.
   Also improve the generation of the ``<VARS_PREFIX>_INCLUDE_DIRS`` variable.
 
+Superbuild Helper Modules
+-------------------------
+
+* :module:`YCMEPHelper`: Added option ``FOLDER`` (if not set, the ``COMPONENT``
+  value is used).
+
 Find Package Modules
 --------------------
 

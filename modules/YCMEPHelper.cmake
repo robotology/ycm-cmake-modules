@@ -9,6 +9,7 @@
 #    [TYPE <type>]
 #    [STYLE <style>]
 #    [COMPONENT <component>] (default = "external")
+#    [FOLDER <folder> (default = "<component>")
 #    [REPOSITORY <repo>]
 #    [EXCLUDE_FROM_ALL <0|1>]
 #   #--Git and Hg only arguments-----------
@@ -765,6 +766,7 @@ function(YCM_EP_HELPER _name)
     set(_oneValueArgs TYPE
                       STYLE
                       COMPONENT
+                      FOLDER
                       EXCLUDE_FROM_ALL
                       REPOSITORY  # GIT, SVN and HG
                       TAG         # GIT and HG only
@@ -840,20 +842,24 @@ function(YCM_EP_HELPER _name)
 
     if(NOT DEFINED _YH_${_name}_COMPONENT)
         set(_YH_${_name}_COMPONENT external)
-#     elseif(NOT "x${_YH_${_name}_COMPONENT}" MATCHES "^x(external|documentation)$")
-#         message(WARNING "Unknown component:\n  ${_YH_${_name}_COMPONENT}\n")
     elseif(_YH_${_name}_COMPONENT STREQUAL "build")
         message(AUTHOR_WARNING "Using \"build\" is dangerous, you should choose another name for the component.")
     endif()
 
+    if(NOT DEFINED _YH_${_name}_FOLDER)
+        set(_YH_${_name}_FOLDER "${_YH_${_name}_COMPONENT}")
+    elseif(_YH_${_name}_FOLDER STREQUAL "build")
+        message(AUTHOR_WARNING "Using \"build\" is dangerous, you should choose another name for the folder.")
+    endif()
+
     # Generic variables
-    set(${_name}_PREFIX ${CMAKE_BINARY_DIR}/${_YH_${_name}_COMPONENT})
-    set(${_name}_SOURCE_DIR ${CMAKE_SOURCE_DIR}/${_YH_${_name}_COMPONENT}/${_name})
-    set(${_name}_DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/${_YH_${_name}_COMPONENT})
-    set(${_name}_BINARY_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_COMPONENT}/${_name})
+    set(${_name}_PREFIX ${CMAKE_BINARY_DIR}/${_YH_${_name}_FOLDER})
+    set(${_name}_SOURCE_DIR ${CMAKE_SOURCE_DIR}/${_YH_${_name}_FOLDER}/${_name})
+    set(${_name}_DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/${_YH_${_name}_FOLDER})
+    set(${_name}_BINARY_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_FOLDER}/${_name})
     set(${_name}_INSTALL_DIR ${_YCM_EP_INSTALL_DIR})
-    set(${_name}_TMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_COMPONENT}/${_name}${CMAKE_FILES_DIRECTORY}/YCMTmp)
-    set(${_name}_STAMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_COMPONENT}/${_name}${CMAKE_FILES_DIRECTORY}/YCMStamp)
+    set(${_name}_TMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_FOLDER}/${_name}${CMAKE_FILES_DIRECTORY}/YCMTmp)
+    set(${_name}_STAMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_FOLDER}/${_name}${CMAKE_FILES_DIRECTORY}/YCMStamp)
 
     set(${_name}_DIR_ARGS PREFIX ${${_name}_PREFIX}
                           SOURCE_DIR ${${_name}_SOURCE_DIR}
@@ -1160,6 +1166,7 @@ function(YCM_EP_HELPER _name)
 
         # TODO foreach on all the variables?
         set_property(GLOBAL PROPERTY _YCM_${_name}_COMPONENT ${_YH_${_name}_COMPONENT})
+        set_property(GLOBAL PROPERTY _YCM_${_name}_FOLDER ${_YH_${_name}_FOLDER})
         set_property(GLOBAL PROPERTY _YCM_${_name}_DEPENDS ${_YH_${_name}_DEPENDS})
     endif()
 endfunction()
@@ -1221,10 +1228,10 @@ function(YCM_WRITE_CTEST_SUBPROJECT_CONFIG_FILE _filename)
     endforeach()
     file(APPEND "${_filename}" ")\n")
     foreach(_proj ${_projects})
-      get_property(_component GLOBAL PROPERTY _YCM_${_proj}_COMPONENT)
+      get_property(_folder GLOBAL PROPERTY _YCM_${_proj}_FOLDER)
       file(APPEND "${_filename}" "
-set(${_proj}_SOURCE_DIR \${CTEST_SOURCE_DIRECTORY}/${_component}/${_proj})
-set(${_proj}_BINARY_DIR \${CTEST_BINARY_DIRECTORY}/${_component}/${_proj})
+set(${_proj}_SOURCE_DIR \${CTEST_SOURCE_DIRECTORY}/${_folder}/${_proj})
+set(${_proj}_BINARY_DIR \${CTEST_BINARY_DIRECTORY}/${_folder}/${_proj})
 ")
     endforeach()
 endfunction()
