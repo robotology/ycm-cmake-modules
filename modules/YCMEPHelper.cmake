@@ -46,6 +46,12 @@
 # .. variable:: YCM_SKIP_HASH_CHECK
 #
 # .. variable:: YCM_BOOTSTRAP_VERBOSE
+#
+# .. variable:: YCM_<COMPONENT>_COLOR
+#
+# .. variable:: YCM_<COMPONENT>_BGCOLOR
+#
+# .. variable:: YCM_<COMPONENT>_NODECOLOR
 
 # TODO Add variable YCM_INSTALL_PREFIX
 
@@ -80,7 +86,7 @@ set(_ycm_ExternalProject_sha1sum     54a1031a8f1e6a7462072ea5c3d24f68567ab4ad)
 
 # Files in all projects that need to bootstrap YCM
 set(_ycm_IncludeUrl_sha1sum          ccb03a4975faccabc9032cada2624ccfda42d238)
-set(_ycm_YCMBootstrap_sha1sum        0cef39bb9494f12b02344d54f890c0c7d766dbe1)
+set(_ycm_YCMBootstrap_sha1sum        cfa7120cdbe8e6c532469b66221efe2120a54bc8)
 
 
 ########################################################################
@@ -1045,28 +1051,32 @@ function(YCM_EP_HELPER _name)
     endforeach()
 
     # Set some useful global properties
-    if(NOT "${_name}" STREQUAL "YCM")
-        if(NOT "${_YH_${_name}_COMPONENT}" STREQUAL "documentation"
-           AND NOT "${_YH_${_name}_COMPONENT}" STREQUAL "templates"
-           AND NOT "${_YH_${_name}_COMPONENT}" STREQUAL "examples")
-            set_property(GLOBAL APPEND PROPERTY YCM_PROJECTS ${_name})
-            get_property(_components GLOBAL PROPERTY YCM_COMPONENTS)
-            list(APPEND _components ${_YH_${_name}_COMPONENT})
-            list(REMOVE_DUPLICATES _components)
-            set_property(GLOBAL PROPERTY YCM_COMPONENTS ${_components})
-        elseif("${_YH_${_name}_COMPONENT}" STREQUAL "documentation")
-            set_property(GLOBAL APPEND PROPERTY YCM_DOCUMENTATION ${_name})
-        elseif("${_YH_${_name}_COMPONENT}" STREQUAL "templates")
-            set_property(GLOBAL APPEND PROPERTY YCM_TEMPLATES ${_name})
-        elseif("${_YH_${_name}_COMPONENT}" STREQUAL "examples")
-            set_property(GLOBAL APPEND PROPERTY YCM_EXAMPLES ${_name})
-        endif()
+    if(NOT "${_YH_${_name}_COMPONENT}" STREQUAL "documentation"
+       AND NOT "${_YH_${_name}_COMPONENT}" STREQUAL "templates"
+       AND NOT "${_YH_${_name}_COMPONENT}" STREQUAL "examples")
 
-        # TODO foreach on all the variables?
-        set_property(GLOBAL PROPERTY _YCM_${_name}_COMPONENT ${_YH_${_name}_COMPONENT})
-        set_property(GLOBAL PROPERTY _YCM_${_name}_FOLDER ${_YH_${_name}_FOLDER})
-        set_property(GLOBAL PROPERTY _YCM_${_name}_DEPENDS ${_YH_${_name}_DEPENDS})
+        get_property(_projects GLOBAL PROPERTY YCM_PROJECTS)
+        list(APPEND _projects ${_name})
+        list(REMOVE_DUPLICATES _projects)
+        set_property(GLOBAL PROPERTY YCM_PROJECTS ${_projects})
+
+        get_property(_components GLOBAL PROPERTY YCM_COMPONENTS)
+        list(APPEND _components ${_YH_${_name}_COMPONENT})
+        list(REMOVE_DUPLICATES _components)
+        set_property(GLOBAL PROPERTY YCM_COMPONENTS ${_components})
+
+    elseif("${_YH_${_name}_COMPONENT}" STREQUAL "documentation")
+        set_property(GLOBAL APPEND PROPERTY YCM_DOCUMENTATION ${_name})
+    elseif("${_YH_${_name}_COMPONENT}" STREQUAL "templates")
+        set_property(GLOBAL APPEND PROPERTY YCM_TEMPLATES ${_name})
+    elseif("${_YH_${_name}_COMPONENT}" STREQUAL "examples")
+        set_property(GLOBAL APPEND PROPERTY YCM_EXAMPLES ${_name})
     endif()
+
+    # TODO foreach on all the variables?
+    set_property(GLOBAL PROPERTY _YCM_${_name}_COMPONENT ${_YH_${_name}_COMPONENT})
+    set_property(GLOBAL PROPERTY _YCM_${_name}_FOLDER ${_YH_${_name}_FOLDER})
+    set_property(GLOBAL PROPERTY _YCM_${_name}_DEPENDS ${_YH_${_name}_DEPENDS})
 endfunction()
 
 
@@ -1148,6 +1158,13 @@ endfunction()
 function(YCM_WRITE_DOT_FILE _filename)
     get_property(_projects GLOBAL PROPERTY YCM_PROJECTS)
     get_property(_components GLOBAL PROPERTY YCM_COMPONENTS)
+
+    unset(_arrows)
+    unset(_found_on_system_subgraph)
+    foreach(_component _components)
+        unset(_${_component}_subgraph)
+    endforeach()
+
     foreach(_proj_label ${_projects})
         string(REGEX REPLACE "-" "__" _proj ${_proj_label})
         get_property(_component GLOBAL PROPERTY _YCM_${_proj_label}_COMPONENT)
@@ -1158,7 +1175,7 @@ function(YCM_WRITE_DOT_FILE _filename)
             string(REGEX REPLACE "-" "__" _dep ${_dep_label})
             list(FIND _projects ${_dep_label} _is_ycm)
             if(_is_ycm EQUAL -1)
-                list(APPEND _found_on_system ${_dep})
+                list(APPEND _found_on_system ${_dep_label})
                 list(REMOVE_DUPLICATES _found_on_system)
                 set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"lightgray\" style=\"dashed\"];")
             else()
@@ -1171,11 +1188,20 @@ function(YCM_WRITE_DOT_FILE _filename)
             endif()
         endforeach()
     endforeach()
-    foreach(_dep ${_found_on_system})
-        set(_found_on_system_subgraph "${_found_on_system_subgraph}\n    ${_dep}")
+    get_property(_packages_found GLOBAL PROPERTY PACKAGES_FOUND)
+    list(APPEND _found_on_system ${_packages_found})
+    list(REMOVE_DUPLICATES _found_on_system)
+    foreach(_dep_label ${_found_on_system})
+        string(REGEX REPLACE "-" "__" _dep ${_dep_label})
+        list(FIND _projects ${_dep_label} _is_ycm)
+        if(_is_ycm EQUAL -1)
+            set(_found_on_system_subgraph "${_found_on_system_subgraph}\n    ${_dep}")
+        else()
+            set(_found_on_system_subgraph "${_found_on_system_subgraph}\n    ${_dep} [shape=\"note\"]")
+        endif()
     endforeach()
 
-    string(REPLACE "-" "_" _project_name ${PROJECT_NAME})
+    string(REPLACE "-" "__" _project_name ${PROJECT_NAME})
     file(WRITE ${_filename}
 "digraph ${_project_name} {
   graph [ranksep=\"1.5\", nodesep=\"0.1\" rankdir=\"BT\"];
@@ -1197,25 +1223,35 @@ ${_found_on_system_subgraph}
     if(_external_subgraph)
         file(APPEND "${_filename}" "
   subgraph cluster_external {
-    label=\"External\";
+    label=\"external\";
     style=\"dashed\";
     color=\"green\";
     bgcolor=\"mintcream\";
-    node [shape=\"box\", color=\"darkgreen\"];
+    node [shape=\"note\", color=\"darkgreen\"];
 ${_external_subgraph}
   }
 ")
     endif()
 
     list(REMOVE_ITEM _components "external" "documentation" "templates" "examples")
+
     foreach(_component ${_components})
+        if(NOT DEFINED YCM_${_component}_COLOR)
+            set(YCM_${_component}_COLOR dodgerblue1)
+        endif()
+        if(NOT DEFINED YCM_${_component}_BGCOLOR)
+            set(YCM_${_component}_BGCOLOR aliceblue)
+        endif()
+        if(NOT DEFINED YCM_${_component}_NODECOLOR)
+            set(YCM_${_component}_NODECOLOR dodgerblue3)
+        endif()
         if(_${_component}_subgraph)
             file(APPEND "${_filename}" "
   subgraph cluster_${_component} {
     label=\"${_component}\";
-    color=\"dodgerblue1\";
-    bgcolor = \"aliceblue\";
-    node [style=\"bold\", shape=\"note\", color=\"dodgerblue3\"];
+    color=\"${YCM_${_component}_COLOR}\";
+    bgcolor = \"${YCM_${_component}_BGCOLOR}\";
+    node [style=\"bold\", shape=\"note\", color=\"${YCM_${_component}_NODECOLOR}\"];
 ${_${_component}_subgraph}
   }
 ")
