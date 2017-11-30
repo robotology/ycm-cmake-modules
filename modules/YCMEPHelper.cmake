@@ -1157,6 +1157,7 @@ function(YCM_WRITE_DOT_FILE _filename)
   get_property(_components GLOBAL PROPERTY YCM_COMPONENTS)
 
   unset(_arrows)
+  unset(_system_subgraph)
   unset(_found_on_system_subgraph)
   foreach(_component _components)
     unset(_${_component}_subgraph)
@@ -1174,11 +1175,15 @@ function(YCM_WRITE_DOT_FILE _filename)
       if(_is_ycm EQUAL -1)
         list(APPEND _found_on_system ${_dep_label})
         list(REMOVE_DUPLICATES _found_on_system)
-        set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"lightgray\" style=\"dashed\"];")
+        set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"gray\" style=\"dashed\"];")
       else()
+        get_property(_dep_component_set GLOBAL PROPERTY _YCM_${_dep_label}_COMPONENT SET)
         get_property(_dep_component GLOBAL PROPERTY _YCM_${_dep_label}_COMPONENT)
-        if(_dep_component STREQUAL "external")
-          set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"gray\"];")
+        message("${_dep_label}: _dep_component_set = ${_dep_component_set}, _dep_component = ${_dep_component}")
+        if(NOT _dep_component_set)
+          set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"dimgray\"];")
+        elseif(_dep_component STREQUAL "external")
+          set(_arrows "${_arrows}\n  ${_proj} -> ${_dep} [color=\"gray\", style=\"dashed\"];")
         else()
           set(_arrows "${_arrows}\n  ${_proj} -> ${_dep};")
         endif()
@@ -1192,7 +1197,7 @@ function(YCM_WRITE_DOT_FILE _filename)
     string(REGEX REPLACE "-" "__" _dep ${_dep_label})
     list(FIND _projects ${_dep_label} _is_ycm)
     if(_is_ycm EQUAL -1)
-      set(_found_on_system_subgraph "${_found_on_system_subgraph}\n    ${_dep}")
+      set(_system_subgraph "${_system_subgraph}\n    ${_dep}")
     else()
       set(_found_on_system_subgraph "${_found_on_system_subgraph}\n    ${_dep} [shape=\"note\"]")
     endif()
@@ -1204,14 +1209,31 @@ function(YCM_WRITE_DOT_FILE _filename)
   graph [ranksep=\"1.5\", nodesep=\"0.1\" rankdir=\"BT\"];
 ")
 
-  if(_found_on_system_subgraph)
+  if(_system_subgraph)
     file(APPEND ${_filename} "
   subgraph cluster_system {
-    label=\"System\";
+    label=\"system\";
+    labelloc=\"b\";
+    fontname=\"monospace:bold\";
+    style=\"dashed\";
+    color=\"dimgray\";
+    bgcolor=\"gray94\";
+    node [shape=\"pentagon\", color=\"dimgray\", fontsize=\"10\"];
+${_system_subgraph}
+  }
+")
+  endif()
+
+  if(_found_on_system_subgraph)
+    file(APPEND ${_filename} "
+  subgraph cluster_found_on_system {
+    label=\"found\";
+    labelloc=\"b\";
+    fontname=\"monospace:bold\";
     style=\"dashed\";
     color=\"orangered1\";
     bgcolor=\"oldlace\";
-    node [shape=\"pentagon\", color=\"orangered3\", fontsize=\"8\"];
+    node [shape=\"note\", color=\"orangered3\"];
 ${_found_on_system_subgraph}
   }
 ")
@@ -1221,10 +1243,12 @@ ${_found_on_system_subgraph}
     file(APPEND "${_filename}" "
   subgraph cluster_external {
     label=\"external\";
+    labelloc=\"b\";
+    fontname=\"monospace:bold\";
     style=\"dashed\";
     color=\"green\";
     bgcolor=\"mintcream\";
-    node [shape=\"note\", color=\"darkgreen\"];
+    node [shape=\"note\", color=\"darkgreen\", fontsize=\"10\"];
 ${_external_subgraph}
   }
 ")
@@ -1246,6 +1270,8 @@ ${_external_subgraph}
       file(APPEND "${_filename}" "
   subgraph cluster_${_component} {
     label=\"${_component}\";
+    labelloc=\"b\";
+    fontname=\"monospace:bold\";
     color=\"${YCM_${_component}_COLOR}\";
     bgcolor = \"${YCM_${_component}_BGCOLOR}\";
     node [style=\"bold\", shape=\"note\", color=\"${YCM_${_component}_NODECOLOR}\"];
