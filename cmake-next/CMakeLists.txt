@@ -239,7 +239,7 @@ if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
     list(APPEND _files  Modules/FindPackageHandleStandardArgs.cmake 53300617d441f9cd08375a3599d15e6f60187441)  # Used by FindSWIG
   else()
     file(COPY v3.7.0/FindPackageHandleStandardArgs.cmake
-         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8/Modules")
   endif()
 
   # UseSWIG uses "string(APPEND)"
@@ -247,7 +247,7 @@ if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
     list(APPEND _files  Modules/UseSWIG.cmake                       cf40cd32fdaa22c6c27887324983122ee9cde799)
   else()
     file(COPY master/UseSWIG.cmake
-         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8/Modules")
   endif()
 
   # Since CMake 3.5, CMakeParseArguments.cmake was replaced by the
@@ -257,7 +257,7 @@ if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
     list(APPEND _files  Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
   else()
     file(COPY v3.4.3/CMakeParseArguments.cmake
-         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8/Modules")
   endif()
 
   _ycm_cmake_next_download(v3.8.2 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8" "${_files}")
