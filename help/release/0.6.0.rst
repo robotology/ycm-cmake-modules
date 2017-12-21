@@ -1,4 +1,4 @@
-YCM 0.6.0 (UNRELEASED) Release Notes
+YCM 0.6.0 (2017-12-21) Release Notes
 ************************************
 
 .. only:: html
@@ -13,6 +13,8 @@ Modules
 Generic Modules
 ---------------
 
+
+* :module:`GetAllCMakeProperties`: Add CMake policy stack PUSH and POP
 * :module:`AddInstallRPATHSupport`: Added a new variable ``INSTALL_NAME_DIR``
   to specify the absolute installation path of the libraries.
 * :module:`InstallBasicPackagesFiles`: Add ``TARGETS_PROPERTIES`` argument to
@@ -39,6 +41,8 @@ Generic Modules
 Superbuild Helper Modules
 -------------------------
 
+* :module:`YCMEPHelper`: Updated ``GITLAB_ROBOTOLOGY`` style to the new git
+  address.
 * :module:`YCMEPHelper`: Added option ``FOLDER`` (if not set, the ``COMPONENT``
   value is used).
 * :module:`YCMEPHelper`: Fixed :command:`ycm_write_dot_file` command not
