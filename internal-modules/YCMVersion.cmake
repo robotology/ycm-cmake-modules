@@ -37,7 +37,7 @@
 include(GitInfo)
 
 set(YCM_VERSION_MAJOR 0)
-set(YCM_VERSION_MINOR 6)
+set(YCM_VERSION_MINOR 7)
 set(YCM_VERSION_PATCH 0)
 
 
