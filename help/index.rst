@@ -102,8 +102,8 @@ It also includes some modules that simplify the process of writing a "basic"
 Superbuild
 ----------
 
-A superbuild is in practice a collection of packages (sub-projects) that reside
-in remote repositories and are managed ad and built independently.
+A superbuild is composed by a collection of packages (sub-projects) that reside
+in remote repositories and are managed and built independently.
 The superbuild downloads and compile all individual sub-projects, since this is
 done using the appropriate SCM tool (GIT, SVN etc) the user gets working
 repositories in which it can develop (getting updates, making and committing
