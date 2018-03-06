@@ -109,6 +109,7 @@ rst_epilog = """
 .. _`Eigen Mercurial Repository`: https://bitbucket.org/eigen/eigen
 .. _`OVITO Git Repository`: https://sourceforge.net/projects/ovito/
 .. _`qt-gstreamer Git Repository`: https://github.com/GStreamer/qt-gstreamer/
+.. _`Catch2 Git Repository`: https://github.com/catchorg/Catch2/
 
 .. |lock| image:: /images/lock.png
     :height: 12

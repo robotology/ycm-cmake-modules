@@ -6,3 +6,12 @@ YCM 0.8.0 (UNRELEASED) Release Notes
   .. contents::
 
 Changes made since YCM 0.6 include the following.
+
+Modules
+=======
+
+3rd Party
+---------
+
+* :module:`Catch`, :module:`CatchAddTests`, and :module:`ParseAndAddCatchTests`
+  modules imported from `Catch2 Git Repository`_.
