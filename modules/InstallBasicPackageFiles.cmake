@@ -45,8 +45,9 @@
 # The ``DEPENDENCIES`` argument can be used to set a list of dependencies
 # that will be searched using the :command:`find_dependency` command
 # from the :module:`CMakeFindDependencyMacro` module.
-# Dependencies can be followed by any of the possible :command:`find_package` argument
-# and must be specified within double quotes (e.g. "<dependency> 1.0.0 EXACT", "<dependency> CONFIG").
+# Dependencies can be followed by any of the possible :command:`find_dependency` argument.
+# In this case, all the arguments must be specified within double quotes (e.g.
+# "<dependency> 1.0.0 EXACT", "<dependency> CONFIG").
 # When using a custom template file, the ``@PACKAGE_DEPENDENCIES@``
 # string is replaced with the code checking for the dependencies
 # specified by this argument.
