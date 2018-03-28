@@ -80,8 +80,10 @@ tags="${tags}${cur_tag}"
 for ref in ${branches} ${tags}; do
     if [[ ${ref} =~ ^v[0-9]+\.[0-9]+ ]]; then
         dir=$(echo ${ref} | sed 's/^\(v[0-9]\+\.[0-9]\+\).*$/\1/')
+        all_tags_versions="${all_tags_versions}    '${dir}': '$(echo ${dir} | sed 's/v//')',"$'\n'
     else
         dir="git-${ref}"
+        all_versions="${all_versions}    '${dir}': '${dir}',"$'\n'
     fi
 
     echo "Generating documentation for ref ${ref} in dir ${dir}"
@@ -109,7 +111,86 @@ for ref in ${branches} ${tags}; do
     echo "-------------------------------"
 done
 
+all_tags_versions="$(echo "${all_tags_versions}" | sort -Vr)"
+all_versions="${all_versions}    'latest': 'latest release',"$'\n'"${all_tags_versions}"
+
 rm -Rf build-docs
+
+# Add version_switch script
+find gh-pages -mindepth 2 -maxdepth 2 -name "*.html" -print0 | \
+    xargs -0 -n1 sed -i 's|</head>|  <script type="text/javascript" src="../version_switch.js"></script>\n  </head>|g'
+find gh-pages -mindepth 3 -maxdepth 3 -name "*.html" -print0 | \
+    xargs -0 -n1 sed -i 's|</head>|  <script type="text/javascript" src="../../version_switch.js"></script>\n  </head>|g'
+find gh-pages -mindepth 2 -maxdepth 3 -name "*.html" -print0 | \
+    xargs -0 -n1 sed -i 's|<a href="\(.\+\)">\(.\+\) Documentation</a>|<span class="version_switch">\2</span>\n    <a href="\1">Documentation</a>|g'
+
+cat > gh-pages/version_switch.js << EOF
+(function() {
+  'use strict';
+
+  var url_re = /robotology\.github\.io\/ycm\/gh-pages\/(git-master|git-devel|latest|(v\d\.\d+))\//;
+  var all_versions = {
+${all_versions}
+  };
+
+  function build_select(current_version, current_release) {
+    var buf = ['<select>'];
+
+    \$.each(all_versions, function(version, title) {
+      buf.push('<option value="' + version + '"');
+      if (version == current_version) {
+        buf.push(' selected="selected">');
+        if (version[0] == 'v') {
+          buf.push(current_release);
+        } else {
+          buf.push(title + ' (' + current_release + ')');
+        }
+      } else {
+        buf.push('>' + title);
+      }
+      buf.push('</option>');
+    });
+
+    buf.push('</select>');
+    return buf.join('');
+  }
+
+  function patch_url(url, new_version) {
+    return url.replace(url_re, 'robotology.github.io/ycm/gh-pages/' + new_version + '/');
+  }
+
+  function on_switch() {
+    var selected = \$(this).children('option:selected').attr('value');
+
+    var url = window.location.href,
+        new_url = patch_url(url, selected);
+
+    if (new_url != url) {
+      // check beforehand if url exists, else redirect to version's start page
+      \$.ajax({
+        url: new_url,
+        success: function() {
+           window.location.href = new_url;
+        },
+        error: function() {
+           window.location.href = 'http://robotology.github.io/ycm/gh-pages/' + selected;
+        }
+      });
+    }
+  }
+
+  \$(document).ready(function() {
+    var match = url_re.exec(window.location.href);
+    if (match) {
+      var release = DOCUMENTATION_OPTIONS.VERSION;
+      var version = match[1];
+      var select = build_select(version, release);
+      \$('.version_switch').html(select);
+      \$('.version_switch select').bind('change', on_switch);
+    }
+  });
+})();
+EOF
 
 git add gh-pages/ index.html
 git commit -q -m "Generate documentation"
