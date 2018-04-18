@@ -109,8 +109,14 @@ rst_epilog = """
 .. _`Eigen Mercurial Repository`: https://bitbucket.org/eigen/eigen
 .. _`OVITO Git Repository`: https://sourceforge.net/projects/ovito/
 .. _`qt-gstreamer Git Repository`: https://github.com/GStreamer/qt-gstreamer/
+.. _`domenichelli-irc2018`: https://doi.org/10.1109/IRC.2018.00014
 
 .. |lock| image:: /images/lock.png
     :height: 12
     :width: 12
+
+.. |domenichelli-irc2018-badge| image:: /images/domenichelli-irc2018.svg
+    :alt: DOI
+    :target: `domenichelli-irc2018`_
+
 """
