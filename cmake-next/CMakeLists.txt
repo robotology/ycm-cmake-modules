@@ -91,106 +91,30 @@ function(_YCM_CMAKE_NEXT_DOWNLOAD_NOW _ref _dir _files)
 endfunction()
 
 
-# Downloaded modules               CMake Version  string(APPEND)  CMakeParseArguments  Uncommitted
-#                                  Version                        without include      Changes
-#                                                 (req 3.4)
-#  FeatureSummary                   3.1                            3.8
-#  CMakePackageConfigHelpers        3.1                            3.8
+# Downloaded modules               CMake Version  CMakeParseArguments  Uncommitted
+#                                  Version        without include      Changes
+#
+#  CMakePackageConfigHelpers        3.1            3.8
 #  FindPkgConfig                    3.1
-#  ExternalProject                  3.3                                                 Yes
+#  ExternalProject                  3.3                                 Yes
 #  GNUInstallDirs                   3.4
-#  FindGTK2                         3.5                            3.8
+#  FindGTK2                         3.5            3.8
 #  FindMatlab                       3.7
-#  UseSWIG                          3.8            Yes             3.8
-#  WriteBasicConfigVersionFile      3.11                                                Yes (CMAKE_ROOT)
-#  CMakeParseArguments              ---                                                 Yes
-#  FindGLEW                         ---                                                 Yes
+#  FeatureSummary                   3.8            3.8
+#  UseSWIG                          3.8            3.8
+#  WriteBasicConfigVersionFile      3.11                                Yes (CMAKE_ROOT)
+#  CMakeParseArguments              ---                                 Yes
+#  FindGLEW                         ---                                 Yes
 #
 # Changes in dependencies
-#  FindPackageHandleStandardArgs                   3.7
+#  FindPackageHandleStandardArgs
 
-
-################################################################################
-# Files not available or containing bugs in CMake 3.1.3
-# Imported from CMake tag v3.2.3
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.1)
-  # Just a reminder to remove this when we change cmake version
-  message(AUTHOR_WARNING "CMake minimum required version greater than 3.1. You can remove this.")
-endif()
-
-# None
-
-
-################################################################################
-# Files not available or containing bugs in CMake 3.2.3
-# Imported from CMake tag v3.3.2
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.2)
-  # Just a reminder to remove this when we change cmake version
-  message(AUTHOR_WARNING "CMake minimum required version greater than 3.2. You can remove this.")
-endif()
-
-# None
-
-
-################################################################################
-# Files not available or containing bugs in CMake 3.3.2
-# Imported from CMake tag v3.4.3
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.3)
-  # Just a reminder to remove this when we change cmake version
-  message(AUTHOR_WARNING "CMake minimum required version greater than 3.3. You can remove this.")
-endif()
-
-# We assume that the user won't downgrade his cmake, therefore it's not
-# necessary to download and install these files if already included in CMake
-if(CMAKE_VERSION VERSION_LESS 3.4 OR YCM_MAINTAINER_MODE)
-
-  set(_files Copyright.txt                               be2d273ed3c3559df71debc3f07fbe76a31dea28
-             Modules/GNUInstallDirs.cmake                8afc4cc7af34df7f5b4e94b1d51c98e72cf553da)
-  _ycm_cmake_next_download(v3.4.3 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.4" "${_files}")
-  _ycm_cmake_next_install(v3.4.3 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.4"
-                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
-endif()
-
-
-################################################################################
-# Files not available or containing bugs in CMake 3.4.3
-# Imported from CMake tag v3.5.2
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.4)
-  # Just a reminder to remove this when we change cmake version
-  message(AUTHOR_WARNING "CMake minimum required version greater than 3.4. You can remove this.")
-endif()
-
-# We assume that the user won't downgrade his cmake, therefore it's not
-# necessary to download and install these files if already included in CMake
-if(CMAKE_VERSION VERSION_LESS 3.5 OR YCM_MAINTAINER_MODE)
-
-  set(_files Copyright.txt                               4a4e319a92c005163903c4ae537669d0026bae7d
-             Modules/FindGTK2.cmake                      49af0a4282a353269ad0e938775c594d0e1319c7
-             Modules/SelectLibraryConfigurations.cmake   4d1ee73df6dadcb2e51f12059cf48f5e9165bb1e  # Used by FindGTK2
-             Modules/FindPackageHandleStandardArgs.cmake 9a543ff079dc8e313f1dae812688f4be14e25134  # Used by FindGTK2
-             Modules/FindPackageMessage.cmake            dbc69daf94e8a4039286f4ae6a8702af418b253a) # Used by FindPackageHandleStandardArgs
-
-  # Since CMake 3.5, CMakeParseArguments.cmake was replaced by the
-  # cmake_parse_arguments command and the file is empty, therefore we import
-  # the older version for CMake 3.4 and earlier
-  if(CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS OR YCM_MAINTAINER_MODE)
-    list(APPEND _files  Modules/CMakeParseArguments.cmake           ed00144eafa83bd6653f3915456080265b54159b)  # Used by FindGTK2 and FindPackageHandleStandardArgs
-  else()
-    file(COPY v3.4.3/CMakeParseArguments.cmake
-         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.5/Modules")
-  endif()
-
-  _ycm_cmake_next_download(v3.5.2 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.5" "${_files}")
-  _ycm_cmake_next_install(v3.5.2 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.5"
-                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
-
-endif()
 
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.5.2
 # Imported from CMake tag v3.6.2
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.5)
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.6)
   # Just a reminder to remove this when we change cmake version
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.5. You can remove this.")
 endif()
@@ -201,12 +125,12 @@ endif()
 ################################################################################
 # Files not available or containing bugs in CMake 3.6.3
 # Imported from CMake tag v3.7.2
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.6)
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.7)
   # Just a reminder to remove this when we change cmake version
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.6. You can remove this.")
 endif()
 
-# We assume that the user won't downgrade his cmake, therefore it's not
+# We assume that the user won't downgrade his CMake, therefore it's not
 # necessary to download and install these files if already included in CMake
 if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
 
@@ -221,44 +145,21 @@ endif()
 ################################################################################
 # Files not available or containing bugs in CMake 3.7.2
 # Imported from CMake tag v3.8.2
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.7)
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.8)
   # Just a reminder to remove this when we change cmake version
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.7. You can remove this.")
 endif()
 
-# We assume that the user won't downgrade his cmake, therefore it's not
+# We assume that the user won't downgrade his CMake, therefore it's not
 # necessary to download and install these files if already included in CMake
 if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
 
   set(_files Copyright.txt                               510b21e4b3a70f0288bac0d89de8c333a36b159a
+             Modules/UseSWIG.cmake                       cf40cd32fdaa22c6c27887324983122ee9cde799
              Modules/FindSWIG.cmake                      dea8c36114b8fcd934118a0fc86c0641cd191c18  # Required to use this version of UseSWIG
-             Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178) # Used by FindPackageHandleStandardArgs
-
-  # Since CMake 3.7, FindPackageHandleStandardArgs uses string(APPEND)
-  if(CMAKE_SUPPORTS_STRING_APPEND OR YCM_MAINTAINER_MODE)
-    list(APPEND _files  Modules/FindPackageHandleStandardArgs.cmake 53300617d441f9cd08375a3599d15e6f60187441)  # Used by FindSWIG
-  else()
-    file(COPY v3.7.0/FindPackageHandleStandardArgs.cmake
-         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8/Modules")
-  endif()
-
-  # UseSWIG uses "string(APPEND)"
-  if(CMAKE_SUPPORTS_STRING_APPEND OR YCM_MAINTAINER_MODE)
-    list(APPEND _files  Modules/UseSWIG.cmake                       cf40cd32fdaa22c6c27887324983122ee9cde799)
-  else()
-    file(COPY master/UseSWIG.cmake
-         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8/Modules")
-  endif()
-
-  # Since CMake 3.5, CMakeParseArguments.cmake was replaced by the
-  # cmake_parse_arguments command and the file is empty, therefore we import
-  # the older version for CMake 3.4 and earlier
-  if(CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS OR YCM_MAINTAINER_MODE)
-    list(APPEND _files  Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
-  else()
-    file(COPY v3.4.3/CMakeParseArguments.cmake
-         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8/Modules")
-  endif()
+             Modules/FindPackageHandleStandardArgs.cmake 53300617d441f9cd08375a3599d15e6f60187441  # Used by FindSWIG
+             Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
+             Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
 
   _ycm_cmake_next_download(v3.8.2 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8" "${_files}")
   _ycm_cmake_next_install(v3.8.2 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8"
@@ -266,32 +167,71 @@ if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
 endif()
 
 
-
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (v3.10)
-# Imported from latest revision tested
-
-set(_ref 51ccfaacb88303bb2774cead91069e1c25888137)
-
-if(NOT CMAKE_VERSION VERSION_LESS 3.11)
-    # Just a reminder to update files when a new cmake version is released
-    message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+# Files not available or containing bugs in CMake 3.8.2
+# Imported from CMake tag v3.9.6
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.9)
+  # Just a reminder to remove this when we change cmake version
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.8. You can remove this.")
 endif()
 
-# We assume that the user won't downgrade his cmake, therefore it's not
+# None
+
+
+################################################################################
+# Files not available or containing bugs in CMake 3.9.6
+# Imported from CMake tag v3.10.2
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.10)
+  # Just a reminder to remove this when we change cmake version
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.9. You can remove this.")
+endif()
+
+# None
+
+
+################################################################################
+# Files not available or containing bugs in CMake 3.10.2
+# Imported from CMake tag v3.11.1
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.11)
+  # Just a reminder to remove this when we change cmake version
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.10. You can remove this.")
+endif()
+
+# We assume that the user won't downgrade his CMake, therefore it's not
 # necessary to download and install these files if already included in CMake
 if(CMAKE_VERSION VERSION_LESS 3.11 OR YCM_MAINTAINER_MODE)
 
-  set(_files Copyright.txt                                        17827332105eeec914e241e0a9c651690ae5b389
+  set(_files Copyright.txt                                        adb9e42eb50d36c7934d78bc339214d1600f8cb3
              Modules/BasicConfigVersion-SameMinorVersion.cmake.in 9f8a3d2e75026677375705fa008325d18d24c3d7)
 
   file(COPY v3.11.0/WriteBasicConfigVersionFile.cmake
-       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11/Modules")
 
-  _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
-  _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
+  _ycm_cmake_next_download(v3.11.1 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11" "${_files}")
+  _ycm_cmake_next_install(v3.11.1 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11"
                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 endif()
+
+
+################################################################################
+# Files not yet available or containing bugs in current CMake release (v3.11.1)
+# Imported from latest revision tested
+# if(NOT CMAKE_VERSION VERSION_LESS 3.12)
+#     # Just a reminder to update files when a new cmake version is released
+#     message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+# endif()
+#
+# # We assume that the user won't downgrade his CMake, therefore it's not
+# # necessary to download and install these files if already included in CMake
+# if(CMAKE_VERSION VERSION_LESS 3.12 OR YCM_MAINTAINER_MODE)
+#
+#   set(_ref c89d2f4a6ae3e6cb0f87493cac3f5f723bb4f62e)
+#   set(_files Copyright.txt                                        adb9e42eb50d36c7934d78bc339214d1600f8cb3)
+#
+#   _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
+#   _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
+#                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+# endif()
 
 ################################################################################
 # Files with patches not yet merged in CMake master
