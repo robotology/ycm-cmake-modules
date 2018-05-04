@@ -303,14 +303,7 @@ function(_YCM_INSTALL _target)
         string(REPLACE "/" "\\\\" copyARGN "${copyARGN}")
     endif()
 
-    # If available, use the new "MESSAGE_NEVER" argument for install command
-    if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.1)
-        # Just a reminder to remove this when we change cmake minimum required version
-        message(AUTHOR_WARNING "CMake minimum required version greater than 3.1. You can remove this.")
-    endif()
-    if(NOT CMAKE_VERSION VERSION_LESS 3.1)
-        list(APPEND copyARGN MESSAGE_NEVER)
-    endif()
+    list(APPEND copyARGN MESSAGE_NEVER)
 
     # Write copy script
     set(_ycm_localinstall_script "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/ycm_localinstall_${_clean_filename}.cmake")

@@ -200,6 +200,7 @@ macro(_YCM_SETUP)
   set_property(DIRECTORY PROPERTY CMAKE_PARSE_ARGUMENTS_DEFAULT_SKIP_EMPTY FALSE)
   set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+  # Disable CMake cache registry.
   set(CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY 1)
   set(CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY 1)
 
@@ -792,12 +793,6 @@ function(YCM_EP_HELPER _name)
 
   # Default CMAKE_CACHE_ARGS (Initial cache, forced)
   set(${_name}_YCM_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}") # Where to do the installation
-  # Extend PKG_CONFIG_PATH for projects using pkg-config. If
-  # CMAKE_MINIMUM_REQUIRED_VERSION is 3.1 or later, this is enabled
-  # by default.
-  if(CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.1)
-    list(APPEND ${_name}_YCM_CMAKE_CACHE_ARGS "-DPKG_CONFIG_USE_CMAKE_PREFIX_PATH:BOOL=TRUE")
-  endif()
 
   # Default CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
   unset(${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS)

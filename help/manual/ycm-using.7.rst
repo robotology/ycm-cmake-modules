@@ -19,7 +19,7 @@ CMake policies.
 
 .. code-block:: cmake
 
-    cmake_minimum_required(VERSION 3.0)
+    cmake_minimum_required(VERSION 3.5)
 
 Now you have to set variables that control which components are enabled:
 

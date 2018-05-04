@@ -7,8 +7,22 @@ YCM 0.8.0 (UNRELEASED) Release Notes
 
 Changes made since YCM 0.6 include the following.
 
+
+Build System
+============
+
+* CMake 3.5 or newer is now required.
+
+
 Modules
 =======
+
+CMake Next
+----------
+
+* Updated to CMake v3.11.1 + commit
+  :cmake-commit:`c89d2f4a6ae3e6cb0f87493cac3f5f723bb4f62e`).
+
 
 3rd Party
 ---------
