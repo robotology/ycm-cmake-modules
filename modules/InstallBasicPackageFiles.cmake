@@ -14,9 +14,9 @@
 #  install_basic_package_files(<Name>
 #                              VERSION <version>
 #                              COMPATIBILITY <compatibility>
-#                              TARGETS <target1> <target2>
+#                              TARGETS <target1> <target2> ...
 #                              TARGETS_PROPERTY <property_name>
-#                              TARGETS_PROPERTIES <property1_name> <property2_name>
+#                              TARGETS_PROPERTIES <property1_name> <property2_name> ...
 #                              [NO_SET_AND_CHECK_MACRO]
 #                              [NO_CHECK_REQUIRED_COMPONENTS_MACRO]
 #                              [VARS_PREFIX <prefix>] # (default = "<name>")
@@ -25,7 +25,7 @@
 #                              [EXTRA_PATH_VARS_SUFFIX path1 [path2 ...]]
 #                              [CONFIG_TEMPLATE <file>]
 #                              [UPPERCASE_FILENAMES | LOWERCASE_FILENAMES]
-#                              [DEPENDENCIES <dependency1> <dependency2>]
+#                              [DEPENDENCIES <dependency1> "<dependency2> [...]" ...]
 #                              [NO_COMPATIBILITY_VARS]
 #                             )
 #
@@ -42,9 +42,12 @@
 # is chosed according to the file found. If no file was found, the
 # uppercase convention is used.
 #
-# The ``DEPENDENCIES`` flag can be used to set a list of dependencies
+# The ``DEPENDENCIES`` argument can be used to set a list of dependencies
 # that will be searched using the :command:`find_dependency` command
 # from the :module:`CMakeFindDependencyMacro` module.
+# Dependencies can be followed by any of the possible :command:`find_dependency` argument.
+# In this case, all the arguments must be specified within double quotes (e.g.
+# "<dependency> 1.0.0 EXACT", "<dependency> CONFIG").
 # When using a custom template file, the ``@PACKAGE_DEPENDENCIES@``
 # string is replaced with the code checking for the dependencies
 # specified by this argument.
