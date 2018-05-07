@@ -14,3 +14,10 @@ Generic Modules
 ---------------
 
 * :module:`GitInfo`: Fixed for clones using `git-worktree`
+
+3rd Party
+---------
+
+* qt-gstreamer modules are now imported from the official
+  `qt-gstreamer Git Repository`_ instead of from the `robotology-dependencies`
+  clone.
