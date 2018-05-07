@@ -58,7 +58,7 @@ EOF
 rm -Rf gh-pages
 mkdir -p gh-pages
 
-branches=$(git for-each-ref --format="%(refname)" refs/remotes/${remote} | grep -v "HEAD\|gh-pages\|travis\|appveyor\|ycm-\|/pr/" | sed "s#refs/remotes/${remote}/##")
+branches=$(git for-each-ref --format="%(refname)" refs/remotes/${remote} | grep -v "HEAD\|gh-pages\|travis\|appveyor\|ycm-\|/pr/\|fix/" | sed "s#refs/remotes/${remote}/##")
 all_tags=$(git for-each-ref --format="%(refname)" refs/tags/ | sed "s#refs/tags/##" | sort -V)
 
 # Keep only the last tag for each series
