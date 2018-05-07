@@ -83,21 +83,15 @@ See accompanying file COPYING.OVITO for details.
     _ycm_install(3rdparty-ovito FILES "${_dir}/README.OVITO"
                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
-
-    # FindGLIB2.cmake, FindGStreamer.cmake, FindGStreamerPluginsBase.cmake, and
-    # MacroFindStreamerLibrary.cmake are imported from qt-gstreamer
-    # Required patches are not merged upstream yet, see
-    # https://bugzilla.gnome.org/show_bug.cgi?id=789645
-    # therefore robotology-dependencies fork is currently used.
     set(_files cmake/modules/COPYING-CMAKE-SCRIPTS           ff3ed70db4739b3c6747c7f624fe2bad70802987
                cmake/modules/FindGLIB2.cmake                 df497ba5188a8a98cb60d35a096680fd2e3140ce
                cmake/modules/FindGStreamer.cmake             21bc9cbec706b467fbc748dc7817e57648952dd1
-               cmake/modules/FindGStreamerPluginsBase.cmake  62903438f09cfbeb6bd4ceaee52ac90d0d9e6241
+               cmake/modules/FindGStreamerPluginsBase.cmake  75d8fbd4e20afdd624e538d935f3ebabb10c2778
                cmake/modules/MacroFindGStreamerLibrary.cmake 0b9cca5a62c8d4ccec99e875a36d1531e5a899a1)
-    set(_ref 208d41904140b95e6f2da87281d1c93b456ee91c)
+    set(_ref a0e95b202a72b6d9e48bd1949ab6811c0f3c91c3)
     set(_dir "${CMAKE_CURRENT_BINARY_DIR}/qt-gstreamer")
-    _ycm_download(3rdparty-qt-gstreamer "qt-gstreamer git repository (robotology-dependencies fork)"
-                  "https://raw.githubusercontent.com/robotology-dependencies/qt-gstreamer/<REF>/<FILE>"
+    _ycm_download(3rdparty-qt-gstreamer "qt-gstreamer git repository"
+                  "https://raw.githubusercontent.com/GStreamer/qt-gstreamer/<REF>/<FILE>"
                   ${_ref} "${_dir}" "${_files}")
 
     file(WRITE "${_dir}/README.qt-gstreamer"
