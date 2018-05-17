@@ -51,7 +51,8 @@ if(YCM_USE_CMAKE_NEXT)
     list(APPEND YCM_MODULE_PATH "${YCM_MODULE_DIR}/cmake-next/Modules")
 endif()
 
-foreach(_version 3.7
+foreach(_version 3.8
+                 3.7
                  3.6
                  3.5
                  3.4
