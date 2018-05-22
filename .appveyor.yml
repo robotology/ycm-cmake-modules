@@ -36,5 +36,5 @@ after_build:
 test_script:
   - cmd: ctest -VV -C %CONFIGURATION%
 
-artifacts:
-  - path: 'build\*.msi'
+# artifacts:
+#   - path: 'build\*.msi'
