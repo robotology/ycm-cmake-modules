@@ -17,6 +17,13 @@ Build System
 Modules
 =======
 
+Generic Modules
+---------------
+
+* :module:`InstallBasicPackageFiles`: Add ``INCLUDE_FILE`` argument to
+  support appending user content to the generated ``PackageConfig.cmake`` file.
+
+
 CMake Next
 ----------
 
