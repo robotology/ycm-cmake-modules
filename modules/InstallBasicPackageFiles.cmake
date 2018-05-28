@@ -357,17 +357,18 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
   # Set input file containing user variables
   if(DEFINED _IBPF_INCLUDE_FILE)
-    if(NOT IS_ABSOLUTE ${_IBPF_INCLUDE_FILE})
-      set(_IBPF_INCLUDE_FILE ${CMAKE_CURRENT_SOURCE_DIR}/${_IBPF_INCLUDE_FILE})
+    if(NOT IS_ABSOLUTE "${_IBPF_INCLUDE_FILE}")
+      if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${_IBPF_INCLUDE_FILE}")
+        set(_IBPF_INCLUDE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/${_IBPF_INCLUDE_FILE}")
+      endif()
     endif()
-    if(NOT EXISTS ${_IBPF_INCLUDE_FILE})
+    if(NOT EXISTS "${_IBPF_INCLUDE_FILE}")
         message(FATAL_ERROR "File \"${_IBPF_INCLUDE_FILE}\" not found")
     endif()
     file(READ ${_IBPF_INCLUDE_FILE} _includedfile_user_content_in)
     string(CONFIGURE ${_includedfile_user_content_in} _includedfile_user_content)
     set(INCLUDED_FILE_CONTENT
-"#####################################################################
-#### Expanded from INCLUDE_FILE by install_basic_package_files() ####")
+"#### Expanded from INCLUDE_FILE by install_basic_package_files() ####")
     set(INCLUDED_FILE_CONTENT "${INCLUDED_FILE_CONTENT}\n\n${_includedfile_user_content}")
     set(INCLUDED_FILE_CONTENT
 "${INCLUDED_FILE_CONTENT}
