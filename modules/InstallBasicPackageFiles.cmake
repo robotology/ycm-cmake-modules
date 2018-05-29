@@ -29,6 +29,7 @@
 #                              [UPPERCASE_FILENAMES | LOWERCASE_FILENAMES]
 #                              [DEPENDENCIES <dependency1> "<dependency2> [...]" ...]
 #                              [INCLUDE_FILE <file>]
+#                              [COMPONENT <component>] # (default = "<name>")
 #                              [NO_COMPATIBILITY_VARS]
 #                             )
 #
@@ -193,6 +194,9 @@
 # (which might be templated) is appended to the ``<name>Config.cmake``. This allows
 # to inject custom code to this file, useful e.g. to set additional variables which
 # are loaded by downstream projects.
+#
+# If the ``COMPONENT`` argument is passed, it is forwarded to the
+# :command:`install` commands, otherwise <name> is used
 
 #=============================================================================
 # Copyright 2013 Istituto Italiano di Tecnologia (IIT)
@@ -237,7 +241,8 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
                     DESTINATION
                     NAMESPACE
                     CONFIG_TEMPLATE
-                    INCLUDE_FILE)
+                    INCLUDE_FILE
+                    COMPONENT)
   set(_multiValueArgs EXTRA_PATH_VARS_SUFFIX
                       TARGETS
                       TARGETS_PROPERTIES
@@ -322,6 +327,10 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
   if(NOT DEFINED _IBPF_NAMESPACE)
     set(_IBPF_NAMESPACE "${_Name}::")
+  endif()
+
+  if(NOT DEFINED _IBPF_COMPONENT)
+    set(_IBPF_COMPONENT "${_Name}")
   endif()
 
   if(_IBPF_NO_SET_AND_CHECK_MACRO)
@@ -513,7 +522,8 @@ ${_compatibility_vars}
                                    VERSION ${_IBPF_VERSION}
                                    COMPATIBILITY ${_IBPF_COMPATIBILITY})
   install(FILES "${CMAKE_BINARY_DIR}/${_version_filename}"
-          DESTINATION ${_IBPF_DESTINATION})
+          DESTINATION ${_IBPF_DESTINATION}
+          COMPONENT ${_IBPF_COMPONENT})
 
 
   # Prepare PACKAGE_DEPENDENCIES variable
@@ -559,7 +569,8 @@ ${_compatibility_vars}
                                 ${configure_package_config_file_extra_args})
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install"
           DESTINATION ${_IBPF_DESTINATION}
-          RENAME ${_config_filename})
+          RENAME ${_config_filename}
+          COMPONENT ${_IBPF_COMPONENT})
 
 
   # <name>Targets.cmake (build tree)
@@ -571,5 +582,6 @@ ${_compatibility_vars}
   install(${_install_cmd}
           NAMESPACE ${_IBPF_NAMESPACE}
           DESTINATION ${_IBPF_DESTINATION}
-          FILE "${_targets_filename}")
+          FILE "${_targets_filename}"
+          COMPONENT ${_IBPF_COMPONENT})
 endfunction()
