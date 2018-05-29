@@ -14,9 +14,11 @@
 #  install_basic_package_files(<Name>
 #                              VERSION <version>
 #                              COMPATIBILITY <compatibility>
-#                              TARGETS <target1> <target2> ...
-#                              TARGETS_PROPERTY <property_name>
-#                              TARGETS_PROPERTIES <property1_name> <property2_name> ...
+#                              [EXPORT <export>] # (default = "<name>")
+#                              [FIRST_TARGET <target1>] # (default = "<name>")
+#                              [TARGETS <target1> <target2> ...]
+#                              [TARGETS_PROPERTY <property_name>]
+#                              [TARGETS_PROPERTIES <property1_name> <property2_name> ...]
 #                              [NO_SET_AND_CHECK_MACRO]
 #                              [NO_CHECK_REQUIRED_COMPONENTS_MACRO]
 #                              [VARS_PREFIX <prefix>] # (default = "<name>")
@@ -172,10 +174,11 @@
 #
 #
 # The ``<name>Targets.cmake`` is generated using
-# :command:`export(TARGETS)` in the build tree and
-# :command:`install(EXPORT)` in the installation directory.
+# :command:`export(TARGETS|EXPORT)` in the build tree (depending on the
+# arguments and :command:`install(EXPORT)` in the installation directory.
 # The targets are exported using the value for the ``NAMESPACE``
 # argument as namespace.
+# The export can be passed using the `EXPORT` argument
 # The targets can be passed using the `TARGETS` argument or using a global
 # property, that can be passed to the function using the ``TARGETS_PROPERTY``
 # argument
@@ -227,6 +230,8 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
                NO_COMPATIBILITY_VARS)
   set(_oneValueArgs VERSION
                     COMPATIBILITY
+                    EXPORT
+                    FIRST_TARGET
                     TARGETS_PROPERTY
                     VARS_PREFIX
                     DESTINATION
@@ -251,19 +256,59 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     message(FATAL_ERROR "COMPATIBILITY argument is required")
   endif()
 
-  if(NOT DEFINED _IBPF_TARGETS AND
-     NOT DEFINED _IBPF_TARGETS_PROPERTY AND
-     NOT DEFINED _IBPF_TARGETS_PROPERTIES)
-    message(FATAL_ERROR "TARGETS_PROPERTY or TARGET_PROPERTIES argument is required")
-  endif()
-
-  if((DEFINED _IBPF_TARGETS AND (DEFINED _IBPF_TARGETS_PROPERTY OR DEFINED _IBPF_TARGETS_PROPERTIES)) OR
-     (DEFINED _IBPF_TARGETS_PROPERTY AND DEFINED _IBPF_TARGETS_PROPERTIES))
-    message(FATAL_ERROR "Only one argument between TARGETS, TARGETS_PROPERTY, and TARGET_PROPERTIES can be used")
-  endif()
-
   if(_IBPF_UPPERCASE_FILENAMES AND _IBPF_LOWERCASE_FILENAMES)
     message(FATAL_ERROR "UPPERCASE_FILENAMES and LOWERCASE_FILENAMES arguments cannot be used together")
+  endif()
+
+  # Prepare install and export commands
+  set(_first_target ${_Name})
+  set(_targets )
+  set(_install_cmd EXPORT ${_Name})
+  set(_export_cmd EXPORT ${_Name})
+
+  if(DEFINED _IBPF_FIRST_TARGET)
+    if(DEFINED _IBPF_TARGETS OR DEFINED _IBPF_TARGETS_PROPERTIES OR DEFINED _IBPF_TARGETS_PROPERTIES)
+      message(FATAL_ERROR "EXPORT cannot be used with TARGETS, TARGETS_PROPERTY or TARGETS_PROPERTIES")
+    endif()
+
+    set(_first_target ${_IBPF_FIRST_TARGET})
+  endif()
+
+  if(DEFINED _IBPF_EXPORT)
+    if(DEFINED _IBPF_TARGETS OR DEFINED _IBPF_TARGETS_PROPERTIES OR DEFINED _IBPF_TARGETS_PROPERTIES)
+      message(FATAL_ERROR "EXPORT cannot be used with TARGETS, TARGETS_PROPERTY or TARGETS_PROPERTIES")
+    endif()
+
+    set(_export_cmd EXPORT ${_IBPF_EXPORT})
+    set(_install_cmd EXPORT ${_IBPF_EXPORT})
+
+  elseif(DEFINED _IBPF_TARGETS)
+    if(DEFINED _IBPF_TARGETS_PROPERTY OR DEFINED _IBPF_TARGETS_PROPERTIES)
+      message(FATAL_ERROR "TARGETS cannot be used with TARGETS_PROPERTY or TARGETS_PROPERTIES")
+    endif()
+
+    set(_targets ${_IBPF_TARGETS})
+    set(_export_cmd TARGETS ${_IBPF_TARGETS})
+    list(GET _targets 0 _first_target)
+
+  elseif(DEFINED _IBPF_TARGETS_PROPERTY)
+    if(DEFINED _IBPF_TARGETS_PROPERTIES)
+      message(FATAL_ERROR "TARGETS_PROPERTIES cannot be used with TARGETS_PROPERTIES")
+    endif()
+
+    get_property(_targets GLOBAL PROPERTY ${_IBPF_TARGETS_PROPERTY})
+    set(_export_cmd TARGETS ${_targets})
+    list(GET _targets 0 _first_target)
+
+  elseif(DEFINED _IBPF_TARGETS_PROPERTIES)
+
+    foreach(_prop ${_IBPF_TARGETS_PROPERTIES})
+      get_property(_prop_val GLOBAL PROPERTY ${_prop})
+      list(APPEND _targets ${_prop_val})
+    endforeach()
+    set(_export_cmd TARGETS ${_targets})
+    list(GET _targets 0 _first_target)
+
   endif()
 
   # Path for installed cmake files
@@ -287,21 +332,6 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     list(APPEND configure_package_config_file_extra_args NO_CHECK_REQUIRED_COMPONENTS_MACRO)
   endif()
 
-
-  # Get targets from TARGETS argument or from GLOBAL PROPERTY/PROPERTIES set
-  # in TARGETS_PROPERTY or TARGETS_PROPERTIES arguments
-  if(DEFINED _IBPF_TARGETS)
-    set(_targets ${_IBPF_TARGETS})
-  elseif(DEFINED _IBPF_TARGETS_PROPERTY)
-    get_property(_targets GLOBAL PROPERTY ${_IBPF_TARGETS_PROPERTY})
-  else()
-    set(_targets)
-    foreach(_prop ${_IBPF_TARGETS_PROPERTIES})
-      get_property(_prop_val GLOBAL PROPERTY ${_prop})
-      list(APPEND _targets ${_prop_val})
-    endforeach()
-  endif()
-  list(GET _targets 0 _first_target)
 
 
   # Set input file for config, and ensure that _IBPF_UPPERCASE_FILENAMES
@@ -533,12 +563,12 @@ ${_compatibility_vars}
 
 
   # <name>Targets.cmake (build tree)
-  export(TARGETS ${_targets}
-          NAMESPACE ${_IBPF_NAMESPACE}
-          FILE "${CMAKE_BINARY_DIR}/${_targets_filename}")
+  export(${_export_cmd}
+         NAMESPACE ${_IBPF_NAMESPACE}
+         FILE "${CMAKE_BINARY_DIR}/${_targets_filename}")
 
   # <name>Targets.cmake (installed)
-  install(EXPORT ${_Name}
+  install(${_install_cmd}
           NAMESPACE ${_IBPF_NAMESPACE}
           DESTINATION ${_IBPF_DESTINATION}
           FILE "${_targets_filename}")
