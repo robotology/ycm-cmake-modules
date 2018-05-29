@@ -27,8 +27,10 @@ Generic Modules
 CMake Next
 ----------
 
-* Updated to CMake v3.11.1 + commit
-  :cmake-commit:`c89d2f4a6ae3e6cb0f87493cac3f5f723bb4f62e`).
+* Updated to CMake v3.11.2 + commit
+  :cmake-commit:`f248f8ad7898816a5a627e288d3a04fed993967f`).
+* Imported modules ``FindPython.cmake``, ``FindPython/Support.cmake``,
+  ``FindPython2.cmake``, and ``Find3Python.cmake`` from CMake master (3.12).
 
 
 3rd Party
