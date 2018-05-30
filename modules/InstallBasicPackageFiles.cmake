@@ -22,7 +22,8 @@
 #                              [NO_SET_AND_CHECK_MACRO]
 #                              [NO_CHECK_REQUIRED_COMPONENTS_MACRO]
 #                              [VARS_PREFIX <prefix>] # (default = "<Name>")
-#                              [DESTINATION <destination>]
+#                              [EXPORT_DESTINATION <destination>]
+#                              [INSTALL_DESTINATION <destination>]
 #                              [NAMESPACE <namespace>] # (default = "<Name>::")
 #                              [EXTRA_PATH_VARS_SUFFIX path1 [path2 ...]]
 #                              [CONFIG_TEMPLATE <file>]
@@ -58,11 +59,13 @@
 # specified by this argument.
 #
 # Each file is generated twice, one for the build directory and one for
-# the installation directory.  The ``DESTINATION`` argument can be
+# the installation directory.  The ``INSTALL_DESTINATION`` argument can be
 # passed to install the files in a location different from the default
 # one (``CMake`` on Windows, ``${CMAKE_INSTALL_LIBDIR}/cmake/${Name}``
-# on other platforms.
-#
+# on other platforms.  The ``EXPORT_DESTINATION`` argument can be passed to
+# generate the files in the build tree in a location different from the default
+# one (``CMAKE_BINARY_DIR``).  If this is a relative path, it is considered
+# relative to the ``CMAKE_BINARY_DIR`` directory.
 #
 # The ``<Name>ConfigVersion.cmake`` is generated using
 # ``write_basic_package_version_file``.  The ``VERSION``,
@@ -241,6 +244,8 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
                     FIRST_TARGET
                     TARGETS_PROPERTY
                     VARS_PREFIX
+                    EXPORT_DESTINATION
+                    INSTALL_DESTINATION
                     DESTINATION
                     NAMESPACE
                     CONFIG_TEMPLATE
@@ -320,12 +325,25 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
   endif()
 
   # Path for installed cmake files
-  if(NOT DEFINED _IBPF_DESTINATION)
-    if(WIN32 AND NOT CYGWIN)
-      set(_IBPF_DESTINATION CMake)
-    else()
-      set(_IBPF_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${_Name})
+  if(DEFINED _IBPF_DESTINATION)
+    message(DEPRECATION "DESTINATION is deprecated. Use INSTALL_DESTINATION instead")
+    if(NOT DEFINED _IBPF_INSTALL_DESTINATION)
+      set(_IBPF_INSTALL_DESTINATION ${_IBPF_DESTINATION})
     endif()
+  endif()
+
+  if(NOT DEFINED _IBPF_INSTALL_DESTINATION)
+    if(WIN32 AND NOT CYGWIN)
+      set(_IBPF_INSTALL_DESTINATION CMake)
+    else()
+      set(_IBPF_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${_Name})
+    endif()
+  endif()
+
+  if(NOT DEFINED _IBPF_EXPORT_DESTINATION)
+    set(_IBPF_EXPORT_DESTINATION "${CMAKE_BINARY_DIR}")
+  elseif(NOT IS_ABSOLUTE _IBPF_EXPORT_DESTINATION)
+    set(_IBPF_EXPORT_DESTINATION "${CMAKE_BINARY_DIR}/${_IBPF_EXPORT_DESTINATION}")
   endif()
 
   if(NOT DEFINED _IBPF_NAMESPACE)
@@ -521,11 +539,11 @@ ${_compatibility_vars}
 
 
   # <Name>ConfigVersion.cmake file (same for build tree and intall)
-  write_basic_package_version_file("${CMAKE_BINARY_DIR}/${_version_filename}"
+  write_basic_package_version_file("${_IBPF_EXPORT_DESTINATION}/${_version_filename}"
                                    VERSION ${_IBPF_VERSION}
                                    COMPATIBILITY ${_IBPF_COMPATIBILITY})
-  install(FILES "${CMAKE_BINARY_DIR}/${_version_filename}"
-          DESTINATION ${_IBPF_DESTINATION}
+  install(FILES "${_IBPF_EXPORT_DESTINATION}/${_version_filename}"
+          DESTINATION ${_IBPF_INSTALL_DESTINATION}
           COMPONENT ${_IBPF_COMPONENT})
 
 
@@ -551,8 +569,8 @@ ${_compatibility_vars}
     endif()
   endforeach()
   configure_package_config_file("${_config_cmake_in}"
-                                "${CMAKE_BINARY_DIR}/${_config_filename}"
-                                INSTALL_DESTINATION ${CMAKE_BINARY_DIR}
+                                "${_IBPF_EXPORT_DESTINATION}/${_config_filename}"
+                                INSTALL_DESTINATION ${_IBPF_EXPORT_DESTINATION}
                                 PATH_VARS ${_build_path_vars}
                                 ${configure_package_config_file_extra_args}
                                 INSTALL_PREFIX ${CMAKE_BINARY_DIR})
@@ -567,11 +585,11 @@ ${_compatibility_vars}
   endforeach()
   configure_package_config_file("${_config_cmake_in}"
                                 "${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install"
-                                INSTALL_DESTINATION ${_IBPF_DESTINATION}
+                                INSTALL_DESTINATION ${_IBPF_INSTALL_DESTINATION}
                                 PATH_VARS ${_install_path_vars}
                                 ${configure_package_config_file_extra_args})
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install"
-          DESTINATION ${_IBPF_DESTINATION}
+          DESTINATION ${_IBPF_INSTALL_DESTINATION}
           RENAME ${_config_filename}
           COMPONENT ${_IBPF_COMPONENT})
 
@@ -579,12 +597,12 @@ ${_compatibility_vars}
   # <Name>Targets.cmake (build tree)
   export(${_export_cmd}
          NAMESPACE ${_IBPF_NAMESPACE}
-         FILE "${CMAKE_BINARY_DIR}/${_targets_filename}")
+         FILE "${_IBPF_EXPORT_DESTINATION}/${_targets_filename}")
 
   # <Name>Targets.cmake (installed)
   install(${_install_cmd}
           NAMESPACE ${_IBPF_NAMESPACE}
-          DESTINATION ${_IBPF_DESTINATION}
+          DESTINATION ${_IBPF_INSTALL_DESTINATION}
           FILE "${_targets_filename}"
           COMPONENT ${_IBPF_COMPONENT})
 endfunction()

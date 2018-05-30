@@ -29,6 +29,10 @@ Generic Modules
   specify a target to check when using ``EXPORT`` (default = <name>)
 * :module:`InstallBasicPackageFiles`: Added ``COMPONENT`` argument, forwarded
   to the :cmake:command:`install` commands.
+* :module:`InstallBasicPackageFiles`: Added ``INSTALL_DESTINATION`` and
+  ``EXPORT_DESTINATION`` arguments, to install and generate the files in a
+  path different from the default. The ``DESTINATION`` argument is now
+  deprecated in favour of ``INSTALL_DESTINATION``.
 
 CMake Next
 ----------
