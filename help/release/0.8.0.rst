@@ -20,9 +20,19 @@ Modules
 Generic Modules
 ---------------
 
-* :module:`InstallBasicPackageFiles`: Add ``INCLUDE_FILE`` argument to
+* :module:`InstallBasicPackageFiles`: Added ``INCLUDE_FILE`` argument to
   support appending user content to the generated ``PackageConfig.cmake`` file.
-
+* :module:`InstallBasicPackageFiles`: Added ``EXPORT`` arguments to use
+  :cmake:command:`export(EXPORT)` instead of :cmake:command:`export(TARGETS)`
+  (default = <name> if ``TARGETS``-related arguments are not passed.
+* :module:`InstallBasicPackageFiles`: Added ``FIRST_TARGET`` argument to
+  specify a target to check when using ``EXPORT`` (default = <name>)
+* :module:`InstallBasicPackageFiles`: Added ``COMPONENT`` argument, forwarded
+  to the :cmake:command:`install` commands.
+* :module:`InstallBasicPackageFiles`: Added ``INSTALL_DESTINATION`` and
+  ``EXPORT_DESTINATION`` arguments, to install and generate the files in a
+  path different from the default. The ``DESTINATION`` argument is now
+  deprecated in favour of ``INSTALL_DESTINATION``.
 
 CMake Next
 ----------
