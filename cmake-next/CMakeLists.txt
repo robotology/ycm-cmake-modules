@@ -229,7 +229,11 @@ if(CMAKE_VERSION VERSION_LESS 3.12 OR YCM_MAINTAINER_MODE)
              Modules/FindPython.cmake                             b55c8a5e7e32efa98c0a86f1e45e6498a13cb828
              Modules/FindPython/Support.cmake                     cc625449f3bdfa9bfec17fcf386e3df73e1c56da
              Modules/FindPython2.cmake                            b79f69806d150c759be0504e4a8f2e54553e9330
-             Modules/FindPython3.cmake                            aaa31c35f5167b385018f0863676ac4baf9b22e2)
+             Modules/FindPython3.cmake                            aaa31c35f5167b385018f0863676ac4baf9b22e2
+             Modules/CMakeFindFrameworks.cmake                    053fd8fd4bb7bc08fb6595b0a212de097a86084f  # Used by FindPython/Support.cmake
+             Modules/FindPackageHandleStandardArgs.cmake          286ff571e093a25caaa4d2390d3b9729bc5ff44d  # Used by FindPython/Support.cmake
+             Modules/FindPackageMessage.cmake                     68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
+             Modules/SelectLibraryConfigurations.cmake            e09bf3cd3f1faa1f9cc8f5924216a7fe3e4594d4) # Used by FindPython/Support.cmake
 
   _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
   _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
