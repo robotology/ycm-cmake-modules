@@ -29,6 +29,7 @@
 #                              [CONFIG_TEMPLATE <file>]
 #                              [UPPERCASE_FILENAMES | LOWERCASE_FILENAMES]
 #                              [DEPENDENCIES <dependency1> "<dependency2> [...]" ...]
+#                              [PRIVATE_DEPENDENCIES <dependency1> "<dependency2> [...]" ...]
 #                              [INCLUDE_FILE <file>]
 #                              [COMPONENT <component>] # (default = "<Name>")
 #                              [NO_COMPATIBILITY_VARS]
@@ -54,9 +55,13 @@
 # argument.
 # In this case, all the arguments must be specified within double quotes (e.g.
 # "<dependency> 1.0.0 EXACT", "<dependency> CONFIG").
+# The ``PRIVATE_DEPENDENCIES`` argument is similar to ``DEPENDENCIES``, but
+# these dependencies are included only when libraries are built ``STATIC``, i.e.
+# if ``BUILD_SHARED_LIBS`` is ``OFF`` or if the ``TYPE`` property for one or
+# more of the targets is ``STATIC_LIBRARY``.
 # When using a custom template file, the ``@PACKAGE_DEPENDENCIES@``
 # string is replaced with the code checking for the dependencies
-# specified by this argument.
+# specified by these two argument.
 #
 # Each file is generated twice, one for the build directory and one for
 # the installation directory.  The ``INSTALL_DESTINATION`` argument can be
@@ -254,7 +259,8 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
   set(_multiValueArgs EXTRA_PATH_VARS_SUFFIX
                       TARGETS
                       TARGETS_PROPERTIES
-                      DEPENDENCIES)
+                      DEPENDENCIES
+                      PRIVATE_DEPENDENCIES)
   cmake_parse_arguments(_IBPF "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
   if(NOT DEFINED _IBPF_VARS_PREFIX)
@@ -275,7 +281,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
   # Prepare install and export commands
   set(_first_target ${_Name})
-  set(_targets )
+  set(_targets ${_Name})
   set(_install_cmd EXPORT ${_Name})
   set(_export_cmd EXPORT ${_Name})
 
@@ -315,6 +321,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
   elseif(DEFINED _IBPF_TARGETS_PROPERTIES)
 
+    unset(_targets)
     foreach(_prop ${_IBPF_TARGETS_PROPERTIES})
       get_property(_prop_val GLOBAL PROPERTY ${_prop})
       list(APPEND _targets ${_prop_val})
@@ -548,12 +555,30 @@ ${_compatibility_vars}
 
 
   # Prepare PACKAGE_DEPENDENCIES variable
+  set(_need_private_deps 0)
+  if(NOT BUILD_SHARED_LIBS)
+    set(_need_private_deps 1)
+  else()
+    foreach(_target ${_targets})
+      get_property(_type TARGET ${_target} PROPERTY TYPE)
+      if("${_type}" STREQUAL "STATIC_LIBRARY")
+        set(_need_private_deps 1)
+        break()
+      endif()
+    endforeach()
+  endif()
+
   unset(PACKAGE_DEPENDENCIES)
   if(DEFINED _IBPF_DEPENDENCIES)
     set(PACKAGE_DEPENDENCIES "#### Expanded from @PACKAGE_DEPENDENCIES@ by install_basic_package_files() ####\n\ninclude(CMakeFindDependencyMacro)\n")
     foreach(_dep ${_IBPF_DEPENDENCIES})
-      set(PACKAGE_DEPENDENCIES "${PACKAGE_DEPENDENCIES}find_dependency(${_dep})\n")
+      string(APPEND PACKAGE_DEPENDENCIES "find_dependency(${_dep})\n")
     endforeach()
+    if(_need_private_deps)
+      foreach(_dep ${_IBPF_PRIVATE_DEPENDENCIES})
+        string(APPEND PACKAGE_DEPENDENCIES "find_dependency(${_dep})\n")
+      endforeach()
+    endif()
     set(PACKAGE_DEPENDENCIES "${PACKAGE_DEPENDENCIES}\n###############################################################################\n")
   endif()
 

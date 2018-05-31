@@ -33,6 +33,10 @@ Generic Modules
   ``EXPORT_DESTINATION`` arguments, to install and generate the files in a
   path different from the default. The ``DESTINATION`` argument is now
   deprecated in favour of ``INSTALL_DESTINATION``.
+* :module:`InstallBasicPackageFiles`: Added ``PRIVATE_DEPENDENCIES`` argument
+  to support dependencies that should be located only if the targets are built
+  ``STATIC`` (i.e. libraries linked as ``PRIVATE``).
+
 
 CMake Next
 ----------
