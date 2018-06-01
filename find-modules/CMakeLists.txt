@@ -18,7 +18,6 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindCFW2CANAPI.cmake
                      FindDRAGONFLYAPI.cmake
                      FindESDCANAPI.cmake
-                     FindFFMPEG.cmake
                      FindFreenect.cmake
                      FindFTDI.cmake
                      FindFuse.cmake

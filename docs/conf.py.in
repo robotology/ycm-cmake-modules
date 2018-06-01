@@ -110,6 +110,7 @@ rst_epilog = """
 .. _`OVITO Git Repository`: https://sourceforge.net/projects/ovito/
 .. _`qt-gstreamer Git Repository`: https://github.com/GStreamer/qt-gstreamer/
 .. _`Catch2 Git Repository`: https://github.com/catchorg/Catch2/
+.. _`VTK Git Repository`: https://gitlab.kitware.com/vtk/vtk/
 .. _`domenichelli-irc2018`: https://doi.org/10.1109/IRC.2018.00014
 
 .. |lock| image:: /images/lock.png

@@ -38,6 +38,12 @@ Generic Modules
   ``STATIC`` (i.e. libraries linked as ``PRIVATE``).
 
 
+Find Modules
+------------
+
+* The :module:`FindFFMPEG` was replaced by the 3rd party one.
+
+
 CMake Next
 ----------
 
@@ -52,3 +58,5 @@ CMake Next
 
 * :module:`Catch`, :module:`CatchAddTests`, and :module:`ParseAndAddCatchTests`
   modules imported from `Catch2 Git Repository`_.
+* The :module:`FindFFMPEG` is now imported from the `VTK Git Repository`_
+  (ref v8.1.1).
