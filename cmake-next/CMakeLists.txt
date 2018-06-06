@@ -92,7 +92,7 @@ endfunction()
 
 
 # Downloaded modules               CMake Version   Uncommitted
-#                                  Version         Changes
+#                                                  Changes
 #
 #  FindMatlab                       3.7
 #  FeatureSummary                   3.8
@@ -108,6 +108,8 @@ endfunction()
 # Changes in dependencies
 #  FindPackageHandleStandardArgs
 
+# NOTE: keep CMake version values listed at root/YCMConfig.cmake.in up
+# to date with changes in the previous table.
 
 
 ################################################################################
