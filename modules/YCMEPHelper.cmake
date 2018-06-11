@@ -86,7 +86,7 @@ set(_ycm_ExternalProject_sha1sum     54a1031a8f1e6a7462072ea5c3d24f68567ab4ad)
 
 # Files in all projects that need to bootstrap YCM
 set(_ycm_IncludeUrl_sha1sum          ccb03a4975faccabc9032cada2624ccfda42d238)
-set(_ycm_YCMBootstrap_sha1sum        cfa7120cdbe8e6c532469b66221efe2120a54bc8)
+set(_ycm_YCMBootstrap_sha1sum        dd95e1d38e045091e2e6c1ba2a96d540f1b8af0d)
 
 
 ########################################################################
@@ -200,6 +200,7 @@ macro(_YCM_SETUP)
   set_property(DIRECTORY PROPERTY CMAKE_PARSE_ARGUMENTS_DEFAULT_SKIP_EMPTY FALSE)
   set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+  # Disable CMake cache registry.
   set(CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY 1)
   set(CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY 1)
 
@@ -792,12 +793,6 @@ function(YCM_EP_HELPER _name)
 
   # Default CMAKE_CACHE_ARGS (Initial cache, forced)
   set(${_name}_YCM_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}") # Where to do the installation
-  # Extend PKG_CONFIG_PATH for projects using pkg-config. If
-  # CMAKE_MINIMUM_REQUIRED_VERSION is 3.1 or later, this is enabled
-  # by default.
-  if(CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.1)
-    list(APPEND ${_name}_YCM_CMAKE_CACHE_ARGS "-DPKG_CONFIG_USE_CMAKE_PREFIX_PATH:BOOL=TRUE")
-  endif()
 
   # Default CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
   unset(${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS)

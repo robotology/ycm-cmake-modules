@@ -129,4 +129,70 @@ BSD license. See accompanying file COPYING.qt-gstreamer for details.
     _ycm_install(3rdparty-cmake-wiki FILES cmake-wiki/README.CMake-wiki
                                      DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
+
+    # Catch2 contrib modules
+    set(_files contrib/Catch.cmake                 6f80938187f2fe004db163481ad7b468c6f22ea4
+               contrib/CatchAddTests.cmake         a7474041282ae2a47469463de9e84a433d238e48
+               contrib/ParseAndAddCatchTests.cmake 22830b9ccf77f357e1e23f84ef11749a9122c03d
+               LICENSE.txt                         3cba29011be2b9d59f6204d6fa0a386b1b2dbd90)
+    set(_ref 93db01c647eda55d84f626bf396c36eabf220150)
+    set(_dir "${CMAKE_CURRENT_BINARY_DIR}/catch2")
+
+    _ycm_download(3rdparty-catch2 "Catch2 (C++ Automated Test Cases in a Header) git repository"
+                  "https://raw.githubusercontent.com/catchorg/Catch2/<REF>/<FILE>"
+                  ${_ref} "${_dir}" "${_files}")
+
+    file(WRITE "${_dir}/README.Catch2"
+"Some of the files in this folder and its subfolder come from the Catch2 git
+repository (ref ${_ref}):
+
+  https://github.com/catchorg/Catch2/
+
+Redistribution and use is allowed according to the terms of the Boost Software
+License. See accompanying file COPYING.Catch2 for details.
+")
+
+    _ycm_install(3rdparty-catch2 FILES "${_dir}/contrib/Catch.cmake"
+                                       "${_dir}/contrib/CatchAddTests.cmake"
+                                       "${_dir}/contrib/ParseAndAddCatchTests.cmake"
+                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+
+    _ycm_install(3rdparty-catch2 FILES "${_dir}/LICENSE.txt"
+                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty"
+                                 RENAME COPYING.Catch2)
+
+    _ycm_install(3rdparty-catch2 FILES "${_dir}/README.Catch2"
+                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+
+
+    # VTK modules
+    set(_files Copyright.txt                       73e1eb91dcdfcedf106ced4e67bc691614f0a3b3
+               CMake/FindFFMPEG.cmake              7a979800a51b0fd7af24be3ee88ea37309294695)
+    set(_ref v8.1.1)
+    set(_dir "${CMAKE_CURRENT_BINARY_DIR}/vtk")
+
+    _ycm_download(3rdparty-vtk "VTK (Visualization Toolkit) git repository"
+                  "https://gitlab.kitware.com/vtk/vtk/raw/<REF>/<FILE>"
+                  ${_ref} "${_dir}" "${_files}")
+
+    file(WRITE "${_dir}/README.VTK"
+"Some of the files in this folder and its subfolder come from the VTK git
+repository (ref ${_ref}):
+
+  https://gitlab.kitware.com/vtk/vtk/
+
+Redistribution and use is allowed according to the terms of the Boost Software
+License. See accompanying file COPYING.Catch2 for details.
+")
+
+    _ycm_install(3rdparty-vtk FILES "${_dir}/CMake/FindFFMPEG.cmake"
+                              DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+
+    _ycm_install(3rdparty-vtk FILES "${_dir}/Copyright.txt"
+                              DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty"
+                              RENAME COPYING.VTK)
+
+    _ycm_install(3rdparty-vtk FILES "${_dir}/README.VTK"
+                              DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+
 endif()

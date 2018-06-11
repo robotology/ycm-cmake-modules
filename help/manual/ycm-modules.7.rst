@@ -76,7 +76,6 @@ Find Package Modules
    /module/FindCFW2CANAPI
    /module/FindDRAGONFLYAPI
    /module/FindESDCANAPI
-   /module/FindFFMPEG
    /module/FindFreenect
    /module/FindFTDI
    /module/FindFuse

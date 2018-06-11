@@ -13,23 +13,8 @@
 #  License text for the above reference.)
 
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 project(YCM NONE)
-
-
-# Features supported by newer cmake versions
-if(NOT CMAKE_VERSION VERSION_LESS 3.5)
-  set(CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS 1)
-else()
-  set(CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS 0)
-endif()
-
-if(NOT CMAKE_VERSION VERSION_LESS 3.4)
-  set(CMAKE_SUPPORTS_STRING_APPEND 1)
-else()
-  set(CMAKE_SUPPORTS_STRING_APPEND 0)
-endif()
-
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/internal-modules")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
@@ -38,22 +23,18 @@ include(YCMVersion)
 include(YCMInternal)
 
 if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
-    option(YCM_MAINTAINER_MODE "Enable maintainer mode (download all files and enable CPack) - Latest CMake version is recommended" FALSE)
-    mark_as_advanced(YCM_MAINTAINER_MODE)
+  option(YCM_MAINTAINER_MODE "Enable maintainer mode (download all files and enable CPack) - Latest CMake version is recommended" FALSE)
+  mark_as_advanced(YCM_MAINTAINER_MODE)
 endif()
 
 if(YCM_MAINTAINER_MODE)
-    if(NOT CMAKE_SUPPORTS_CMAKE_PARSE_ARGUMENTS OR NOT CMAKE_SUPPORTS_STRING_APPEND)
-        message(AUTHOR_WARNING "Maintainer mode enabled, but not all required features supported by CMake. YCM build might not be usable.")
-    endif()
-
-    if(NOT EXISTS "${CMAKE_SOURCE_DIR}/.git")
-        message(WARNING "Cannot enable maintainer mode outside a git repository. The YCM_MAINTAINER_MODE option will be disabled.")
-        unset(YCM_MAINTAINER_MODE)
-        unset(YCM_MAINTAINER_MODE CACHE)
-    else()
-        include(YCMPack)
-    endif()
+  if(NOT EXISTS "${CMAKE_SOURCE_DIR}/.git")
+    message(WARNING "Cannot enable maintainer mode outside a git repository. The YCM_MAINTAINER_MODE option will be disabled.")
+    unset(YCM_MAINTAINER_MODE)
+    unset(YCM_MAINTAINER_MODE CACHE)
+  else()
+    include(YCMPack)
+  endif()
 endif()
 
 include(GNUInstallDirs)
@@ -80,15 +61,6 @@ add_subdirectory(build-modules)
 add_subdirectory(style-modules)
 add_subdirectory(docs)
 
-# Use the new CMakePackageConfigHelpers from CMake repository in order to use
-# the new INSTALL_PREFIX argument for configure_package_config_file
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.1)
-    # Just a reminder to remove this when we change cmake version
-    message(AUTHOR_WARNING "CMake minimum required version greater than 3.1. You can remove this.")
-endif()
-if(CMAKE_VERSION VERSION_LESS 3.1)
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}/cmake-next/cmake-3.1/Modules")
-endif()
 include(CMakePackageConfigHelpers)
 
 # YCMConfigVersion.cmake file (same for build tree and intall)
@@ -120,10 +92,10 @@ install(FILES "${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cma
 include(AddUninstallTarget)
 
 if(UNIX)
-    # update-sha1sums target makes no sense on windows, since the .sh script
-    # will fail to execute
-    add_custom_target(update-sha1sums
-                      COMMAND "${CMAKE_SOURCE_DIR}/tools/update_sha1sums.sh")
+  # update-sha1sums target makes no sense on windows, since the .sh script
+  # will fail to execute
+  add_custom_target(update-sha1sums
+                    COMMAND "${CMAKE_SOURCE_DIR}/tools/update_sha1sums.sh")
 endif()
 
 enable_testing()
