@@ -5,6 +5,14 @@ YCM Release Notes
 
    .. contents::
 
+YCM 0.9 Series
+--------------
+
+.. toctree::
+   :maxdepth: 1
+
+   YCM 0.9.0 (UNRELEASED) <0.9.0>
+
 YCM 0.8 Series
 --------------
 

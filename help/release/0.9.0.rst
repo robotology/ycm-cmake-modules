@@ -1,0 +1,8 @@
+YCM 0.9.0 (UNRELEASED) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.8 include the following.
