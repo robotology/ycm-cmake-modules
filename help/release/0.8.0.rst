@@ -1,4 +1,4 @@
-YCM 0.8.0 (UNRELEASED) Release Notes
+YCM 0.8.0 (2018-06-11) Release Notes
 ************************************
 
 .. only:: html
@@ -20,11 +20,12 @@ Modules
 Generic Modules
 ---------------
 
+* :module:`GitInfo`: Fixed for clones using `git-worktree`
 * :module:`InstallBasicPackageFiles`: Added ``INCLUDE_FILE`` argument to
   support appending user content to the generated ``PackageConfig.cmake`` file.
 * :module:`InstallBasicPackageFiles`: Added ``EXPORT`` arguments to use
   :cmake:command:`export(EXPORT)` instead of :cmake:command:`export(TARGETS)`
-  (default = <name> if ``TARGETS``-related arguments are not passed.
+  (default = <name>) if ``TARGETS``-related arguments are not passed.
 * :module:`InstallBasicPackageFiles`: Added ``FIRST_TARGET`` argument to
   specify a target to check when using ``EXPORT`` (default = <name>)
 * :module:`InstallBasicPackageFiles`: Added ``COMPONENT`` argument, forwarded
@@ -57,7 +58,10 @@ CMake Next
 3rd Party
 ---------
 
+* qt-gstreamer modules are now imported from the official
+  `qt-gstreamer Git Repository`_ instead of from the `robotology-dependencies`
+  clone.
 * :module:`Catch`, :module:`CatchAddTests`, and :module:`ParseAndAddCatchTests`
   modules imported from `Catch2 Git Repository`_.
-* The :module:`FindFFMPEG` is now imported from the `VTK Git Repository`_
+* The :module:`FindFFMPEG` module is now imported from the `VTK Git Repository`_
   (ref v8.1.1).
