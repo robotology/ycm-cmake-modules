@@ -35,7 +35,7 @@
 #                              [NO_COMPATIBILITY_VARS]
 #                             )
 #
-# Depending on UPPERCASE_FILENAMES and LOWERCASE_FILENAMES, this
+# Depending on ``UPPERCASE_FILENAMES`` and ``LOWERCASE_FILENAMES``, this
 # function generates 3 files:
 #
 #  - ``<Name>ConfigVersion.cmake`` or ``<name>-config-version.cmake``
