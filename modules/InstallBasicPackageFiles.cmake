@@ -95,12 +95,13 @@
 # By default ``install_basic_package_files`` also generates the two helper
 # macros ``set_and_check()`` and ``check_required_components()`` into the
 # ``<Name>Config.cmake`` file. ``set_and_check()`` should be used instead of the
-# normal set() command for setting directories and file locations. Additionally
-# to setting the variable it also checks that the referenced file or directory
-# actually exists and fails with a ``FATAL_ERROR`` otherwise. This makes sure
-# that the created ``<Name>Config.cmake`` file does not contain wrong
-# references. When using the ``NO_SET_AND_CHECK_MACRO, this macro is not
-# generated into the ``<Name>Config.cmake`` file.
+# normal :command:`set()` command for setting directories and file locations.
+# Additionally to setting the variable it also checks that the referenced file
+# or directory actually exists and fails with a ``FATAL_ERROR`` otherwise.
+# This makes sure that the created ``<Name>Config.cmake`` file does not contain
+# wrong references.
+# When using the ``NO_SET_AND_CHECK_MACRO, this macro is not generated into the
+# ``<Name>Config.cmake`` file.
 #
 # By default, ``install_basic_package_files`` append a call to
 # ``check_required_components(<Name>)`` in <Name>Config.cmake file if the
