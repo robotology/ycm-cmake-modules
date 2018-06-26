@@ -461,25 +461,26 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
          DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDEDIR OR
          DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDEDIR OR
          DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDEDIR)
-        set(_get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDEDIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDEDIR\@\")\n")
-        set(_set_include_dir "set(${_Name}_INCLUDE_DIRS \"\${${_IBPF_VARS_PREFIX}_INCLUDEDIR}\")")
+        list(APPEND _include_dir_list "\"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDEDIR\@\"")
       elseif(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_INCLUDE_DIR OR
              DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDE_DIR OR
              DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDE_DIR OR
              DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDE_DIR)
-        set(_get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDE_DIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDE_DIR\@\")\n")
-        set(_set_include_dir "set(${_Name}_INCLUDE_DIRS \"\${${_IBPF_VARS_PREFIX}_INCLUDE_DIR}\")")
+        list(APPEND _include_dir_list "\"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDE_DIR\@\"")
       else()
         unset(_include_dir_list)
         foreach(_target ${_targets})
-          set(_get_include_dir "${_get_include_dir}get_property(${_IBPF_VARS_PREFIX}_${_target}_INCLUDE_DIR TARGET ${_IBPF_NAMESPACE}${_target} PROPERTY INTERFACE_INCLUDE_DIRECTORIES)\n")
-          list(APPEND _include_dir_list "\"\${${_IBPF_VARS_PREFIX}_${_target}_INCLUDE_DIR}\"")
+          list(APPEND _include_dir_list "\$<TARGET_PROPERTY:${_IBPF_NAMESPACE}${_target},INTERFACE_INCLUDE_DIRECTORIES>")
         endforeach()
         string(REPLACE ";" " " _include_dir_list "${_include_dir_list}")
         string(REPLACE ";" " " _target_list "${_target_list}")
-        set(_set_include_dir "set(${_Name}_INCLUDE_DIRS ${_include_dir_list})\nlist(REMOVE_DUPLICATES ${_Name}_INCLUDE_DIRS)")
+        set(_set_include_dir "")
       endif()
-      set(_compatibility_vars "# Compatibility\n${_get_include_dir}\nset(${_Name}_LIBRARIES ${_target_list})\n${_set_include_dir}")
+      set(_compatibility_vars
+"# Compatibility\nset(${_Name}_LIBRARIES ${_target_list})
+set(${_Name}_INCLUDE_DIRS ${_include_dir_list})
+list(REMOVE_DUPLICATES ${_Name}_INCLUDE_DIRS)
+")
     endif()
 
     # Write the file
