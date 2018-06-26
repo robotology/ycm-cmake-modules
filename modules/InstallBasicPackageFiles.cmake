@@ -83,22 +83,13 @@
 # If this hasn’t been set, it errors out.  The ``VERSION`` argument is also used
 # to replace the ``@PACKAGE_VERSION@`` string in the configuration file.
 #
-# ``COMPATIBILITY`` shall be any of ``<AnyNewerVersion|SameMajorVersion|
-# ExactVersion>``.
-# The ``COMPATIBILITY`` mode ``AnyNewerVersion`` means that the installed
-# package version will be considered compatible if it is newer or exactly the
-# same as the requested version. This mode should be used for packages which are
-# fully backward compatible, also across major versions.
-# If ``SameMajorVersion`` is used instead, then the behaviour differs from
-# ``AnyNewerVersion`` in that the major version number must be the same as
-# requested, e.g. version 2.0 will not be considered compatible if 1.0 is
-# requested. This mode should be used for packages which guarantee backward
-# compatibility within the same major version. If ``ExactVersion`` is used, then
-# the package is only considered compatible if the requested version matches
-# exactly its own version number (not considering the tweak version). For
-# example, version 1.2.3 of a package is only considered compatible to requested
-# version 1.2.3. This mode is for packages without compatibility guarantees. If
-# your project has more elaborated version matching rules, you will need to
+# ``COMPATIBILITY`` shall be any of the options accepted by the
+# :command:`write_basic_package_version_file` command
+# (``AnyNewerVersion``, ``SameMajorVersion``, ``SameMinorVersion`` [CMake 3.11],
+# or ``ExactVersion``).
+# These options are explained in :command:`write_basic_package_version_file`
+# command documentation.
+# If your project has more elaborated version matching rules, you will need to
 # write your own custom ConfigVersion.cmake file instead of using this macro.
 #
 # By default ``install_basic_package_files`` also generates the two helper
@@ -190,8 +181,8 @@
 # build tree and :command:`install(EXPORT)` in the installation directory.
 # The targets are exported using the value for the ``NAMESPACE``
 # argument as namespace.
-# The export can be passed using the `EXPORT` argument.
-# The targets can be passed using the `TARGETS` argument or using one or more
+# The export can be passed using the ``EXPORT`` argument.
+# The targets can be passed using the ``TARGETS`` argument or using one or more
 # global properties, that can be passed to the function using the
 # ``TARGETS_PROPERTY`` or ``TARGET_PROPERTIES`` arguments.
 #
@@ -207,7 +198,7 @@
 # variables which are loaded by downstream projects.
 #
 # If the ``COMPONENT`` argument is passed, it is forwarded to the
-# :command:`install` commands, otherwise <Name> is used.
+# :command:`install` commands, otherwise ``<Name>`` is used.
 
 #=============================================================================
 # Copyright 2013 Istituto Italiano di Tecnologia (IIT)
