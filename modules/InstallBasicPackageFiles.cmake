@@ -54,7 +54,7 @@
 # Dependencies can be followed by any of the possible :command:`find_dependency`
 # argument.
 # In this case, all the arguments must be specified within double quotes (e.g.
-# "<dependency> 1.0.0 EXACT", "<dependency> CONFIG").
+# ``"<dependency> 1.0.0 EXACT"``, or ``"<dependency> CONFIG"``).
 # The ``PRIVATE_DEPENDENCIES`` argument is similar to ``DEPENDENCIES``, but
 # these dependencies are included only when libraries are built ``STATIC``, i.e.
 # if ``BUILD_SHARED_LIBS`` is ``OFF`` or if the ``TYPE`` property for one or
