@@ -104,14 +104,14 @@
 # ``<Name>Config.cmake`` file.
 #
 # By default, ``install_basic_package_files`` append a call to
-# ``check_required_components(<Name>)`` in <Name>Config.cmake file if the
+# ``check_required_components(<Name>)`` in ``<Name>Config.cmake`` file if the
 # package supports components. This macro checks whether all requested,
 # non-optional components have been found, and if this is not the case, sets the
 # ``<Name>_FOUND`` variable to ``FALSE``, so that the package is considered to
 # be not found. It does that by testing the ``<Name>_<Component>_FOUND``
 # variables for all requested required components. When using the
 # ``NO_CHECK_REQUIRED_COMPONENTS_MACRO`` option, this macro is not generated
-# into the <Name>Config.cmake file.
+# into the ``<Name>Config.cmake`` file.
 #
 # Finally, the files in the build and install directory are exactly the same.
 #
