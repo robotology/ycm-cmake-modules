@@ -83,22 +83,13 @@
 # If this hasn’t been set, it errors out.  The ``VERSION`` argument is also used
 # to replace the ``@PACKAGE_VERSION@`` string in the configuration file.
 #
-# ``COMPATIBILITY`` shall be any of ``<AnyNewerVersion|SameMajorVersion|
-# ExactVersion>``.
-# The ``COMPATIBILITY`` mode ``AnyNewerVersion`` means that the installed
-# package version will be considered compatible if it is newer or exactly the
-# same as the requested version. This mode should be used for packages which are
-# fully backward compatible, also across major versions.
-# If ``SameMajorVersion`` is used instead, then the behaviour differs from
-# ``AnyNewerVersion`` in that the major version number must be the same as
-# requested, e.g. version 2.0 will not be considered compatible if 1.0 is
-# requested. This mode should be used for packages which guarantee backward
-# compatibility within the same major version. If ``ExactVersion`` is used, then
-# the package is only considered compatible if the requested version matches
-# exactly its own version number (not considering the tweak version). For
-# example, version 1.2.3 of a package is only considered compatible to requested
-# version 1.2.3. This mode is for packages without compatibility guarantees. If
-# your project has more elaborated version matching rules, you will need to
+# ``COMPATIBILITY`` shall be any of the options accepted by the
+# :command:`write_basic_package_version_file` command
+# (``AnyNewerVersion``, ``SameMajorVersion``, ``SameMinorVersion`` [CMake 3.11],
+# or ``ExactVersion``).
+# These options are explained in :command:`write_basic_package_version_file`
+# command documentation.
+# If your project has more elaborated version matching rules, you will need to
 # write your own custom ConfigVersion.cmake file instead of using this macro.
 #
 # By default ``install_basic_package_files`` also generates the two helper
@@ -190,8 +181,8 @@
 # build tree and :command:`install(EXPORT)` in the installation directory.
 # The targets are exported using the value for the ``NAMESPACE``
 # argument as namespace.
-# The export can be passed using the `EXPORT` argument.
-# The targets can be passed using the `TARGETS` argument or using one or more
+# The export can be passed using the ``EXPORT`` argument.
+# The targets can be passed using the ``TARGETS`` argument or using one or more
 # global properties, that can be passed to the function using the
 # ``TARGETS_PROPERTY`` or ``TARGET_PROPERTIES`` arguments.
 #
@@ -207,7 +198,7 @@
 # variables which are loaded by downstream projects.
 #
 # If the ``COMPONENT`` argument is passed, it is forwarded to the
-# :command:`install` commands, otherwise <Name> is used.
+# :command:`install` commands, otherwise ``<Name>`` is used.
 
 #=============================================================================
 # Copyright 2013 Istituto Italiano di Tecnologia (IIT)
@@ -470,25 +461,26 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
          DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDEDIR OR
          DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDEDIR OR
          DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDEDIR)
-        set(_get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDEDIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDEDIR\@\")\n")
-        set(_set_include_dir "set(${_Name}_INCLUDE_DIRS \"\${${_IBPF_VARS_PREFIX}_INCLUDEDIR}\")")
+        list(APPEND _include_dir_list "\"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDEDIR\@\"")
       elseif(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_INCLUDE_DIR OR
              DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDE_DIR OR
              DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDE_DIR OR
              DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDE_DIR)
-        set(_get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDE_DIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDE_DIR\@\")\n")
-        set(_set_include_dir "set(${_Name}_INCLUDE_DIRS \"\${${_IBPF_VARS_PREFIX}_INCLUDE_DIR}\")")
+        list(APPEND _include_dir_list "\"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDE_DIR\@\"")
       else()
         unset(_include_dir_list)
         foreach(_target ${_targets})
-          set(_get_include_dir "${_get_include_dir}get_property(${_IBPF_VARS_PREFIX}_${_target}_INCLUDE_DIR TARGET ${_IBPF_NAMESPACE}${_target} PROPERTY INTERFACE_INCLUDE_DIRECTORIES)\n")
-          list(APPEND _include_dir_list "\"\${${_IBPF_VARS_PREFIX}_${_target}_INCLUDE_DIR}\"")
+          list(APPEND _include_dir_list "\$<TARGET_PROPERTY:${_IBPF_NAMESPACE}${_target},INTERFACE_INCLUDE_DIRECTORIES>")
         endforeach()
         string(REPLACE ";" " " _include_dir_list "${_include_dir_list}")
         string(REPLACE ";" " " _target_list "${_target_list}")
-        set(_set_include_dir "set(${_Name}_INCLUDE_DIRS ${_include_dir_list})\nlist(REMOVE_DUPLICATES ${_Name}_INCLUDE_DIRS)")
+        set(_set_include_dir "")
       endif()
-      set(_compatibility_vars "# Compatibility\n${_get_include_dir}\nset(${_Name}_LIBRARIES ${_target_list})\n${_set_include_dir}")
+      set(_compatibility_vars
+"# Compatibility\nset(${_Name}_LIBRARIES ${_target_list})
+set(${_Name}_INCLUDE_DIRS ${_include_dir_list})
+list(REMOVE_DUPLICATES ${_Name}_INCLUDE_DIRS)
+")
     endif()
 
     # Write the file
