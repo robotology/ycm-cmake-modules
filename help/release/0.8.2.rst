@@ -16,3 +16,5 @@ Generic Modules
 
 * :module:`InstallBasicPackageFiles`: Generator expressions are used to get
   INTERFACE_INCLUDE_DIRECTORIES for NO_COMPATIBILITY_VARS.
+* :module:`InstallBasicPackageFiles`: The ``INCLUDE_FILE`` arguments now
+  configures the file using ``@ONLY``.

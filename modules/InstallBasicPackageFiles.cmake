@@ -426,7 +426,9 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
         message(FATAL_ERROR "File \"${_IBPF_INCLUDE_FILE}\" not found")
     endif()
     file(READ ${_IBPF_INCLUDE_FILE} _includedfile_user_content_in)
-    string(CONFIGURE ${_includedfile_user_content_in} _includedfile_user_content)
+    string(CONFIGURE "${_includedfile_user_content_in}"
+           _includedfile_user_content
+           @ONLY)
     set(INCLUDED_FILE_CONTENT
 "#### Expanded from INCLUDE_FILE by install_basic_package_files() ####")
     set(INCLUDED_FILE_CONTENT "${INCLUDED_FILE_CONTENT}\n\n${_includedfile_user_content}")
