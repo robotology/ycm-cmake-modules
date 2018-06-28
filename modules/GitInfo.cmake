@@ -171,7 +171,7 @@ macro(_check_git_and_repo _source_dir _fatal)
   # Check repository
   if(NOT EXISTS "${_source_dir}/.git")
     # This is not a git folder.
-    if(_fatal)
+    if(${_fatal})
       message(FATAL_ERROR "Source dir \"${_source_dir}\" is not a git repository.")
     else()
       if(GIT_INFO_DEBUG)
@@ -185,7 +185,7 @@ macro(_check_git_and_repo _source_dir _fatal)
   find_package(Git QUIET)
   if(NOT GIT_FOUND)
     # Cannot extract version without git
-    if(_fatal)
+    if(${_fatal})
       message(FATAL_ERROR "Git not found. Cannot extract version without git.")
     else()
       if(GIT_INFO_DEBUG)
@@ -227,7 +227,7 @@ function(git_commit_info)
   endif()
 
   # Check repository
-  _check_git_and_repo("${_GCI_SOURCE_DIR}" _GCI_FATAL)
+  _check_git_and_repo("${_GCI_SOURCE_DIR}" ${_GCI_FATAL})
 
   # Check revision and get HASH
   execute_process(
@@ -411,7 +411,7 @@ function(git_wt_info)
   endif()
 
   # Check repository
-  _check_git_and_repo("${_GWTI_SOURCE_DIR}" _GWTI_FATAL)
+  _check_git_and_repo("${_GWTI_SOURCE_DIR}" ${_GWTI_FATAL})
 
   # Get info about the HEAD commit
   git_commit_info(SOURCE_DIR "${_GWTI_SOURCE_DIR}"
