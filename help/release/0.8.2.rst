@@ -18,3 +18,5 @@ Generic Modules
   INTERFACE_INCLUDE_DIRECTORIES for NO_COMPATIBILITY_VARS.
 * :module:`InstallBasicPackageFiles`: The ``INCLUDE_FILE`` arguments now
   configures the file using ``@ONLY``.
+* :module:`GitInfo`: Ensure that git commands are not executed outside a git
+  repository or if the git executable is not available.
