@@ -6,3 +6,16 @@ YCM 0.9.0 (UNRELEASED) Release Notes
   .. contents::
 
 Changes made since YCM 0.8 include the following.
+
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`InstallBasicPackageFiles`: Added ``INCLUDE_CONTENT`` argument,
+  similar to ``INCLUDE_FILE`` but that passes the content from the command
+  instead of an external file.
+* :module:`InstallBasicPackageFiles`: The ``@INCLUDED_FILE_CONTENT@`` variable
+  in the template config file is deprecated in favour of ``@INCLUDED_CONTENT@``.
