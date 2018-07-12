@@ -1,1 +1,1 @@
-.. cmake-module:: ../../cmake-next/Modules/ExternalProject.cmake
+.. cmake-module:: ../../cmake-next/proposed/ExternalProject.cmake

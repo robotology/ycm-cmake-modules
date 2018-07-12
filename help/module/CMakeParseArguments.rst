@@ -1,1 +1,1 @@
-.. cmake-module:: ../../cmake-next/Modules/CMakeParseArguments.cmake
+.. cmake-module:: ../../cmake-next/proposed/CMakeParseArguments.cmake
