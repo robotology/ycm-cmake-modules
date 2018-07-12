@@ -1,1 +1,1 @@
-.. cmake-module:: ../../cmake-next/Modules/FindGLEW.cmake
+.. cmake-module:: ../../cmake-next/proposed/FindGLEW.cmake
