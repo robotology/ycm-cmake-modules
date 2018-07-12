@@ -132,10 +132,10 @@ BSD license. See accompanying file COPYING.qt-gstreamer for details.
 
     # Catch2 contrib modules
     set(_files contrib/Catch.cmake                 6f80938187f2fe004db163481ad7b468c6f22ea4
-               contrib/CatchAddTests.cmake         a7474041282ae2a47469463de9e84a433d238e48
-               contrib/ParseAndAddCatchTests.cmake 22830b9ccf77f357e1e23f84ef11749a9122c03d
+               contrib/CatchAddTests.cmake         66d163633c3e1e051885f7b0a458e6dddb42c0cc
+               contrib/ParseAndAddCatchTests.cmake 7dc1d1eeb6351dfedec5a34bb55920ba516f0d3f
                LICENSE.txt                         3cba29011be2b9d59f6204d6fa0a386b1b2dbd90)
-    set(_ref 93db01c647eda55d84f626bf396c36eabf220150)
+    set(_ref 76790604f523f7fb63741aca5fc7fc1cbc140763)
     set(_dir "${CMAKE_CURRENT_BINARY_DIR}/catch2")
 
     _ycm_download(3rdparty-catch2 "Catch2 (C++ Automated Test Cases in a Header) git repository"
