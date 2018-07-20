@@ -201,8 +201,8 @@ repository (ref ${_ref}):
 
   https://gitlab.kitware.com/vtk/vtk/
 
-Redistribution and use is allowed according to the terms of the Boost Software
-License. See accompanying file COPYING.Catch2 for details.
+Redistribution and use is allowed according to the terms of the 3-clause
+BSD license. See accompanying file COPYING.VTK for details.
 ")
 
   _ycm_install(3rdparty-vtk FILES "${_dir}/CMake/FindFFMPEG.cmake"
