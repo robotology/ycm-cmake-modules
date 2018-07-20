@@ -26,5 +26,6 @@ Generic Modules
 * Update `Catch2 Git Repository`_ to commit
   ``76790604f523f7fb63741aca5fc7fc1cbc140763`` (updated :module:`CatchAddTests`
   and :module:`ParseAndAddCatchTests` modules).
-* Imported :module:`FindDoxygen` module from the `qgv Git Repository`_ (commit
-  ``85a43982f69d541044c8bfa08c87cb0c6108be9c``).
+* Imported modified version of the :module:`FindGraphviz` module from the
+  `qgv Git Repository`_ (modified version found
+  `here <https://github.com/robotology-legacy/yarpviz/blob/master/cmake/modules/FindGraphviz.cmake>_).

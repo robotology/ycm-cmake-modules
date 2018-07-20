@@ -144,7 +144,9 @@ BSD license. See accompanying file COPYING.qt-gstreamer for details.
                                    DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
 
-  # Catch2 contrib modules
+  ##############################################################################
+  # Catch2 related modules are taken from the Catch2 repository.
+
   set(_files contrib/Catch.cmake                 6f80938187f2fe004db163481ad7b468c6f22ea4
              contrib/CatchAddTests.cmake         66d163633c3e1e051885f7b0a458e6dddb42c0cc
              contrib/ParseAndAddCatchTests.cmake 7dc1d1eeb6351dfedec5a34bb55920ba516f0d3f
@@ -166,10 +168,6 @@ repository (ref ${_ref}):
 Redistribution and use is allowed according to the terms of the Boost Software
 License. See accompanying file COPYING.Catch2 for details.
 ")
-
-
-  ##############################################################################
-  # Catch2 related modules are taken from the Catch2 repository.
 
   _ycm_install(3rdparty-catch2 FILES "${_dir}/contrib/Catch.cmake"
                                      "${_dir}/contrib/CatchAddTests.cmake"
@@ -219,36 +217,16 @@ License. See accompanying file COPYING.Catch2 for details.
 
 
   ##############################################################################
-  # FindGraphviz.cmake is taken from the qgv repository
+  # FindGraphviz.cmake is a modified version taken from the qgv repository
 
-  set(_files LICENSE.txt                       f45ee1c765646813b442ca58de72e20a64a7ddba
-             cmake/modules/FindGraphviz.cmake  7da6123d62e38221440abdded30e40d5d732f49d)
-  set(_ref 85a43982f69d541044c8bfa08c87cb0c6108be9c)
-  set(_dir "${CMAKE_CURRENT_BINARY_DIR}/qgv")
-
-  _ycm_download(3rdparty-qgv
-                "qgv (Interactive Qt graphViz display) git repository"
-                "https://raw.githubusercontent.com/nbergont/qgv/<REF>/<FILE>"
-                ${_ref} "${_dir}" "${_files}")
-
-  file(WRITE "${_dir}/README.qgv"
-"Some of the files in this folder and its subfolder come from the qgv git
-repository (ref ${_ref}):
-
-  https://github.com/nbergont/qgv/
-
-Redistribution and use is allowed according to the terms of the Boost Software
-License. See accompanying file COPYING.qgv for details.
-")
-
-  _ycm_install(3rdparty-qgv FILES "${_dir}/cmake/modules/FindGraphviz.cmake"
+  _ycm_install(3rdparty-qgv FILES qgv/FindGraphviz.cmake
                             DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
-  _ycm_install(3rdparty-qgv FILES "${_dir}/LICENSE.txt"
+  _ycm_install(3rdparty-qgv FILES qgv/LICENSE.txt
                             DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty"
                             RENAME COPYING.qgv)
 
-  _ycm_install(3rdparty-qgv FILES "${_dir}/README.qgv"
+  _ycm_install(3rdparty-qgv FILES qgv/README.qgv
                             DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
 endif()
