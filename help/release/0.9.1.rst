@@ -6,3 +6,12 @@ YCM 0.9.1 (UNRELEASED) Release Notes
   .. contents::
 
 Changes made since YCM 0.9.0 include the following.
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`FindOrBuildPackage`: Fixed a typo that made ``find_or_build_package``
+  dismiss the first argument passed after the requested package name.
