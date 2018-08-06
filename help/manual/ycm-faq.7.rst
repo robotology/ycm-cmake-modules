@@ -106,7 +106,7 @@ YCM FAQ
 * :**A**: The bootstrap phase also checks that the files used for the
           bootstrap phase itself are updated, and warns the developer
           in order to make it easier to keep all the projects
-          syncronized.
+          synchronized.
 
 
 .. _`FAQ:ECM`:

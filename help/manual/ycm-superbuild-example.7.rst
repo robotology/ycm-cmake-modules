@@ -66,7 +66,7 @@ create a build directory
    cmake ..
 
 This will download all the repositories of the individual packages and setup the
-build sytem.
+build system.
 
 Now you can compile the whole project, type:
 
