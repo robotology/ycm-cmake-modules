@@ -238,7 +238,7 @@ but also wants to modify some of the subprojects.
   be downloaded.
   In order to keep 2 different versions, the superbuild should ignore
   the system version, and download and build it instead.
-  This can be done by setting the ``USE_SYSTEM_<PACKAGE>`` varibale to
+  This can be done by setting the ``USE_SYSTEM_<PACKAGE>`` variable to
   ``FALSE``.
 
 This can be done by running :cmake:manual:`ccmake <ccmake(1)>` or
