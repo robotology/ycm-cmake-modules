@@ -15,3 +15,10 @@ Generic Modules
 
 * :module:`FindOrBuildPackage`: Fixed a typo that made ``find_or_build_package``
   dismiss the first argument passed after the requested package name.
+
+Find Modules
+------------
+
+* The :module:`FindGLFW3` is now using the ``glfw`` target exported from upstream
+  if available.
+
