@@ -108,10 +108,10 @@ if(NOT GLFW3_FOUND)
 endif()
 
 
-# Create imported target GLFW::GLFW3 
+# Create imported target GLFW::GLFW3
 if(TARGET glfw)
-  # If the upstream target glfw exists, make GLFW::GLFW3 an alias of it 
-  # Note: ALIAS of imported targets are not supported, so we define an 
+  # If the upstream target glfw exists, make GLFW::GLFW3 an alias of it
+  # Note: ALIAS of imported targets are not supported, so we define an
   # imported interface target that links in a public way to glfw
   add_library(GLFW3::GLFW3 INTERFACE IMPORTED)
   set_target_properties(GLFW3::GLFW3 PROPERTIES INTERFACE_LINK_LIBRARIES glfw)
@@ -125,7 +125,7 @@ else()
       INTERFACE_LINK_LIBRARIES "${GLFW3_OPENGL_LIBRARY}")
   endif()
 
-  # Import target "GLFW3::GLFW3" for configuration "Release" 
+  # Import target "GLFW3::GLFW3" for configuration "Release"
   set_property(TARGET GLFW3::GLFW3 APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
   set_target_properties(GLFW3::GLFW3 PROPERTIES
     IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "C"
