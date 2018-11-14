@@ -22,3 +22,4 @@ Find Modules
 * The :module:`FindGLFW3` is now using the ``glfw`` target exported from upstream
   if available.
 
+* The :module:`FindESDCANAPI` is now also compatible with 64 bit libraries.
