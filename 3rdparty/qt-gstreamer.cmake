@@ -14,11 +14,12 @@
 
 
 ##############################################################################
-# FindGStreamer.cmake and FindGStreamerPluginsBase.cmake and their
+# FindGStreamer.cmake, FindGStreamerPluginsBase.cmake, FindGObject and their
 # dependencies are taken from the qt-gstreamer repository
 
 set(_files cmake/modules/COPYING-CMAKE-SCRIPTS            ff3ed70db4739b3c6747c7f624fe2bad70802987
            cmake/modules/FindGLIB2.cmake                  df497ba5188a8a98cb60d35a096680fd2e3140ce
+           cmake/modules/FindGObject.cmake                fc749adf95db8b0f8de9a75a13abe637c44823f1
            cmake/modules/FindGStreamerPluginsBase.cmake   75d8fbd4e20afdd624e538d935f3ebabb10c2778
            cmake/modules/MacroFindGStreamerLibrary.cmake  0b9cca5a62c8d4ccec99e875a36d1531e5a899a1)
 set(_ref a0e95b202a72b6d9e48bd1949ab6811c0f3c91c3)
@@ -48,6 +49,7 @@ BSD license. See accompanying file COPYING.qt-gstreamer for details.
 ")
 
 _ycm_install(3rdparty-qt-gstreamer FILES "${_dir}/cmake/modules/FindGLIB2.cmake"
+                                         "${_dir}/cmake/modules/FindGObject.cmake"
                                          "${_dir}/cmake/modules/FindGStreamer.cmake"
                                          "${_dir}/cmake/modules/FindGStreamerPluginsBase.cmake"
                                          "${_dir}/cmake/modules/MacroFindGStreamerLibrary.cmake"
