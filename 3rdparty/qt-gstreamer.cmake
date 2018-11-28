@@ -19,7 +19,6 @@
 
 set(_files cmake/modules/COPYING-CMAKE-SCRIPTS            ff3ed70db4739b3c6747c7f624fe2bad70802987
            cmake/modules/FindGLIB2.cmake                  df497ba5188a8a98cb60d35a096680fd2e3140ce
-           cmake/modules/FindGStreamer.cmake              21bc9cbec706b467fbc748dc7817e57648952dd1
            cmake/modules/FindGStreamerPluginsBase.cmake   75d8fbd4e20afdd624e538d935f3ebabb10c2778
            cmake/modules/MacroFindGStreamerLibrary.cmake  0b9cca5a62c8d4ccec99e875a36d1531e5a899a1)
 set(_ref a0e95b202a72b6d9e48bd1949ab6811c0f3c91c3)
@@ -27,6 +26,15 @@ set(_dir "${CMAKE_CURRENT_BINARY_DIR}/qt-gstreamer")
 _ycm_download(3rdparty-qt-gstreamer
              "qt-gstreamer git repository"
              "https://raw.githubusercontent.com/GStreamer/qt-gstreamer/<REF>/<FILE>"
+             ${_ref} "${_dir}" "${_files}")
+
+# FindGStreamer.cmake requires some unmerged patches, therefore is downloaded
+# from robotology-dependencies fork
+set(_files cmake/modules/FindGStreamer.cmake              457b77fa471d29d79b11c02c88954fff6ec62456)
+set(_ref e0a9f16815d7ce23e3d9cdece5dd06dc2b588116)
+_ycm_download(3rdparty-qt-gstreamer
+             "qt-gstreamer git repository"
+             "https://raw.githubusercontent.com/robotology-dependencies/qt-gstreamer/<REF>/<FILE>"
              ${_ref} "${_dir}" "${_files}")
 
 file(WRITE "${_dir}/README.qt-gstreamer"
