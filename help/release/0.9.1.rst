@@ -19,9 +19,10 @@ Generic Modules
 Find Modules
 ------------
 
-* The :module:`FindGLFW3` is now using the ``glfw`` target exported from upstream
-  if available.
-* The :module:`FindESDCANAPI` is now also compatible with 64 bit libraries.
+* The :module:`FindGLFW3` module is now using the ``glfw`` target exported from
+  upstream if available.
+* The :module:`FindESDCANAPI` module is now also compatible with 64 bit
+  libraries.
 
 CMake Next
 ----------
@@ -32,4 +33,4 @@ CMake Next
 3rd Party
 ---------
 
-* Fixed :module:`FindGStreamer` gstconfig.h detection on windows.
+* Fixed ``gstconfig.h`` detection on windows in :module:`FindGStreamer` module.
