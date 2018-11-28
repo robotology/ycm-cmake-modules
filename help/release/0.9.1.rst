@@ -23,6 +23,12 @@ Find Modules
   if available.
 * The :module:`FindESDCANAPI` is now also compatible with 64 bit libraries.
 
+CMake Next
+----------
+
+* Updated to CMake v3.13.0 + commit
+  :cmake-commit:`3804122ab2793b9d54aa8c69df62ed86f526d50f`).
+
 3rd Party
 ---------
 
