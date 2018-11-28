@@ -181,7 +181,7 @@ endif()
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.9.6
-# Imported from CMake tag v3.10.2
+# Imported from CMake tag v3.10.3
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.10)
   # Just a reminder to remove this when we change cmake version
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.9. You can remove this.")
@@ -191,8 +191,8 @@ endif()
 
 
 ################################################################################
-# Files not available or containing bugs in CMake 3.10.2
-# Imported from CMake tag v3.11.2
+# Files not available or containing bugs in CMake 3.10.3
+# Imported from CMake tag v3.11.4
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.11)
   # Just a reminder to remove this when we change cmake version
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.10. You can remove this.")
@@ -208,28 +208,27 @@ if(CMAKE_VERSION VERSION_LESS 3.11 OR YCM_MAINTAINER_MODE)
   file(COPY v3.11.0/WriteBasicConfigVersionFile.cmake
        DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11/Modules")
 
-  _ycm_cmake_next_download(v3.11.2 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11" "${_files}")
-  _ycm_cmake_next_install(v3.11.2 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11"
+  _ycm_cmake_next_download(v3.11.4 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11" "${_files}")
+  _ycm_cmake_next_install(v3.11.4 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11"
                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 endif()
 
 
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (v3.11.2)
-# Imported from latest revision tested
-if(NOT CMAKE_VERSION VERSION_LESS 3.12)
-    # Just a reminder to update files when a new cmake version is released
-    message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+# Files not available or containing bugs in CMake 3.11.4
+# Imported from CMake tag v3.12.4
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.12)
+  # Just a reminder to remove this when we change cmake version
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.11. You can remove this.")
 endif()
 
 # We assume that the user won't downgrade his CMake, therefore it's not
 # necessary to download and install these files if already included in CMake
 if(CMAKE_VERSION VERSION_LESS 3.12 OR YCM_MAINTAINER_MODE)
 
-  set(_ref f248f8ad7898816a5a627e288d3a04fed993967f)
   set(_files Copyright.txt                                        96563e603328872bc22d31a3445e23b438292751
              Modules/FindPython.cmake                             b55c8a5e7e32efa98c0a86f1e45e6498a13cb828
-             Modules/FindPython/Support.cmake                     cc625449f3bdfa9bfec17fcf386e3df73e1c56da
+             Modules/FindPython/Support.cmake                     898f3255348384a03be0d0cab19b42af513b3440
              Modules/FindPython2.cmake                            b79f69806d150c759be0504e4a8f2e54553e9330
              Modules/FindPython3.cmake                            aaa31c35f5167b385018f0863676ac4baf9b22e2
              Modules/CMakeFindFrameworks.cmake                    053fd8fd4bb7bc08fb6595b0a212de097a86084f  # Used by FindPython/Support.cmake
@@ -237,10 +236,43 @@ if(CMAKE_VERSION VERSION_LESS 3.12 OR YCM_MAINTAINER_MODE)
              Modules/FindPackageMessage.cmake                     68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
              Modules/SelectLibraryConfigurations.cmake            e09bf3cd3f1faa1f9cc8f5924216a7fe3e4594d4) # Used by FindPython/Support.cmake
 
-  _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
-  _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
+  _ycm_cmake_next_download(v3.12.4 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.12" "${_files}")
+  _ycm_cmake_next_install(v3.12.4 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.12"
                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 endif()
+
+
+################################################################################
+# Files not available or containing bugs in CMake 3.12.4
+# Imported from CMake tag v3.13.0
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.13)
+  # Just a reminder to remove this when we change cmake version
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.11. You can remove this.")
+endif()
+
+# None
+
+################################################################################
+# Files not yet available or containing bugs in current CMake release (v3.11.2)
+# Imported from latest revision tested
+if(NOT CMAKE_VERSION VERSION_LESS 3.14)
+    # Just a reminder to update files when a new cmake version is released
+    message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+endif()
+
+# None
+
+# We assume that the user won't downgrade his CMake, therefore it's not
+# necessary to download and install these files if already included in CMake
+# if(CMAKE_VERSION VERSION_LESS 3.12 OR YCM_MAINTAINER_MODE)
+#
+#   set(_ref 3804122ab2793b9d54aa8c69df62ed86f526d50f)
+#   set(_files Copyright.txt                                        96563e603328872bc22d31a3445e23b438292751)
+#
+#   _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
+#   _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
+#                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+# endif()
 
 ################################################################################
 # Files with patches not yet merged in CMake master

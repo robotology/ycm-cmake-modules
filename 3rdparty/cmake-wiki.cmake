@@ -13,18 +13,17 @@
 #  License text for the above reference.)
 
 
-option(YCM_NO_3RDPARTY "Disable 3rd party modules." FALSE)
-mark_as_advanced(YCM_NO_3RDPARTY)
+##############################################################################
+# FindOctave.cmake is taken from CMake wiki:
+# https://cmake.org/Wiki/CMakeUserFindOctave
 
-# Useful 3rd party modules
-if(NOT YCM_NO_3RDPARTY OR YCM_MAINTAINER_MODE)
+_ycm_install(3rdparty-cmake-wiki FILES cmake-wiki/FindOctave.cmake
+                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
-  include("${CMAKE_CURRENT_LIST_DIR}/eigen3.cmake")
-  include("${CMAKE_CURRENT_LIST_DIR}/ovito.cmake")
-  include("${CMAKE_CURRENT_LIST_DIR}/qt-gstreamer.cmake")
-  include("${CMAKE_CURRENT_LIST_DIR}/cmake-wiki.cmake")
-  include("${CMAKE_CURRENT_LIST_DIR}/catch2.cmake")
-  include("${CMAKE_CURRENT_LIST_DIR}/vtk.cmake")
-  include("${CMAKE_CURRENT_LIST_DIR}/qgv.cmake")
+_ycm_install(3rdparty-cmake-wiki FILES cmake-wiki/COPYING.CMake-wiki
+                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
-endif()
+_ycm_install(3rdparty-cmake-wiki FILES cmake-wiki/README.CMake-wiki
+                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+
+
