@@ -7,6 +7,13 @@ YCM 0.10.0 (UNRELEASED) Release Notes
 
 Changes made since YCM 0.9 include the following.
 
+
+CMake Next
+----------
+
+* Imported :module:`FindDoxygen` module from CMake 3.9.
+
+
 3rd Party
 ---------
 

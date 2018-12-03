@@ -97,6 +97,7 @@ endfunction()
 #  FindMatlab                       3.7
 #  FeatureSummary                   3.8
 #  UseSWIG                          3.8
+#  FindDoxygen                      3.9
 #  WriteBasicConfigVersionFile      3.11            Yes (CMAKE_ROOT)
 #  FindPython                       3.12
 #  FindPython/Support               3.12
@@ -176,7 +177,19 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.9)
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.8. You can remove this.")
 endif()
 
-# None
+if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
+
+  set(_files Copyright.txt                               bfef1cd1e93d828699f2ceac1224a60c1a17a59a
+             Modules/FindDoxygen.cmake                   04c149a2f570c19c8764547abad0f55312945ba7
+             Modules/FindPackageHandleStandardArgs.cmake db0ca94cc4270ab386b3182f21ad7c01f7f7d604  # Used by FindDoxygen
+             Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
+             Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
+
+  _ycm_cmake_next_download(v3.9.6 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.9" "${_files}")
+  _ycm_cmake_next_install(v3.9.6 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.9"
+                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+endif()
+
 
 
 ################################################################################
