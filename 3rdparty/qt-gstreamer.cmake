@@ -43,7 +43,7 @@ BSD license. See accompanying file COPYING.qt-gstreamer for details.
 set(_files cmake/modules/FindGStreamer.cmake              457b77fa471d29d79b11c02c88954fff6ec62456)
 set(_ref e0a9f16815d7ce23e3d9cdece5dd06dc2b588116)
 _ycm_download(3rdparty-qt-gstreamer
-             "qt-gstreamer git repository"
+             "qt-gstreamer git repository (robotology-dependency fork)"
              "https://raw.githubusercontent.com/robotology-dependencies/qt-gstreamer/<REF>/<FILE>"
              ${_ref} "${_dir}" "${_files}")
 
