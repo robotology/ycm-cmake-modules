@@ -11,3 +11,4 @@ Changes made since YCM 0.9 include the following.
 ---------
 
 * Imported :module:`FindGObject` module from `qt-gstreamer Git Repository`_.
+* Imported :module:`CMakeRC` module from `CMakeRC Git Repository`_.

@@ -26,5 +26,6 @@ if(NOT YCM_NO_3RDPARTY OR YCM_MAINTAINER_MODE)
   include("${CMAKE_CURRENT_LIST_DIR}/catch2.cmake")
   include("${CMAKE_CURRENT_LIST_DIR}/vtk.cmake")
   include("${CMAKE_CURRENT_LIST_DIR}/qgv.cmake")
+  include("${CMAKE_CURRENT_LIST_DIR}/cmrc.cmake")
 
 endif()
