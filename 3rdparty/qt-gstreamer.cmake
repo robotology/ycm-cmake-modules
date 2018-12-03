@@ -29,15 +29,6 @@ _ycm_download(3rdparty-qt-gstreamer
              "https://raw.githubusercontent.com/GStreamer/qt-gstreamer/<REF>/<FILE>"
              ${_ref} "${_dir}" "${_files}")
 
-# FindGStreamer.cmake requires some unmerged patches, therefore is downloaded
-# from robotology-dependencies fork
-set(_files cmake/modules/FindGStreamer.cmake              457b77fa471d29d79b11c02c88954fff6ec62456)
-set(_ref e0a9f16815d7ce23e3d9cdece5dd06dc2b588116)
-_ycm_download(3rdparty-qt-gstreamer
-             "qt-gstreamer git repository"
-             "https://raw.githubusercontent.com/robotology-dependencies/qt-gstreamer/<REF>/<FILE>"
-             ${_ref} "${_dir}" "${_files}")
-
 file(WRITE "${_dir}/README.qt-gstreamer"
 "Some of the files in this folder and its subfolder come from the qt-gstreamer
 git repository (ref ${_ref}):
@@ -47,6 +38,15 @@ git repository (ref ${_ref}):
 Redistribution and use is allowed according to the terms of the 3-clause
 BSD license. See accompanying file COPYING.qt-gstreamer for details.
 ")
+
+# FindGStreamer.cmake requires some unmerged patches, therefore is downloaded
+# from robotology-dependencies fork
+set(_files cmake/modules/FindGStreamer.cmake              457b77fa471d29d79b11c02c88954fff6ec62456)
+set(_ref e0a9f16815d7ce23e3d9cdece5dd06dc2b588116)
+_ycm_download(3rdparty-qt-gstreamer
+             "qt-gstreamer git repository (robotology-dependency fork)"
+             "https://raw.githubusercontent.com/robotology-dependencies/qt-gstreamer/<REF>/<FILE>"
+             ${_ref} "${_dir}" "${_files}")
 
 _ycm_install(3rdparty-qt-gstreamer FILES "${_dir}/cmake/modules/FindGLIB2.cmake"
                                          "${_dir}/cmake/modules/FindGObject.cmake"
