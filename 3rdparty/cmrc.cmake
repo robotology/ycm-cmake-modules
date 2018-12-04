@@ -32,8 +32,8 @@ repository (ref ${_ref}):
 
   https://github.com/vector-of-bool/cmrc/
 
-Redistribution and use is allowed according to the terms of the Boost Software
-License. See accompanying file COPYING.CMakeRc for details.
+Redistribution and use is allowed according to the terms of the MIT License.
+See accompanying file COPYING.CMakeRC for details.
 ")
 
 _ycm_install(3rdparty-catch2 FILES "${_dir}/CMakeRC.cmake"
