@@ -8,6 +8,15 @@ YCM 0.10.0 (UNRELEASED) Release Notes
 Changes made since YCM 0.9 include the following.
 
 
+Modules
+=======
+
+Find Modules
+------------
+
+* Import :module:`FindI2C` module from `YARP Git Repository`_.
+
+
 CMake Next
 ----------
 

@@ -28,6 +28,7 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindGSL.cmake
                      FindGtkDatabox.cmake
                      FindGtkDataboxMM.cmake
+                     FindI2C.cmake
                      FindIPOPT.cmake
                      FindIPP.cmake
                      FindLibdc1394.cmake

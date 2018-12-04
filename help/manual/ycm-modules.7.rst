@@ -86,6 +86,7 @@ Find Package Modules
    /module/FindGSL
    /module/FindGtkDatabox
    /module/FindGtkDataboxMM
+   /module/FindI2C
    /module/FindIPOPT
    /module/FindIPP
    /module/FindLibdc1394
