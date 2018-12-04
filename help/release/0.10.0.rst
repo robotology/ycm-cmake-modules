@@ -32,3 +32,4 @@ CMake Next
 * Update `Catch2 Git Repository`_ to commit
   ``4902cd721586822ded795afe0c418c553137306a`` + some unmerged changes from
   robotology-dependencies fork.
+* Imported :module:`UseLATEX` module from `UseLATEX Git Repository`_.

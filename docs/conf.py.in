@@ -113,6 +113,7 @@ rst_epilog = """
 .. _`VTK Git Repository`: https://gitlab.kitware.com/vtk/vtk/
 .. _`qgv Git Repository`: https://github.com/nbergont/qgv/
 .. _`CMakeRC Git Repository`: https://github.com/vector-of-bool/cmrc/
+.. _`UseLATEX Git Repository`: https://gitlab.kitware.com/kmorel/UseLATEX/
 .. _`domenichelli-irc2018`: https://doi.org/10.1109/IRC.2018.00014
 
 .. |lock| image:: /images/lock.png
