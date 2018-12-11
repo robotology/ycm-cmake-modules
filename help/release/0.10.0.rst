@@ -11,6 +11,12 @@ Changes made since YCM 0.9 include the following.
 Modules
 =======
 
+Generic Modules
+---------------
+
+* The :module:`InstallBasicPackageFiles` module learned to forward the
+  ``ARCH_INDEPENDENT`` option to :command:`write_basic_package_version_file`
+
 Find Modules
 ------------
 
@@ -21,6 +27,10 @@ CMake Next
 ----------
 
 * Imported :module:`FindDoxygen` module from CMake 3.9.
+* Imported :module:`WriteBasicConfigVersionFile` and
+  :module:`CMakePackageConfigHelpers` modules from CMake master, to support
+  the ``ARCH_INDEPENDENT`` option in
+  :command:`write_basic_package_version_file`.
 
 
 3rd Party
