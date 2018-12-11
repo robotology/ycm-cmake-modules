@@ -98,11 +98,11 @@ endfunction()
 #  FeatureSummary                   3.8
 #  UseSWIG                          3.8
 #  FindDoxygen                      3.9
-#  WriteBasicConfigVersionFile      3.11            Yes (CMAKE_ROOT)
 #  FindPython                       3.12
 #  FindPython/Support               3.12
 #  FindPython2                      3.12
 #  FindPython3                      3.12
+#  WriteBasicConfigVersionFile      3.14            Yes (CMAKE_ROOT)
 #  CMakeParseArguments              ---             Yes
 #  FindGLEW                         ---             Yes
 #
@@ -211,20 +211,7 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.11)
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.10. You can remove this.")
 endif()
 
-# We assume that the user won't downgrade his CMake, therefore it's not
-# necessary to download and install these files if already included in CMake
-if(CMAKE_VERSION VERSION_LESS 3.11 OR YCM_MAINTAINER_MODE)
-
-  set(_files Copyright.txt                                        adb9e42eb50d36c7934d78bc339214d1600f8cb3
-             Modules/BasicConfigVersion-SameMinorVersion.cmake.in 9f8a3d2e75026677375705fa008325d18d24c3d7)
-
-  file(COPY v3.11.0/WriteBasicConfigVersionFile.cmake
-       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11/Modules")
-
-  _ycm_cmake_next_download(v3.11.4 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11" "${_files}")
-  _ycm_cmake_next_install(v3.11.4 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11"
-                                  DESTINATION "${YCM_INSTALL_MODULE_DIR}")
-endif()
+# None
 
 
 ################################################################################
@@ -273,19 +260,25 @@ if(NOT CMAKE_VERSION VERSION_LESS 3.14)
     message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
 endif()
 
-# None
-
 # We assume that the user won't downgrade his CMake, therefore it's not
 # necessary to download and install these files if already included in CMake
-# if(CMAKE_VERSION VERSION_LESS 3.12 OR YCM_MAINTAINER_MODE)
-#
-#   set(_ref 3804122ab2793b9d54aa8c69df62ed86f526d50f)
-#   set(_files Copyright.txt                                        96563e603328872bc22d31a3445e23b438292751)
-#
-#   _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
-#   _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
-#                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
-# endif()
+if(CMAKE_VERSION VERSION_LESS 3.14 OR YCM_MAINTAINER_MODE)
+
+  set(_ref 8c7367e3f0e5e104630857561b4730a0b32253f9)
+  set(_files Copyright.txt                                        251190457892c7ea5df272e625742388f228ab6e
+             Modules/BasicConfigVersion-SameMajorVersion.cmake.in f89dc13283012256d1cb702ffb0bc235cee5cc5a
+             Modules/BasicConfigVersion-SameMinorVersion.cmake.in a3e9f395d5ce5c66eb5b3fa8df2e9dfa8548562e
+             Modules/BasicConfigVersion-ExactVersion.cmake.in     c723920559d6f22af6a7d5f10deb26b4c170773d)
+
+  file(COPY master/WriteBasicConfigVersionFile.cmake
+            master/CMakePackageConfigHelpers.cmake # Required to be in the same folder as WriteBasicConfigVersionFile
+            master/BasicConfigVersion-AnyNewerVersion.cmake.in # Used by WriteBasicConfigVersionFile in main CMakeLists.txt
+       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+
+  _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
+  _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
+                                  DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+endif()
 
 ################################################################################
 # Files with patches not yet merged in CMake master
