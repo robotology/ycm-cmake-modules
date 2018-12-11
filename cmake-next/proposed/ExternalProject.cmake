@@ -1041,13 +1041,6 @@ define_property(DIRECTORY PROPERTY "EP_UPDATE_DISCONNECTED" INHERITED
   "ExternalProject module."
   )
 
-define_property(DIRECTORY PROPERTY "EP_SOURCE_DIR_PERSISTENT" INHERITED
-  BRIEF_DOCS "Whether source dir stored outside the build directory should be preserved."
-  FULL_DOCS
-  "See documentation of the ExternalProject_Add() function in the "
-  "ExternalProject module."
-  )
-
 function(_ep_write_gitclone_script script_filename source_dir git_EXECUTABLE git_repository git_tag git_remote_name git_submodules git_shallow git_progress git_config src_name work_dir gitclone_infofile gitclone_stampfile tls_verify)
   if(NOT GIT_VERSION_STRING VERSION_LESS 1.7.10)
     set(git_clone_shallow_options "--depth 1 --no-single-branch")
@@ -1105,7 +1098,7 @@ foreach(config IN LISTS git_config)
   list(APPEND git_clone_options --config \${config})
 endforeach()
 
-if(EXISTS \"${source_dir}\" AND ${source_dir_persistent})
+if(EXISTS \"${source_dir}\")
   if(NOT IS_DIRECTORY \"${source_dir}\")
     # FIXME Perhaps support symbolic links?
     message(FATAL_ERROR \"\\\"${source_dir}\\\" exists and is not a git repository. Remove it and try again\")
