@@ -266,12 +266,13 @@ if(CMAKE_VERSION VERSION_LESS 3.14 OR YCM_MAINTAINER_MODE)
 
   set(_ref 8c7367e3f0e5e104630857561b4730a0b32253f9)
   set(_files Copyright.txt                                        251190457892c7ea5df272e625742388f228ab6e
-             Modules/BasicConfigVersion-AnyNewerVersion.cmake.in  fb0c14d1c39a46d856a18bec3430c45045f29a45
              Modules/BasicConfigVersion-SameMajorVersion.cmake.in f89dc13283012256d1cb702ffb0bc235cee5cc5a
              Modules/BasicConfigVersion-SameMinorVersion.cmake.in a3e9f395d5ce5c66eb5b3fa8df2e9dfa8548562e
              Modules/BasicConfigVersion-ExactVersion.cmake.in     c723920559d6f22af6a7d5f10deb26b4c170773d)
 
   file(COPY master/WriteBasicConfigVersionFile.cmake
+            master/CMakePackageConfigHelpers.cmake # Required to be in the same folder as WriteBasicConfigVersionFile
+            master/BasicConfigVersion-AnyNewerVersion.cmake.in # Used by WriteBasicConfigVersionFile in main CMakeLists.txt
        DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
 
   _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
