@@ -31,6 +31,7 @@ CMake Next
   :module:`CMakePackageConfigHelpers` modules from CMake master, to support
   the ``ARCH_INDEPENDENT`` option in
   :command:`write_basic_package_version_file`.
+* Imported :module:`FetchContent` module from CMake 3.11.
 
 
 3rd Party

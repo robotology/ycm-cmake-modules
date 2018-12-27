@@ -211,7 +211,17 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.11)
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.10. You can remove this.")
 endif()
 
-# None
+# We assume that the user won't downgrade his CMake, therefore it's not
+# necessary to download and install these files if already included in CMake
+if(CMAKE_VERSION VERSION_LESS 3.11 OR YCM_MAINTAINER_MODE)
+
+  set(_files Copyright.txt                                        adb9e42eb50d36c7934d78bc339214d1600f8cb3
+             Modules/FetchContent.cmake                           a4a1f9ddcc762d7707544b8ecbed5659364d9df2)
+
+  _ycm_cmake_next_download(v3.11.4 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11" "${_files}")
+  _ycm_cmake_next_install(v3.11.4 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11"
+                                  DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+endif()
 
 
 ################################################################################
