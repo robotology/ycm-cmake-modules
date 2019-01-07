@@ -104,6 +104,7 @@ endfunction()
 #  FindPython2                      3.12
 #  FindPython3                      3.12
 #  WriteBasicConfigVersionFile      3.14            Yes (CMAKE_ROOT)
+#  FindOctave                       3.14
 #  CMakeParseArguments              ---             Yes
 #  FindGLEW                         ---             Yes
 #
@@ -292,7 +293,8 @@ if(CMAKE_VERSION VERSION_LESS 3.14 OR YCM_MAINTAINER_MODE)
   set(_files Copyright.txt                                        251190457892c7ea5df272e625742388f228ab6e
              Modules/BasicConfigVersion-SameMajorVersion.cmake.in f89dc13283012256d1cb702ffb0bc235cee5cc5a
              Modules/BasicConfigVersion-SameMinorVersion.cmake.in a3e9f395d5ce5c66eb5b3fa8df2e9dfa8548562e
-             Modules/BasicConfigVersion-ExactVersion.cmake.in     c723920559d6f22af6a7d5f10deb26b4c170773d)
+             Modules/BasicConfigVersion-ExactVersion.cmake.in     c723920559d6f22af6a7d5f10deb26b4c170773d
+             Modules/FindOctave.cmake                             b77d859517b7306ae7caa512177f6ed595cab84b)
 
   file(COPY master/WriteBasicConfigVersionFile.cmake
             master/CMakePackageConfigHelpers.cmake # Required to be in the same folder as WriteBasicConfigVersionFile

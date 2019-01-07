@@ -44,6 +44,7 @@ CMake Next
 * The :module:`ExternalProject` module was updated from CMake master.
   All the customizations were removed, with the exception of the ``git``
   deleting clones fix.
+* Imported :module:`FindOctave` module from CMake master.
 
 
 3rd Party
@@ -56,3 +57,7 @@ CMake Next
   ``4902cd721586822ded795afe0c418c553137306a`` + some unmerged changes from
   robotology-dependencies fork.
 * Imported :module:`UseLATEX` module from `UseLATEX Git Repository`_.
+* :module:`FindOctave` is no longer imported from CMake wiki, since it is
+  available in CMake master. Please note that the names of the variables are
+  different in CMake master version, therefore this should be considered a
+  breaking change.
