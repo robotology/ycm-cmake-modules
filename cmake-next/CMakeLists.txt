@@ -98,6 +98,7 @@ endfunction()
 #  FeatureSummary                   3.8
 #  UseSWIG                          3.8
 #  FindDoxygen                      3.9
+#  FindOpenGL                       3.10
 #  FindPython                       3.12
 #  FindPython/Support               3.12
 #  FindPython2                      3.12
@@ -200,7 +201,20 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.10)
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.9. You can remove this.")
 endif()
 
-# None
+# We assume that the user won't downgrade his CMake, therefore it's not
+# necessary to download and install these files if already included in CMake
+if(CMAKE_VERSION VERSION_LESS 3.10 OR YCM_MAINTAINER_MODE)
+
+  set(_files Copyright.txt                               17827332105eeec914e241e0a9c651690ae5b389
+             Modules/FindOpenGL.cmake                    f4955a22a1f365f763506e6229c1eea5eea5b279
+             Modules/FindPackageHandleStandardArgs.cmake 286ff571e093a25caaa4d2390d3b9729bc5ff44d  # Used by FindOpenGL
+             Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
+             Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
+
+  _ycm_cmake_next_download(v3.10.3 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.10" "${_files}")
+  _ycm_cmake_next_install(v3.10.3 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.10"
+                                  DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+endif()
 
 
 ################################################################################

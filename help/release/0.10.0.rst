@@ -32,6 +32,7 @@ CMake Next
   the ``ARCH_INDEPENDENT`` option in
   :command:`write_basic_package_version_file`.
 * Imported :module:`FetchContent` module from CMake 3.11.
+* Imported :module:`FindOpenGL` module from CMake 3.10.
 
 
 3rd Party
