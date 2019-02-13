@@ -55,7 +55,7 @@ if(NOT PortAudio_FOUND)
 
     find_path(PortAudio_INCLUDE_DIR portaudio.h C:/portaudio/include)
     mark_as_advanced(PortAudio_INCLUDE_DIR)
-    
+
     set(PortAudio_LIBRARIES ${PortAudio_LIBRARY})
     set(PortAudio_INCLUDE_DIRS ${PortAudio_INCLUDE_DIR})
 
@@ -68,7 +68,9 @@ endif()
 # Compatibility
 set(PORTAUDIO_LIBRARIES ${PortAudio_LIBRARIES})
 set(PORTAUDIO_INCLUDE_DIR ${PortAudio_INCLUDE_DIR})
-get_filename_component(PORTAUDIO_LINK_DIRECTORIES ${PortAudio_LIBRARY_RELEASE} DIRECTORY)
+if(PortAudio_LIBRARY_RELEASE)
+  get_filename_component(PORTAUDIO_LINK_DIRECTORIES "${PortAudio_LIBRARY_RELEASE}" DIRECTORY)
+endif()
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)
