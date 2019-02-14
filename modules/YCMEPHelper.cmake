@@ -82,10 +82,10 @@ set(__YCMEPHELPER_INCLUDED TRUE)
 
 # Files downloaded during YCM bootstrap
 set(_ycm_CMakeParseArguments_sha1sum 0c4d3f7ed248145cbeb67cbd6fd7190baf2e4517)
-set(_ycm_ExternalProject_sha1sum     198329b8d7128ba5feaf1280f178a2befde1506b)
+set(_ycm_ExternalProject_sha1sum     fe14746d2eb6b6e5179c61c9a669a535ca60e1ca)
 
 # Files in all projects that need to bootstrap YCM
-set(_ycm_IncludeUrl_sha1sum          ccb03a4975faccabc9032cada2624ccfda42d238)
+set(_ycm_IncludeUrl_sha1sum          921a037133255d01b644c16f19494cb08d98c462)
 set(_ycm_YCMBootstrap_sha1sum        dd95e1d38e045091e2e6c1ba2a96d540f1b8af0d)
 
 
@@ -192,10 +192,9 @@ macro(_YCM_SETUP)
   _ycm_include(CMakeParseArguments)
   _ycm_include(ExternalProject)
 
-  set_property(DIRECTORY PROPERTY EP_SOURCE_DIR_PERSISTENT 1)
   if(NOT NON_INTERACTIVE_BUILD)
     # Non interactive builds should always perform the update step
-    set_property(DIRECTORY PROPERTY EP_SCM_DISCONNECTED 1)
+    set_property(DIRECTORY PROPERTY EP_UPDATE_DISCONNECTED 1)
   endif()
   set_property(DIRECTORY PROPERTY CMAKE_PARSE_ARGUMENTS_DEFAULT_SKIP_EMPTY FALSE)
   set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -822,11 +821,7 @@ function(YCM_EP_HELPER _name)
   endif()
 
   # CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
-  if(DEFINED ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS)
-    # FIXME Do not add the "CMAKE_CACHE_DEFAULT_ARGS" until the ExternalProject module
-    # is updated from CMake
-    set(${_name}_CMAKE_CACHE_DEFAULT_ARGS ${${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS})
-  endif()
+  set(${_name}_CMAKE_CACHE_DEFAULT_ARGS CMAKE_CACHE_DEFAULT_ARGS ${${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS})
   if(_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS)
     list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS ${_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS})
   endif()
