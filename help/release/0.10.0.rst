@@ -15,7 +15,15 @@ Generic Modules
 ---------------
 
 * The :module:`InstallBasicPackageFiles` module learned to forward the
-  ``ARCH_INDEPENDENT`` option to :command:`write_basic_package_version_file`
+  ``ARCH_INDEPENDENT`` option to :command:`write_basic_package_version_file`.
+* The :module:`IncludeUrl` module now always perform the lock/unlock.
+
+Superbuild Helper Modules
+-------------------------
+
+* The :module:`YCMEPHelper` module now supports the ``CMAKE_CACHE_DEFAULT_ARGS``
+  argument.
+
 
 Find Modules
 ------------
@@ -33,6 +41,9 @@ CMake Next
   :command:`write_basic_package_version_file`.
 * Imported :module:`FetchContent` module from CMake 3.11.
 * Imported :module:`FindOpenGL` module from CMake 3.10.
+* The :module:`ExternalProject` module was updated from CMake master.
+  All the customizations were removed, with the exception of the ``git``
+  deleting clones fix.
 
 
 3rd Party

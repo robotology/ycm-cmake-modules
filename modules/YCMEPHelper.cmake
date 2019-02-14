@@ -821,11 +821,7 @@ function(YCM_EP_HELPER _name)
   endif()
 
   # CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
-  if(DEFINED ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS)
-    # FIXME Do not add the "CMAKE_CACHE_DEFAULT_ARGS" until the ExternalProject module
-    # is updated from CMake
-    set(${_name}_CMAKE_CACHE_DEFAULT_ARGS ${${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS})
-  endif()
+  set(${_name}_CMAKE_CACHE_DEFAULT_ARGS CMAKE_CACHE_DEFAULT_ARGS ${${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS})
   if(_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS)
     list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS ${_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS})
   endif()
