@@ -33,7 +33,7 @@ file(WRITE "${_dir}/README.OVITO"
 "Some of the files in this folder and its subfolder come from the OVITO git
 repository (ref ${_ref}):
 
-  https://sourceforge.net/projects/ovito/
+  https://gitlab.com/stuko/ovito
 
 Redistribution and use is allowed according to the terms of the GPL3 license.
 See accompanying file COPYING.OVITO for details.
