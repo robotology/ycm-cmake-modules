@@ -794,6 +794,10 @@ function(YCM_EP_HELPER _name)
   # Default CMAKE_CACHE_ARGS (Initial cache, forced)
   set(${_name}_YCM_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}") # Where to do the installation
 
+  if(DEFINED CMAKE_TOOLCHAIN_FILE)
+    list(APPEND ${_name}_YCM_CMAKE_CACHE_ARGS "-DCMAKE_TOOLCHAIN_FILE:PATH=${CMAKE_TOOLCHAIN_FILE}")
+  endif()
+
   # Default CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
   unset(${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS)
   if(NOT CMAKE_BUILD_TYPE STREQUAL "") # CMAKE_BUILD_TYPE is always defined

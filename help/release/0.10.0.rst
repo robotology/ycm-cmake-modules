@@ -26,6 +26,8 @@ Superbuild Helper Modules
 * The :module:`YCMEPHelper` module supports the ``SOURCE_SUBDIR`` argument.
   The ``CONFIGURE_SOURCE_DIR`` argument is now deprecated in favour of
   ``SOURCE_SUBDIR``.
+* The :module:`YCMEPHelper` module now passes the variable ``CMAKE_TOOLCHAIN_FILE``
+  to the children projects.
 
 
 Find Modules
