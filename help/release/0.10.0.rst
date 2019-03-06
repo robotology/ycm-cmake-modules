@@ -23,6 +23,9 @@ Superbuild Helper Modules
 
 * The :module:`YCMEPHelper` module now supports the ``CMAKE_CACHE_DEFAULT_ARGS``
   argument.
+* The :module:`YCMEPHelper` module supports the ``SOURCE_SUBDIR`` argument.
+  The ``CONFIGURE_SOURCE_DIR`` argument is now deprecated in favour of
+  ``SOURCE_SUBDIR``.
 
 
 Find Modules

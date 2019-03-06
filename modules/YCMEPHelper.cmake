@@ -565,11 +565,11 @@ function(_YCM_EP_ADD_EDIT_CACHE_STEP _name)
   _ep_get_configure_command_id(${_name} _${_name}_configure_command_id)
   if(_${_name}_configure_command_id STREQUAL "cmake")
 
-    get_property(_configure_source_dir TARGET ${_name} PROPERTY _EP_CONFIGURE_SOURCE_DIR)
+    get_property(_source_subdir TARGET ${_name} PROPERTY _EP_SOURCE_SUBDIR)
     get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
 
     ExternalProject_Add_Step(${_name} edit_cache
-                             COMMAND ${CMAKE_EDIT_COMMAND} -H${_configure_source_dir} -B${_binary_dir}
+                             COMMAND ${CMAKE_EDIT_COMMAND} -H${_source_subdir} -B${_binary_dir}
                              WORKING_DIRECTORY ${_binary_dir}
                              DEPENDEES configure
                              EXCLUDE_FROM_MAIN 1
@@ -593,10 +593,10 @@ function(_YCM_EP_ADD_PRINT_DIRECTORIES_STEP _name)
   endif()
 
   get_property(_source_dir TARGET ${_name} PROPERTY _EP_SOURCE_DIR)
-  get_property(_configure_source_dir TARGET ${_name} PROPERTY _EP_CONFIGURE_SOURCE_DIR)
+  get_property(_source_subdir TARGET ${_name} PROPERTY _EP_SOURCE_SUBDIR)
   get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
 
-  if("${_source_dir}" STREQUAL "${_configure_source_dir}")
+  if("${_source_dir}" STREQUAL "${_source_subdir}")
     set(_source_cmd COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
                     COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_dir}")
   else()
@@ -604,7 +604,7 @@ function(_YCM_EP_ADD_PRINT_DIRECTORIES_STEP _name)
                     COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_dir}"
                     COMMAND ${CMAKE_COMMAND} -E echo ""
                     COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
-                    COMMAND ${CMAKE_COMMAND} -E echo "    ${_configure_source_dir}")
+                    COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_subdir}")
   endif()
   set(_binary_cmd COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} BINARY directory: "
                   COMMAND ${CMAKE_COMMAND} -E echo "    ${_binary_dir}")
@@ -680,7 +680,8 @@ function(YCM_EP_HELPER _name)
                     TEST_BEFORE_INSTALL
                     TEST_AFTER_INSTALL
                     TEST_EXCLUDE_FROM_MAIN
-                    CONFIGURE_SOURCE_DIR)
+                    CONFIGURE_SOURCE_DIR # DEPRECATED Since YCM 0.10
+                    SOURCE_SUBDIR)
   set(_multiValueArgs CMAKE_ARGS
                       CMAKE_CACHE_ARGS
                       CMAKE_CACHE_DEFAULT_ARGS
@@ -914,8 +915,17 @@ function(YCM_EP_HELPER _name)
   if(DEFINED _YH_${_name}_EXCLUDE_FROM_ALL)
     list(APPEND ${_name}_EXTRA_ARGS EXCLUDE_FROM_ALL ${_YH_${_name}_EXCLUDE_FROM_ALL})
   endif()
+  # BEGIN DEPRECATED Since YCM 0.10
   if(DEFINED _YH_${_name}_CONFIGURE_SOURCE_DIR)
-    list(APPEND ${_name}_EXTRA_ARGS CONFIGURE_SOURCE_DIR ${_YH_${_name}_CONFIGURE_SOURCE_DIR})
+    message(DEPRECATION "CONFIGURE_SOURCE_DIR is deprecated. Use SOURCE_SUBDIR instead")
+    if(DEFINED _YH_${_name}_SOURCE_SUBDIR)
+      message(FATAL_ERROR "CONFIGURE_SOURCE_DIR and SOURCE_SUBDIR cannot be used together")
+    endif()
+    set(_YH_${_name}_SOURCE_SUBDIR "${_YH_${_name}_CONFIGURE_SOURCE_DIR}")
+  endif()
+  # END DEPRECATED Since YCM 0.10
+  if(DEFINED _YH_${_name}_SOURCE_SUBDIR)
+    list(APPEND ${_name}_EXTRA_ARGS SOURCE_SUBDIR "${_YH_${_name}_SOURCE_SUBDIR}")
   endif()
 
   # Repository dependent variables
