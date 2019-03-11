@@ -602,7 +602,7 @@ ${_compatibility_vars}
 
   unset(PACKAGE_DEPENDENCIES)
   if(DEFINED _IBPF_DEPENDENCIES)
-    set(PACKAGE_DEPENDENCIES "#### Expanded from @PACKAGE_DEPENDENCIES@ by install_basic_package_files() ####\n\ninclude(CMakeFindDependencyMacro)\n")
+    set(PACKAGE_DEPENDENCIES "\n#### Expanded from @PACKAGE_DEPENDENCIES@ by install_basic_package_files() ####\n\ninclude(CMakeFindDependencyMacro)\n")
 
     # FIXME When CMake 3.9 or greater is required, remove this madness and just
     #       use find_dependency
