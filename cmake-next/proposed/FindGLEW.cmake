@@ -56,6 +56,8 @@ This module defines the following variables:
 
 find_package(GLEW CONFIG QUIET)
 
+include(FindPackageHandleStandardArgs)
+
 if(GLEW_FOUND)
   find_package_handle_standard_args(GLEW DEFAULT_MSG GLEW_CONFIG)
   return()
@@ -176,7 +178,6 @@ if(GLEW_VERBOSE)
   message(STATUS "FindGLEW: GLEW_VERSION: ${GLEW_VERSION}")
 endif()
 
-include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(GLEW
                                   REQUIRED_VARS GLEW_INCLUDE_DIRS GLEW_LIBRARIES
                                   VERSION_VAR GLEW_VERSION)
