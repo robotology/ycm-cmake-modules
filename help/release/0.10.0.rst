@@ -32,6 +32,7 @@ Find Modules
 ------------
 
 * Import :module:`FindI2C` module from `YARP Git Repository`_.
+* Update :module:`FindGLEW` module to replicate upstream glew-config behaviour.
 
 
 CMake Next
