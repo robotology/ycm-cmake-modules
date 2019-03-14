@@ -34,6 +34,10 @@ Find Modules
 ------------
 
 * Import :module:`FindI2C` module from `YARP Git Repository`_.
+* The :module:`FindACE` module now creates the ``ACE::ACE`` and
+  ``ACE::ACE_INLINE`` imported targets.
+  The ``ACE_ADDR_HAS_LOOPBACK_METHOD`` and
+  ``ACE_COMPILES_WITHOUT_INLINE_<CONFIG>`` are now deprecated.
 
 
 CMake Next
