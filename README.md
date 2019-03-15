@@ -17,7 +17,11 @@ Online documentation is available here: [http://robotology.github.io/ycm](http:/
 * **A Build System for Software Development in Robotic Academic Collaborative Environments**,
   D.E. Domenichelli, S. Traversaro, L. Muratore, A. Rocchi, F. Nori, L. Natale,
   Second IEEE International Conference on Robotic Computing (IRC), 2018
+  DOI: [10.1109/IRC.2018.00014](https://doi.org/10.1109/IRC.2018.00014)
   [![DOI](https://img.shields.io/badge/DOI-10.1109%2FIRC.2018.00014-blue.svg)](https://doi.org/10.1109/IRC.2018.00014)
+* **A Build System for Software Development in Robotic Academic Collaborative Environments**,
+  D.E. Domenichelli, S. Traversaro, L. Muratore, A. Rocchi, F. Nori, L. Natale,
+  **IN PRESS** International Journal of Semantic Computing (IJSC), Vol. 13, No. 02, 2019
 
 * Latest YCM release [![DOI](https://zenodo.org/badge/4387/robotology/ycm.svg)](https://zenodo.org/badge/latestdoi/4387/robotology/ycm)
 
