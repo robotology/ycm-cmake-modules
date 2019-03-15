@@ -271,38 +271,76 @@ endif()
 # Imported from CMake tag v3.13.0
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.13)
   # Just a reminder to remove this when we change cmake version
-  message(AUTHOR_WARNING "CMake minimum required version greater than 3.11. You can remove this.")
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.12. You can remove this.")
 endif()
 
 # None
 
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (v3.11.2)
-# Imported from latest revision tested
-if(NOT CMAKE_VERSION VERSION_LESS 3.14)
-    # Just a reminder to update files when a new cmake version is released
-    message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+# Files not available or containing bugs in CMake 3.12.4
+# Imported from CMake tag v3.13.4
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.13)
+  # Just a reminder to remove this when we change cmake version
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.13. You can remove this.")
+endif()
+
+# None
+
+
+################################################################################
+# Files not available or containing bugs in CMake 3.13.4
+# Imported from CMake tag v3.14.0
+if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.14)
+  # Just a reminder to remove this when we change cmake version
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.14. You can remove this.")
 endif()
 
 # We assume that the user won't downgrade his CMake, therefore it's not
 # necessary to download and install these files if already included in CMake
 if(CMAKE_VERSION VERSION_LESS 3.14 OR YCM_MAINTAINER_MODE)
 
-  set(_ref 8c7367e3f0e5e104630857561b4730a0b32253f9)
-  set(_files Copyright.txt                                        251190457892c7ea5df272e625742388f228ab6e
+  set(_files Copyright.txt                                        ef5e9cd05a459b23263ecc409da2b3bc51aec2e4
              Modules/BasicConfigVersion-SameMajorVersion.cmake.in f89dc13283012256d1cb702ffb0bc235cee5cc5a
              Modules/BasicConfigVersion-SameMinorVersion.cmake.in a3e9f395d5ce5c66eb5b3fa8df2e9dfa8548562e
-             Modules/BasicConfigVersion-ExactVersion.cmake.in     c723920559d6f22af6a7d5f10deb26b4c170773d)
+             Modules/BasicConfigVersion-ExactVersion.cmake.in     c723920559d6f22af6a7d5f10deb26b4c170773d
+             Modules/BasicConfigVersion-AnyNewerVersion.cmake.in  fb0c14d1c39a46d856a18bec3430c45045f29a45
+             Modules/CMakePackageConfigHelpers.cmake              e85b785df2000c4524b44ae735112f795dd2e219) # Required to be in the same folder as WriteBasicConfigVersionFile
 
-  file(COPY master/WriteBasicConfigVersionFile.cmake
-            master/CMakePackageConfigHelpers.cmake # Required to be in the same folder as WriteBasicConfigVersionFile
-            master/BasicConfigVersion-AnyNewerVersion.cmake.in # Used by WriteBasicConfigVersionFile in main CMakeLists.txt
-       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-next/Modules")
+  file(COPY v3.14.0/WriteBasicConfigVersionFile.cmake
+       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14/Modules")
 
-  _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
-  _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
+  # The files CMakePackageConfigHelpers.cmake and
+  # BasicConfigVersion-AnyNewerVersion.cmake.in are downloaded, but are also
+  # used by WriteBasicConfigVersionFile in YCM main CMakeLists.txt, therefore
+  # they should all be in the same directory (v3.14.0)
+
+  _ycm_cmake_next_download(v3.14.0 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14" "${_files}")
+  _ycm_cmake_next_install(v3.14.0 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14"
                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 endif()
+
+
+################################################################################
+# Files not yet available or containing bugs in current CMake release (v3.14.0)
+# Imported from latest revision tested
+# if(NOT CMAKE_VERSION VERSION_LESS 3.15)
+#     # Just a reminder to update files when a new cmake version is released
+#     message(AUTHOR_WARNING "CMake version is ${CMAKE_VERSION}. You should update this.")
+# endif()
+#
+# # We assume that the user won't downgrade his CMake, therefore it's not
+# # necessary to download and install these files if already included in CMake
+# if(CMAKE_VERSION VERSION_LESS 3.15 OR YCM_MAINTAINER_MODE)
+#
+#   set(_ref )
+#   set(_files )
+#
+#   _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
+#   _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
+#                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
+# endif()
+
+# None
 
 ################################################################################
 # Files with patches not yet merged in CMake master
