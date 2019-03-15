@@ -14,6 +14,7 @@
 
 
 set(YCM_FIND_MODULES FindACE.cmake
+                     Findassimp.cmake
                      FindAtlas.cmake
                      FindCFW2CANAPI.cmake
                      FindDRAGONFLYAPI.cmake
