@@ -43,6 +43,7 @@ Find Modules
 CMake Next
 ----------
 
+* Updated to CMake v3.14.0.
 * Imported :module:`FindDoxygen` module from CMake 3.9.
 * Imported :module:`WriteBasicConfigVersionFile` and
   :module:`CMakePackageConfigHelpers` modules from CMake master, to support

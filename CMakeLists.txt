@@ -65,10 +65,10 @@ add_subdirectory(docs)
 # the new ARCH_INDEPENDENT argument for write_basic_package_version_file
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.14)
     # Just a reminder to remove this when we change cmake version
-    message(AUTHOR_WARNING "CMake minimum required version greater than 3.1. You can remove this.")
+    message(AUTHOR_WARNING "CMake minimum required version greater than 3.14. You can remove this.")
 endif()
 if(CMAKE_VERSION VERSION_LESS 3.14)
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-next/master")
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-next/v3.14.0")
 endif()
 include(CMakePackageConfigHelpers)
 
