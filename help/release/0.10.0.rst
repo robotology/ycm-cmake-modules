@@ -8,6 +8,21 @@ YCM 0.10.0 (UNRELEASED) Release Notes
 Changes made since YCM 0.9 include the following.
 
 
+Variables
+=========
+
+* The following varibales are no longer cached, since they should be set from
+  the project maintainer, and not by the user:
+  * :variable:`YCM_USE_CMAKE_<VERSION>`
+  * :variable:`YCM_USE_CMAKE_NEXT`
+  * :variable:`YCM_USE_CMAKE_PROPOSED`
+  * :variable:`YCM_USE_3RDPARTY`
+  * :variable:`YCM_USE_DEPRECATED`
+* The :variable:`YCM_USE_CMAKE` can now be used to disable simultaneously all
+  the :variable:`YCM_USE_CMAKE_<VERSION>`, :variable:`YCM_USE_CMAKE_NEXT`, and
+  :variable:`YCM_USE_CMAKE_PROPOSED` variables.
+
+
 Modules
 =======
 
