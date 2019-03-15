@@ -100,7 +100,7 @@ Create a ``CMakeLists.txt`` with this content:
 
    project(example)
 
-   set(YCM_USE_CMAKE_PROPOSED TRUE) # Enables unmerged patches to CMake modules, this is required for the superbuild to work
+   set(YCM_USE_CMAKE_PROPOSED ON) # Enables unmerged patches to CMake modules, this is required for the superbuild to work
 
    # makes available local cmake modules
    list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
