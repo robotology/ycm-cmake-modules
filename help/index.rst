@@ -138,11 +138,15 @@ they use irrespectively of the repositories in which they are maintained.
 
 Publications
 ############
+
 * **A Build System for Software Development in Robotic Academic Collaborative Environments**,
   D.E. Domenichelli, S. Traversaro, L. Muratore, A. Rocchi, F. Nori, L. Natale,
-  Second IEEE International Conference on Robotic Computing (IRC), 2018
+  Second IEEE International Conference on Robotic Computing (IRC), 2018,
+  DOI: `10.1109/IRC.2018.00014`_
   |domenichelli-irc2018-badge|
-
+* **A Build System for Software Development in Robotic Academic Collaborative Environments**,
+  D.E. Domenichelli, S. Traversaro, L. Muratore, A. Rocchi, F. Nori, L. Natale,
+  **IN PRESS** International Journal of Semantic Computing (IJSC), Vol. 13, No. 02, 2019
 
 Reference Manuals
 #################
