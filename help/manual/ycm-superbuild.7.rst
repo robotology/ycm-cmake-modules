@@ -659,14 +659,14 @@ goal is to merge all the required features in the module upstream.
 
 The CMake modified modules are not included automatically when you
 include YCM. In order use the version supplied with YCM, you have to set
-the :variable:`YCM_USE_CMAKE_PROPOSED` variable to ``TRUE`` before
+the :variable:`YCM_USE_CMAKE_PROPOSED` variable to ``ON`` before
 searching for YCM using :cmake:command:`find_package(YCM)` or
 bootstrapping it.
 
 .. code-block:: cmake
 
     # Enable cmake-proposed modules
-    set(YCM_USE_CMAKE_PROPOSED TRUE)
+    set(YCM_USE_CMAKE_PROPOSED ON)
 
     # Now bootstrap YCM
     include(YCMBootstrap)
