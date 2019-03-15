@@ -31,7 +31,7 @@ build:
 
 after_build:
   - cmd: cmake --build C:\projects\ycm\build --target INSTALL --config %CONFIGURATION%
-  - cmd: cmake --build C:\projects\ycm\build --target PACKAGE --config %CONFIGURATION%
+#  - cmd: cmake --build C:\projects\ycm\build --target PACKAGE --config %CONFIGURATION%
 
 test_script:
   - cmd: ctest -VV -C %CONFIGURATION%
