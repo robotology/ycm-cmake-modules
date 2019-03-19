@@ -104,8 +104,8 @@ endfunction()
 #  FindPython2                      3.12
 #  FindPython3                      3.12
 #  WriteBasicConfigVersionFile      3.14            Yes (CMAKE_ROOT)
+#  FindGLEW                         3.15
 #  CMakeParseArguments              ---             Yes
-#  FindGLEW                         ---             Yes
 #
 # Changes in dependencies
 #  FindPackageHandleStandardArgs
@@ -333,8 +333,12 @@ endif()
 if(CMAKE_VERSION VERSION_LESS 3.15 OR YCM_MAINTAINER_MODE)
 
   set(_ref e67e4dbaadf3583d665fb5409b425e1a238d9748)
-  set(_files Copyright.txt                                        ef5e9cd05a459b23263ecc409da2b3bc51aec2e4
-             Modules/FindGLEW.cmake                               6ebed6a52a31b530ed6bbfea54a9332fe6571ec0)
+  set(_files Copyright.txt                               ef5e9cd05a459b23263ecc409da2b3bc51aec2e4
+             Modules/FindGLEW.cmake                      6ebed6a52a31b530ed6bbfea54a9332fe6571ec0
+             Modules/FindPackageHandleStandardArgs.cmake 97e455f2849eac8ef1449cba5e49064149bd2099  # Used by FindGLEW
+             Modules/FindPackageMessage.cmake            a3207b9d2996e4c5a2ecb254f9abf1e4ba037f0a  # Used by FindPackageHandleStandardArgs
+             Modules/CMakeParseArguments.cmake           79a086a72f0ea821e2587ac96df080703a614108) # Used by FindPackageHandleStandardArgs
+
 
   _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
   _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
