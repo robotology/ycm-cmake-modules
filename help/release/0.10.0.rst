@@ -58,7 +58,8 @@ Find Modules
 CMake Next
 ----------
 
-* Updated to CMake v3.14.0.
+* Updated to CMake v3.14.0 + commit
+  :cmake-commit:`f248f8ad7898816a5a627e288d3a04fed993967f`.
 * Imported :module:`FindDoxygen` module from CMake 3.9.
 * Imported :module:`WriteBasicConfigVersionFile` and
   :module:`CMakePackageConfigHelpers` modules from CMake master, to support
@@ -66,9 +67,10 @@ CMake Next
   :command:`write_basic_package_version_file`.
 * Imported :module:`FetchContent` module from CMake 3.11.
 * Imported :module:`FindOpenGL` module from CMake 3.10.
-* The :module:`ExternalProject` module was updated from CMake master.
+* The :module:`ExternalProject` module was updated from CMake 3.14.
   All the customizations were removed, with the exception of the ``git``
   deleting clones fix.
+* The :module:`FindGlew` module is now dowloaded from CMake master.
 
 
 3rd Party
