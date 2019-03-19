@@ -31,7 +31,7 @@ Generic Modules
 
 * The :module:`InstallBasicPackageFiles` module learned to forward the
   ``ARCH_INDEPENDENT`` option to :command:`write_basic_package_version_file`.
-* The :module:`IncludeUrl` module now always perform the lock/unlock.
+* The :module:`IncludeUrl` module no longer uses locks.
 
 
 Superbuild Helper Modules
