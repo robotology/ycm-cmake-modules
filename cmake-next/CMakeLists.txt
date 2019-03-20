@@ -340,7 +340,6 @@ if(CMAKE_VERSION VERSION_LESS 3.15 OR YCM_MAINTAINER_MODE)
              Modules/CMakeParseArguments.cmake           79a086a72f0ea821e2587ac96df080703a614108  # Used by FindPackageHandleStandardArgs
              Modules/SelectLibraryConfigurations.cmake   423e51063f8df2286ca8a693c2cbc6c3e12ec61f) # Used by FindGLEW
 
-
   _ycm_cmake_next_download(${_ref} "${CMAKE_CURRENT_BINARY_DIR}/cmake-next" "${_files}")
   _ycm_cmake_next_install(${_ref} DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-next"
                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
