@@ -117,7 +117,7 @@ foreach(format ${doc_formats})
             > ${doc_format_log} # log stdout, pass stderr
     ${${format}_extra_commands}
     DEPENDS ${doc_format_last}
-    COMMENT "sphinx-build ${format}: see ${CMAKE_BINARY_DIR}/docs/${doc_format_log}"
+    COMMENT "sphinx-build ${format}: see ${CMAKE_CURRENT_BINARY_DIR}/docs/${doc_format_log}"
     VERBATIM
     )
   set_property(SOURCE ${doc_format_output} PROPERTY SYMBOLIC 1)

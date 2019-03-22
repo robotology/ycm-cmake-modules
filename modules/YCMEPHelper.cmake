@@ -386,8 +386,8 @@ function(_YCM_EP_ADD_TEST_STEP)
     # The test target does not exist, therefore add_dependencies
     # cannot be used. Instead we add a test.
     add_test(NAME ${_name}_test
-             COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target ${_name}-test
-             WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+             COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target ${_name}-test
+             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
     set_property(TEST ${_name}_test APPEND PROPERTY LABELS ${_name})
     set_property(TEST ${_name}_test PROPERTY DEPENDS ${_name})
   endif()

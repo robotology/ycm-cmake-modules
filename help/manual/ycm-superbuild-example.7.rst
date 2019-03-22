@@ -103,7 +103,7 @@ Create a ``CMakeLists.txt`` with this content:
    set(YCM_USE_CMAKE_PROPOSED ON) # Enables unmerged patches to CMake modules, this is required for the superbuild to work
 
    # makes available local cmake modules
-   list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+   list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
    # Choose whether you want YCM to be a soft or a hard dependency and uncomment
    # the appropriate line:
