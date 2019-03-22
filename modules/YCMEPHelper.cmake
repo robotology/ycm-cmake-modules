@@ -1341,6 +1341,12 @@ macro(YCM_BOOTSTRAP)
   file(READ ${YCM_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMTmp/YCM-cfgcmd.txt _cmd)
   string(STRIP "${_cmd}" _cmd)
   string(REGEX REPLACE "^cmd='(.+)'" "\\1" _cmd "${_cmd}")
+  # The cache file is generated with 'file(GENERATE)', therefore it is not yet
+  # available. We don't use CMAKE_CACHE_ARGS or CMAKE_CACHE_DEFAULT_ARGS though,
+  # therefore the file would be empty. We just remove it from the command line.
+  string(REGEX REPLACE "-C.+\\.cmake;" "" _cmd "${_cmd}")
+  # The command line contains location tags, therefore we need to expand it.
+  _ep_replace_location_tags(YCM _cmd)
   execute_process(COMMAND ${_cmd}
                   WORKING_DIRECTORY ${YCM_BINARY_DIR}
                   ${_quiet_args}
