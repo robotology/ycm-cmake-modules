@@ -14,13 +14,19 @@
 # (To distribute this file outside of YCM, substitute the full
 #  License text for the above reference.)
 
+
+# Set up test-time configuration.
+set_directory_properties(PROPERTIES TEST_INCLUDE_FILE "${CMAKE_CURRENT_BINARY_DIR}/EnforceConfig.cmake")
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/EnforceConfig.cmake.in
+               ${CMAKE_CURRENT_BINARY_DIR}/EnforceConfig.cmake @ONLY)
+
 macro(ADD_TEST_MACRO NAME COMMAND)
   string(REPLACE "." "/" dir "${NAME}")
   string(REGEX REPLACE "[^.]*\\." "" proj "${NAME}")
   add_test(${NAME} ${CMAKE_CTEST_COMMAND}
     --build-and-test
-    "${YCM_SOURCE_DIR}/tests/${dir}"
-    "${YCM_BINARY_DIR}/tests/${dir}"
+    "${CMAKE_CURRENT_SOURCE_DIR}/${dir}"
+    "${CMAKE_CURRENT_BINARY_DIR}/${dir}"
     --build-two-config
     ${build_generator_args}
     ${build_makeprogram_args}
@@ -29,12 +35,12 @@ macro(ADD_TEST_MACRO NAME COMMAND)
     --build-options ${build_options}
     ${${NAME}_BUILD_OPTIONS}
     --test-command ${COMMAND} ${ARGN})
-  list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/${dir}")
+  list(APPEND TEST_BUILD_DIRS "${CMAKE_CURRENT_BINARY_DIR}/${dir}")
 endmacro()
 
 # Fake a user home directory to avoid polluting the real one.
 if(DEFINED ENV{HOME} AND NOT CTEST_NO_TEST_HOME)
-  set(TEST_HOME "${YCM_BINARY_DIR}/tests/CMakeFiles/TestHome")
+  set(TEST_HOME "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/TestHome")
   file(MAKE_DIRECTORY "${TEST_HOME}")
 endif()
 
@@ -44,12 +50,7 @@ if(NOT CMAKE_CONFIGURATION_TYPES AND CMAKE_BUILD_TYPE)
   set(CTestTest_CONFIG ${CMAKE_BUILD_TYPE})
 endif()
 
-configure_file(${YCM_SOURCE_DIR}/tests/EnforceConfig.cmake.in
-               ${YCM_BINARY_DIR}/tests/EnforceConfig.cmake @ONLY)
-
-
 # Testing
-
 if(BUILD_TESTING)
   set(YCM_TEST_DEVENV "")
   if(CMAKE_GENERATOR MATCHES "Visual Studio [7-9] " AND
@@ -106,69 +107,69 @@ if(BUILD_TESTING)
   if(NOT WIN32)
     # sha1sums test is disabled on Windows, because it is an sh script
     add_test(NAME sha1sums
-             WORKING_DIRECTORY "${YCM_SOURCE_DIR}/tests/sha1sums"
-             COMMAND ${YCM_SOURCE_DIR}/tests/sha1sums/check_sha1sums.sh ${YCM_SOURCE_DIR}/modules/YCMEPHelper.cmake)
+             WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/sha1sums"
+             COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/sha1sums/check_sha1sums.sh ${YCM_SOURCE_DIR}/modules/YCMEPHelper.cmake)
   endif()
 
   add_test(YCMBootstrap-not-found ${CMAKE_CTEST_COMMAND}
            --build-and-test
-           "${YCM_SOURCE_DIR}/tests/YCMBootstrap"
-           "${YCM_BINARY_DIR}/tests/YCMBootstrap-not-found"
+           "${CMAKE_CURRENT_SOURCE_DIR}/YCMBootstrap"
+           "${CMAKE_CURRENT_BINARY_DIR}/YCMBootstrap-not-found"
            ${build_generator_args}
            ${build_makeprogram_args}
            --build-project YCMBootstrap
            --build-option "-DYCM_BOOTSTRAP_TEST:STRING=NOT_FOUND")
-  list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/YCMBootstrap-not-found")
+  list(APPEND TEST_BUILD_DIRS "${CMAKE_CURRENT_BINARY_DIR}/YCMBootstrap-not-found")
 
   add_test(YCMBootstrap-build-dir ${CMAKE_CTEST_COMMAND}
            --build-and-test
-           "${YCM_SOURCE_DIR}/tests/YCMBootstrap"
-           "${YCM_BINARY_DIR}/tests/YCMBootstrap-build-dir"
+           "${CMAKE_CURRENT_SOURCE_DIR}/YCMBootstrap"
+           "${CMAKE_CURRENT_BINARY_DIR}/YCMBootstrap-build-dir"
            ${build_generator_args}
            ${build_makeprogram_args}
            --build-project YCMBootstrap
            --build-options "-DYCM_BOOTSTRAP_TEST:STRING=BUILD_DIR")
-  list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/YCMBootstrap-build-dir")
+  list(APPEND TEST_BUILD_DIRS "${CMAKE_CURRENT_BINARY_DIR}/YCMBootstrap-build-dir")
 
   add_test(YCMBootstrap-install-dir ${CMAKE_CTEST_COMMAND}
            --build-and-test
-           "${YCM_SOURCE_DIR}/tests/YCMBootstrap"
-           "${YCM_BINARY_DIR}/tests/YCMBootstrap-install-dir"
+           "${CMAKE_CURRENT_SOURCE_DIR}/YCMBootstrap"
+           "${CMAKE_CURRENT_BINARY_DIR}/YCMBootstrap-install-dir"
            ${build_generator_args}
            ${build_makeprogram_args}
            --build-project YCMBootstrap
            --build-options "-DYCM_BOOTSTRAP_TEST:STRING=INSTALL_DIR")
-  list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/YCMBootstrap-install-dir")
-  list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/CMakeFiles/TestPrefix")
+  list(APPEND TEST_BUILD_DIRS "${CMAKE_CURRENT_BINARY_DIR}/YCMBootstrap-install-dir")
+  list(APPEND TEST_BUILD_DIRS "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/TestPrefix")
 
   add_test(YCMBootstrap-not-use-system ${CMAKE_CTEST_COMMAND}
            --build-and-test
-           "${YCM_SOURCE_DIR}/tests/YCMBootstrap"
-           "${YCM_BINARY_DIR}/tests/YCMBootstrap-not-use-system"
+           "${CMAKE_CURRENT_SOURCE_DIR}/YCMBootstrap"
+           "${CMAKE_CURRENT_BINARY_DIR}/YCMBootstrap-not-use-system"
            ${build_generator_args}
            ${build_makeprogram_args}
            --build-project YCMBootstrap
            --build-options "-DYCM_BOOTSTRAP_TEST:STRING=NOT_USE_SYSTEM")
-  list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/YCMBootstrap-not-use-system")
+  list(APPEND TEST_BUILD_DIRS "${CMAKE_CURRENT_BINARY_DIR}/YCMBootstrap-not-use-system")
 
   add_test(YCMBootstrap-disable-find ${CMAKE_CTEST_COMMAND}
            --build-and-test
-           "${YCM_SOURCE_DIR}/tests/YCMBootstrap"
-           "${YCM_BINARY_DIR}/tests/YCMBootstrap-disable-find"
+           "${CMAKE_CURRENT_SOURCE_DIR}/YCMBootstrap"
+           "${CMAKE_CURRENT_BINARY_DIR}/YCMBootstrap-disable-find"
            ${build_generator_args}
            ${build_makeprogram_args}
            --build-project YCMBootstrap
            --build-options "-DYCM_BOOTSTRAP_TEST:STRING=DISABLE_FIND")
-  list(APPEND TEST_BUILD_DIRS "${YCM_BINARY_DIR}/tests/YCMBootstrap-disable-find")
+  list(APPEND TEST_BUILD_DIRS "${CMAKE_CURRENT_BINARY_DIR}/YCMBootstrap-disable-find")
 
   # Add download folder to the list of files deleted by test_clean
-  list(APPEND TEST_BUILD_DIRS "${YCM_SOURCE_DIR}/tests/YCMBootstrap/external")
+  list(APPEND TEST_BUILD_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/YCMBootstrap/external")
 
   if(NOT EXISTS "${YCM_BINARY_DIR}/CMakeLists.txt")
-    configure_file("${YCM_SOURCE_DIR}/tests/test_clean.cmake.in"
-                   "${YCM_BINARY_DIR}/tests/test_clean.cmake" @ONLY)
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_clean.cmake.in"
+                   "${CMAKE_CURRENT_BINARY_DIR}/test_clean.cmake" @ONLY)
     add_custom_target(test_clean
-      COMMAND ${CMAKE_COMMAND} -P "${YCM_BINARY_DIR}/tests/test_clean.cmake"
+      COMMAND ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_BINARY_DIR}/test_clean.cmake"
       COMMENT "Removing test build directories."
       )
   endif()

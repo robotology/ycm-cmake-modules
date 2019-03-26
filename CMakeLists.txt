@@ -16,19 +16,19 @@
 cmake_minimum_required(VERSION 3.5)
 project(YCM NONE)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/internal-modules")
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/internal-modules")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/modules")
 
 include(YCMVersion)
 include(YCMInternal)
 
-if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
   option(YCM_MAINTAINER_MODE "Enable maintainer mode (download all files and enable CPack) - Latest CMake version is recommended" FALSE)
   mark_as_advanced(YCM_MAINTAINER_MODE)
 endif()
 
 if(YCM_MAINTAINER_MODE)
-  if(NOT EXISTS "${CMAKE_SOURCE_DIR}/.git")
+  if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
     message(WARNING "Cannot enable maintainer mode outside a git repository. The YCM_MAINTAINER_MODE option will be disabled.")
     unset(YCM_MAINTAINER_MODE)
     unset(YCM_MAINTAINER_MODE CACHE)
@@ -39,10 +39,10 @@ endif()
 
 include(GNUInstallDirs)
 
-set(YCM_BUILD_MODULE_DIR "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/YCM")
+set(YCM_BUILD_MODULE_DIR "${YCM_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/YCM")
 set(YCM_INSTALL_MODULE_DIR "${CMAKE_INSTALL_DATADIR}/YCM")
 
-set(YCM_BUILD_CMAKE_DIR "${CMAKE_BINARY_DIR}")
+set(YCM_BUILD_CMAKE_DIR "${YCM_BINARY_DIR}")
 set(YCM_INSTALL_CMAKE_DIR "${CMAKE_INSTALL_DATADIR}/YCM/cmake")
 
 
@@ -68,7 +68,7 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.14)
     message(AUTHOR_WARNING "CMake minimum required version greater than 3.14. You can remove this.")
 endif()
 if(CMAKE_VERSION VERSION_LESS 3.14)
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-next/v3.14.0")
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-next/v3.14.0")
 endif()
 include(CMakePackageConfigHelpers)
 
@@ -86,16 +86,16 @@ configure_package_config_file(YCMConfig.cmake.in "${YCM_BUILD_CMAKE_DIR}/YCMConf
                               INSTALL_DESTINATION "${YCM_BUILD_CMAKE_DIR}"
                               PATH_VARS YCM_MODULE_DIR
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO
-                              INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
+                              INSTALL_PREFIX "${YCM_BINARY_DIR}")
 
 # YCMConfig.cmake (installed)
 get_filename_component(YCM_MODULE_DIR "${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_MODULE_DIR}" ABSOLUTE)
-configure_package_config_file(YCMConfig.cmake.in "${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
+configure_package_config_file(YCMConfig.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
                               INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_CMAKE_DIR}"
                               PATH_VARS YCM_MODULE_DIR
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
-install(FILES "${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
         DESTINATION "${YCM_INSTALL_CMAKE_DIR}"
         RENAME YCMConfig.cmake)
 
@@ -105,12 +105,10 @@ if(UNIX)
   # update-sha1sums target makes no sense on windows, since the .sh script
   # will fail to execute
   add_custom_target(update-sha1sums
-                    COMMAND "${CMAKE_SOURCE_DIR}/tools/update_sha1sums.sh")
+                    COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/tools/update_sha1sums.sh")
 endif()
 
 enable_testing()
 include(CTest)
-# Set up test-time configuration.
-set_directory_properties(PROPERTIES TEST_INCLUDE_FILE "${CMAKE_BINARY_DIR}/tests/EnforceConfig.cmake")
 
 add_subdirectory(tests)

@@ -62,7 +62,7 @@ function(_YCM_CMAKE_NEXT_DOWNLOAD_NOW _ref _dir _files)
     string(REPLACE "<FILE>" "${_file}" _src "${_src}")
     set(_dest "${_dir}/${_file}")
     set(_orig_dest "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/cmake-${_ref}.dir/downloads/${_file}")
-    set(_offline_dest "${CMAKE_SOURCE_DIR}/downloads/cmake-${_ref}/${_file}")
+    set(_offline_dest "${YCM_SOURCE_DIR}/downloads/cmake-${_ref}/${_file}")
 
     if(EXISTS "${_offline_dest}")
       execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_offline_dest}" "${_orig_dest}")

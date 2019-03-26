@@ -31,8 +31,8 @@ if(NOT YCM_NO_3RDPARTY OR YCM_MAINTAINER_MODE)
 
   # Print a warning if we are overriding some module from CMake
   file(GLOB_RECURSE _modules
-       RELATIVE "${CMAKE_BINARY_DIR}/${YCM_INSTALL_MODULE_DIR}/3rdparty"
-       "${CMAKE_BINARY_DIR}/${YCM_INSTALL_MODULE_DIR}/3rdparty/*.cmake")
+       RELATIVE "${YCM_BINARY_DIR}/${YCM_INSTALL_MODULE_DIR}/3rdparty"
+       "${YCM_BINARY_DIR}/${YCM_INSTALL_MODULE_DIR}/3rdparty/*.cmake")
   foreach(_module IN LISTS _modules)
     if(EXISTS ${CMAKE_ROOT}/Modules/${_module})
       message(AUTHOR_WARNING "A \"${_module}\" module already exists in CMAKE_ROOT")

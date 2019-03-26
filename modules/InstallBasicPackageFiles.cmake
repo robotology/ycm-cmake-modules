@@ -70,8 +70,8 @@
 # one (``CMake`` on Windows, ``${CMAKE_INSTALL_LIBDIR}/cmake/${Name}``
 # on other platforms.  The ``EXPORT_DESTINATION`` argument can be passed to
 # generate the files in the build tree in a location different from the default
-# one (``CMAKE_BINARY_DIR``).  If this is a relative path, it is considered
-# relative to the ``CMAKE_BINARY_DIR`` directory.
+# one (``CMAKE_CURRENT_BINARY_DIR``).  If this is a relative path, it is
+# considered relative to the ``CMAKE_CURRENT_BINARY_DIR`` directory.
 #
 # The ``<Name>ConfigVersion.cmake`` file is generated using
 # ``write_basic_package_version_file``. The ``VERSION``, ``COMPATIBILITY``, and
@@ -129,8 +129,7 @@
 # If the ``CONFIG_TEMPLATE`` argument is passed, the specified file
 # is used as template for generating the configuration file, otherwise
 # this module expects to find a ``<Name>Config.cmake.in`` or
-# ``<name>-config.cmake.in`` file either in the root directory of the
-# project or in current source directory.
+# ``<name>-config.cmake.in`` file either in current source directory.
 # If the file does not exist, a very basic file is created.
 #
 # A set of variables are checked and passed to
@@ -363,9 +362,9 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
   endif()
 
   if(NOT DEFINED _IBPF_EXPORT_DESTINATION)
-    set(_IBPF_EXPORT_DESTINATION "${CMAKE_BINARY_DIR}")
+    set(_IBPF_EXPORT_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
   elseif(NOT IS_ABSOLUTE _IBPF_EXPORT_DESTINATION)
-    set(_IBPF_EXPORT_DESTINATION "${CMAKE_BINARY_DIR}/${_IBPF_EXPORT_DESTINATION}")
+    set(_IBPF_EXPORT_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/${_IBPF_EXPORT_DESTINATION}")
   endif()
 
   if(NOT DEFINED _IBPF_NAMESPACE)
@@ -406,17 +405,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     endif()
   else()
     string(TOLOWER "${_Name}" _name)
-    if(EXISTS "${CMAKE_SOURCE_DIR}/${_Name}Config.cmake.in")
-      set(_config_cmake_in "${CMAKE_SOURCE_DIR}/${_Name}Config.cmake.in")
-      if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
-        set(_IBPF_UPPERCASE_FILENAMES 1)
-      endif()
-    elseif(EXISTS "${CMAKE_SOURCE_DIR}/${_name}-config.cmake.in")
-      set(_config_cmake_in "${CMAKE_SOURCE_DIR}/${_name}-config.cmake.in")
-      if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
-        set(_IBPF_LOWERCASE_FILENAMES 1)
-      endif()
-    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${_Name}Config.cmake.in")
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${_Name}Config.cmake.in")
       set(_config_cmake_in "${CMAKE_CURRENT_SOURCE_DIR}/${_Name}Config.cmake.in")
       if(NOT _IBPF_UPPERCASE_FILENAMES AND NOT _IBPF_LOWERCASE_FILENAMES)
         set(_IBPF_UPPERCASE_FILENAMES 1)
@@ -673,7 +662,7 @@ endif()
                                 INSTALL_DESTINATION ${_IBPF_EXPORT_DESTINATION}
                                 PATH_VARS ${_build_path_vars}
                                 ${configure_package_config_file_extra_args}
-                                INSTALL_PREFIX ${CMAKE_BINARY_DIR})
+                                INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
 
   # <Name>Config.cmake (installed)
   foreach(p ${_install_path_vars_suffix})

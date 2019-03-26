@@ -725,7 +725,7 @@ case your folder must be in :cmake:variable:`CMAKE_MODULE_PATH`
 .. code-block:: cmake
 
     # Build modules are in cmake folder
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
     # Now search (or bootstrap) YCM
     find_package(YCM REQUIRED)

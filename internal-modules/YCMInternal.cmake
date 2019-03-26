@@ -111,7 +111,7 @@ function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
 
         set(_dest "${_dir}/${_file}")
         set(_orig_dest "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${_target}.dir/downloads/${_file}")
-        set(_offline_dest "${CMAKE_SOURCE_DIR}/downloads/${_target}/${_file}")
+        set(_offline_dest "${YCM_SOURCE_DIR}/downloads/${_target}/${_file}")
 
         if(EXISTS "${_offline_dest}")
             execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_offline_dest}" "${_orig_dest}")
@@ -289,7 +289,7 @@ function(_YCM_INSTALL _target)
     string(MAKE_C_IDENTIFIER "${_clean_filename}" _clean_filename)
 
     # Fix DESTINATION for the build directory
-    string(REGEX REPLACE ";DESTINATION;${_INSTALL_DESTINATION}(;|$)" ";DESTINATION;${CMAKE_BINARY_DIR}/${_INSTALL_DESTINATION_RELATIVE}\\1" copyARGN "${copyARGN}")
+    string(REGEX REPLACE ";DESTINATION;${_INSTALL_DESTINATION}(;|$)" ";DESTINATION;${YCM_BINARY_DIR}/${_INSTALL_DESTINATION_RELATIVE}\\1" copyARGN "${copyARGN}")
 
     # Escape white spaces in filenames
     string(REPLACE " " "\\ " copyARGN "${copyARGN}")
