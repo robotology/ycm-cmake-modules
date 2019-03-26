@@ -231,6 +231,32 @@ macro(_YCM_SETUP)
   # TODO Make this a cached variable for installation outside build
   #      directory
   set(_YCM_EP_INSTALL_DIR ${CMAKE_BINARY_DIR}/install)
+
+  # Default CMAKE_ARGS (Passed to the command line)
+  set(_YCM_EP_CMAKE_ARGS "--no-warn-unused-cli"
+                              "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}") # Path used by cmake for finding stuff
+
+  # Default CMAKE_CACHE_ARGS (Initial cache, forced)
+  set(_YCM_EP_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${_YCM_EP_INSTALL_DIR}") # Where to do the installation
+
+  if(DEFINED CMAKE_TOOLCHAIN_FILE)
+    list(APPEND _YCM_EP_CMAKE_CACHE_ARGS "-DCMAKE_TOOLCHAIN_FILE:PATH=${CMAKE_TOOLCHAIN_FILE}")
+  endif()
+
+  # Default CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
+  unset(_YCM_EP_CMAKE_CACHE_DEFAULT_ARGS)
+  if(NOT CMAKE_BUILD_TYPE STREQUAL "") # CMAKE_BUILD_TYPE is always defined
+    list(APPEND _YCM_EP_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}") # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
+  endif()
+  if(DEFINED CMAKE_SKIP_RPATH)
+    list(APPEND _YCM_EP_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_SKIP_RPATH:PATH=${CMAKE_SKIP_RPATH}")
+  endif()
+  if(DEFINED CMAKE_SKIP_INSTALL_RPATH)
+    list(APPEND _YCM_EP_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_SKIP_INSTALL_RPATH:PATH=${CMAKE_SKIP_INSTALL_RPATH}")
+  endif()
+  if(DEFINED BUILD_SHARED_LIBS)
+    list(APPEND _YCM_EP_CMAKE_CACHE_DEFAULT_ARGS "-DBUILD_SHARED_LIBS:PATH=${BUILD_SHARED_LIBS}")
+  endif()
 endmacro()
 
 
@@ -786,47 +812,20 @@ function(YCM_EP_HELPER _name)
   string(REPLACE ";" "|" _CMAKE_PREFIX_PATH "${_CMAKE_PREFIX_PATH}")
   set(${_name}_ALL_CMAKE_ARGS LIST_SEPARATOR "|")
 
-
-  # Default CMAKE_ARGS (Passed to the command line)
-  set(${_name}_YCM_CMAKE_ARGS "--no-warn-unused-cli"
-                              "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}") # Path used by cmake for finding stuff
-
-  # Default CMAKE_CACHE_ARGS (Initial cache, forced)
-  set(${_name}_YCM_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}") # Where to do the installation
-
-  if(DEFINED CMAKE_TOOLCHAIN_FILE)
-    list(APPEND ${_name}_YCM_CMAKE_CACHE_ARGS "-DCMAKE_TOOLCHAIN_FILE:PATH=${CMAKE_TOOLCHAIN_FILE}")
-  endif()
-
-  # Default CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
-  unset(${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS)
-  if(NOT CMAKE_BUILD_TYPE STREQUAL "") # CMAKE_BUILD_TYPE is always defined
-    list(APPEND ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}") # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
-  endif()
-  if(DEFINED CMAKE_SKIP_RPATH)
-    list(APPEND ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_SKIP_RPATH:PATH=${CMAKE_SKIP_RPATH}")
-  endif()
-  if(DEFINED CMAKE_SKIP_INSTALL_RPATH)
-    list(APPEND ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_SKIP_INSTALL_RPATH:PATH=${CMAKE_SKIP_INSTALL_RPATH}")
-  endif()
-  if(DEFINED BUILD_SHARED_LIBS)
-    list(APPEND ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS "-DBUILD_SHARED_LIBS:PATH=${BUILD_SHARED_LIBS}")
-  endif()
-
   # CMAKE_ARGS (Passed to the command line)
-  set(${_name}_CMAKE_ARGS CMAKE_ARGS ${${_name}_YCM_CMAKE_ARGS})
+  set(${_name}_CMAKE_ARGS CMAKE_ARGS ${_YCM_EP_CMAKE_ARGS})
   if(_YH_${_name}_CMAKE_ARGS)
     list(APPEND ${_name}_CMAKE_ARGS ${_YH_${_name}_CMAKE_ARGS})
   endif()
 
   # CMAKE_CACHE_ARGS (Initial cache, forced)
-  set(${_name}_CMAKE_CACHE_ARGS CMAKE_CACHE_ARGS ${${_name}_YCM_CMAKE_CACHE_ARGS})
+  set(${_name}_CMAKE_CACHE_ARGS CMAKE_CACHE_ARGS ${_YCM_EP_CMAKE_CACHE_ARGS})
   if(_YH_${_name}_CMAKE_CACHE_ARGS)
     list(APPEND ${_name}_CMAKE_CACHE_ARGS ${_YH_${_name}_CMAKE_CACHE_ARGS})
   endif()
 
   # CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
-  set(${_name}_CMAKE_CACHE_DEFAULT_ARGS CMAKE_CACHE_DEFAULT_ARGS ${${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS})
+  set(${_name}_CMAKE_CACHE_DEFAULT_ARGS CMAKE_CACHE_DEFAULT_ARGS ${_YCM_EP_CMAKE_CACHE_DEFAULT_ARGS})
   if(_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS)
     list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS ${_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS})
   endif()
@@ -1342,9 +1341,9 @@ macro(YCM_BOOTSTRAP)
   string(STRIP "${_cmd}" _cmd)
   string(REGEX REPLACE "^cmd='(.+)'" "\\1" _cmd "${_cmd}")
   # The cache file is generated with 'file(GENERATE)', therefore it is not yet
-  # available. We don't use CMAKE_CACHE_ARGS or CMAKE_CACHE_DEFAULT_ARGS though,
-  # therefore the file would be empty. We just remove it from the command line.
-  string(REGEX REPLACE "-C.+\\.cmake;" "" _cmd "${_cmd}")
+  # available. Since we cannot use CMAKE_CACHE_ARGS or CMAKE_CACHE_DEFAULT_ARGS,
+  # We just remove it from the command line, and append the arguments instead.
+  string(REGEX REPLACE "-C.+\\.cmake;" "${_YCM_EP_CMAKE_CACHE_ARGS};${_YCM_EP_CMAKE_CACHE_DEFAULT_ARGS}" _cmd "${_cmd}")
   # The command line contains location tags, therefore we need to expand it.
   _ep_replace_location_tags(YCM _cmd)
   execute_process(COMMAND ${_cmd}
