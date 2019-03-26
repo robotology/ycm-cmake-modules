@@ -146,7 +146,6 @@ These modules are patched versions of the ones included in CMake.
 
    /module/ExternalProject
    /module/CMakeParseArguments
-   /module/FindGLEW
 
 
 
