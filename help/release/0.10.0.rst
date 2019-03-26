@@ -62,6 +62,14 @@ Superbuild Helper Modules
   is to ensure that if a package is available in the system but it is disabled
   using ``USE_SYSTEM_<package>`` set to ``OFF``, the version installed by the
   superbuild is the one found by the other packages in the superbuild.
+* The :module:`YCMEPHelper` module now adds subproject to the main install
+  target, if they provide a ``cmake_install.cmake`` file in their build
+  directory. This file is automatically provided by CMake for projects
+  installing at least one file. This feature should be considered experimental
+  and might be modified or removed in the future.
+  Please note that non-relocatable file will contain the path for the project
+  installation (i.e. the path to the ``install`` folder inside the superbuild
+  binary directory), not to ``CMAKE_INSTALL_PREFIX``.
 
 
 Find Modules
