@@ -49,22 +49,28 @@ This is the code you need to add to your CMakeLists.txt:
 .. code-block:: cmake
 
     cmake_minimum_required(VERSION 3.5)
-    project(TemplatePkg CXX)
+    project(TemplatePkg
+            LANGUAGES CXX
+            VERSION 0.0.1)
 
-    # declare a variable with the name of the project
-    set(VARS_PREFIX "TEMPLATE_PKG")
+    include(GNUInstallDirs)
 
-    # ser variables that store version number
-    set(${VARS_PREFIX}_MAJOR_VERSION 0)
-    set(${VARS_PREFIX}_MINOR_VERSION 0)
-    set(${VARS_PREFIX}_PATCH_VERSION 1)
-    set(${VARS_PREFIX}_VERSION ${${VARS_PREFIX}_MAJOR_VERSION}.${${VARS_PREFIX}_MINOR_VERSION}.${${VARS_PREFIX}_PATCH_VERSION})
+    # Set the output dir for binaries
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
 
     # find and use YCM
     find_package(YCM REQUIRED)
 
-    include(YCMDefaultDirs)
-    ycm_default_dirs(${VARS_PREFIX})
+    # Set a few
+    set(${PROJECT_NAME}_BUILD_LIBDIR ${CMAKE_INSTALL_LIBDIR})
+    set(${PROJECT_NAME}_BUILD_BINDIR ${CMAKE_INSTALL_BINDIR})
+    set(${PROJECT_NAME}_BUILD_INCLUDEDIR ${CMAKE_SOURCE_DIR}/src)
+
+    set(${PROJECT_NAME}_INSTALL_LIBDIR ${CMAKE_INSTALL_LIBDIR})
+    set(${PROJECT_NAME}_INSTALL_BINDIR ${CMAKE_INSTALL_BINDIR})
+    set(${PROJECT_NAME}_INSTALL_INCLUDEDIR ${CMAKE_INSTALL_INCLUDEDIR})
 
     # add sources
     add_subdirectory(src)
@@ -80,11 +86,11 @@ be found using ``CMake``.
 
     # include macro for installing packaging files and invoke it
     include(InstallBasicPackageFiles)
-    install_basic_package_files(TemplatePkg VARS_PREFIX ${VARS_PREFIX}
-                                            VERSION ${${VARS_PREFIX}_VERSION}
-                                            COMPATIBILITY SameMajorVersion
-                                            TARGETS_PROPERTY ${VARS_PREFIX}_TARGETS
-                                            NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+    install_basic_package_files(TemplatePkg
+                                VARS_PREFIX ${PROJECT_NAME}
+                                VERSION ${${PROJECT_NAME}_VERSION}
+                                COMPATIBILITY SameMajorVersion
+                                NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
 This function generates all the configuration files required for other packages
 to locate and use the library compiled by ``TemplatePkg`` and adds the required

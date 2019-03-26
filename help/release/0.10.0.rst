@@ -44,6 +44,7 @@ Generic Modules
   supported.
 * The :module:`YCMDefaultDirs` module default dirs now use
   ``CMAKE_CURRENT_BINARY_DIR`` instead of ``CMAKE_BINARY_DIR``.
+* The :module:`YCMDefaultDirs` module is now deprecated.
 
 
 Superbuild Helper Modules

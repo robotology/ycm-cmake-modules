@@ -23,7 +23,6 @@ set(YCM_MODULES AddInstallRPATHSupport.cmake
                 InstallBasicPackageFiles.cmake
                 ReplaceImportedTargets.cmake
                 StandardFindModule.cmake
-                YCMDefaultDirs.cmake
                 YCMEPHelper.cmake)
 
 _ycm_install(modules FILES ${YCM_MODULES}
