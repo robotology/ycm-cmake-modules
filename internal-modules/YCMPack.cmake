@@ -75,6 +75,8 @@ if(WIN32)
   endforeach()
 endif()
 
+set(CPACK_PACKAGE_CHECKSUM SHA1)
+
 # Source package settings
 if(EXISTS ${YCM_SOURCE_DIR}/.gitignore)
   file(STRINGS ${YCM_SOURCE_DIR}/.gitignore CPACK_SOURCE_IGNORE_FILES)
