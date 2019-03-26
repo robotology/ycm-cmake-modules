@@ -8,6 +8,13 @@ YCM 0.10.0 (UNRELEASED) Release Notes
 Changes made since YCM 0.9 include the following.
 
 
+Build System
+============
+
+* YCM can now be included safely in another project using
+  :cmake:module:`FetchContent`.
+
+
 Variables
 =========
 
@@ -32,6 +39,11 @@ Generic Modules
 * The :module:`InstallBasicPackageFiles` module learned to forward the
   ``ARCH_INDEPENDENT`` option to :command:`write_basic_package_version_file`.
 * The :module:`IncludeUrl` module no longer uses locks.
+* The :module:`InstallBasicPackageFiles` module no longer looks for the
+  ``Config.cmake.in`` in the root directory, only current source directory is
+  supported.
+* The :module:`YCMDefaultDirs` module default dirs now use
+  ``CMAKE_CURRENT_BINARY_DIR`` instead of ``CMAKE_BINARY_DIR``.
 
 
 Superbuild Helper Modules
