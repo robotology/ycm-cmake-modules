@@ -998,6 +998,9 @@ function(YCM_EP_HELPER _name)
   if("${_YH_${_name}_COMPONENT}" STREQUAL "external")
     mark_as_advanced(YCM_EP_DEVEL_MODE_${_name})
   endif()
+  if(NON_INTERACTIVE_BUILD AND YCM_EP_DEVEL_MODE_${_name})
+    message(SEND_ERROR "NON_INTERACTIVE_BUILD AND YCM_EP_DEVEL_MODE_${_name} cannot be used at the same time")
+  endif()
 
   unset(${_name}_ARGS)
   foreach(_arg IN LISTS ${_name}_REPOSITORY_ARGS
