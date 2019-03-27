@@ -49,6 +49,13 @@ Generic Modules
   when used with ``EXPORT``. Using ``FIRST_TARGET`` is deprecated.
 * :module:`InstallBasicPackageFiles`: the ``TARGETS``, ``TARGETS_PROPERTY``, and
   ``TARGETS_PROPERTIES`` arguments are deprecated.
+* The :module:`AddUninstallTarget` module must now be included in your main
+  ``CMakeLists.txt``. If included in a subdirectory it does nothing.
+  This allows you to use it safely in your main ``CMakeLists.txt`` and include
+  your project using ``add_subdirectory`` (for example when using it with
+  :cmake:module:`FetchContent`).
+* The :module:`AddUninstallTarget` module no longer tries to add the
+  ``uninstall`` target if the target it already exists, instead it does nothing.
 
 
 Superbuild Helper Modules
