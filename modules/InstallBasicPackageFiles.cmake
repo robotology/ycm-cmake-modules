@@ -16,10 +16,6 @@
 #                              COMPATIBILITY <compatibility>
 #                              [ARCH_INDEPENDENT]
 #                              [EXPORT <export>] # (default = "<Name>")
-#                              [FIRST_TARGET <target1>] # (default = "<Name>")
-#                              [TARGETS <target1> <target2> ...]
-#                              [TARGETS_PROPERTY <property_name>]
-#                              [TARGETS_PROPERTIES <property1_name> <property2_name> ...]
 #                              [NO_SET_AND_CHECK_MACRO]
 #                              [NO_CHECK_REQUIRED_COMPONENTS_MACRO]
 #                              [VARS_PREFIX <prefix>] # (default = "<Name>")
@@ -178,17 +174,11 @@
 # argument.
 #
 #
-# The ``<Name>Targets.cmake`` is generated using
-# :command:`export(TARGETS)` (if ``EXPORT`` or no options are used) or
-# :command:`export(TARGETS)` (if `EXPORT` is not used and one between
-# ``TARGETS``, ``TARGETS_PROPERTY``, or ``TARGETS_PROPERTIES`` is used) in the
-# build tree and :command:`install(EXPORT)` in the installation directory.
-# The targets are exported using the value for the ``NAMESPACE``
-# argument as namespace.
+# The ``<Name>Targets.cmake`` is generated using :command:`export(EXPORT)` in
+# the build tree and :command:`install(EXPORT)` in the installation directory.
+# The targets are exported using the value for the ``NAMESPACE`` argument as
+# namespace.
 # The export can be passed using the ``EXPORT`` argument.
-# The targets can be passed using the ``TARGETS`` argument or using one or more
-# global properties, that can be passed to the function using the
-# ``TARGETS_PROPERTY`` or ``TARGET_PROPERTIES`` arguments.
 #
 # If the ``NO_COMPATIBILITY_VARS`` argument is not set, the compatibility
 # variables ``<VARS_PREFIX>_LIBRARIES`` and ``<VARS_PREFIX>_INCLUDE_DIRS``
@@ -249,20 +239,20 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
   set(_oneValueArgs VERSION
                     COMPATIBILITY
                     EXPORT
-                    FIRST_TARGET
-                    TARGETS_PROPERTY
+                    FIRST_TARGET # Deprecated
+                    TARGETS_PROPERTY # Deprecated
                     VARS_PREFIX
                     EXPORT_DESTINATION
                     INSTALL_DESTINATION
-                    DESTINATION
+                    DESTINATION # Deprecated
                     NAMESPACE
                     CONFIG_TEMPLATE
                     INCLUDE_FILE
                     INCLUDE_CONTENT
                     COMPONENT)
   set(_multiValueArgs EXTRA_PATH_VARS_SUFFIX
-                      TARGETS
-                      TARGETS_PROPERTIES
+                      TARGETS # Deprecated
+                      TARGETS_PROPERTIES # Deprecated
                       DEPENDENCIES
                       PRIVATE_DEPENDENCIES)
   cmake_parse_arguments(_IBPF "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
@@ -293,19 +283,9 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
   endif()
 
   # Prepare install and export commands
-  set(_first_target ${_Name})
   set(_targets ${_Name})
   set(_install_cmd EXPORT ${_Name})
   set(_export_cmd EXPORT ${_Name})
-
-  if(DEFINED _IBPF_FIRST_TARGET)
-    if(DEFINED _IBPF_TARGETS OR DEFINED _IBPF_TARGETS_PROPERTIES OR DEFINED _IBPF_TARGETS_PROPERTIES)
-      message(FATAL_ERROR "EXPORT cannot be used with TARGETS, TARGETS_PROPERTY or TARGETS_PROPERTIES")
-    endif()
-
-    set(_first_target ${_IBPF_FIRST_TARGET})
-    set(_targets ${_IBPF_FIRST_TARGET})
-  endif()
 
   if(DEFINED _IBPF_EXPORT)
     if(DEFINED _IBPF_TARGETS OR DEFINED _IBPF_TARGETS_PROPERTIES OR DEFINED _IBPF_TARGETS_PROPERTIES)
@@ -316,24 +296,27 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     set(_install_cmd EXPORT ${_IBPF_EXPORT})
 
   elseif(DEFINED _IBPF_TARGETS)
+    message(DEPRECATION "TARGETS is deprecated. Use EXPORT instead")
+
     if(DEFINED _IBPF_TARGETS_PROPERTY OR DEFINED _IBPF_TARGETS_PROPERTIES)
       message(FATAL_ERROR "TARGETS cannot be used with TARGETS_PROPERTY or TARGETS_PROPERTIES")
     endif()
 
     set(_targets ${_IBPF_TARGETS})
     set(_export_cmd TARGETS ${_IBPF_TARGETS})
-    list(GET _targets 0 _first_target)
 
   elseif(DEFINED _IBPF_TARGETS_PROPERTY)
+    message(DEPRECATION "TARGETS_PROPERTY is deprecated. Use EXPORT instead")
+
     if(DEFINED _IBPF_TARGETS_PROPERTIES)
       message(FATAL_ERROR "TARGETS_PROPERTIES cannot be used with TARGETS_PROPERTIES")
     endif()
 
     get_property(_targets GLOBAL PROPERTY ${_IBPF_TARGETS_PROPERTY})
     set(_export_cmd TARGETS ${_targets})
-    list(GET _targets 0 _first_target)
 
   elseif(DEFINED _IBPF_TARGETS_PROPERTIES)
+    message(DEPRECATION "TARGETS_PROPERTIES is deprecated. Use EXPORT instead")
 
     unset(_targets)
     foreach(_prop ${_IBPF_TARGETS_PROPERTIES})
@@ -341,7 +324,6 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
       list(APPEND _targets ${_prop_val})
     endforeach()
     set(_export_cmd TARGETS ${_targets})
-    list(GET _targets 0 _first_target)
 
   endif()
 
@@ -353,12 +335,19 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     endif()
   endif()
 
+  # FIXME CMake 3.7 use the same path
+  # FIXME Use ARCH_INDEPENDENT to choose destination
   if(NOT DEFINED _IBPF_INSTALL_DESTINATION)
     if(WIN32 AND NOT CYGWIN)
       set(_IBPF_INSTALL_DESTINATION CMake)
     else()
       set(_IBPF_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${_Name})
     endif()
+  endif()
+
+  # FIRST_TARGET is no longer used
+  if(DEFINED _IBPF_FIRST_TARGET)
+    message(DEPRECATION "FIRST_TARGET is deprecated.")
   endif()
 
   if(NOT DEFINED _IBPF_EXPORT_DESTINATION)
@@ -518,9 +507,7 @@ list(REMOVE_DUPLICATES ${_Name}_INCLUDE_DIRS)
 
 \@PACKAGE_DEPENDENCIES\@
 
-if(NOT TARGET ${_IBPF_NAMESPACE}${_first_target})
-  include(\"\${CMAKE_CURRENT_LIST_DIR}/${_targets_filename}\")
-endif()
+include(\"\${CMAKE_CURRENT_LIST_DIR}/${_targets_filename}\")
 
 ${_compatibility_vars}
 
