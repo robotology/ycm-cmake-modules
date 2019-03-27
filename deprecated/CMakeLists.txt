@@ -24,7 +24,8 @@ if(NOT YCM_NO_DEPRECATED)
                            FindGtkMMUnix.cmake
                            FindGtkMMWin32.cmake
                            FindGtkPlus.cmake
-                           FindGtkWin32.cmake)
+                           FindGtkWin32.cmake
+                           YCMDefaultDirs.cmake)
   _ycm_install(deprecated FILES ${YCM_DEPRECATED_FILES}
                           DESTINATION "${YCM_INSTALL_MODULE_DIR}/deprecated")
 

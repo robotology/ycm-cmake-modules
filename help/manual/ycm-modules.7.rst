@@ -36,7 +36,6 @@ Packaging Helper Modules
 
    /module/InstallBasicPackageFiles
    /module/AddUninstallTarget
-   /module/YCMDefaultDirs
    /module/AddInstallRPATHSupport
 
 
@@ -168,3 +167,4 @@ Deprecated Modules
    /module/MacroExtractVersion
    /module/MacroStandardFindModule
    /module/MacroUninstallTarget
+   /module/YCMDefaultDirs

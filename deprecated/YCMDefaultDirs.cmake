@@ -16,6 +16,9 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
+include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
+ycm_deprecated_warning("YCMDefaultDirs.cmake is deprecated.")
+
 include(GNUInstallDirs)
 
 macro(YCM_DEFAULT_DIRS _prefix)
