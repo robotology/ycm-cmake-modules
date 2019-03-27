@@ -680,6 +680,23 @@ function(_YCM_EP_ADD_OPEN_STEP _name)
 endfunction()
 
 ########################################################################
+# _YCM_EP_ADD_INSTALLATION
+#
+# Add the project to the "install" target in the main build.
+# This by default works only for CMake projects, but project using other
+# build systems can be enabled by just by creating a
+# `cmake_install.cmake` file in the build directory.
+
+function(_YCM_EP_ADD_INSTALLATION _name)
+  get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
+
+  install(CODE "if(NOT CMAKE_INSTALL_LOCAL_ONLY AND EXISTS \"${_binary_dir}/cmake_install.cmake\")
+    include(\"${_binary_dir}/cmake_install.cmake\")
+  endif()"
+          COMPONENT ${_name})
+endfunction()
+
+########################################################################
 # YCM_EP_HELPER
 #
 # Helper function to add a repository using ExternalProject
@@ -1043,6 +1060,11 @@ function(YCM_EP_HELPER _name)
     _ycm_ep_add_update_step(${_name})
   endif()
   _ycm_ep_add_dependers_steps(${_name})
+
+
+  # Install project
+  _ycm_ep_add_installation(${_name})
+
 
   # Set some useful variables in parent scope
   foreach(_d PREFIX
