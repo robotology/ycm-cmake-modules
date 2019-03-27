@@ -47,6 +47,8 @@ Generic Modules
 * The :module:`YCMDefaultDirs` module is now deprecated.
 * The :module:`InstallBasicPackageFiles` module no longer needs ``FIRST_TARGET``
   when used with ``EXPORT``. Using ``FIRST_TARGET`` is deprecated.
+* :module:`InstallBasicPackageFiles`: the ``TARGETS``, ``TARGETS_PROPERTY``, and
+  ``TARGETS_PROPERTIES`` arguments are deprecated.
 
 
 Superbuild Helper Modules
