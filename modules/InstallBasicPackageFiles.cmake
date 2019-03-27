@@ -16,7 +16,6 @@
 #                              COMPATIBILITY <compatibility>
 #                              [ARCH_INDEPENDENT]
 #                              [EXPORT <export>] # (default = "<Name>")
-#                              [FIRST_TARGET <target1>] # (default = "<Name>")
 #                              [TARGETS <target1> <target2> ...]
 #                              [TARGETS_PROPERTY <property_name>]
 #                              [TARGETS_PROPERTIES <property1_name> <property2_name> ...]
@@ -293,19 +292,9 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
   endif()
 
   # Prepare install and export commands
-  set(_first_target ${_Name})
   set(_targets ${_Name})
   set(_install_cmd EXPORT ${_Name})
   set(_export_cmd EXPORT ${_Name})
-
-  if(DEFINED _IBPF_FIRST_TARGET)
-    if(DEFINED _IBPF_TARGETS OR DEFINED _IBPF_TARGETS_PROPERTIES OR DEFINED _IBPF_TARGETS_PROPERTIES)
-      message(FATAL_ERROR "EXPORT cannot be used with TARGETS, TARGETS_PROPERTY or TARGETS_PROPERTIES")
-    endif()
-
-    set(_first_target ${_IBPF_FIRST_TARGET})
-    set(_targets ${_IBPF_FIRST_TARGET})
-  endif()
 
   if(DEFINED _IBPF_EXPORT)
     if(DEFINED _IBPF_TARGETS OR DEFINED _IBPF_TARGETS_PROPERTIES OR DEFINED _IBPF_TARGETS_PROPERTIES)
@@ -322,7 +311,6 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
     set(_targets ${_IBPF_TARGETS})
     set(_export_cmd TARGETS ${_IBPF_TARGETS})
-    list(GET _targets 0 _first_target)
 
   elseif(DEFINED _IBPF_TARGETS_PROPERTY)
     if(DEFINED _IBPF_TARGETS_PROPERTIES)
@@ -331,7 +319,6 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
     get_property(_targets GLOBAL PROPERTY ${_IBPF_TARGETS_PROPERTY})
     set(_export_cmd TARGETS ${_targets})
-    list(GET _targets 0 _first_target)
 
   elseif(DEFINED _IBPF_TARGETS_PROPERTIES)
 
@@ -341,7 +328,6 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
       list(APPEND _targets ${_prop_val})
     endforeach()
     set(_export_cmd TARGETS ${_targets})
-    list(GET _targets 0 _first_target)
 
   endif()
 
@@ -359,6 +345,11 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     else()
       set(_IBPF_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${_Name})
     endif()
+  endif()
+
+  # FIRST_TARGET is no longer used
+  if(DEFINED _IBPF_FIRST_TARGET)
+    message(DEPRECATION "FIRST_TARGET is deprecated.")
   endif()
 
   if(NOT DEFINED _IBPF_EXPORT_DESTINATION)
@@ -518,9 +509,7 @@ list(REMOVE_DUPLICATES ${_Name}_INCLUDE_DIRS)
 
 \@PACKAGE_DEPENDENCIES\@
 
-if(NOT TARGET ${_IBPF_NAMESPACE}${_first_target})
-  include(\"\${CMAKE_CURRENT_LIST_DIR}/${_targets_filename}\")
-endif()
+include(\"\${CMAKE_CURRENT_LIST_DIR}/${_targets_filename}\")
 
 ${_compatibility_vars}
 

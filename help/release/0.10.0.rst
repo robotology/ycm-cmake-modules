@@ -45,6 +45,8 @@ Generic Modules
 * The :module:`YCMDefaultDirs` module default dirs now use
   ``CMAKE_CURRENT_BINARY_DIR`` instead of ``CMAKE_BINARY_DIR``.
 * The :module:`YCMDefaultDirs` module is now deprecated.
+* The :module:`InstallBasicPackageFiles` module no longer needs ``FIRST_TARGET``
+  when used with ``EXPORT``. Using ``FIRST_TARGET`` is deprecated.
 
 
 Superbuild Helper Modules
