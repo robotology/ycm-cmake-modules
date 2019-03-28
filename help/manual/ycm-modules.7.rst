@@ -103,7 +103,6 @@ Find Package Modules
    /module/FindPortAudio
    /module/FindqpOASES
    /module/FindReadline
-   /module/FindQt3
    /module/FindSQLite
    /module/FindStage
    /module/FindTinyXML
@@ -164,6 +163,7 @@ Deprecated Modules
    /module/FindGtkMMWin32
    /module/FindGtkPlus
    /module/FindGtkWin32
+   /module/FindQt3
    /module/MacroExtractVersion
    /module/MacroStandardFindModule
    /module/MacroUninstallTarget

@@ -1,1 +1,1 @@
-.. cmake-module:: ../../find-modules/FindQt3.cmake
+.. cmake-module:: ../../deprecated/FindQt3.cmake

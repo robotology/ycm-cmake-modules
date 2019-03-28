@@ -47,7 +47,6 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindPLXCANAPI.cmake
                      FindPortAudio.cmake
                      FindqpOASES.cmake
-                     FindQt3.cmake
                      FindReadline.cmake
                      FindSQLite.cmake
                      FindStage.cmake
