@@ -53,9 +53,13 @@
 # In this case, all the arguments must be specified within double quotes (e.g.
 # ``"<dependency> 1.0.0 EXACT"``, or ``"<dependency> CONFIG"``).
 # The ``PRIVATE_DEPENDENCIES`` argument is similar to ``DEPENDENCIES``, but
-# these dependencies are included only when libraries are built ``STATIC``, i.e.
-# if ``BUILD_SHARED_LIBS`` is ``OFF`` or if the ``TYPE`` property for one or
-# more of the targets is ``STATIC_LIBRARY``.
+# these dependencies are included only when :variable:`BUILD_SHARED_LIBS` is
+# ``OFF``.
+# If a libraries is declared ``STATIC``, ``OBJECT`` or ``INTERFACE``, and they
+# link to some dependency, these should be added using the ``DEPENDENCIES``
+# argument, since the ``PRIVATE_DEPENDENCIES`` argument would work only when
+# :variable:`BUILD_SHARED_LIBS` is disabled.
+#
 # When using a custom template file, the ``@PACKAGE_DEPENDENCIES@``
 # string is replaced with the code checking for the dependencies
 # specified by these two argument.
@@ -566,14 +570,6 @@ ${_compatibility_vars}
   set(_need_private_deps 0)
   if(NOT BUILD_SHARED_LIBS)
     set(_need_private_deps 1)
-  else()
-    foreach(_target ${_targets})
-      get_property(_type TARGET ${_target} PROPERTY TYPE)
-      if("${_type}" STREQUAL "STATIC_LIBRARY")
-        set(_need_private_deps 1)
-        break()
-      endif()
-    endforeach()
   endif()
 
   unset(PACKAGE_DEPENDENCIES)

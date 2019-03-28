@@ -56,6 +56,11 @@ Generic Modules
   :cmake:module:`FetchContent`).
 * The :module:`AddUninstallTarget` module no longer tries to add the
   ``uninstall`` target if the target it already exists, instead it does nothing.
+* :module:`InstallBasicPackageFiles`: The list of targets is no longer used to
+  decide whether ``PRIVATE_DEPENDENCIES`` should be enabled or not (only the
+  :cmake:variable:`BUILD_SHARED_LIBS` variable is used). Dependencies
+  for ``STATIC``, ``OBJECT``, and ``INTERFACE`` libraries should be passed as
+  ``DEPENDENCIES`` instead.
 
 
 Superbuild Helper Modules
