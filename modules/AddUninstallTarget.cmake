@@ -57,9 +57,9 @@ if(TARGET ${_uninstall})
 endif()
 
 
-set(_filename "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
+set(_filename cmake_uninstall.cmake)
 
-file(WRITE ${_filename}
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/${_filename}"
 "if(NOT EXISTS \"${CMAKE_CURRENT_BINARY_DIR}/install_manifest.txt\")
   message(WARNING \"Cannot find install manifest: \\\"${CMAKE_CURRENT_BINARY_DIR}/install_manifest.txt\\\"\")
   return()
@@ -85,7 +85,18 @@ foreach(file \${files})
 endforeach(file)
 ")
 
+set(_desc "Uninstall the project...")
+if(CMAKE_GENERATOR STREQUAL "Unix Makefiles")
+  set(_comment COMMAND \$\(CMAKE_COMMAND\) -E cmake_echo_color --switch=$\(COLOR\) --cyan "${_desc}")
+else()
+  set(_comment COMMENT "${_desc}")
+endif()
 add_custom_target(${_uninstall}
-                  COMMAND "${CMAKE_COMMAND}" -E cmake_echo_color --switch=$\(COLOR\) --cyan "Uninstall the project..."
-                  COMMAND "${CMAKE_COMMAND}" -P "${_filename}")
+                  ${_comment}
+                  COMMAND ${CMAKE_COMMAND} -P ${_filename}
+                  USES_TERMINAL
+                  BYPRODUCTS uninstall_byproduct
+                  WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
+set_property(SOURCE uninstall_byproduct PROPERTY SYMBOLIC 1)
+
 set_property(TARGET ${_uninstall} PROPERTY FOLDER "CMakePredefinedTargets")
