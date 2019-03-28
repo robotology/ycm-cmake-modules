@@ -283,7 +283,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
   endif()
 
   # Prepare install and export commands
-  set(_targets ${_Name})
+  unset(_targets)
   set(_install_cmd EXPORT ${_Name})
   set(_export_cmd EXPORT ${_Name})
 
@@ -318,7 +318,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
   elseif(DEFINED _IBPF_TARGETS_PROPERTIES)
     message(DEPRECATION "TARGETS_PROPERTIES is deprecated. Use EXPORT instead")
 
-    unset(_targets)
+    set(_targets "") # Defined but empty
     foreach(_prop ${_IBPF_TARGETS_PROPERTIES})
       get_property(_prop_val GLOBAL PROPERTY ${_prop})
       list(APPEND _targets ${_prop_val})
