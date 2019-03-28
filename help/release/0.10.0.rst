@@ -67,6 +67,8 @@ Generic Modules
   possible to re-enable it using the ``ENABLE_COMPATIBILITY_VARS`` option
   (deprecated) or define them using either ``INCLUDE_FILE`` or
   ``INCLUDE_CONTENT`` (recommended).
+* :module:`InstallBasicPackageFiles`: Fixed malformed `find_package()` when a
+  package dependency had a required version, for CMake older than 3.9.
 
 
 Superbuild Helper Modules
@@ -102,6 +104,7 @@ Find Modules
   ``ACE::ACE_INLINE`` imported targets.
   The ``ACE_ADDR_HAS_LOOPBACK_METHOD`` and
   ``ACE_COMPILES_WITHOUT_INLINE_<CONFIG>`` are now deprecated.
+* The :module:`FindQt3` module is deprecated in favour of one from CMake.
 
 
 CMake Next
