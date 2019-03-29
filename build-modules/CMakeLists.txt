@@ -30,7 +30,7 @@ _ycm_install(build-modules FILES ${YCM_BUILD_MODULES}
 
 # Print a warning if we are overriding some module from CMake
 foreach(_module IN LISTS YCM_BUILD_MODULES)
-  if(EXISTS ${CMAKE_ROOT}/Modules/${_module})
+  if(EXISTS "${CMAKE_ROOT}/Modules/${_module}")
     message(AUTHOR_WARNING "A \"${_module}\" module already exists in CMAKE_ROOT. Please remove it, or move it to proposed.")
   endif()
 endforeach()

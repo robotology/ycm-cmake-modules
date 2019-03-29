@@ -68,7 +68,7 @@ function(_YCM_CMAKE_NEXT_DOWNLOAD_NOW _ref _dir _files)
       execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_offline_dest}" "${_orig_dest}")
     endif()
 
-    if(NOT EXISTS ${_orig_dest})
+    if(NOT EXISTS "${_orig_dest}")
       message(STATUS "Downloading file ${_file} from CMake git repository (ref ${_ref})")
       file(DOWNLOAD "${_src}" "${_orig_dest}"
            EXPECTED_HASH SHA1=${_sha1})

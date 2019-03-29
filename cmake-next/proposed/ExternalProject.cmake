@@ -3007,11 +3007,11 @@ function(_ep_add_configure_command name)
   # used, cmake args or cmake generator) then re-run the configure step.
   # Fixes issue https://gitlab.kitware.com/cmake/cmake/issues/10258
   #
-  if(NOT EXISTS ${tmp_dir}/${name}-cfgcmd.txt.in)
-    file(WRITE ${tmp_dir}/${name}-cfgcmd.txt.in "cmd='\@cmd\@'\n")
+  if(NOT EXISTS "${tmp_dir}/${name}-cfgcmd.txt.in")
+    file(WRITE "${tmp_dir}/${name}-cfgcmd.txt.in" "cmd='\@cmd\@'\n")
   endif()
-  configure_file(${tmp_dir}/${name}-cfgcmd.txt.in ${tmp_dir}/${name}-cfgcmd.txt)
-  list(APPEND file_deps ${tmp_dir}/${name}-cfgcmd.txt)
+  configure_file("${tmp_dir}/${name}-cfgcmd.txt.in" "${tmp_dir}/${name}-cfgcmd.txt")
+  list(APPEND file_deps "${tmp_dir}/${name}-cfgcmd.txt")
   list(APPEND file_deps ${_ep_cache_args_script})
 
   get_property(log TARGET ${name} PROPERTY _EP_LOG_CONFIGURE)
