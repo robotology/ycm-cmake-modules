@@ -90,12 +90,12 @@ configure_package_config_file(YCMConfig.cmake.in "${YCM_BUILD_CMAKE_DIR}/YCMConf
 
 # YCMConfig.cmake (installed)
 get_filename_component(YCM_MODULE_DIR "${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_MODULE_DIR}" ABSOLUTE)
-configure_package_config_file(YCMConfig.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
+configure_package_config_file(YCMConfig.cmake.in "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
                               INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_CMAKE_DIR}"
                               PATH_VARS YCM_MODULE_DIR
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
         DESTINATION "${YCM_INSTALL_CMAKE_DIR}"
         RENAME YCMConfig.cmake)
 
