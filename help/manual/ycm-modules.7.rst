@@ -70,6 +70,7 @@ Find Package Modules
 .. toctree::
    :maxdepth: 1
 
+   /module/Findassimp
    /module/FindACE
    /module/FindAtlas
    /module/FindCFW2CANAPI
@@ -79,6 +80,7 @@ Find Package Modules
    /module/FindFTDI
    /module/FindFuse
    /module/FindGLFW3
+   /module/FindGLM
    /module/FindGLUT
    /module/FindGooCanvas
    /module/FindGooCanvasMM

@@ -14,7 +14,7 @@
 Findassimp
 ----------
 
-Find the Open-Asset-Importer-Lib (assimp)
+Find the Open Asset Importer Library (assimp)
 
 Input variables
 ^^^^^^^^^^^^^^^
