@@ -514,7 +514,9 @@ ${_IBPF_INCLUDE_CONTENT}
       set(_compatibility_vars
 "# Compatibility\nset(${_Name}_LIBRARIES ${_target_list})
 set(${_Name}_INCLUDE_DIRS ${_include_dir_list})
-list(REMOVE_DUPLICATES ${_Name}_INCLUDE_DIRS)
+if(NOT \"\${${_Name}_INCLUDE_DIRS}\" STREQUAL \"\")
+  list(REMOVE_DUPLICATES ${_Name}_INCLUDE_DIRS)
+endif()
 ")
     endif()
 
