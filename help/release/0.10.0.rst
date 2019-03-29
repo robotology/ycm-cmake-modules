@@ -72,6 +72,8 @@ Generic Modules
 * The :module:`InstallBasicPackageFiles` module now considers a relative
   ``EXPORT_DESTINATION`` as relative to ``CMAKE_CURRENT_BINARY_DIR`` instead
   of ``CURRENT_BINARY_DIR``.
+* :module:`InstallBasicPackageFiles`: Fixed export destination when
+  ``EXPORT_DESTINATION`` is an absolute path.
 
 
 Superbuild Helper Modules
