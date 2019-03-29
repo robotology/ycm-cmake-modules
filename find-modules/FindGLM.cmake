@@ -115,3 +115,9 @@ if(NOT TARGET glm)
                         PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${GLM_INCLUDE_DIRS}")
 
 endif()
+
+# Set package properties if FeatureSummary was included
+if(COMMAND set_package_properties)
+    set_package_properties(assimp PROPERTIES DESCRIPTION "OpenGL Mathematics (GLM)"
+                                             URL "https://glm.g-truc.net/")
+endif()

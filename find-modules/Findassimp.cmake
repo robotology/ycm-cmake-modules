@@ -280,3 +280,9 @@ if(NOT TARGET assimp::assimp)
 elseif(ASSIMP_VERBOSE)
   message(WARNING "Findassimp: target `assimp::assimp` was already created. Something went wrong in Findassimp target creation.")
 endif()
+
+# Set package properties if FeatureSummary was included
+if(COMMAND set_package_properties)
+    set_package_properties(assimp PROPERTIES DESCRIPTION "Open Asset Import Library (assimp)"
+                                             URL "http://www.assimp.org/")
+endif()
