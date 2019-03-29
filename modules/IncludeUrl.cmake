@@ -165,7 +165,7 @@ macro(INCLUDE_URL _remoteFile)
 
   get_filename_component(_filename ${_remoteFile} NAME)
   if(DEFINED _IU_DESTINATION)
-    if(IS_DIRECTORY ${_IU_DESTINATION})
+    if(IS_DIRECTORY "${_IU_DESTINATION}")
       set(_localFile "${_IU_DESTINATION}/${_filename}")
     else()
       set(_localFile "${_IU_DESTINATION}")
