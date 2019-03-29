@@ -69,7 +69,7 @@
 # one (``CMake`` on Windows, ``${CMAKE_INSTALL_LIBDIR}/cmake/${Name}``
 # on other platforms.  The ``EXPORT_DESTINATION`` argument can be passed to
 # generate the files in the build tree in a location different from the default
-# one (``CMAKE_CURRENT_BINARY_DIR``).  If this is a relative path, it is
+# one (``CMAKE_BINARY_DIR``).  If this is a relative path, it is
 # considered relative to the ``CMAKE_CURRENT_BINARY_DIR`` directory.
 #
 # The ``<Name>ConfigVersion.cmake`` file is generated using
@@ -370,7 +370,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
   endif()
 
   if(NOT DEFINED _IBPF_EXPORT_DESTINATION)
-    set(_IBPF_EXPORT_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
+    set(_IBPF_EXPORT_DESTINATION "${CMAKE_BINARY_DIR}")
   elseif(NOT IS_ABSOLUTE _IBPF_EXPORT_DESTINATION)
     set(_IBPF_EXPORT_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/${_IBPF_EXPORT_DESTINATION}")
   endif()
@@ -698,7 +698,7 @@ endif()
                                 INSTALL_DESTINATION ${_IBPF_EXPORT_DESTINATION}
                                 PATH_VARS ${_build_path_vars}
                                 ${configure_package_config_file_extra_args}
-                                INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
+                                INSTALL_PREFIX ${CMAKE_BINARY_DIR})
 
   # <Name>Config.cmake (installed)
   foreach(p ${_install_path_vars_suffix})
