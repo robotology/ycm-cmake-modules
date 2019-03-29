@@ -51,7 +51,7 @@ This module defines the following variables:
   ASSIMP major version
 ``ASSIMP_VERSION_MINOR``
   ASSIMP minor version
-``ASSIMP_VERSION_revision``
+``ASSIMP_VERSION_REVISION``
   ASSIMP revision version
 
 #]=======================================================================]
