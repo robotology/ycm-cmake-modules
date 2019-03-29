@@ -485,7 +485,7 @@ ${_IBPF_INCLUDE_CONTENT}
   if(_generate_file)
     # Generate the compatibility code
     unset(_compatibility_vars)
-    if(NOT _IBPF_NO_COMPATIBILITY_VARS OR _IBPF_ENABLE_COMPATIBILITY_VARS)
+    if(_IBPF_ENABLE_COMPATIBILITY_VARS)
       unset(_get_include_dir_code)
       unset(_set_include_dir_code)
       unset(_target_list)
