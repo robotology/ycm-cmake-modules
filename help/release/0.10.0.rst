@@ -69,6 +69,9 @@ Generic Modules
   ``INCLUDE_CONTENT`` (recommended).
 * :module:`InstallBasicPackageFiles`: Fixed malformed `find_package()` when a
   package dependency had a required version, for CMake older than 3.9.
+* The :module:`InstallBasicPackageFiles` module now considers a relative
+  ``EXPORT_DESTINATION`` as relative to ``CMAKE_CURRENT_BINARY_DIR`` instead
+  of ``CURRENT_BINARY_DIR``.
 
 
 Superbuild Helper Modules
