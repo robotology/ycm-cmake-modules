@@ -104,6 +104,10 @@ Superbuild Helper Modules
 Find Modules
 ------------
 
+* The :module:`FindLibOVR` module now works properly with VS2015.
+* The :module:`FindPortAudio` module should now detect the library installed by
+  vcpkg.
+* The :module:`FindPortAudio` module now handles debug and release libraries.
 * Import :module:`FindI2C` module from `YARP Git Repository`_.
 * The :module:`FindACE` module now creates the ``ACE::ACE`` and
   ``ACE::ACE_INLINE`` imported targets.
