@@ -82,10 +82,10 @@ set(__YCMEPHELPER_INCLUDED TRUE)
 
 # Files downloaded during YCM bootstrap
 set(_ycm_CMakeParseArguments_sha1sum 0c4d3f7ed248145cbeb67cbd6fd7190baf2e4517)
-set(_ycm_ExternalProject_sha1sum     198329b8d7128ba5feaf1280f178a2befde1506b)
+set(_ycm_ExternalProject_sha1sum     62ed9b37172e01fd13f356d8a4a6a599d7aed054)
 
 # Files in all projects that need to bootstrap YCM
-set(_ycm_IncludeUrl_sha1sum          ccb03a4975faccabc9032cada2624ccfda42d238)
+set(_ycm_IncludeUrl_sha1sum          e31dffed0897729283ef4e945bbdeb1921b438b5)
 set(_ycm_YCMBootstrap_sha1sum        dd95e1d38e045091e2e6c1ba2a96d540f1b8af0d)
 
 
@@ -192,10 +192,9 @@ macro(_YCM_SETUP)
   _ycm_include(CMakeParseArguments)
   _ycm_include(ExternalProject)
 
-  set_property(DIRECTORY PROPERTY EP_SOURCE_DIR_PERSISTENT 1)
   if(NOT NON_INTERACTIVE_BUILD)
     # Non interactive builds should always perform the update step
-    set_property(DIRECTORY PROPERTY EP_SCM_DISCONNECTED 1)
+    set_property(DIRECTORY PROPERTY EP_UPDATE_DISCONNECTED 1)
   endif()
   set_property(DIRECTORY PROPERTY CMAKE_PARSE_ARGUMENTS_DEFAULT_SKIP_EMPTY FALSE)
   set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -232,6 +231,32 @@ macro(_YCM_SETUP)
   # TODO Make this a cached variable for installation outside build
   #      directory
   set(_YCM_EP_INSTALL_DIR ${CMAKE_BINARY_DIR}/install)
+
+  # Default CMAKE_ARGS (Passed to the command line)
+  set(_YCM_EP_CMAKE_ARGS "--no-warn-unused-cli"
+                              "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}") # Path used by cmake for finding stuff
+
+  # Default CMAKE_CACHE_ARGS (Initial cache, forced)
+  set(_YCM_EP_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${_YCM_EP_INSTALL_DIR}") # Where to do the installation
+
+  if(DEFINED CMAKE_TOOLCHAIN_FILE)
+    list(APPEND _YCM_EP_CMAKE_CACHE_ARGS "-DCMAKE_TOOLCHAIN_FILE:PATH=${CMAKE_TOOLCHAIN_FILE}")
+  endif()
+
+  # Default CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
+  unset(_YCM_EP_CMAKE_CACHE_DEFAULT_ARGS)
+  if(NOT CMAKE_BUILD_TYPE STREQUAL "") # CMAKE_BUILD_TYPE is always defined
+    list(APPEND _YCM_EP_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}") # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
+  endif()
+  if(DEFINED CMAKE_SKIP_RPATH)
+    list(APPEND _YCM_EP_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_SKIP_RPATH:PATH=${CMAKE_SKIP_RPATH}")
+  endif()
+  if(DEFINED CMAKE_SKIP_INSTALL_RPATH)
+    list(APPEND _YCM_EP_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_SKIP_INSTALL_RPATH:PATH=${CMAKE_SKIP_INSTALL_RPATH}")
+  endif()
+  if(DEFINED BUILD_SHARED_LIBS)
+    list(APPEND _YCM_EP_CMAKE_CACHE_DEFAULT_ARGS "-DBUILD_SHARED_LIBS:PATH=${BUILD_SHARED_LIBS}")
+  endif()
 endmacro()
 
 
@@ -361,8 +386,8 @@ function(_YCM_EP_ADD_TEST_STEP)
     # The test target does not exist, therefore add_dependencies
     # cannot be used. Instead we add a test.
     add_test(NAME ${_name}_test
-             COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target ${_name}-test
-             WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+             COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_BINARY_DIR} --config ${CMAKE_CFG_INTDIR} --target ${_name}-test
+             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
     set_property(TEST ${_name}_test APPEND PROPERTY LABELS ${_name})
     set_property(TEST ${_name}_test PROPERTY DEPENDS ${_name})
   endif()
@@ -566,11 +591,11 @@ function(_YCM_EP_ADD_EDIT_CACHE_STEP _name)
   _ep_get_configure_command_id(${_name} _${_name}_configure_command_id)
   if(_${_name}_configure_command_id STREQUAL "cmake")
 
-    get_property(_configure_source_dir TARGET ${_name} PROPERTY _EP_CONFIGURE_SOURCE_DIR)
+    get_property(_source_subdir TARGET ${_name} PROPERTY _EP_SOURCE_SUBDIR)
     get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
 
     ExternalProject_Add_Step(${_name} edit_cache
-                             COMMAND ${CMAKE_EDIT_COMMAND} -H${_configure_source_dir} -B${_binary_dir}
+                             COMMAND ${CMAKE_EDIT_COMMAND} -H${_source_subdir} -B${_binary_dir}
                              WORKING_DIRECTORY ${_binary_dir}
                              DEPENDEES configure
                              EXCLUDE_FROM_MAIN 1
@@ -594,10 +619,10 @@ function(_YCM_EP_ADD_PRINT_DIRECTORIES_STEP _name)
   endif()
 
   get_property(_source_dir TARGET ${_name} PROPERTY _EP_SOURCE_DIR)
-  get_property(_configure_source_dir TARGET ${_name} PROPERTY _EP_CONFIGURE_SOURCE_DIR)
+  get_property(_source_subdir TARGET ${_name} PROPERTY _EP_SOURCE_SUBDIR)
   get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
 
-  if("${_source_dir}" STREQUAL "${_configure_source_dir}")
+  if("${_source_dir}" STREQUAL "${_source_subdir}")
     set(_source_cmd COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
                     COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_dir}")
   else()
@@ -605,7 +630,7 @@ function(_YCM_EP_ADD_PRINT_DIRECTORIES_STEP _name)
                     COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_dir}"
                     COMMAND ${CMAKE_COMMAND} -E echo ""
                     COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
-                    COMMAND ${CMAKE_COMMAND} -E echo "    ${_configure_source_dir}")
+                    COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_subdir}")
   endif()
   set(_binary_cmd COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} BINARY directory: "
                   COMMAND ${CMAKE_COMMAND} -E echo "    ${_binary_dir}")
@@ -655,6 +680,23 @@ function(_YCM_EP_ADD_OPEN_STEP _name)
 endfunction()
 
 ########################################################################
+# _YCM_EP_ADD_INSTALLATION
+#
+# Add the project to the "install" target in the main build.
+# This by default works only for CMake projects, but project using other
+# build systems can be enabled by just by creating a
+# `cmake_install.cmake` file in the build directory.
+
+function(_YCM_EP_ADD_INSTALLATION _name)
+  get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
+
+  install(CODE "if(NOT CMAKE_INSTALL_LOCAL_ONLY AND EXISTS \"${_binary_dir}/cmake_install.cmake\")
+    include(\"${_binary_dir}/cmake_install.cmake\")
+  endif()"
+          COMPONENT ${_name})
+endfunction()
+
+########################################################################
 # YCM_EP_HELPER
 #
 # Helper function to add a repository using ExternalProject
@@ -681,7 +723,8 @@ function(YCM_EP_HELPER _name)
                     TEST_BEFORE_INSTALL
                     TEST_AFTER_INSTALL
                     TEST_EXCLUDE_FROM_MAIN
-                    CONFIGURE_SOURCE_DIR)
+                    CONFIGURE_SOURCE_DIR # DEPRECATED Since YCM 0.10
+                    SOURCE_SUBDIR)
   set(_multiValueArgs CMAKE_ARGS
                       CMAKE_CACHE_ARGS
                       CMAKE_CACHE_DEFAULT_ARGS
@@ -781,52 +824,25 @@ function(YCM_EP_HELPER _name)
   #
   # TODO FIXME check what happens when the "*_COMMAND" arguments are passed.
   file(TO_CMAKE_PATH "$ENV{CMAKE_PREFIX_PATH}" _CMAKE_PREFIX_PATH)
-  list(APPEND _CMAKE_PREFIX_PATH ${${_name}_INSTALL_DIR})
+  list(INSERT _CMAKE_PREFIX_PATH 0 ${${_name}_INSTALL_DIR})
   list(REMOVE_DUPLICATES _CMAKE_PREFIX_PATH)
   string(REPLACE ";" "|" _CMAKE_PREFIX_PATH "${_CMAKE_PREFIX_PATH}")
   set(${_name}_ALL_CMAKE_ARGS LIST_SEPARATOR "|")
 
-
-  # Default CMAKE_ARGS (Passed to the command line)
-  set(${_name}_YCM_CMAKE_ARGS "--no-warn-unused-cli"
-                              "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}") # Path used by cmake for finding stuff
-
-  # Default CMAKE_CACHE_ARGS (Initial cache, forced)
-  set(${_name}_YCM_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${${_name}_INSTALL_DIR}") # Where to do the installation
-
-  # Default CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
-  unset(${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS)
-  if(NOT CMAKE_BUILD_TYPE STREQUAL "") # CMAKE_BUILD_TYPE is always defined
-    list(APPEND ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}") # If there is a CMAKE_BUILD_TYPE it is important to ensure it is passed down.
-  endif()
-  if(DEFINED CMAKE_SKIP_RPATH)
-    list(APPEND ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_SKIP_RPATH:PATH=${CMAKE_SKIP_RPATH}")
-  endif()
-  if(DEFINED CMAKE_SKIP_INSTALL_RPATH)
-    list(APPEND ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS "-DCMAKE_SKIP_INSTALL_RPATH:PATH=${CMAKE_SKIP_INSTALL_RPATH}")
-  endif()
-  if(DEFINED BUILD_SHARED_LIBS)
-    list(APPEND ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS "-DBUILD_SHARED_LIBS:PATH=${BUILD_SHARED_LIBS}")
-  endif()
-
   # CMAKE_ARGS (Passed to the command line)
-  set(${_name}_CMAKE_ARGS CMAKE_ARGS ${${_name}_YCM_CMAKE_ARGS})
+  set(${_name}_CMAKE_ARGS CMAKE_ARGS ${_YCM_EP_CMAKE_ARGS})
   if(_YH_${_name}_CMAKE_ARGS)
     list(APPEND ${_name}_CMAKE_ARGS ${_YH_${_name}_CMAKE_ARGS})
   endif()
 
   # CMAKE_CACHE_ARGS (Initial cache, forced)
-  set(${_name}_CMAKE_CACHE_ARGS CMAKE_CACHE_ARGS ${${_name}_YCM_CMAKE_CACHE_ARGS})
+  set(${_name}_CMAKE_CACHE_ARGS CMAKE_CACHE_ARGS ${_YCM_EP_CMAKE_CACHE_ARGS})
   if(_YH_${_name}_CMAKE_CACHE_ARGS)
     list(APPEND ${_name}_CMAKE_CACHE_ARGS ${_YH_${_name}_CMAKE_CACHE_ARGS})
   endif()
 
   # CMAKE_CACHE_DEFAULT_ARGS (Initial cache, default)
-  if(DEFINED ${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS)
-    # FIXME Do not add the "CMAKE_CACHE_DEFAULT_ARGS" until the ExternalProject module
-    # is updated from CMake
-    set(${_name}_CMAKE_CACHE_DEFAULT_ARGS ${${_name}_YCM_CMAKE_CACHE_DEFAULT_ARGS})
-  endif()
+  set(${_name}_CMAKE_CACHE_DEFAULT_ARGS CMAKE_CACHE_DEFAULT_ARGS ${_YCM_EP_CMAKE_CACHE_DEFAULT_ARGS})
   if(_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS)
     list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS ${_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS})
   endif()
@@ -919,8 +935,17 @@ function(YCM_EP_HELPER _name)
   if(DEFINED _YH_${_name}_EXCLUDE_FROM_ALL)
     list(APPEND ${_name}_EXTRA_ARGS EXCLUDE_FROM_ALL ${_YH_${_name}_EXCLUDE_FROM_ALL})
   endif()
+  # BEGIN DEPRECATED Since YCM 0.10
   if(DEFINED _YH_${_name}_CONFIGURE_SOURCE_DIR)
-    list(APPEND ${_name}_EXTRA_ARGS CONFIGURE_SOURCE_DIR ${_YH_${_name}_CONFIGURE_SOURCE_DIR})
+    message(DEPRECATION "CONFIGURE_SOURCE_DIR is deprecated. Use SOURCE_SUBDIR instead")
+    if(DEFINED _YH_${_name}_SOURCE_SUBDIR)
+      message(FATAL_ERROR "CONFIGURE_SOURCE_DIR and SOURCE_SUBDIR cannot be used together")
+    endif()
+    set(_YH_${_name}_SOURCE_SUBDIR "${_YH_${_name}_CONFIGURE_SOURCE_DIR}")
+  endif()
+  # END DEPRECATED Since YCM 0.10
+  if(DEFINED _YH_${_name}_SOURCE_SUBDIR)
+    list(APPEND ${_name}_EXTRA_ARGS SOURCE_SUBDIR "${_YH_${_name}_SOURCE_SUBDIR}")
   endif()
 
   # Repository dependent variables
@@ -990,6 +1015,9 @@ function(YCM_EP_HELPER _name)
   if("${_YH_${_name}_COMPONENT}" STREQUAL "external")
     mark_as_advanced(YCM_EP_DEVEL_MODE_${_name})
   endif()
+  if(NON_INTERACTIVE_BUILD AND YCM_EP_DEVEL_MODE_${_name})
+    message(SEND_ERROR "NON_INTERACTIVE_BUILD AND YCM_EP_DEVEL_MODE_${_name} cannot be used at the same time")
+  endif()
 
   unset(${_name}_ARGS)
   foreach(_arg IN LISTS ${_name}_REPOSITORY_ARGS
@@ -1032,6 +1060,11 @@ function(YCM_EP_HELPER _name)
     _ycm_ep_add_update_step(${_name})
   endif()
   _ycm_ep_add_dependers_steps(${_name})
+
+
+  # Install project
+  _ycm_ep_add_installation(${_name})
+
 
   # Set some useful variables in parent scope
   foreach(_d PREFIX
@@ -1332,6 +1365,12 @@ macro(YCM_BOOTSTRAP)
   file(READ ${YCM_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMTmp/YCM-cfgcmd.txt _cmd)
   string(STRIP "${_cmd}" _cmd)
   string(REGEX REPLACE "^cmd='(.+)'" "\\1" _cmd "${_cmd}")
+  # The cache file is generated with 'file(GENERATE)', therefore it is not yet
+  # available. Since we cannot use CMAKE_CACHE_ARGS or CMAKE_CACHE_DEFAULT_ARGS,
+  # We just remove it from the command line, and append the arguments instead.
+  string(REGEX REPLACE "-C.+\\.cmake;" "${_YCM_EP_CMAKE_CACHE_ARGS};${_YCM_EP_CMAKE_CACHE_DEFAULT_ARGS}" _cmd "${_cmd}")
+  # The command line contains location tags, therefore we need to expand it.
+  _ep_replace_location_tags(YCM _cmd)
   execute_process(COMMAND ${_cmd}
                   WORKING_DIRECTORY ${YCM_BINARY_DIR}
                   ${_quiet_args}

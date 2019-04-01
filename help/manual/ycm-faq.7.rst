@@ -50,7 +50,7 @@ YCM FAQ
 
 .. _`FAQ:cmake-version`:
 
-* :**Q**: Why support CMake 3.0?
+* :**Q**: Why support CMake 3.5?
   :**A**: YCM was historically written to support `YARP`_, therefore the
           supported CMake versions are the same supported by `YARP`_.
           See `YARP Supported Distributions`_ for details.

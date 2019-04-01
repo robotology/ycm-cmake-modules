@@ -14,6 +14,7 @@
 
 
 set(YCM_FIND_MODULES FindACE.cmake
+                     Findassimp.cmake
                      FindAtlas.cmake
                      FindCFW2CANAPI.cmake
                      FindDRAGONFLYAPI.cmake
@@ -22,12 +23,14 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindFTDI.cmake
                      FindFuse.cmake
                      FindGLFW3.cmake
+                     FindGLM.cmake
                      FindGLUT.cmake
                      FindGooCanvas.cmake
                      FindGooCanvasMM.cmake
                      FindGSL.cmake
                      FindGtkDatabox.cmake
                      FindGtkDataboxMM.cmake
+                     FindI2C.cmake
                      FindIPOPT.cmake
                      FindIPP.cmake
                      FindLibdc1394.cmake
@@ -45,7 +48,6 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindPLXCANAPI.cmake
                      FindPortAudio.cmake
                      FindqpOASES.cmake
-                     FindQt3.cmake
                      FindReadline.cmake
                      FindSQLite.cmake
                      FindStage.cmake
@@ -55,3 +57,10 @@ set(YCM_FIND_MODULES FindACE.cmake
 
 _ycm_install(find-modules FILES ${YCM_FIND_MODULES}
                           DESTINATION "${YCM_INSTALL_MODULE_DIR}/find-modules")
+
+# Print a warning if we are overriding some module from CMake
+foreach(_module IN LISTS YCM_FIND_MODULES)
+  if(EXISTS "${CMAKE_ROOT}/Modules/${_module}")
+    message(AUTHOR_WARNING "A \"${_module}\" module already exists in CMAKE_ROOT. Please remove it, or move it to proposed.")
+  endif()
+endforeach()

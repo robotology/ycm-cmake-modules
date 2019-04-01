@@ -165,7 +165,7 @@ macro(INCLUDE_URL _remoteFile)
 
   get_filename_component(_filename ${_remoteFile} NAME)
   if(DEFINED _IU_DESTINATION)
-    if(IS_DIRECTORY ${_IU_DESTINATION})
+    if(IS_DIRECTORY "${_IU_DESTINATION}")
       set(_localFile "${_IU_DESTINATION}/${_filename}")
     else()
       set(_localFile "${_IU_DESTINATION}")
@@ -176,7 +176,6 @@ macro(INCLUDE_URL _remoteFile)
     set(_localFile ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${_filename})
     set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${_localFile}")
   endif()
-  set(_lockFile "${_localFile}.cmake")
 
   if(DEFINED CMAKE_SCRIPT_MODE_FILE)
     string(RANDOM LENGTH 8 _rand)
@@ -231,14 +230,6 @@ macro(INCLUDE_URL _remoteFile)
       set(_algorithm MD5)
       set(_expectedHash ${_IU_EXPECTED_MD5})
     endif()
-  endif()
-
-  # Lock the file, in case 2 different processes are downloading the same file
-  # at the time
-  # file(LOCK) was added in CMake 3.2, therefore calling it in older version
-  # will fail.
-  if(NOT CMAKE_VERSION VERSION_LESS 3.2)
-    file(LOCK "${_lockFile}")
   endif()
 
   set(_shouldDownload 0)
@@ -367,11 +358,6 @@ macro(INCLUDE_URL _remoteFile)
     if(DEFINED _IU_STATUS)
       set(${_IU_STATUS} "0")
     endif()
-  endif()
-
-  # Download is finished, we can now release the lock
-  if(NOT CMAKE_VERSION VERSION_LESS 3.2)
-    file(LOCK "${_lockFile}" RELEASE)
   endif()
 
   if(NOT EXISTS "${_localFile}" AND NOT _IU_OPTIONAL)

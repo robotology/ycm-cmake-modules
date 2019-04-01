@@ -14,7 +14,7 @@
 
 
 ##############################################################################
-# FindGStreamer.cmake and FindGStreamerPluginsBase.cmake and their
+# FindGStreamer.cmake, FindGStreamerPluginsBase.cmake, FindGObject and their
 # dependencies are taken from the qt-gstreamer repository
 
 set(_files cmake/modules/COPYING-CMAKE-SCRIPTS            ff3ed70db4739b3c6747c7f624fe2bad70802987
@@ -38,16 +38,18 @@ Redistribution and use is allowed according to the terms of the 3-clause
 BSD license. See accompanying file COPYING.qt-gstreamer for details.
 ")
 
-# FindGStreamer.cmake requires some unmerged patches, therefore is downloaded
-# from robotology-dependencies fork
-set(_files cmake/modules/FindGStreamer.cmake              457b77fa471d29d79b11c02c88954fff6ec62456)
-set(_ref e0a9f16815d7ce23e3d9cdece5dd06dc2b588116)
+# FindGStreamer.cmake and FindGObject require some unmerged patches, therefore
+# they are downloaded from the robotology-dependencies fork
+set(_files cmake/modules/FindGStreamer.cmake              457b77fa471d29d79b11c02c88954fff6ec62456
+           cmake/modules/FindGObject.cmake                bdb778ace33b0c5a47150594fc048c69ad02a16a)
+set(_ref 383c41d310b14c328ab6d5d02f478f9cca182bfb)
 _ycm_download(3rdparty-qt-gstreamer
              "qt-gstreamer git repository (robotology-dependency fork)"
              "https://raw.githubusercontent.com/robotology-dependencies/qt-gstreamer/<REF>/<FILE>"
              ${_ref} "${_dir}" "${_files}")
 
 _ycm_install(3rdparty-qt-gstreamer FILES "${_dir}/cmake/modules/FindGLIB2.cmake"
+                                         "${_dir}/cmake/modules/FindGObject.cmake"
                                          "${_dir}/cmake/modules/FindGStreamer.cmake"
                                          "${_dir}/cmake/modules/FindGStreamerPluginsBase.cmake"
                                          "${_dir}/cmake/modules/MacroFindGStreamerLibrary.cmake"

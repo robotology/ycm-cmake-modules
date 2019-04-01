@@ -36,7 +36,6 @@ Packaging Helper Modules
 
    /module/InstallBasicPackageFiles
    /module/AddUninstallTarget
-   /module/YCMDefaultDirs
    /module/AddInstallRPATHSupport
 
 
@@ -71,6 +70,7 @@ Find Package Modules
 .. toctree::
    :maxdepth: 1
 
+   /module/Findassimp
    /module/FindACE
    /module/FindAtlas
    /module/FindCFW2CANAPI
@@ -80,12 +80,14 @@ Find Package Modules
    /module/FindFTDI
    /module/FindFuse
    /module/FindGLFW3
+   /module/FindGLM
    /module/FindGLUT
    /module/FindGooCanvas
    /module/FindGooCanvasMM
    /module/FindGSL
    /module/FindGtkDatabox
    /module/FindGtkDataboxMM
+   /module/FindI2C
    /module/FindIPOPT
    /module/FindIPP
    /module/FindLibdc1394
@@ -103,7 +105,6 @@ Find Package Modules
    /module/FindPortAudio
    /module/FindqpOASES
    /module/FindReadline
-   /module/FindQt3
    /module/FindSQLite
    /module/FindStage
    /module/FindTinyXML
@@ -145,7 +146,6 @@ These modules are patched versions of the ones included in CMake.
 
    /module/ExternalProject
    /module/CMakeParseArguments
-   /module/FindGLEW
 
 
 
@@ -165,6 +165,8 @@ Deprecated Modules
    /module/FindGtkMMWin32
    /module/FindGtkPlus
    /module/FindGtkWin32
+   /module/FindQt3
    /module/MacroExtractVersion
    /module/MacroStandardFindModule
    /module/MacroUninstallTarget
+   /module/YCMDefaultDirs

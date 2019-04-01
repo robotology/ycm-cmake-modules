@@ -30,6 +30,8 @@
 # (To distribute this file outside of YCM, substitute the full
 #  License text for the above reference.)
 
+include(${CMAKE_CURRENT_LIST_DIR}/YCMDeprecatedWarning.cmake)
+ycm_deprecated_warning("FindQt3.cmake is deprecated. Use FindQt3 from CMake instead.")
 
 #message(Find Qt3 form iCub package)
 

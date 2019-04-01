@@ -1,1 +1,1 @@
-.. cmake-module:: ../../modules/YCMDefaultDirs.cmake
+.. cmake-module:: ../../deprecated/YCMDefaultDirs.cmake

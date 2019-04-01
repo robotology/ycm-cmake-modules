@@ -18,13 +18,22 @@ mark_as_advanced(YARP_NO_DEPRECATED)
 
 # Deprecated modules installed for compatibility
 if(NOT YCM_NO_DEPRECATED)
-    set(YCM_DEPRECATED_FILES YCMDeprecatedWarning.cmake
-                             FindGthread.cmake
-                             FindGtkMM.cmake
-                             FindGtkMMUnix.cmake
-                             FindGtkMMWin32.cmake
-                             FindGtkPlus.cmake
-                             FindGtkWin32.cmake)
-    _ycm_install(deprecated FILES ${YCM_DEPRECATED_FILES}
-                            DESTINATION "${YCM_INSTALL_MODULE_DIR}/deprecated")
+  set(YCM_DEPRECATED_FILES YCMDeprecatedWarning.cmake
+                           FindGthread.cmake
+                           FindGtkMM.cmake
+                           FindGtkMMUnix.cmake
+                           FindGtkMMWin32.cmake
+                           FindGtkPlus.cmake
+                           FindGtkWin32.cmake
+                           YCMDefaultDirs.cmake)
+  _ycm_install(deprecated FILES ${YCM_DEPRECATED_FILES}
+                          DESTINATION "${YCM_INSTALL_MODULE_DIR}/deprecated")
+
+  # Print a warning if we are overriding some module from CMake
+  foreach(_module IN LISTS YCM_MODULES)
+    if(EXISTS "${CMAKE_ROOT}/Modules/${_module}")
+      message(AUTHOR_WARNING "A \"${_module}\" module already exists in CMAKE_ROOT. Please remove it, or move it to proposed.")
+    endif()
+  endforeach()
+
 endif()
