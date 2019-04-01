@@ -1,4 +1,4 @@
-YCM 0.10.0 (UNRELEASED) Release Notes
+YCM 0.10.0 (2019-04-01) Release Notes
 *************************************
 
 .. only:: html
