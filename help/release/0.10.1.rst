@@ -15,3 +15,11 @@ Generic Modules
 ---------------
 
 * :module:`YCMEPHelper`: Fixed :cmake:module:`ExternalProject` sha1sum.
+
+
+CMake Next
+----------
+
+* Updated to CMake v3.14.0 + commit
+  :cmake-commit:`52fb35bd69ec2fa1a5307695cb22c3f125debf4f`.
+* :cmake:module:`FindGLEW`: Fixed `CMAKE_FIND_LIBRARY_SUFFIXES` content.
