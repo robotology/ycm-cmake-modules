@@ -332,9 +332,9 @@ endif()
 # necessary to download and install these files if already included in CMake
 if(CMAKE_VERSION VERSION_LESS 3.15 OR YCM_MAINTAINER_MODE)
 
-  set(_ref e67e4dbaadf3583d665fb5409b425e1a238d9748)
+  set(_ref 52fb35bd69ec2fa1a5307695cb22c3f125debf4f)
   set(_files Copyright.txt                               ef5e9cd05a459b23263ecc409da2b3bc51aec2e4
-             Modules/FindGLEW.cmake                      6ebed6a52a31b530ed6bbfea54a9332fe6571ec0
+             Modules/FindGLEW.cmake                      bece2c0fdd415f49d6b6d22da274dd8a9c248853
              Modules/FindPackageHandleStandardArgs.cmake 97e455f2849eac8ef1449cba5e49064149bd2099  # Used by FindGLEW
              Modules/FindPackageMessage.cmake            a3207b9d2996e4c5a2ecb254f9abf1e4ba037f0a  # Used by FindPackageHandleStandardArgs
              Modules/CMakeParseArguments.cmake           79a086a72f0ea821e2587ac96df080703a614108  # Used by FindPackageHandleStandardArgs
