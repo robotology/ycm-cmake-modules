@@ -6,3 +6,12 @@ YCM 0.10.2 (UNRELEASED) Release Notes
   .. contents::
 
 Changes made since YCM 0.10.1 include the following.
+
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`nstallBasicPackageFiles`: Fixed regular expressions for CMake < 3.9.
