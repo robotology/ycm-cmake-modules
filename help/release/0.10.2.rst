@@ -15,3 +15,4 @@ Generic Modules
 ---------------
 
 * :module:`InstallBasicPackageFiles`: Fixed regular expressions for CMake < 3.9.
+* :module:`YCMEPHelper`: Fixed CMake prefix path of subprojects.
