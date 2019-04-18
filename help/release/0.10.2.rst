@@ -14,4 +14,4 @@ Modules
 Generic Modules
 ---------------
 
-* :module:`nstallBasicPackageFiles`: Fixed regular expressions for CMake < 3.9.
+* :module:`InstallBasicPackageFiles`: Fixed regular expressions for CMake < 3.9.
