@@ -232,9 +232,21 @@ macro(_YCM_SETUP)
   #      directory
   set(_YCM_EP_INSTALL_DIR ${CMAKE_BINARY_DIR}/install)
 
+  # ExternalProject does not handle correctly arguments containing ";" passed
+  # using CMAKE_ARGS, and instead splits them into several arguments. This is
+  # a workaround that replaces ";" with "|" and sets LIST_SEPARATOR "|" in
+  # order to interpret them correctly.
+  #
+  # TODO FIXME check what happens when the "*_COMMAND" arguments are passed.
+  file(TO_CMAKE_PATH "$ENV{CMAKE_PREFIX_PATH}" _CMAKE_PREFIX_PATH)
+  list(INSERT _CMAKE_PREFIX_PATH 0 ${_YCM_EP_INSTALL_DIR})
+  list(REMOVE_DUPLICATES _CMAKE_PREFIX_PATH)
+  string(REPLACE ";" "|" _CMAKE_PREFIX_PATH "${_CMAKE_PREFIX_PATH}")
+  set(_YCM_EP_ALL_CMAKE_ARGS LIST_SEPARATOR "|")
+
   # Default CMAKE_ARGS (Passed to the command line)
   set(_YCM_EP_CMAKE_ARGS "--no-warn-unused-cli"
-                              "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}") # Path used by cmake for finding stuff
+                         "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}") # Path used by cmake for finding stuff
 
   # Default CMAKE_CACHE_ARGS (Initial cache, forced)
   set(_YCM_EP_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${_YCM_EP_INSTALL_DIR}") # Where to do the installation
@@ -817,18 +829,6 @@ function(YCM_EP_HELPER _name)
                         TMP_DIR ${${_name}_TMP_DIR}
                         STAMP_DIR ${${_name}_STAMP_DIR})
 
-  # ExternalProject does not handle correctly arguments containing ";" passed
-  # using CMAKE_ARGS, and instead splits them into several arguments. This is
-  # a workaround that replaces ";" with "|" and sets LIST_SEPARATOR "|" in
-  # order to interpret them correctly.
-  #
-  # TODO FIXME check what happens when the "*_COMMAND" arguments are passed.
-  file(TO_CMAKE_PATH "$ENV{CMAKE_PREFIX_PATH}" _CMAKE_PREFIX_PATH)
-  list(INSERT _CMAKE_PREFIX_PATH 0 ${${_name}_INSTALL_DIR})
-  list(REMOVE_DUPLICATES _CMAKE_PREFIX_PATH)
-  string(REPLACE ";" "|" _CMAKE_PREFIX_PATH "${_CMAKE_PREFIX_PATH}")
-  set(${_name}_ALL_CMAKE_ARGS LIST_SEPARATOR "|")
-
   # CMAKE_ARGS (Passed to the command line)
   set(${_name}_CMAKE_ARGS CMAKE_ARGS ${_YCM_EP_CMAKE_ARGS})
   if(_YH_${_name}_CMAKE_ARGS)
@@ -845,6 +845,12 @@ function(YCM_EP_HELPER _name)
   set(${_name}_CMAKE_CACHE_DEFAULT_ARGS CMAKE_CACHE_DEFAULT_ARGS ${_YCM_EP_CMAKE_CACHE_DEFAULT_ARGS})
   if(_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS)
     list(APPEND ${_name}_CMAKE_CACHE_DEFAULT_ARGS ${_YH_${_name}_CMAKE_CACHE_DEFAULT_ARGS})
+  endif()
+
+  # ALL_CMAKE_ARGS
+  set(${_name}_ALL_CMAKE_ARGS ${_YCM_EP_ALL_CMAKE_ARGS})
+  if(_YH_${_name}_ALL_CMAKE_ARGS)
+    list(APPEND ${_name}_ALL_CMAKE_ARGS ${_YH_${_name}_ALL_CMAKE_ARGS})
   endif()
 
   list(APPEND ${_name}_ALL_CMAKE_ARGS ${${_name}_CMAKE_ARGS}

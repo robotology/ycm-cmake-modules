@@ -1,0 +1,18 @@
+YCM 0.10.2 (UNRELEASED) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.10.1 include the following.
+
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`InstallBasicPackageFiles`: Fixed regular expressions for CMake < 3.9.
+* :module:`YCMEPHelper`: Fixed CMake prefix path of subprojects.
