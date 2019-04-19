@@ -230,7 +230,8 @@ endif()
 if(CMAKE_VERSION VERSION_LESS 3.11 OR YCM_MAINTAINER_MODE)
 
   set(_files Copyright.txt                                        adb9e42eb50d36c7934d78bc339214d1600f8cb3
-             Modules/FetchContent.cmake                           a4a1f9ddcc762d7707544b8ecbed5659364d9df2)
+             Modules/FetchContent.cmake                           a4a1f9ddcc762d7707544b8ecbed5659364d9df2
+             Modules/FetchContent/CMakeLists.cmake.in             ddd8d6dfbe5665c770d7e6f8b4dcaac85cff3c44)
 
   _ycm_cmake_next_download(v3.11.4 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11" "${_files}")
   _ycm_cmake_next_install(v3.11.4 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.11"
