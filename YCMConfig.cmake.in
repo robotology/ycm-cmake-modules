@@ -56,7 +56,8 @@ if(NOT DEFINED YCM_USE_CMAKE OR YCM_USE_CMAKE)
   endif()
 
   # Use modules from specific CMake versions (default ON)
-  foreach(_version 3.13
+  foreach(_version 3.14
+                   3.13
                    3.12
                    3.11
                    3.10

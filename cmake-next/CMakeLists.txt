@@ -155,7 +155,7 @@ endif()
 
 # We assume that the user won't downgrade his CMake, therefore it's not
 # necessary to download and install these files if already included in CMake
-if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
+if(CMAKE_VERSION VERSION_LESS 3.8 OR YCM_MAINTAINER_MODE)
 
   set(_files Copyright.txt                               510b21e4b3a70f0288bac0d89de8c333a36b159a
              Modules/UseSWIG.cmake                       cf40cd32fdaa22c6c27887324983122ee9cde799
@@ -178,7 +178,7 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.9)
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.8. You can remove this.")
 endif()
 
-if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
+if(CMAKE_VERSION VERSION_LESS 3.9 OR YCM_MAINTAINER_MODE)
 
   set(_files Copyright.txt                               bfef1cd1e93d828699f2ceac1224a60c1a17a59a
              Modules/FindDoxygen.cmake                   04c149a2f570c19c8764547abad0f55312945ba7
@@ -277,23 +277,13 @@ endif()
 
 # None
 
-################################################################################
-# Files not available or containing bugs in CMake 3.12.4
-# Imported from CMake tag v3.13.4
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.13)
-  # Just a reminder to remove this when we change cmake version
-  message(AUTHOR_WARNING "CMake minimum required version greater than 3.13. You can remove this.")
-endif()
-
-# None
-
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.13.4
 # Imported from CMake tag v3.14.0
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.14)
   # Just a reminder to remove this when we change cmake version
-  message(AUTHOR_WARNING "CMake minimum required version greater than 3.14. You can remove this.")
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.13. You can remove this.")
 endif()
 
 # We assume that the user won't downgrade his CMake, therefore it's not
