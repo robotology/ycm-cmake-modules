@@ -99,7 +99,7 @@ endfunction()
 #  UseSWIG                          3.8
 #  FindOpenGL                       3.10
 #  FindPython                       3.12
-#  FindPython/Support               3.12
+#  FindPython/Support               3.12            Yes (Support CMake < 3.7)
 #  FindPython2                      3.12
 #  FindPython3                      3.12
 #  FindDoxygen                      3.13
@@ -241,13 +241,15 @@ if(CMAKE_VERSION VERSION_LESS 3.12 OR YCM_MAINTAINER_MODE)
 
   set(_files Copyright.txt                                        96563e603328872bc22d31a3445e23b438292751
              Modules/FindPython.cmake                             b55c8a5e7e32efa98c0a86f1e45e6498a13cb828
-             Modules/FindPython/Support.cmake                     898f3255348384a03be0d0cab19b42af513b3440
              Modules/FindPython2.cmake                            b79f69806d150c759be0504e4a8f2e54553e9330
              Modules/FindPython3.cmake                            aaa31c35f5167b385018f0863676ac4baf9b22e2
              Modules/CMakeFindFrameworks.cmake                    053fd8fd4bb7bc08fb6595b0a212de097a86084f  # Used by FindPython/Support.cmake
              Modules/FindPackageHandleStandardArgs.cmake          286ff571e093a25caaa4d2390d3b9729bc5ff44d  # Used by FindPython/Support.cmake
              Modules/FindPackageMessage.cmake                     68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
              Modules/SelectLibraryConfigurations.cmake            e09bf3cd3f1faa1f9cc8f5924216a7fe3e4594d4) # Used by FindPython/Support.cmake
+
+  file(COPY v3.12.4/FindPython/Support.cmake
+       DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.12/Modules/FindPython")
 
   _ycm_cmake_next_download(v3.12.4 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.12" "${_files}")
   _ycm_cmake_next_install(v3.12.4 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.12"
