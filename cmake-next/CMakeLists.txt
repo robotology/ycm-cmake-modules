@@ -281,7 +281,7 @@ endif()
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.13.4
-# Imported from CMake tag v3.14.0
+# Imported from CMake tag v3.14.3
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.14)
   # Just a reminder to remove this when we change cmake version
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.13. You can remove this.")
@@ -298,22 +298,22 @@ if(CMAKE_VERSION VERSION_LESS 3.14 OR YCM_MAINTAINER_MODE)
              Modules/BasicConfigVersion-AnyNewerVersion.cmake.in  fb0c14d1c39a46d856a18bec3430c45045f29a45
              Modules/CMakePackageConfigHelpers.cmake              e85b785df2000c4524b44ae735112f795dd2e219) # Required to be in the same folder as WriteBasicConfigVersionFile
 
-  file(COPY v3.14.0/WriteBasicConfigVersionFile.cmake
+  file(COPY v3.14.3/WriteBasicConfigVersionFile.cmake
        DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14/Modules")
 
   # The files CMakePackageConfigHelpers.cmake and
   # BasicConfigVersion-AnyNewerVersion.cmake.in are downloaded, but are also
   # used by WriteBasicConfigVersionFile in YCM main CMakeLists.txt, therefore
-  # they should all be in the same directory (v3.14.0)
+  # they should all be in the same directory (v3.14.3)
 
-  _ycm_cmake_next_download(v3.14.0 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14" "${_files}")
-  _ycm_cmake_next_install(v3.14.0 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14"
+  _ycm_cmake_next_download(v3.14.3 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14" "${_files}")
+  _ycm_cmake_next_install(v3.14.3 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14"
                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 endif()
 
 
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (v3.14.0)
+# Files not yet available or containing bugs in current CMake release (v3.14.3)
 # Imported from latest revision tested
 if(NOT CMAKE_VERSION VERSION_LESS 3.15)
     # Just a reminder to update files when a new cmake version is released
@@ -324,7 +324,7 @@ endif()
 # necessary to download and install these files if already included in CMake
 if(CMAKE_VERSION VERSION_LESS 3.15 OR YCM_MAINTAINER_MODE)
 
-  set(_ref 52fb35bd69ec2fa1a5307695cb22c3f125debf4f)
+  set(_ref d170a3177fdc57c96034f8a2ecf5d0f9aff70af4)
   set(_files Copyright.txt                               ef5e9cd05a459b23263ecc409da2b3bc51aec2e4
              Modules/FindGLEW.cmake                      bece2c0fdd415f49d6b6d22da274dd8a9c248853
              Modules/FindPackageHandleStandardArgs.cmake 97e455f2849eac8ef1449cba5e49064149bd2099  # Used by FindGLEW

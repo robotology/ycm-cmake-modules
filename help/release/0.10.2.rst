@@ -21,6 +21,8 @@ Generic Modules
 CMake Next
 ----------
 
+* Updated to CMake v3.14.3 + commit
+  :cmake-commit:`d170a3177fdc57c96034f8a2ecf5d0f9aff70af4`.
 * :module:`FetchContent`: Fixed missing template file.
 * Fixed a few version checks that prevented from downloading future CMake
   modules or using them in YCM-dependent projects.

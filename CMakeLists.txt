@@ -68,7 +68,7 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.14)
     message(AUTHOR_WARNING "CMake minimum required version greater than 3.14. You can remove this.")
 endif()
 if(CMAKE_VERSION VERSION_LESS 3.14)
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-next/v3.14.0")
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-next/v3.14.3")
 endif()
 include(CMakePackageConfigHelpers)
 
