@@ -97,12 +97,12 @@ endfunction()
 #  FindMatlab                       3.7
 #  FeatureSummary                   3.8
 #  UseSWIG                          3.8
-#  FindDoxygen                      3.9
 #  FindOpenGL                       3.10
 #  FindPython                       3.12
 #  FindPython/Support               3.12
 #  FindPython2                      3.12
 #  FindPython3                      3.12
+#  FindDoxygen                      3.13
 #  WriteBasicConfigVersionFile      3.14            Yes (CMAKE_ROOT)
 #  FindGLEW                         3.15
 #  CMakeParseArguments              ---             Yes
@@ -155,7 +155,7 @@ endif()
 
 # We assume that the user won't downgrade his CMake, therefore it's not
 # necessary to download and install these files if already included in CMake
-if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
+if(CMAKE_VERSION VERSION_LESS 3.8 OR YCM_MAINTAINER_MODE)
 
   set(_files Copyright.txt                               510b21e4b3a70f0288bac0d89de8c333a36b159a
              Modules/UseSWIG.cmake                       cf40cd32fdaa22c6c27887324983122ee9cde799
@@ -178,19 +178,7 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.9)
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.8. You can remove this.")
 endif()
 
-if(CMAKE_VERSION VERSION_LESS 3.7 OR YCM_MAINTAINER_MODE)
-
-  set(_files Copyright.txt                               bfef1cd1e93d828699f2ceac1224a60c1a17a59a
-             Modules/FindDoxygen.cmake                   04c149a2f570c19c8764547abad0f55312945ba7
-             Modules/FindPackageHandleStandardArgs.cmake db0ca94cc4270ab386b3182f21ad7c01f7f7d604  # Used by FindDoxygen
-             Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
-             Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
-
-  _ycm_cmake_next_download(v3.9.6 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.9" "${_files}")
-  _ycm_cmake_next_install(v3.9.6 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.9"
-                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
-endif()
-
+# None
 
 
 ################################################################################
@@ -269,23 +257,24 @@ endif()
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.12.4
-# Imported from CMake tag v3.13.0
+# Imported from CMake tag v3.13.4
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.13)
   # Just a reminder to remove this when we change cmake version
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.12. You can remove this.")
 endif()
 
-# None
+if(CMAKE_VERSION VERSION_LESS 3.13 OR YCM_MAINTAINER_MODE)
 
-################################################################################
-# Files not available or containing bugs in CMake 3.12.4
-# Imported from CMake tag v3.13.4
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.13)
-  # Just a reminder to remove this when we change cmake version
-  message(AUTHOR_WARNING "CMake minimum required version greater than 3.13. You can remove this.")
+  set(_files Copyright.txt                               96563e603328872bc22d31a3445e23b438292751
+             Modules/FindDoxygen.cmake                   5aa0b1f8cd5d4886da37fa8164be9d30bc196b82
+             Modules/FindPackageHandleStandardArgs.cmake 97e455f2849eac8ef1449cba5e49064149bd2099  # Used by FindDoxygen
+             Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
+             Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
+
+  _ycm_cmake_next_download(v3.13.4 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.13" "${_files}")
+  _ycm_cmake_next_install(v3.13.4 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.13"
+                                  DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 endif()
-
-# None
 
 
 ################################################################################
@@ -293,7 +282,7 @@ endif()
 # Imported from CMake tag v3.14.0
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.14)
   # Just a reminder to remove this when we change cmake version
-  message(AUTHOR_WARNING "CMake minimum required version greater than 3.14. You can remove this.")
+  message(AUTHOR_WARNING "CMake minimum required version greater than 3.13. You can remove this.")
 endif()
 
 # We assume that the user won't downgrade his CMake, therefore it's not

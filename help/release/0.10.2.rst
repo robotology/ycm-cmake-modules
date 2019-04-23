@@ -17,3 +17,12 @@ Generic Modules
 * :module:`InstallBasicPackageFiles`: Fixed regular expressions for CMake < 3.9.
 * :module:`YCMEPHelper`: Fixed CMake prefix path of subprojects.
 * :module:`FetchContent`: Fixed missing template file.
+
+
+CMake Next
+----------
+
+* Fixed a few version checks that prevented from downloading future CMake modules
+  or using them in YCM-dependent projects.
+* :module:`FindDoxygen` imported from CMake 3.9 was not compatible with Doxygen
+  1.8.15. Now imported from CMake 3.13 to fix this.
