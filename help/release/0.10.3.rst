@@ -6,3 +6,9 @@ YCM 0.10.3 (UNRELEASED) Release Notes
   .. contents::
 
 Changes made since YCM 0.10.2 include the following.
+
+Build System
+============
+
+* Paths are no longer duplicated in :cmake:variable:`CMAKE_MODULE_PATH` when
+  ``YCMConfig.cmake`` is included more than once.
