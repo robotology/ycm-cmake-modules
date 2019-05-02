@@ -20,4 +20,4 @@ Modules
 Find Modules
 ------------
 
-* The :module:`Findassimp.cmake` now defines assimp_FOUND instead of ASSIMP_FOUND.
+* The :module:`Findassimp.cmake` now defines also the ``assimp_FOUND`` variable.
