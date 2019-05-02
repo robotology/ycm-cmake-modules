@@ -12,3 +12,12 @@ Build System
 
 * Paths are no longer duplicated in :cmake:variable:`CMAKE_MODULE_PATH` when
   ``YCMConfig.cmake`` is included more than once.
+
+
+Modules
+=======
+
+Find Modules
+------------
+
+* The :module:`Findassimp.cmake` now defines assimp_FOUND instead of ASSIMP_FOUND.
