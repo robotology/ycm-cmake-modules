@@ -17,9 +17,10 @@
 # Catch2 related modules are taken from the Catch2 repository.
 
 set(_files contrib/Catch.cmake                 6f80938187f2fe004db163481ad7b468c6f22ea4
-           contrib/CatchAddTests.cmake         bc138f6e79a3ed8f716a20057f8366dfae5f0601
+           contrib/CatchAddTests.cmake         e34403b9ebf165f6e65deddc0f60b280be336b2b
+           contrib/ParseAndAddCatchTests.cmake ec7a0f3acca47bb4e0ae4edcc3b3e053aab27d7d
            LICENSE.txt                         3cba29011be2b9d59f6204d6fa0a386b1b2dbd90)
-set(_ref 4902cd721586822ded795afe0c418c553137306a)
+set(_ref 9c741fe96073ed620ffc032afbed1f3c789d2b68)
 set(_dir "${CMAKE_CURRENT_BINARY_DIR}/catch2")
 _ycm_download(3rdparty-catch2
               "Catch2 (C++ Automated Test Cases in a Header) git repository"
@@ -35,13 +36,6 @@ repository (ref ${_ref}):
 Redistribution and use is allowed according to the terms of the Boost Software
 License. See accompanying file COPYING.Catch2 for details.
 ")
-
-set(_files contrib/ParseAndAddCatchTests.cmake 09ca7da74703ab681f1f5ec0056f4324128eb62a)
-set(_ref e21944c444d7f1b696ac7550522b980854cb79a3)
-_ycm_download(3rdparty-catch2
-              "Catch2 (C++ Automated Test Cases in a Header) git repository (robotology-dependencies fork)"
-              "https://raw.githubusercontent.com/robotology-dependencies/Catch2/<REF>/<FILE>"
-              ${_ref} "${_dir}" "${_files}")
 
 _ycm_install(3rdparty-catch2 FILES "${_dir}/contrib/Catch.cmake"
                                    "${_dir}/contrib/CatchAddTests.cmake"
