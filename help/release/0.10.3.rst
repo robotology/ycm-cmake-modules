@@ -1,0 +1,32 @@
+YCM 0.10.3 (UNRELEASED) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.10.2 include the following.
+
+Build System
+============
+
+* Paths are no longer duplicated in :cmake:variable:`CMAKE_MODULE_PATH` when
+  ``YCMConfig.cmake`` is included more than once.
+
+
+Modules
+=======
+
+Find Modules
+------------
+
+* The :module:`Findassimp.cmake` now defines also the ``assimp_FOUND`` variable.
+
+3rd Party
+---------
+
+* Update `Catch2 Git Repository`_ to commit
+  ``9c741fe96073ed620ffc032afbed1f3c789d2b68`` (updated :module:`CatchAddTests`
+  and :module:`ParseAndAddCatchTests` modules).
+* The :module:`ParseAndAddCatchTests` module is no longer imported from the
+  robotology-dependencies fork.

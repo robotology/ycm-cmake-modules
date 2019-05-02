@@ -35,7 +35,7 @@ Result Variables
 
 This module defines the following variables:
 
-``ASSIMP_FOUND``
+``assimp_FOUND``
   true if assimp has been found and can be used
 ``ASSIMP_ROOT_DIR``
   the root directory where the installation can be found
@@ -256,7 +256,7 @@ if(NOT TARGET assimp::assimp)
     endif()
 
 
-    find_package_handle_standard_args(ASSIMP
+    find_package_handle_standard_args(assimp
                                       REQUIRED_VARS ASSIMP_INCLUDE_DIRS ASSIMP_LIBRARIES
                                       VERSION_VAR ASSIMP_VERSION)
 
@@ -265,12 +265,11 @@ if(NOT TARGET assimp::assimp)
       message(STATUS "Findassimp: cross-compiling (CMAKE_CROSSCOMPILING is TRUE), version parsing disabled.")
     endif()
 
-    find_package_handle_standard_args(ASSIMP
+    find_package_handle_standard_args(assimp
                                       REQUIRED_VARS ASSIMP_INCLUDE_DIRS ASSIMP_LIBRARIES)
   endif()
 
-
-  if(NOT ASSIMP_FOUND)
+  if(NOT assimp_FOUND)
     if(ASSIMP_VERBOSE)
       message(STATUS "Findassimp: wrong assimp library version.")
     endif()
