@@ -25,8 +25,7 @@ Find Modules
 3rd Party
 ---------
 
-* Update `Catch2 Git Repository`_ to commit
-  ``9c741fe96073ed620ffc032afbed1f3c789d2b68`` (updated :module:`CatchAddTests`
+* Update `Catch2 Git Repository`_ to ``v2.8.0`` (updated :module:`CatchAddTests`
   and :module:`ParseAndAddCatchTests` modules).
 * The :module:`ParseAndAddCatchTests` module is no longer imported from the
   robotology-dependencies fork.

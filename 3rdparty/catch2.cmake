@@ -20,7 +20,7 @@ set(_files contrib/Catch.cmake                 6f80938187f2fe004db163481ad7b468c
            contrib/CatchAddTests.cmake         e34403b9ebf165f6e65deddc0f60b280be336b2b
            contrib/ParseAndAddCatchTests.cmake ec7a0f3acca47bb4e0ae4edcc3b3e053aab27d7d
            LICENSE.txt                         3cba29011be2b9d59f6204d6fa0a386b1b2dbd90)
-set(_ref 9c741fe96073ed620ffc032afbed1f3c789d2b68)
+set(_ref v2.8.0)
 set(_dir "${CMAKE_CURRENT_BINARY_DIR}/catch2")
 _ycm_download(3rdparty-catch2
               "Catch2 (C++ Automated Test Cases in a Header) git repository"
