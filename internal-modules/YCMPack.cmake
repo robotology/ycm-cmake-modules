@@ -31,16 +31,11 @@ set(CPACK_PACKAGE_ICON "${YCM_SOURCE_DIR}/tools/installer/ycm.ico")
 
 if(NOT WIN32)
   set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${YCM_VERSION}-all")
-endif()
-
-if(WIN32)
-  set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CPACK_PACKAGE_NAME} ${YCM_VERSION_API}")
-
+else()
   # Produce an installer for 64bit windows
-  if("${CMAKE_GENERATOR}" MATCHES "Win64")
-    set(CMAKE_CL_64 TRUE)
-    set(CPACK_WIX_SIZEOF_VOID_P 8)
-  endif()
+  enable_language(C)
+
+  set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CPACK_PACKAGE_NAME} ${YCM_VERSION_API}")
 
   # WIX settings
   set(CPACK_WIX_UPGRADE_GUID 9130C806-91AD-4CE4-8C3A-2476F71FEF77)
