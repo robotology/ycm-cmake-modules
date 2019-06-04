@@ -14,6 +14,7 @@ macro(add_RunCMake_test test)
   add_test(NAME RunCMake.${test} COMMAND ${CMAKE_CMAKE_COMMAND}
     -DCMAKE_MODULE_PATH=${CMAKE_CURRENT_SOURCE_DIR}
     -DYCM_SOURCE_DIR=${YCM_SOURCE_DIR}
+    -DYCM_BINARY_DIR=${YCM_BINARY_DIR}
     -DRunCMake_GENERATOR=${CMAKE_GENERATOR}
     -DRunCMake_GENERATOR_PLATFORM=${CMAKE_GENERATOR_PLATFORM}
     -DRunCMake_GENERATOR_TOOLSET=${CMAKE_GENERATOR_TOOLSET}
@@ -63,3 +64,5 @@ endfunction()
 
 add_RunCMake_test(AddInstallRPATHSupport)
 add_RunCMake_test(IncludeUrl)
+add_RunCMake_test(cmake-next)
+add_RunCMake_test(3rdparty)
