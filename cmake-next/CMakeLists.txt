@@ -104,7 +104,7 @@ endfunction()
 #  FindDoxygen                      3.13
 #  WriteBasicConfigVersionFile      3.14            Yes (CMAKE_ROOT)
 #  FindSWIG                         3.14.4
-#  UseSWIG                          3.14.4
+#  UseSWIG                          3.14.4          Yes (Policies)
 #  FindGLEW                         master (3.15)
 #  CMakeParseArguments              ---             Yes
 #
@@ -291,6 +291,7 @@ if(CMAKE_VERSION VERSION_LESS 3.14 OR YCM_MAINTAINER_MODE)
              Modules/CMakeParseArguments.cmake                    79a086a72f0ea821e2587ac96df080703a614108) # Used by FindPackageHandleStandardArgs
 
   file(COPY v3.14.4/WriteBasicConfigVersionFile.cmake
+            v3.14.4/UseSWIG.cmake
        DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14/Modules")
 
   # The files CMakePackageConfigHelpers.cmake and
