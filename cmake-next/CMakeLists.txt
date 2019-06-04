@@ -104,7 +104,7 @@ endfunction()
 #  FindDoxygen                      3.13
 #  WriteBasicConfigVersionFile      3.14            Yes (CMAKE_ROOT)
 #  FindSWIG                         3.14.4
-#  UseSWIG                          3.14.4          Yes (Policies)
+#  UseSWIG                          3.14.4          Yes (Policies, list, string, TARGET_GENEX_EVAL)
 #  FindGLEW                         master (3.15)
 #  CMakeParseArguments              ---             Yes
 #
