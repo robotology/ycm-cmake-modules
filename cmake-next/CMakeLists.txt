@@ -284,7 +284,6 @@ if(CMAKE_VERSION VERSION_LESS 3.14 OR YCM_MAINTAINER_MODE)
              Modules/BasicConfigVersion-ExactVersion.cmake.in     c723920559d6f22af6a7d5f10deb26b4c170773d
              Modules/BasicConfigVersion-AnyNewerVersion.cmake.in  fb0c14d1c39a46d856a18bec3430c45045f29a45
              Modules/CMakePackageConfigHelpers.cmake              e85b785df2000c4524b44ae735112f795dd2e219  # Required to be in the same folder as WriteBasicConfigVersionFile
-             Modules/UseSWIG.cmake                                d7f4083502654443628facf997a51302c58042c2
              Modules/FindSWIG.cmake                               2ed683e758d9caa88f0b11f8814617c1179de3ce
              Modules/FindPackageHandleStandardArgs.cmake          97e455f2849eac8ef1449cba5e49064149bd2099  # Used by FindSWIG
              Modules/FindPackageMessage.cmake                     a3207b9d2996e4c5a2ecb254f9abf1e4ba037f0a  # Used by FindPackageHandleStandardArgs
