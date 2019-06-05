@@ -466,7 +466,14 @@ function(SWIG_ADD_SOURCE_TO_MODULE name outfiles infile)
   list (REMOVE_DUPLICATES cmake_include_directories)
   set (swig_include_dirs)
   if (cmake_include_directories)
-    set (swig_include_dirs "$<$<BOOL:${cmake_include_directories}>:-I$<JOIN:${cmake_include_directories},$<SEMICOLON>-I>>")
+    if(NOT ${CMAKE_VERSION} VERSION_LESS 3.12)
+      set (swig_include_dirs "$<$<BOOL:${cmake_include_directories}>:-I$<JOIN:${cmake_include_directories},$<SEMICOLON>-I>>")
+    else()
+      unset(swig_include_dirs)
+      foreach(_d IN LISTS cmake_include_directories)
+        list(APPEND swig_include_dirs "-I${_d}")
+      endforeach()
+    endif()
   endif()
 
   set(swig_special_flags)
@@ -542,28 +549,53 @@ function(SWIG_ADD_SOURCE_TO_MODULE name outfiles infile)
     set(swig_custom_products)
     set(swig_timestamp_command)
   endif()
-  add_custom_command(
-    OUTPUT ${swig_custom_output}
-    ${swig_custom_products}
-    ${swig_cleanup_command}
-    # Let's create the ${outdir} at execution time, in case dir contains $(OutDir)
-    COMMAND "${CMAKE_COMMAND}" -E make_directory ${outdir} ${outfiledir}
-    ${swig_timestamp_command}
-    COMMAND "${CMAKE_COMMAND}" -E env "SWIG_LIB=${SWIG_DIR}" "${SWIG_EXECUTABLE}"
-    "-${SWIG_MODULE_${name}_SWIG_LANGUAGE_FLAG}"
-    "${swig_source_file_flags}"
-    -outdir "${swig_file_outdir}"
-    ${swig_special_flags}
-    ${swig_extra_flags}
-    "${swig_include_dirs}"
-    -o "${swig_generated_file_fullname}"
-    "${swig_source_file_fullname}"
-    ${swig_copy_command}
-    MAIN_DEPENDENCY "${swig_source_file_fullname}"
-    DEPENDS ${swig_dependencies}
-    IMPLICIT_DEPENDS CXX "${swig_source_file_fullname}"
-    COMMENT "Swig compile ${infile} for ${SWIG_MODULE_${name}_SWIG_LANGUAGE_FLAG}"
-    COMMAND_EXPAND_LISTS)
+  if(NOT ${CMAKE_VERSION} VERSION_LESS 3.12)
+    add_custom_command(
+      OUTPUT ${swig_custom_output}
+      ${swig_custom_products}
+      ${swig_cleanup_command}
+      # Let's create the ${outdir} at execution time, in case dir contains $(OutDir)
+      COMMAND "${CMAKE_COMMAND}" -E make_directory ${outdir} ${outfiledir}
+      ${swig_timestamp_command}
+      COMMAND "${CMAKE_COMMAND}" -E env "SWIG_LIB=${SWIG_DIR}" "${SWIG_EXECUTABLE}"
+      "-${SWIG_MODULE_${name}_SWIG_LANGUAGE_FLAG}"
+      "${swig_source_file_flags}"
+      -outdir "${swig_file_outdir}"
+      ${swig_special_flags}
+      ${swig_extra_flags}
+      "${swig_include_dirs}"
+      -o "${swig_generated_file_fullname}"
+      "${swig_source_file_fullname}"
+      ${swig_copy_command}
+      MAIN_DEPENDENCY "${swig_source_file_fullname}"
+      DEPENDS ${swig_dependencies}
+      IMPLICIT_DEPENDS CXX "${swig_source_file_fullname}"
+      COMMENT "Swig compile ${infile} for ${SWIG_MODULE_${name}_SWIG_LANGUAGE_FLAG}"
+      COMMAND_EXPAND_LISTS)
+  else()
+    add_custom_command(
+      OUTPUT ${swig_custom_output}
+      ${swig_custom_products}
+      ${swig_cleanup_command}
+      # Let's create the ${outdir} at execution time, in case dir contains $(OutDir)
+      COMMAND "${CMAKE_COMMAND}" -E make_directory ${outdir} ${outfiledir}
+      ${swig_timestamp_command}
+      COMMAND "${CMAKE_COMMAND}" -E env "SWIG_LIB=${SWIG_DIR}" "${SWIG_EXECUTABLE}"
+      "-${SWIG_MODULE_${name}_SWIG_LANGUAGE_FLAG}"
+      ${swig_source_file_flags}
+      -outdir "${swig_file_outdir}"
+      ${swig_special_flags}
+      ${swig_extra_flags}
+      ${swig_include_dirs}
+      -o "${swig_generated_file_fullname}"
+      "${swig_source_file_fullname}"
+      ${swig_copy_command}
+      MAIN_DEPENDENCY "${swig_source_file_fullname}"
+      DEPENDS ${swig_dependencies}
+      IMPLICIT_DEPENDS CXX "${swig_source_file_fullname}"
+      COMMENT "Swig compile ${infile} for ${SWIG_MODULE_${name}_SWIG_LANGUAGE_FLAG}"
+      COMMAND_EXPAND_LISTS)
+  endif()
   set_source_files_properties("${swig_generated_file_fullname}" ${swig_extra_generated_files}
     PROPERTIES GENERATED 1)
 
