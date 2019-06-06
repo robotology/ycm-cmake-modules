@@ -11,3 +11,5 @@ CMake Next
 ----------
 
 * The :module:`UseSWIG` module works again with older CMake releases.
+  Some features cannot be properly supported with CMake older than 3.12, and
+  therefore are disabled on these versions.
