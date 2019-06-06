@@ -90,6 +90,7 @@ function(run_cmake test)
                 --no-warn-unused-cli
                 ${RunCMake_TEST_OPTIONS}
                 -DYCM_SOURCE_DIR=${YCM_SOURCE_DIR}
+                -DYCM_BINARY_DIR=${YCM_BINARY_DIR}
       WORKING_DIRECTORY "${RunCMake_TEST_BINARY_DIR}"
       OUTPUT_VARIABLE actual_stdout
       ERROR_VARIABLE ${actual_stderr_var}

@@ -1,4 +1,4 @@
-YCM 0.10.3 (UNRELEASED) Release Notes
+YCM 0.10.3 (2019-05-29) Release Notes
 *************************************
 
 .. only:: html
@@ -22,11 +22,17 @@ Find Modules
 
 * The :module:`Findassimp.cmake` now defines also the ``assimp_FOUND`` variable.
 
+CMake Next
+----------
+
+* Updated to CMake ``v3.13.5`` + ``v3.14.4`` + commit
+  :cmake-commit:`e13b18e2c70f42c23ed7e7fddb93557ce19b7359`.
+* The :module:`FindSWIG` module now supports SWIG 4.
+
 3rd Party
 ---------
 
-* Update `Catch2 Git Repository`_ to commit
-  ``9c741fe96073ed620ffc032afbed1f3c789d2b68`` (updated :module:`CatchAddTests`
+* Update `Catch2 Git Repository`_ to ``v2.8.0`` (updated :module:`CatchAddTests`
   and :module:`ParseAndAddCatchTests` modules).
 * The :module:`ParseAndAddCatchTests` module is no longer imported from the
   robotology-dependencies fork.

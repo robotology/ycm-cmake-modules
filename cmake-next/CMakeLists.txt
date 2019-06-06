@@ -96,7 +96,6 @@ endfunction()
 #
 #  FindMatlab                       3.7
 #  FeatureSummary                   3.8
-#  UseSWIG                          3.8
 #  FindOpenGL                       3.10
 #  FindPython                       3.12
 #  FindPython/Support               3.12            Yes (Support CMake < 3.7)
@@ -104,7 +103,9 @@ endfunction()
 #  FindPython3                      3.12
 #  FindDoxygen                      3.13
 #  WriteBasicConfigVersionFile      3.14            Yes (CMAKE_ROOT)
-#  FindGLEW                         3.15
+#  FindSWIG                         3.14.4
+#  UseSWIG                          3.14.4          Yes (Policies, list, string, TARGET_GENEX_EVAL)
+#  FindGLEW                         master (3.15)
 #  CMakeParseArguments              ---             Yes
 #
 # Changes in dependencies
@@ -153,21 +154,7 @@ if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.8)
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.7. You can remove this.")
 endif()
 
-# We assume that the user won't downgrade his CMake, therefore it's not
-# necessary to download and install these files if already included in CMake
-if(CMAKE_VERSION VERSION_LESS 3.8 OR YCM_MAINTAINER_MODE)
-
-  set(_files Copyright.txt                               510b21e4b3a70f0288bac0d89de8c333a36b159a
-             Modules/UseSWIG.cmake                       cf40cd32fdaa22c6c27887324983122ee9cde799
-             Modules/FindSWIG.cmake                      dea8c36114b8fcd934118a0fc86c0641cd191c18  # Required to use this version of UseSWIG
-             Modules/FindPackageHandleStandardArgs.cmake 53300617d441f9cd08375a3599d15e6f60187441  # Used by FindSWIG
-             Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
-             Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
-
-  _ycm_cmake_next_download(v3.8.2 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8" "${_files}")
-  _ycm_cmake_next_install(v3.8.2 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.8"
-                                 DESTINATION "${YCM_INSTALL_MODULE_DIR}")
-endif()
+# None
 
 
 ################################################################################
@@ -259,7 +246,7 @@ endif()
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.12.4
-# Imported from CMake tag v3.13.4
+# Imported from CMake tag v3.13.5
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.13)
   # Just a reminder to remove this when we change cmake version
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.12. You can remove this.")
@@ -273,15 +260,15 @@ if(CMAKE_VERSION VERSION_LESS 3.13 OR YCM_MAINTAINER_MODE)
              Modules/FindPackageMessage.cmake            68bfe02f96faabad103d59811b324d82d7c1d178  # Used by FindPackageHandleStandardArgs
              Modules/CMakeParseArguments.cmake           eaf4dbce829d0eca5db28fc4b1a36b42f7948ad3) # Used by FindPackageHandleStandardArgs
 
-  _ycm_cmake_next_download(v3.13.4 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.13" "${_files}")
-  _ycm_cmake_next_install(v3.13.4 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.13"
+  _ycm_cmake_next_download(v3.13.5 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.13" "${_files}")
+  _ycm_cmake_next_install(v3.13.5 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.13"
                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 endif()
 
 
 ################################################################################
-# Files not available or containing bugs in CMake 3.13.4
-# Imported from CMake tag v3.14.3
+# Files not available or containing bugs in CMake 3.13.5
+# Imported from CMake tag v3.14.4
 if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.14)
   # Just a reminder to remove this when we change cmake version
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.13. You can remove this.")
@@ -296,24 +283,29 @@ if(CMAKE_VERSION VERSION_LESS 3.14 OR YCM_MAINTAINER_MODE)
              Modules/BasicConfigVersion-SameMinorVersion.cmake.in a3e9f395d5ce5c66eb5b3fa8df2e9dfa8548562e
              Modules/BasicConfigVersion-ExactVersion.cmake.in     c723920559d6f22af6a7d5f10deb26b4c170773d
              Modules/BasicConfigVersion-AnyNewerVersion.cmake.in  fb0c14d1c39a46d856a18bec3430c45045f29a45
-             Modules/CMakePackageConfigHelpers.cmake              e85b785df2000c4524b44ae735112f795dd2e219) # Required to be in the same folder as WriteBasicConfigVersionFile
+             Modules/CMakePackageConfigHelpers.cmake              e85b785df2000c4524b44ae735112f795dd2e219  # Required to be in the same folder as WriteBasicConfigVersionFile
+             Modules/FindSWIG.cmake                               2ed683e758d9caa88f0b11f8814617c1179de3ce
+             Modules/FindPackageHandleStandardArgs.cmake          97e455f2849eac8ef1449cba5e49064149bd2099  # Used by FindSWIG
+             Modules/FindPackageMessage.cmake                     a3207b9d2996e4c5a2ecb254f9abf1e4ba037f0a  # Used by FindPackageHandleStandardArgs
+             Modules/CMakeParseArguments.cmake                    79a086a72f0ea821e2587ac96df080703a614108) # Used by FindPackageHandleStandardArgs
 
-  file(COPY v3.14.3/WriteBasicConfigVersionFile.cmake
+  file(COPY v3.14.4/WriteBasicConfigVersionFile.cmake
+            v3.14.4/UseSWIG.cmake
        DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14/Modules")
 
   # The files CMakePackageConfigHelpers.cmake and
   # BasicConfigVersion-AnyNewerVersion.cmake.in are downloaded, but are also
   # used by WriteBasicConfigVersionFile in YCM main CMakeLists.txt, therefore
-  # they should all be in the same directory (v3.14.3)
+  # they should all be in the same directory (v3.14.4)
 
-  _ycm_cmake_next_download(v3.14.3 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14" "${_files}")
-  _ycm_cmake_next_install(v3.14.3 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14"
+  _ycm_cmake_next_download(v3.14.4 "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14" "${_files}")
+  _ycm_cmake_next_install(v3.14.4 DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/cmake-3.14"
                                   DESTINATION "${YCM_INSTALL_MODULE_DIR}")
 endif()
 
 
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (v3.14.3)
+# Files not yet available or containing bugs in current CMake release (v3.14.4)
 # Imported from latest revision tested
 if(NOT CMAKE_VERSION VERSION_LESS 3.15)
     # Just a reminder to update files when a new cmake version is released
@@ -324,7 +316,7 @@ endif()
 # necessary to download and install these files if already included in CMake
 if(CMAKE_VERSION VERSION_LESS 3.15 OR YCM_MAINTAINER_MODE)
 
-  set(_ref d170a3177fdc57c96034f8a2ecf5d0f9aff70af4)
+  set(_ref e13b18e2c70f42c23ed7e7fddb93557ce19b7359)
   set(_files Copyright.txt                               ef5e9cd05a459b23263ecc409da2b3bc51aec2e4
              Modules/FindGLEW.cmake                      bece2c0fdd415f49d6b6d22da274dd8a9c248853
              Modules/FindPackageHandleStandardArgs.cmake 97e455f2849eac8ef1449cba5e49064149bd2099  # Used by FindGLEW
