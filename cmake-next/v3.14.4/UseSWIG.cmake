@@ -600,26 +600,15 @@ function(SWIG_ADD_SOURCE_TO_MODULE name outfiles infile)
     PROPERTIES GENERATED 1)
 
   ## add all properties for generated file to various properties
-  get_property (include_directories SOURCE "${infile}" PROPERTY GENERATED_INCLUDE_DIRECTORIES)
-
   if(NOT ${CMAKE_VERSION} VERSION_LESS 3.12)
+    get_property (include_directories SOURCE "${infile}" PROPERTY GENERATED_INCLUDE_DIRECTORIES)
     set_property (SOURCE "${swig_generated_file_fullname}" PROPERTY INCLUDE_DIRECTORIES ${include_directories} $<TARGET_GENEX_EVAL:${target_name},$<TARGET_PROPERTY:${target_name},SWIG_GENERATED_INCLUDE_DIRECTORIES>>)
-  else()
-    set_property (SOURCE "${swig_generated_file_fullname}" PROPERTY INCLUDE_DIRECTORIES ${include_directories} $<TARGET_PROPERTY:${target_name},SWIG_GENERATED_INCLUDE_DIRECTORIES>)
-  endif()
 
-  get_property (compile_definitions SOURCE "${infile}" PROPERTY GENERATED_COMPILE_DEFINITIONS)
-  if(NOT ${CMAKE_VERSION} VERSION_LESS 3.12)
+    get_property (compile_definitions SOURCE "${infile}" PROPERTY GENERATED_COMPILE_DEFINITIONS)
     set_property (SOURCE "${swig_generated_file_fullname}" PROPERTY COMPILE_DEFINITIONS $<TARGET_GENEX_EVAL:${target_name},$<TARGET_PROPERTY:${target_name},SWIG_GENERATED_COMPILE_DEFINITIONS>> ${compile_definitions})
-  else()
-    set_property (SOURCE "${swig_generated_file_fullname}" PROPERTY COMPILE_DEFINITIONS $<TARGET_PROPERTY:${target_name},SWIG_GENERATED_COMPILE_DEFINITIONS> ${compile_definitions})
-  endif()
 
-  get_property (compile_options SOURCE "${infile}" PROPERTY GENERATED_COMPILE_OPTIONS)
-  if(NOT ${CMAKE_VERSION} VERSION_LESS 3.12)
+    get_property (compile_options SOURCE "${infile}" PROPERTY GENERATED_COMPILE_OPTIONS)
     set_property (SOURCE "${swig_generated_file_fullname}" PROPERTY COMPILE_OPTIONS $<TARGET_GENEX_EVAL:${target_name},$<TARGET_PROPERTY:${target_name},SWIG_GENERATED_COMPILE_OPTIONS>> ${compile_options})
-  else()
-    set_property (SOURCE "${swig_generated_file_fullname}" PROPERTY COMPILE_OPTIONS $<TARGET_PROPERTY:${target_name},SWIG_GENERATED_COMPILE_OPTIONS> ${compile_options})
   endif()
 
   if (SWIG_MODULE_${name}_SWIG_LANGUAGE_FLAG MATCHES "php")
