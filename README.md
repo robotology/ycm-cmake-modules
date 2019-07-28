@@ -23,7 +23,7 @@ Online documentation is available here: [http://robotology.github.io/ycm](http:/
   D.E. Domenichelli, S. Traversaro, L. Muratore, A. Rocchi, F. Nori, L. Natale,
   International Journal of Semantic Computing (IJSC), Vol. 13, No. 02, 2019
   DOI: [10.1142/S1793351X19400087](https://doi.org/10.1142/S1793351X19400087)
-  [![DOI](https://img.shields.io/badge/DOI-10.1142%2FS1793351X19400087-blue.svg)](https://doi.org/https://doi.org/10.1142/S1793351X19400087)
+  [![DOI](https://img.shields.io/badge/DOI-10.1142%2FS1793351X19400087-blue.svg)](https://doi.org/10.1142/S1793351X19400087)
 
 * Latest YCM release [![DOI](https://zenodo.org/badge/13105609.svg)](https://zenodo.org/badge/latestdoi/13105609)
 
