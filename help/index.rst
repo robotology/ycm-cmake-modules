@@ -146,7 +146,9 @@ Publications
   |domenichelli-irc2018-badge|
 * **A Build System for Software Development in Robotic Academic Collaborative Environments**,
   D.E. Domenichelli, S. Traversaro, L. Muratore, A. Rocchi, F. Nori, L. Natale,
-  **IN PRESS** International Journal of Semantic Computing (IJSC), Vol. 13, No. 02, 2019
+  International Journal of Semantic Computing (IJSC), Vol. 13, No. 02, 2019,
+  DOI: `10.1142/S1793351X19400087`_
+  |domenichelli-ijsc2019-badge|
 
 Reference Manuals
 #################
