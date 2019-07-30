@@ -1,11 +1,10 @@
 sudo: required
-dist: trusty
+language: generic
+dist: bionic
 
 os:
   - linux
   - osx
-
-language: c++
 
 env:
   - TRAVIS_BUILD_TYPE=Debug TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
