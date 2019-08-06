@@ -226,8 +226,6 @@ include(CMakeParseArguments)
 
 function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
-  # TODO check that _Name does not contain "-" characters
-
   set(_options ARCH_INDEPENDENT
                NO_SET_AND_CHECK_MACRO
                NO_CHECK_REQUIRED_COMPONENTS_MACRO
