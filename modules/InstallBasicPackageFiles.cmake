@@ -196,6 +196,10 @@
 # This allows one to inject custom code to this file, useful e.g. to set
 # additional variables which are loaded by downstream projects.
 #
+# Note that content specified with ``INCLUDE_FILE`` or ``INCLUDE_CONTENT``
+# cannot reference any of the ``PATH_VARS`` because this content is not
+# expanded by :cmake:command:`configure_package_config_file`.
+#
 # If the ``COMPONENT`` argument is passed, it is forwarded to the
 # :cmake:command:`install` commands, otherwise ``<Name>`` is used.
 
