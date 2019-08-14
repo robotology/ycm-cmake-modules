@@ -14,11 +14,6 @@ env:
     - TRAVIS_TEST_TARGET="test"
     - TRAVIS_INSTALL_TARGET="install"
 
-matrix:
-  include:
-    - os: osx
-      env: TRAVIS_CMAKE_GENERATOR="Xcode"
-
 branches:
   except:
   - gh-pages
@@ -32,3 +27,89 @@ script:
   - cmake --build build --config ${TRAVIS_BUILD_TYPE}
   - cmake --build build --config ${TRAVIS_BUILD_TYPE} --target ${TRAVIS_TEST_TARGET}
   - cmake --build build --config ${TRAVIS_BUILD_TYPE} --target ${TRAVIS_INSTALL_TARGET}
+
+.cmake_template_definition: &cmake_template
+  os: linux
+  dist: bionic
+  language: generic
+  services:
+    - docker
+  before_install:
+    - docker pull drdanz/cmake:cmake-${TRAVIS_CMAKE_VERSION}
+    - >-
+      docker run -it -d \
+        -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR \
+        -v $HOME/.ccache:$HOME/.ccache \
+        -w $TRAVIS_BUILD_DIR \
+        -e CTEST_OUTPUT_ON_FAILURE \
+        --name ycm-builder \
+        drdanz/cmake:cmake-${TRAVIS_CMAKE_VERSION}
+    - docker exec -it ycm-builder cmake --version
+  install: skip
+  before_script:
+    - docker exec -it ycm-builder cmake -H. -Bbuild -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install -DYCM_MAINTAINER_MODE=ON
+  script:
+    - docker exec -it ycm-builder cmake --build build --config ${TRAVIS_BUILD_TYPE}
+    - docker exec -it ycm-builder cmake --build build --config ${TRAVIS_BUILD_TYPE} --target ${TRAVIS_TEST_TARGET}
+    - docker exec -it ycm-builder cmake --build build --config ${TRAVIS_BUILD_TYPE} --target ${TRAVIS_INSTALL_TARGET}
+  after_success: skip
+
+matrix:
+  include:
+    - os: osx
+      env: TRAVIS_CMAKE_GENERATOR="Xcode"
+
+    - name: "Configure using CMake 3.5"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.5"
+
+    - name: "Configure using CMake 3.6"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.6"
+
+    - name: "Configure using CMake 3.7"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.7"
+
+    - name: "Configure using CMake 3.8"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.8"
+
+    - name: "Configure using CMake 3.9"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.9"
+
+    - name: "Configure using CMake 3.10"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.10"
+
+    - name: "Configure using CMake 3.11"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.11"
+
+    - name: "Configure using CMake 3.12"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.12"
+
+    - name: "Configure using CMake 3.13"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.13"
+
+    - name: "Configure using CMake 3.14"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.14"
+
+    - name: "Configure using CMake 3.15"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.15"
