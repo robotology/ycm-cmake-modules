@@ -72,6 +72,9 @@
 # one (``CMAKE_BINARY_DIR``).  If this is a relative path, it is
 # considered relative to the ``CMAKE_CURRENT_BINARY_DIR`` directory.
 #
+# The build directory is exported to the CMake user package registry if the
+# build option ``CMAKE_EXPORT_PACKAGE_REGISTRY`` is set.
+#
 # The ``<Name>ConfigVersion.cmake`` file is generated using
 # :cmake:command:`write_basic_package_version_file`. The ``VERSION``,
 # ``COMPATIBILITY``, and ``ARCH_INDEPENDENT``arguments are passed to this
@@ -729,6 +732,14 @@ endif()
   export(${_export_cmd}
          NAMESPACE ${_IBPF_NAMESPACE}
          FILE "${_IBPF_EXPORT_DESTINATION}/${_targets_filename}")
+
+  # Export build directory if CMAKE_EXPORT_PACKAGE_REGISTRY is set.
+  # CMake >= 3.15 already checks for CMAKE_EXPORT_PACKAGE_REGISTRY in `export(PACKAGE)` (cf.
+  # cf. https://cmake.org/cmake/help/latest/policy/CMP0090.html), and we effectively back-port
+  # this behavior to earlier versions.
+  if(CMAKE_EXPORT_PACKAGE_REGISTRY OR NOT CMAKE_VERSION VERSION_LESS 3.15)
+    export(PACKAGE ${_Name})
+  endif()
 
   # <Name>Targets.cmake (installed)
   install(${_install_cmd}
