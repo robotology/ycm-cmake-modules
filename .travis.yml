@@ -1,41 +1,34 @@
 sudo: required
-dist: trusty
+language: generic
+dist: bionic
 
 os:
   - linux
   - osx
 
-language: c++
-
 env:
-  - TRAVIS_BUILD_TYPE=Debug TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
-  - TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
-  - TRAVIS_BUILD_TYPE=Debug TRAVIS_CMAKE_GENERATOR="Xcode"
-  - TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Xcode"
+  global:
+    - CTEST_OUTPUT_ON_FAILURE=1
+    - TRAVIS_BUILD_TYPE=Release
+    - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+    - TRAVIS_TEST_TARGET="test"
+    - TRAVIS_INSTALL_TARGET="install"
 
 matrix:
-  exclude:
-    - os: linux
-      env: TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Xcode"
-    - os: linux
-      env: TRAVIS_BUILD_TYPE=Debug TRAVIS_CMAKE_GENERATOR="Xcode"
+  include:
+    - os: osx
+      env: TRAVIS_CMAKE_GENERATOR="Xcode"
 
 branches:
   except:
   - gh-pages
   - appveyor
 
-install:
-  - cmake --version
-
 before_script:
-  - mkdir build
-  - cd build
-  - cmake .. -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install -DYCM_MAINTAINER_MODE=ON
+  - if [ "${TRAVIS_CMAKE_GENERATOR}" = "Xcode" ]; then export TRAVIS_TEST_TARGET="RUN_TESTS"; fi
+  - cmake -H. -Bbuild -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$(pwd)/../install -DYCM_MAINTAINER_MODE=ON
 
 script:
-  - cmake --build . --config ${TRAVIS_BUILD_TYPE}
-
-after_success:
-  - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target install
-  - ctest --build . --config ${TRAVIS_BUILD_TYPE}
+  - cmake --build build --config ${TRAVIS_BUILD_TYPE}
+  - cmake --build build --config ${TRAVIS_BUILD_TYPE} --target ${TRAVIS_TEST_TARGET}
+  - cmake --build build --config ${TRAVIS_BUILD_TYPE} --target ${TRAVIS_INSTALL_TARGET}

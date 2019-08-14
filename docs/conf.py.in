@@ -115,6 +115,7 @@ rst_epilog = """
 .. _`CMakeRC Git Repository`: https://github.com/vector-of-bool/cmrc/
 .. _`UseLATEX Git Repository`: https://gitlab.kitware.com/kmorel/UseLATEX/
 .. _`10.1109/IRC.2018.00014`: https://doi.org/10.1109/IRC.2018.00014
+.. _`10.1142/S1793351X19400087`: https://doi.org/10.1142/S1793351X19400087
 
 .. |lock| image:: /images/lock.png
     :height: 12
@@ -123,5 +124,9 @@ rst_epilog = """
 .. |domenichelli-irc2018-badge| image:: /images/domenichelli-irc2018.svg
     :alt: DOI
     :target: `10.1109/IRC.2018.00014`_
+
+.. |domenichelli-ijsc2019-badge| image:: /images/domenichelli-ijsc2019.svg
+    :alt: DOI
+    :target: `10.1142/S1793351X19400087`_
 
 """

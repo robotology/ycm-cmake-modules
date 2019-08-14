@@ -290,7 +290,7 @@ enable the :variable:`YCM_EP_DEVEL_MODE_<PROJECT>` CMake cached variable.
 
 This can be done by running :cmake:manual:`ccmake <ccmake(1)>` or
 :cmake:manual:`cmake-gui <cmake-gui(1)>` and changing the value, or by
-running adding ``-DUSE_SYSTEM_<PACKAGE>:BOOL=FALSE`` to the
+running adding ``-DYCM_EP_DEVEL_MODE_<PACKAGE>:BOOL=FALSE`` to the
 :cmake:manual:`cmake <cmake(1)>` command line.
 
 
