@@ -17,3 +17,6 @@ Generic Modules
 * :module:`InstallBasicPackageFiles`: The package is now exported to the user
   package registry, when the :cmake:variable:`CMAKE_EXPORT_PACKAGE_REGISTRY` is
   enabled.
+* :module:`InstallBasicPackageFiles`: Added the new ``NO_EXPORT`` option, that
+  can be used to install a set of CMake files when you don't have an export set
+  or any targets to export.
