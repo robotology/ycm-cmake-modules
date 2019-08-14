@@ -72,32 +72,14 @@ if(CMAKE_VERSION VERSION_LESS 3.14)
 endif()
 include(CMakePackageConfigHelpers)
 
-# YCMConfigVersion.cmake file (same for build tree and intall)
-write_basic_package_version_file("${YCM_BUILD_CMAKE_DIR}/YCMConfigVersion.cmake"
-                                 VERSION ${YCM_VERSION}
-                                 COMPATIBILITY AnyNewerVersion
-                                 ARCH_INDEPENDENT)
-install(FILES "${YCM_BUILD_CMAKE_DIR}/YCMConfigVersion.cmake"
-        DESTINATION "${YCM_INSTALL_CMAKE_DIR}")
-
-# YCMConfig.cmake (build tree)
-get_filename_component(YCM_MODULE_DIR "${YCM_BUILD_MODULE_DIR}" ABSOLUTE)
-configure_package_config_file(YCMConfig.cmake.in "${YCM_BUILD_CMAKE_DIR}/YCMConfig.cmake"
-                              INSTALL_DESTINATION "${YCM_BUILD_CMAKE_DIR}"
-                              PATH_VARS YCM_MODULE_DIR
-                              NO_CHECK_REQUIRED_COMPONENTS_MACRO
-                              INSTALL_PREFIX "${YCM_BINARY_DIR}")
-
-# YCMConfig.cmake (installed)
-get_filename_component(YCM_MODULE_DIR "${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_MODULE_DIR}" ABSOLUTE)
-configure_package_config_file(YCMConfig.cmake.in "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
-                              INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/${YCM_INSTALL_CMAKE_DIR}"
-                              PATH_VARS YCM_MODULE_DIR
-                              NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/YCMConfigInstall.cmake"
-        DESTINATION "${YCM_INSTALL_CMAKE_DIR}"
-        RENAME YCMConfig.cmake)
+include(InstallBasicPackageFiles)
+install_basic_package_files(YCM
+                            VERSION ${YCM_VERSION}
+                            COMPATIBILITY AnyNewerVersion
+                            ARCH_INDEPENDENT
+                            NO_EXPORT
+                            EXTRA_PATH_VARS_SUFFIX MODULE_DIR
+                            NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
 include(AddUninstallTarget)
 
