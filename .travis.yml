@@ -59,57 +59,144 @@ matrix:
     - os: osx
       env: TRAVIS_CMAKE_GENERATOR="Xcode"
 
-    - name: "Configure using CMake 3.5"
+    - name: "Configure using CMake 3.5 (Unix Makefiles)"
       <<: *cmake_template
       env:
         - TRAVIS_CMAKE_VERSION="3.5"
+        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
-    - name: "Configure using CMake 3.6"
+    - name: "Configure using CMake 3.5 (Ninja)"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.5"
+        - TRAVIS_CMAKE_GENERATOR="Ninja"
+
+
+    - name: "Configure using CMake 3.6 (Unix Makefiles)"
       <<: *cmake_template
       env:
         - TRAVIS_CMAKE_VERSION="3.6"
+        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
-    - name: "Configure using CMake 3.7"
+    - name: "Configure using CMake 3.6 (Ninja)"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.6"
+        - TRAVIS_CMAKE_GENERATOR="Ninja"
+
+
+    - name: "Configure using CMake 3.7 (Unix Makefiles)"
       <<: *cmake_template
       env:
         - TRAVIS_CMAKE_VERSION="3.7"
+        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
-    - name: "Configure using CMake 3.8"
+    - name: "Configure using CMake 3.7 (Ninja)"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.7"
+        - TRAVIS_CMAKE_GENERATOR="Ninja"
+
+
+    - name: "Configure using CMake 3.8 (Unix Makefiles)"
       <<: *cmake_template
       env:
         - TRAVIS_CMAKE_VERSION="3.8"
+        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
-    - name: "Configure using CMake 3.9"
+    - name: "Configure using CMake 3.8 (Ninja)"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.8"
+        - TRAVIS_CMAKE_GENERATOR="Ninja"
+
+
+    - name: "Configure using CMake 3.9 (Unix Makefiles)"
       <<: *cmake_template
       env:
         - TRAVIS_CMAKE_VERSION="3.9"
+        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
-    - name: "Configure using CMake 3.10"
+    - name: "Configure using CMake 3.9 (Ninja)"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.9"
+        - TRAVIS_CMAKE_GENERATOR="Ninja"
+
+
+    - name: "Configure using CMake 3.10 (Unix Makefiles)"
       <<: *cmake_template
       env:
         - TRAVIS_CMAKE_VERSION="3.10"
+        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
-    - name: "Configure using CMake 3.11"
+    - name: "Configure using CMake 3.10 (Ninja)"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.10"
+        - TRAVIS_CMAKE_GENERATOR="Ninja"
+
+
+    - name: "Configure using CMake 3.11 (Unix Makefiles)"
       <<: *cmake_template
       env:
         - TRAVIS_CMAKE_VERSION="3.11"
+        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
-    - name: "Configure using CMake 3.12"
+    - name: "Configure using CMake 3.11 (Ninja)"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.11"
+        - TRAVIS_CMAKE_GENERATOR="Ninja"
+
+
+    - name: "Configure using CMake 3.12 (Unix Makefiles)"
       <<: *cmake_template
       env:
         - TRAVIS_CMAKE_VERSION="3.12"
+        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
-    - name: "Configure using CMake 3.13"
+    - name: "Configure using CMake 3.12 (Ninja)"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.12"
+        - TRAVIS_CMAKE_GENERATOR="Ninja"
+
+
+    - name: "Configure using CMake 3.13 (Unix Makefiles)"
       <<: *cmake_template
       env:
         - TRAVIS_CMAKE_VERSION="3.13"
+        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
-    - name: "Configure using CMake 3.14"
+    - name: "Configure using CMake 3.13 (Ninja)"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.13"
+        - TRAVIS_CMAKE_GENERATOR="Ninja"
+
+
+    - name: "Configure using CMake 3.14 (Unix Makefiles)"
       <<: *cmake_template
       env:
         - TRAVIS_CMAKE_VERSION="3.14"
+        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
-    - name: "Configure using CMake 3.15"
+    - name: "Configure using CMake 3.14 (Ninja)"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.14"
+        - TRAVIS_CMAKE_GENERATOR="Ninja"
+
+
+    - name: "Configure using CMake 3.15 (Unix Makefiles)"
       <<: *cmake_template
       env:
         - TRAVIS_CMAKE_VERSION="3.15"
+        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+
+    - name: "Configure using CMake 3.15 (Ninja)"
+      <<: *cmake_template
+      env:
+        - TRAVIS_CMAKE_VERSION="3.15"
+        - TRAVIS_CMAKE_GENERATOR="Ninja"
