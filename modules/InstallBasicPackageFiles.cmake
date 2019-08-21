@@ -539,7 +539,7 @@ endif()
     if(_IBPF_NO_EXPORT)
       set(_include_targets_cmd "")
     else()
-      set(_include_targets_cmd "include(\"\${CMAKE_CURRENT_LIST_DIR}/${_targets_filename}\"")
+      set(_include_targets_cmd "include(\"\${CMAKE_CURRENT_LIST_DIR}/${_targets_filename}\")")
     endif()
 
     # Write the file
