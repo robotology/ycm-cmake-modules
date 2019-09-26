@@ -1,0 +1,19 @@
+name: 'Generate GH Pages'
+
+on:
+  schedule:
+    - cron:  '0 0 * * *'
+
+jobs:
+  generate-gh-pages:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Rebase PR
+      uses: ./.github/actions/generate-gh-pages
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
