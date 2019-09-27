@@ -12,10 +12,6 @@ jobs:
   runs-on: ubuntu-latest
 
     steps:
-    - name: Install Dependencies
-      run: |
-        sudo apt-get install -y -qq bash curl jq git cmake python3-sphinx
-
     - name: Checkout
       uses: actions/checkout@master
 
