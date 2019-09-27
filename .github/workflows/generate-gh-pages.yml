@@ -2,7 +2,7 @@ name: 'Generate GH Pages'
 
 on:
   schedule:
-    - cron:  '7 0 * * *'
+    - cron:  '30 7 * * *'
 
 jobs:
   generate-gh-pages:
