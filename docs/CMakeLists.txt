@@ -54,7 +54,7 @@ endif()
 #   set(conf_copyright "Kitware, Inc.")
 # endif()
 
-set(conf_copyright "Copyright 2013-2018 Istituto Italiano di Tecnologia (IIT)")
+set(conf_copyright "Copyright 2013-2019 Istituto Italiano di Tecnologia (IIT)")
 
 set(conf_docs "${YCM_SOURCE_DIR}/help")
 set(conf_path "${CMAKE_CURRENT_SOURCE_DIR}")
