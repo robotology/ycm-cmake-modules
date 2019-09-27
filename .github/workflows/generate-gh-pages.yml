@@ -21,5 +21,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BASE_BRANCH: master
         BRANCH: gh-pages
-        FOLDER: docs
-        BUILD_SCRIPT: apt-get install -y cmake python3-sphinx && tools/gen-gh-pages.sh && git reset --hard gh-pages && git reset origin/master && mkdir docs && mv gh-pages/ index.html docs
+        FOLDER: generated_docs
+        BUILD_SCRIPT: apt-get install -y cmake python3-sphinx && tools/gen-gh-pages.sh && git reset --hard gh-pages && git reset origin/master && mkdir generated_docs && mv gh-pages/ index.html generated_docs
