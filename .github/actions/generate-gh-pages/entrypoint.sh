@@ -35,4 +35,4 @@ git fetch origin --prune
 ./tools/gen-gh-pages.sh
 
 # Push the branch
-git push --force ${remote} gh-pages
+git push --force origin gh-pages
