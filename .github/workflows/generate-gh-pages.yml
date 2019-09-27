@@ -2,7 +2,7 @@ name: 'Generate GH Pages'
 
 on:
   schedule:
-    - cron:  '0 0 * * *'
+    - cron:  '7 0 * * *'
 
 jobs:
   generate-gh-pages:
@@ -13,7 +13,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Rebase PR
+    - name: Generate GH Pages
       uses: ./.github/actions/generate-gh-pages
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
