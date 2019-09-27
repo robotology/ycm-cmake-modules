@@ -1,8 +1,10 @@
 name: 'Generate GH Pages'
 
 on:
-  schedule:
-    - cron:  '30 7 * * *'
+  push:
+    branches:
+      - master
+      - devel
 
 jobs:
   generate-gh-pages:
