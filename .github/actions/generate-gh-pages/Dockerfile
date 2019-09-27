@@ -8,7 +8,7 @@ LABEL "com.github.actions.icon"="book-open"
 LABEL "com.github.actions.color"="orange"
 
 RUN apt-get update -qq; \
-    apt-get install -y -qq bash cmake python3-sphinx \
+    apt-get install -y -qq bash cmake python3-sphinx; \
     apt-get clean
 
 ADD entrypoint.sh /entrypoint.sh
