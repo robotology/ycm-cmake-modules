@@ -1,8 +1,10 @@
 name: 'Generate GH Pages'
 
 on:
-  schedule:
-    - cron:  '0 0 * * *'
+  push:
+    branches:
+      - master
+      - devel
 
 jobs:
   generate-gh-pages:
@@ -11,9 +13,13 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@master
 
-    - name: Rebase PR
-      uses: ./.github/actions/generate-gh-pages
+    - name: Generate GH Pages
+      uses: JamesIves/github-pages-deploy-action@master
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ACCESS_TOKEN: ${{ secrets.drdanz_TOKEN }}
+        BASE_BRANCH: master
+        BRANCH: gh-pages
+        FOLDER: generated_docs
+        BUILD_SCRIPT: apt-get install -y cmake python3-sphinx && tools/gen-gh-pages.sh && git reset --hard gh-pages && git reset origin/master && mkdir generated_docs && mv gh-pages/ index.html generated_docs
