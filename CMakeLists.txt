@@ -13,7 +13,7 @@
 #  License text for the above reference.)
 
 
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.12)
 project(YCM NONE)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/internal-modules")
@@ -63,12 +63,12 @@ add_subdirectory(docs)
 
 # Use the new CMakePackageConfigHelpers from CMake repository in order to use
 # the new ARCH_INDEPENDENT argument for write_basic_package_version_file
-if(NOT CMAKE_MINIMUM_REQUIRED_VERSION VERSION_LESS 3.14)
+if(CMAKE_MINIMUM_REQUIRED_VERSION VERSION_GREATER_EQUAL 3.14)
     # Just a reminder to remove this when we change cmake version
     message(AUTHOR_WARNING "CMake minimum required version greater than 3.14. You can remove this.")
 endif()
 if(CMAKE_VERSION VERSION_LESS 3.14)
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-next/v3.14.4")
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-next/v3.14")
 endif()
 include(CMakePackageConfigHelpers)
 
