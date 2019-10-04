@@ -11,7 +11,7 @@ How to Use YCM in Your Project
 ==============================
 
 In order to use YCM in your project, your software will have to depend
-on CMake 3.5 or later. Therefore your ``CMakeLists.txt`` file should
+on CMake 3.12 or later. Therefore your ``CMakeLists.txt`` file should
 include a :cmake:command:`cmake_minimum_required` call to set the
 :cmake:variable:`CMAKE_MINIMUM_REQUIRED_VERSION` and the relative
 CMake policies.
@@ -19,7 +19,7 @@ CMake policies.
 
 .. code-block:: cmake
 
-    cmake_minimum_required(VERSION 3.5)
+    cmake_minimum_required(VERSION 3.12)
 
 Now you have to set variables that control which components are enabled (all
 the following variables should be set before calling ``find_package(YCM)``, it
@@ -33,15 +33,9 @@ variables to ``OFF``.
 
 .. code-block:: cmake
 
-    # set(YCM_USE_CMAKE_3_6 OFF)  # Disable modules from CMake 3.6
-    # set(YCM_USE_CMAKE_3_7 OFF)  # Disable modules from CMake 3.7
-    # set(YCM_USE_CMAKE_3_8 OFF)  # Disable modules from CMake 3.8
-    # set(YCM_USE_CMAKE_3_9 OFF)  # Disable modules from CMake 3.9
-    # set(YCM_USE_CMAKE_3_10 OFF) # Disable modules from CMake 3.10
-    # set(YCM_USE_CMAKE_3_11 OFF) # Disable modules from CMake 3.11
-    # set(YCM_USE_CMAKE_3_12 OFF) # Disable modules from CMake 3.12
     # set(YCM_USE_CMAKE_3_13 OFF) # Disable modules from CMake 3.13
     # set(YCM_USE_CMAKE_3_14 OFF) # Disable modules from CMake 3.14
+    # set(YCM_USE_CMAKE_3_15 OFF) # Disable modules from CMake 3.15
     # set(YCM_USE_CMAKE_NEXT OFF) # Disable modules from CMake git repository
 
 These options, are turned on by default, but they can be turned off if they are

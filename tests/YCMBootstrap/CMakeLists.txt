@@ -12,7 +12,7 @@
 # (To distribute this file outside of YCM, substitute the full
 #  License text for the above reference.)
 
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.12)
 project(YCMbootstrap NONE)
 
 include(FeatureSummary)
