@@ -26,3 +26,16 @@ Generic Modules
 * :module:`InstallBasicPackageFiles`: Added the new ``NO_EXPORT`` option, that
   can be used to install a set of CMake files when you don't have an export set
   or any targets to export.
+
+Superbuild Modules
+------------------
+
+* :module:`YCMEPHelper`: The ``YCM_EP_INSTALL_DIR`` variable can be used to
+  change where the subprojects will be installed (default
+  ``${PROJECT_BINARY_DIR}/install``).
+  You should not change the ``YCM_EP_INSTALL_DIR`` variable, unless you wish to
+  build the superbuild only once, and discard the build directory. In this case
+  you should change this variable to the final destination of the build since,
+  for many projects, the build is not relocatable.
+  Please also note that, if you change it to a folder that is not writable by
+  current user, you will have to run the whole build as superuser.
