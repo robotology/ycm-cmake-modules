@@ -83,8 +83,9 @@ the superbuild will download and install all the required projects that
 cannot be found on the system.
 
 After the build, all the subprojects will be installed inside the
-``build/install`` folder, therefore in order to use it you will
-have to adjust some environment variables
+``${YCM_EP_INSTALL_DIR}`` folder (by default ``${CMAKE_BINARY_DIR}/install``,
+i.e. ``build/install``), therefore in order to use it you will have to adjust
+some environment variables
 
 .. code-block:: sh
 
@@ -160,10 +161,10 @@ explicitly specify the configuration at command line:
    #Release
    xcodebuild -configuration Release
 
-
 After the build, all the subprojects will be installed inside the
-``build/install`` folder, therefore in order to use it you will
-have to adjust some environment variables
+``${YCM_EP_INSTALL_DIR}`` folder (by default ``${CMAKE_BINARY_DIR}/install``,
+i.e. ``build/install``), therefore in order to use it you will have to adjust
+some environment variables
 
 .. code-block:: sh
 
@@ -275,7 +276,15 @@ YCM superbuild project, usually ``${PROJECT_SOURCE_DIR}/build/``
 The superbuild will run the ``configure``, ``build`` and ``install``
 step for each project.
 
-Each project will be installed in ``${PROJECT_BINARY_DIR}/install``
+Each project will be installed in ``${YCM_EP_INSTALL_DIR}`` (by default
+``${PROJECT_BINARY_DIR}/install``).
+You should not change the ``YCM_EP_INSTALL_DIR`` variable, unless you wish to
+build the superbuild only once, and discard the build directory. In this case
+you should change this variable to the final destination of the build since, for
+many projects, the build is not relocatable.
+Please also note that, if you change it to a folder that is not writable by
+current user, you will have to run the whole build as superuser.
+
 
 
 .. _`Developer Mode`:
