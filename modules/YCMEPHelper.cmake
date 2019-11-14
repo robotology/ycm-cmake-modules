@@ -1374,10 +1374,14 @@ macro(YCM_BOOTSTRAP)
   file(READ ${YCM_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMTmp/YCM-cfgcmd.txt _cmd)
   string(STRIP "${_cmd}" _cmd)
   string(REGEX REPLACE "^cmd='(.+)'" "\\1" _cmd "${_cmd}")
+  # The -DCMAKE_PREFIX_PATH in YCM-cfgcmd.txt uses | as list separator, so it is not 
+  # usable as it is when invoking CMake from the config line. As YCM during bootstrap 
+  # does not need to find any package via CMAKE_PREFIX_PATH, we just remove it 
+  string(REGEX REPLACE "-DCMAKE_PREFIX_PATH:PATH=.+;-C" "-C" _cmd "${_cmd}")
   # The cache file is generated with 'file(GENERATE)', therefore it is not yet
   # available. Since we cannot use CMAKE_CACHE_ARGS or CMAKE_CACHE_DEFAULT_ARGS,
   # We just remove it from the command line, and append the arguments instead.
-  string(REGEX REPLACE "-C.+\\.cmake;" "${_YCM_EP_CMAKE_CACHE_ARGS};${_YCM_EP_CMAKE_CACHE_DEFAULT_ARGS}" _cmd "${_cmd}")
+  string(REGEX REPLACE "-C.+\\.cmake;" "${_YCM_EP_CMAKE_CACHE_ARGS};${_YCM_EP_CMAKE_CACHE_DEFAULT_ARGS};" _cmd "${_cmd}")
   # The command line contains location tags, therefore we need to expand it.
   _ep_replace_location_tags(YCM _cmd)
   execute_process(COMMAND ${_cmd}
