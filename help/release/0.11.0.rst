@@ -1,4 +1,4 @@
-YCM 0.11.0 (UNRELEASED) Release Notes
+YCM 0.11.0 (2019-11-28) Release Notes
 *************************************
 
 .. only:: html
@@ -12,6 +12,13 @@ Important Changes
 =================
 
 * CMake 3.12 or later is now required.
+
+
+Build System
+============
+
+* Fixed issue for which the default generator was always used by the
+  bootstrapped YCM (#290)
 
 
 Modules
