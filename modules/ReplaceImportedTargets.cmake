@@ -91,14 +91,7 @@ function(REPLACE_IMPORTED_TARGETS _var)
         if(_prop_set)
           get_property(_prop_value TARGET ${_target} PROPERTY ${_prop})
           _replace_imported_targets_internal(_prop_value ${_replace_targets})
-
-          # CMake 3.0.x throws an exception when setting an empty
-          # property. All the other versions are fine with it.
-          # Remove this check when CMake minimum required version is
-          # 3.1 or higher.
-          if(NOT ("${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" VERSION_EQUAL 3.0 AND "${_prop_value}" STREQUAL ""))
-            set_property(TARGET ${_target} PROPERTY ${_prop} ${_prop_value})
-          endif()
+          set_property(TARGET ${_target} PROPERTY ${_prop} ${_prop_value})
         endif()
       endforeach()
     endif()

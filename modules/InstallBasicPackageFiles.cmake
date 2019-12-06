@@ -381,7 +381,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
   endif()
   # ENABLE_COMPATIBILITY_VARS can be enabled for projects still using targets
   if(DEFINED _targets AND NOT _IBPF_NO_COMPATIBILITY_VARS AND NOT _IBPF_ENABLE_COMPATIBILITY_VARS)
-    message(AUTHOR_WARNING "Compatibility variables are no longer generated. Use ENABLE_COMPATIBILITY_VARS to re-enable them (deprecated) or define them using either INCLUDE_FILE or INCLUDE_CONTENT (recommended).")
+    message(DEPRECATION "Compatibility variables are no longer generated. Use ENABLE_COMPATIBILITY_VARS to re-enable them (deprecated) or define them using either INCLUDE_FILE or INCLUDE_CONTENT (recommended).")
   endif()
 
   if(NOT DEFINED _IBPF_EXPORT_DESTINATION)
@@ -675,7 +675,7 @@ ${_compatibility_vars}
   # CMake >= 3.15 already checks for CMAKE_EXPORT_PACKAGE_REGISTRY in `export(PACKAGE)` (cf.
   # cf. https://cmake.org/cmake/help/latest/policy/CMP0090.html), and we effectively back-port
   # this behavior to earlier versions.
-  if(CMAKE_EXPORT_PACKAGE_REGISTRY OR NOT CMAKE_VERSION VERSION_LESS 3.15)
+  if(CMAKE_EXPORT_PACKAGE_REGISTRY OR CMAKE_VERSION VERSION_GREATER_EQUAL 3.15)
     export(PACKAGE ${_Name})
   endif()
 

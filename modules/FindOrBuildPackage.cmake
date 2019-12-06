@@ -151,22 +151,6 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
         set(_findArgs ${_${_PKG}_UNPARSED_ARGUMENTS})
     endif()
 
-    # Disable package cache when not done automatically by CMake
-    # This is a workaround for CMake bug #14849
-    unset(_find_or_build_package_registryArgs)
-    if(NOT CMAKE_REQUIRED_VERSION VERSION_LESS 3.1)
-        message(AUTHOR_WARNING "Disabling cmake cache is supported since CMake 3.1. You can remove this check")
-    endif()
-    if(CMAKE_VERSION VERSION_LESS 3.1)
-        if(CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY OR _${_PKG}_NO_CMAKE_PACKAGE_REGISTRY)
-            list(APPEND _find_or_build_package_registryArgs NO_CMAKE_PACKAGE_REGISTRY)
-        endif()
-        if(CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY OR _${_PKG}_NO_CMAKE_SYSTEM_PACKAGE_REGISTRY)
-            list(APPEND _find_or_build_package_registryArgs NO_CMAKE_SYSTEM_PACKAGE_REGISTRY)
-        endif()
-    endif()
-
-
 # Preliminary find_package to enable/disable USE_SYSTEM_${_PKG} option
     # Use the FindPkg.cmake module first
     if(NOT _${_PKG}_NO_MODULE AND NOT _${_PKG}_CONFIG)
