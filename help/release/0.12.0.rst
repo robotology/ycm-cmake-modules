@@ -6,3 +6,23 @@ YCM 0.12.0 (UNRELEASED) Release Notes
   .. contents::
 
 Changes made since YCM 0.11.0 include the following.
+
+Important Changes
+=================
+
+Deprecated Modules
+------------------
+
+* The following deprecated modules are no longer available:
+
+  - ``FindGthread``
+  - ``FindGtkMM``
+  - ``FindGtkMMUnix``
+  - ``FindGtkMMWin32``
+  - ``FindGtkPlus``
+  - ``FindGtkWin32``
+  - ``FindQt3``
+  - ``MacroExtractVersion``
+  - ``MacroStandardFindModule``
+  - ``MacroUninstallTarget``
+  - ``YCMDeprecatedWarning``

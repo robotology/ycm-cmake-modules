@@ -113,7 +113,7 @@ Find Modules
   ``ACE::ACE_INLINE`` imported targets.
   The ``ACE_ADDR_HAS_LOOPBACK_METHOD`` and
   ``ACE_COMPILES_WITHOUT_INLINE_<CONFIG>`` are now deprecated.
-* The :module:`FindQt3` module is deprecated in favour of one from CMake.
+* The ``FindQt3`` module is deprecated in favour of one from CMake.
 * Added :module:`Findassimp` module to locate the Open Asset Importer Library
   (assimp).
 * Added :module:`FindGLM` module to locate the OpenGL Mathematics (GLM) library.

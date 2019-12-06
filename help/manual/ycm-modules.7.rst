@@ -159,14 +159,4 @@ Deprecated Modules
 .. toctree::
    :maxdepth: 1
 
-   /module/FindGthread
-   /module/FindGtkMM
-   /module/FindGtkMMUnix
-   /module/FindGtkMMWin32
-   /module/FindGtkPlus
-   /module/FindGtkWin32
-   /module/FindQt3
-   /module/MacroExtractVersion
-   /module/MacroStandardFindModule
-   /module/MacroUninstallTarget
    /module/YCMDefaultDirs

@@ -18,14 +18,7 @@ mark_as_advanced(YARP_NO_DEPRECATED)
 
 # Deprecated modules installed for compatibility
 if(NOT YCM_NO_DEPRECATED)
-  set(YCM_DEPRECATED_FILES YCMDeprecatedWarning.cmake
-                           FindGthread.cmake
-                           FindGtkMM.cmake
-                           FindGtkMMUnix.cmake
-                           FindGtkMMWin32.cmake
-                           FindGtkPlus.cmake
-                           FindGtkWin32.cmake
-                           YCMDefaultDirs.cmake)
+  set(YCM_DEPRECATED_FILES YCMDefaultDirs.cmake)
   _ycm_install(deprecated FILES ${YCM_DEPRECATED_FILES}
                           DESTINATION "${YCM_INSTALL_MODULE_DIR}/deprecated")
 
