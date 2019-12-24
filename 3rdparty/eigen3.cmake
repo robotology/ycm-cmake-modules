@@ -19,18 +19,18 @@
 
 set(_files COPYING.BSD             8fa159b3e41e0a44e10ea224cbb83e66ae02885e
            cmake/FindEigen3.cmake  5ad2b8e1ddbd9f0468b21e9d5343d05eda6b9dd1)
-set(_ref 52189c453765a683d1c27293e7c15b5bfbe036dc)
+set(_ref a12b8a8c75ebef312509da643424951725519348)
 set(_dir "${CMAKE_CURRENT_BINARY_DIR}/eigen3")
 
 _ycm_download(3rdparty-eigen
-              "Eigen GitHub mirror repository"
-              "https://raw.githubusercontent.com/eigenteam/eigen-git-mirror/<REF>/<FILE>"
+              "Eigen GitLab repository"
+              "https://gitlab.com/libeigen/eigen/raw/<REF>/<FILE>"
               ${_ref} "${_dir}" "${_files}")
 file(WRITE "${_dir}/README.Eigen"
-"Some of the files in this folder and its subfolder come from the Eigen mercurial
+"Some of the files in this folder and its subfolder come from the Eigen git
 repository (ref ${_ref}):
 
-  https://github.com/eigenteam/eigen-git-mirror
+  https://gitlab.com/libeigen/eigen
 
 Redistribution and use is allowed according to the terms of the 2-clause
 BSD license. See accompanying file COPYING.Eigen for details.
