@@ -26,3 +26,16 @@ Deprecated Modules
   - ``MacroStandardFindModule``
   - ``MacroUninstallTarget``
   - ``YCMDeprecatedWarning``
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* The :module:`InstallBasicPackageFiles` default for `INSTALL_DESTINATION` on
+  Windows is now the same as for the other operating systems
+  (``${CMAKE_INSTALL_LIBDIR}/cmake/<Name>``).
+* The :module:`InstallBasicPackageFiles` default for `INSTALL_DESTINATION` when
+  ``ARCH_INDEPENDENT`` is passed is now
+  ``${CMAKE_INSTALL_DATADIR}/cmake/<Name>``.

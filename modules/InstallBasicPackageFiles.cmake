@@ -350,6 +350,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     endif()
   endif()
 
+  # If not set by the user, choose an adequate destination
   if(NOT DEFINED _IBPF_INSTALL_DESTINATION)
     if(_IBPF_ARCH_INDEPENDENT)
       set(_IBPF_INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/${_Name})
