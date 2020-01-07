@@ -63,11 +63,16 @@
 # string is replaced with the code checking for the dependencies
 # specified by these two argument.
 #
+# If the ``ARCH_INDEPENDENT`` option is enabled, the installed package version
+# will be considered compatible even if it was built for a different
+# architecture than the requested architecture.
+#
 # Each file is generated twice, one for the build directory and one for
 # the installation directory.  The ``INSTALL_DESTINATION`` argument can be
 # passed to install the files in a location different from the default
-# one (``CMake`` on Windows, ``${CMAKE_INSTALL_LIBDIR}/cmake/${Name}``
-# on other platforms.  The ``EXPORT_DESTINATION`` argument can be passed to
+# one (``${CMAKE_INSTALL_DATADIR}/cmake/${Name}`` if the ``ARCH_INDEPENDENT``
+# option is enabled, ``${CMAKE_INSTALL_LIBDIR}/cmake/${Name}`` otherwise).
+# The ``EXPORT_DESTINATION`` argument can be passed to
 # generate the files in the build tree in a location different from the default
 # one (``CMAKE_BINARY_DIR``).  If this is a relative path, it is
 # considered relative to the ``CMAKE_CURRENT_BINARY_DIR`` directory.
@@ -93,10 +98,6 @@
 # command documentation.
 # If your project has more elaborate version matching rules, you will need to
 # write your own custom ConfigVersion.cmake file instead of using this macro.
-#
-# If the ``ARCH_INDEPENDENT`` option is enabled, the installed package version
-# will be considered compatible even if it was built for a different
-# architecture than the requested architecture.
 #
 # The ``<Name>Config.cmake`` file is generated using
 # :cmake:command:`configure_package_config_file`. The
@@ -349,11 +350,9 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     endif()
   endif()
 
-  # FIXME CMake 3.7 use the same path
-  # FIXME Use ARCH_INDEPENDENT to choose destination
   if(NOT DEFINED _IBPF_INSTALL_DESTINATION)
-    if(WIN32 AND NOT CYGWIN)
-      set(_IBPF_INSTALL_DESTINATION CMake)
+    if(_IBPF_ARCH_INDEPENDENT)
+      set(_IBPF_INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/${_Name})
     else()
       set(_IBPF_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${_Name})
     endif()
