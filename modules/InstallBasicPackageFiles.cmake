@@ -752,7 +752,10 @@ endif()
   # CMake >= 3.15 already checks for CMAKE_EXPORT_PACKAGE_REGISTRY in `export(PACKAGE)` (cf.
   # cf. https://cmake.org/cmake/help/latest/policy/CMP0090.html), and we effectively back-port
   # this behavior to earlier versions.
-  if(CMAKE_EXPORT_PACKAGE_REGISTRY OR NOT CMAKE_VERSION VERSION_LESS 3.15)
+  # Note that even never CMake versions may apply old policy behaviors if the consuming project
+  # requires a lower version of CMake (e.g. `cmake_minimum_required(VERSION 3.14)`), so the
+  # check for `CMAKE_EXPORT_PACKAGE_REGISTRY` is necessary for CMake >= 3.15 as well.
+  if(CMAKE_EXPORT_PACKAGE_REGISTRY)
     export(PACKAGE ${_Name})
   endif()
 
