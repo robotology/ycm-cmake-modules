@@ -681,7 +681,7 @@ ${_compatibility_vars}
            FILE "${_IBPF_EXPORT_DESTINATION}/${_targets_filename}")
 
     # To validate package dependencies, generate a subproject which consumes our build directory as a package
-    # and contains an executable target which links to all targets our package exports. Then bind the subproject
+    # and defines an executable target which links to all targets our package exports. Then bind the subproject
     # to a target using `ExternalProject_Add()`.
 
     # In order to reuse the same compiler toolchain for the subproject, we need to pick a language that is supported
@@ -722,6 +722,7 @@ ${_compatibility_vars}
     # Only check the package dependencies if testing was previously enabled with a call to `enable_testing()`, and
     # if `NO_PACKAGE_DEPENDENCIES_CHECK` was not set.
     if(CMAKE_TESTING_ENABLED AND NOT _IBPF_NO_PACKAGE_DEPENDENCIES_CHECK)
+
       # Generate an empty source file; the subproject is only configured, never built.
       file(WRITE "${_IBPF_EXPORT_DESTINATION}/check-package-dependencies/main${_probe_lang_ext}" "")
 
