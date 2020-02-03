@@ -714,7 +714,7 @@ ${_compatibility_vars}
     elseif("ASM" IN_LIST _enabled_languages)
       set(_probe_lang "ASM")
       set(_probe_lang_ext ".asm")
-    else()
+    elseif(NOT _IBPF_NO_PACKAGE_DEPENDENCIES_CHECK)
       message(AUTHOR_WARNING "No known language is available; cannot check package dependencies")
       set(_IBPF_NO_PACKAGE_DEPENDENCIES_CHECK TRUE)
     endif()
