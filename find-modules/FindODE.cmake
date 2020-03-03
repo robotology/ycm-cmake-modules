@@ -149,7 +149,7 @@ else()
     #message(STATUS "ODE libraries: ${ODE_LIBRARIES}")
   endif()
 
-  if(NOT CMAKE_CROSS_COMPILING)
+  if(NOT CMAKE_CROSSCOMPILING)
     include(CheckCXXSourceRuns)
     set(CMAKE_REQUIRED_INCLUDES ${ODE_INCLUDE_DIRS})
     set(CMAKE_REQUIRED_LIBRARIES ${ODE_LIBRARIES})
