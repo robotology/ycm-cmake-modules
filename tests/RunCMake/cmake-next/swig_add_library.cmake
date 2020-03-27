@@ -1,3 +1,11 @@
+if (CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
+  cmake_policy(SET CMP0078 NEW)
+endif()
+
+if (CMAKE_VERSION VERSION_GREATER_EQUAL 3.14)
+  cmake_policy(SET CMP0086 NEW)
+endif()
+
 find_package(SWIG QUIET)
 if(SWIG_FOUND)
   if(NOT EXISTS "${SWIG_USE_FILE}")
