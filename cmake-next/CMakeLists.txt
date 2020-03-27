@@ -172,7 +172,7 @@ endif()
 
 ################################################################################
 # Files not available or containing bugs in CMake 3.14.7
-# Imported from CMake tag v3.15.4
+# Imported from CMake tag v3.15.7
 if(CMAKE_MINIMUM_REQUIRED_VERSION VERSION_GREATER_EQUAL 3.14)
   # Just a reminder to remove this when we change cmake version
   message(AUTHOR_WARNING "CMake minimum required version greater than 3.13. You can remove this.")
@@ -182,7 +182,7 @@ endif()
 # necessary to download and install these files if already included in CMake
 if(CMAKE_VERSION VERSION_LESS 3.15 OR YCM_MAINTAINER_MODE)
 
-  set(_ref v3.15.4)
+  set(_ref v3.15.7)
   set(_files Copyright.txt                               ef5e9cd05a459b23263ecc409da2b3bc51aec2e4
              Modules/FindGLEW.cmake                      2eaf07f660491dd3db44b0801292f8dabb627ce0
              Modules/FindPackageHandleStandardArgs.cmake 97e455f2849eac8ef1449cba5e49064149bd2099  # Used by FindGLEW
@@ -198,7 +198,7 @@ endif()
 
 
 ################################################################################
-# Files not yet available or containing bugs in current CMake release (v3.15.4)
+# Files not yet available or containing bugs in current CMake release (v3.15.7)
 # Imported from latest revision tested
 
 # None
