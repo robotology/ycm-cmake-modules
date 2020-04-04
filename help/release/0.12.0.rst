@@ -39,3 +39,9 @@ Generic Modules
 * The :module:`InstallBasicPackageFiles` default for `INSTALL_DESTINATION` when
   ``ARCH_INDEPENDENT`` is passed is now
   ``${CMAKE_INSTALL_DATADIR}/cmake/<Name>``.
+
+Superbuild Modules
+------------------
+
+* :module:`YCMEPHelper`: The ``YCM_EP_ADDITIONAL_CMAKE_ARGS`` CMake cache variable
+  can be used to specify additional CMake arguments for all subprojects.
