@@ -905,19 +905,12 @@ function(YCM_EP_HELPER _name)
     endif()
 
     if(DEFINED ENV{PKG_CONFIG_PATH} AND NOT "$ENV{PKG_CONFIG_PATH}" MATCHES "${_regex}")
-      if(CMAKE_VERSION VERSION_LESS 3.1)
-        message(WARNING "  \n"
-                        "  pkg-config will not be able to detect YCM packages unless you add\n"
-                        "      \"${_pkg_config_path}\"\n"
-                        "  to your PKG_CONFIG_PATH environment variable.\n")
+      if(WIN32)
+        set(_pkg_config_path ${_pkg_config_path};$ENV{PKG_CONFIG_PATH})
       else()
-        if(WIN32)
-          set(_pkg_config_path ${_pkg_config_path};$ENV{PKG_CONFIG_PATH})
-        else()
-          set(_pkg_config_path ${_pkg_config_path}:$ENV{PKG_CONFIG_PATH})
-        endif()
-        set(_YH_${_name}_CONFIGURE_COMMAND "${CMAKE_COMMAND}" -E env "PKG_CONFIG_PATH=${_pkg_config_path}" ${_YH_${_name}_CONFIGURE_COMMAND})
+        set(_pkg_config_path ${_pkg_config_path}:$ENV{PKG_CONFIG_PATH})
       endif()
+      set(_YH_${_name}_CONFIGURE_COMMAND "${CMAKE_COMMAND}" -E env "PKG_CONFIG_PATH=${_pkg_config_path}" ${_YH_${_name}_CONFIGURE_COMMAND})
     endif()
     unset(_pkg_config_path)
     unset(_regex)
