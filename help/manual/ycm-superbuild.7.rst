@@ -62,7 +62,7 @@ A YCM superbuild can be built like any other CMake project.
 Linux
 -----
 
-Suppose ``<YOUR_PROJECT>`` is the directory in which you downloaded the superbuild project 
+Suppose ``<YOUR_PROJECT>`` is the directory in which you downloaded the superbuild project
 you want to build:
 
 .. code-block:: sh
@@ -241,6 +241,9 @@ but also wants to modify some of the subprojects.
   the system version, and download and build it instead.
   This can be done by setting the ``USE_SYSTEM_<PACKAGE>`` variable to
   ``FALSE``.
+  To change the initial value of the ``USE_SYSTEM_<PACKAGE>`` variable,
+  you can set the ``YCM_FOBP_USE_SYSTEM_DEFAULT`` CMake variable to the
+  initial value you prefer.
 
 This can be done by running :cmake:manual:`ccmake <ccmake(1)>` or
 :cmake:manual:`cmake-gui <cmake-gui(1)>` and changing the value, or by

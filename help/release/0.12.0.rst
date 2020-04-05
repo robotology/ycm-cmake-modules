@@ -39,3 +39,9 @@ Generic Modules
 * The :module:`InstallBasicPackageFiles` default for `INSTALL_DESTINATION` when
   ``ARCH_INDEPENDENT`` is passed is now
   ``${CMAKE_INSTALL_DATADIR}/cmake/<Name>``.
+
+Superbuild Modules
+------------------
+
+* :module:`FindOrBuildPackage`: Add ``YCM_FOBP_USE_SYSTEM_DEFAULT`` CMake variable
+  to set the initial value of ``USE_SYSTEM_<PACKAGE>`` variables.

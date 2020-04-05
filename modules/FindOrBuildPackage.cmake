@@ -32,7 +32,10 @@
 #
 # If the package was found, the ``USE_SYSTEM_<PackageName>`` cached
 # variable can be disabled in order to force CMake to build the package
-# instead of using the one found on the system.
+# instead of using the one found on the system. The initial value of
+# ``USE_SYSTEM_<PackageName>`` variable is by default ``ON``, unless the
+# variable ``YCM_FOBP_USE_SYSTEM_DEFAULT`` is set, in that case the
+# initial value is the value of ``YCM_FOBP_USE_SYSTEM_DEFAULT``.
 #
 # This function sets these variables::
 #
@@ -171,7 +174,11 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
         list(REMOVE_DUPLICATES _ycm_projects)
         set_property(GLOBAL PROPERTY YCM_PROJECTS ${_ycm_projects})
     endif()
-    cmake_dependent_option(USE_SYSTEM_${_PKG} "Use system installed ${_pkg}" ON "HAVE_SYSTEM_${_PKG}" OFF)
+    set(USE_SYSTEM_${_PKG}_INITIAL_VALUE OFF)
+    if(DEFINED YCM_FOBP_USE_SYSTEM_DEFAULT)
+        set(USE_SYSTEM_${_PKG}_INITIAL_VALUE ${YCM_FOBP_USE_SYSTEM_DEFAULT})
+    endif()
+    cmake_dependent_option(USE_SYSTEM_${_PKG} "Use system installed ${_pkg}" ON "HAVE_SYSTEM_${_PKG}" ${USE_SYSTEM_${_PKG}_INITIAL_VALUE})
     mark_as_advanced(USE_SYSTEM_${_PKG})
 
 
