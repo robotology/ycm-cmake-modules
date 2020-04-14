@@ -836,6 +836,31 @@ call:
 See :module:`YCMEPHelper` module documentation for other details about
 the parameters that can be modified with a variable.
 
+.. _`Specifying additional CMake arguments for all CMake subprojects`:
+
+Specifying additional CMake arguments for all subprojects
+---------------------------------------------------------
+
+In some situations, it may be convenient to be able to specify some
+additional command line arguments that are passed during the cmake
+invocation of all CMake-based subprojects. This is possible thanks
+to the ``YCM_EP_ADDITIONAL_CMAKE_ARGS`` CMake cache variable, that
+can be set as command line argument passed to the superbuild cmake
+invocation:
+
+.. code-block:: console
+    cmake -DYCM_EP_ADDITIONAL_CMAKE_ARGS:STRING="-DBOOL_OPTION:BOOL=ON -DLIST_VARIABLE:STRING=foo;bar" .
+
+or as a CMake variable set in the CMake code:
+
+.. code-block:: cmake
+
+    set(YCM_EP_ADDITIONAL_CMAKE_ARGS "-DBOOL_OPTION:BOOL=ON -DLIST_VARIABLE:STRING=foo;bar")
+
+Note that in the latter case, you need to make sure to set the
+``YCM_EP_ADDITIONAL_CMAKE_ARGS`` before the first inclusion
+of the ``YCMEPHelper`` module in your project.
+
 
 Components
 ----------

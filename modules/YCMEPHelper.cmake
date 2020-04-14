@@ -49,6 +49,8 @@
 #
 # .. variable:: YCM_EP_INSTALL_DIR
 #
+# .. variable:: YCM_EP_ADDITIONAL_CMAKE_ARGS
+#
 # .. variable:: YCM_<COMPONENT>_COLOR
 #
 # .. variable:: YCM_<COMPONENT>_BGCOLOR
@@ -235,6 +237,9 @@ macro(_YCM_SETUP)
   set(YCM_EP_INSTALL_DIR "${CMAKE_BINARY_DIR}/install" CACHE PATH "Path to the superbuild installation directory. WARNING: If this path is not writable by the user, you will have to build as superuser")
   mark_as_advanced(YCM_EP_INSTALL_DIR)
 
+  set(YCM_EP_ADDITIONAL_CMAKE_ARGS "" CACHE STRING "Additional CMake arguments that are passed to all CMake subprojects of the superbuild.")
+  mark_as_advanced(YCM_EP_ADDITIONAL_CMAKE_ARGS)
+
   # ExternalProject does not handle correctly arguments containing ";" passed
   # using CMAKE_ARGS, and instead splits them into several arguments. This is
   # a workaround that replaces ";" with "|" and sets LIST_SEPARATOR "|" in
@@ -246,10 +251,18 @@ macro(_YCM_SETUP)
   list(REMOVE_DUPLICATES _CMAKE_PREFIX_PATH)
   string(REPLACE ";" "|" _CMAKE_PREFIX_PATH "${_CMAKE_PREFIX_PATH}")
   set(_YCM_EP_ALL_CMAKE_ARGS LIST_SEPARATOR "|")
+  # YCM_EP_ADDITIONAL_CMAKE_ARGS contains the specified CMake options in a human-readable form,
+  # so different options are separated by spaces, while lists are separated by ";", for example
+  # -DYCM_EP_ADDITIONAL_CMAKE_ARGS:STRING="-DBUILD_TESTING:BOOL=ON -DTYPE_SUPPORTED=ZIP;QTIFW"
+  # For this reason, first we substitute ";"  with "|", and only later " " with ";"
+  set(_YCM_EP_ADDITIONAL_CMAKE_ARGS ${YCM_EP_ADDITIONAL_CMAKE_ARGS})
+  string(REPLACE ";" "|" _YCM_EP_ADDITIONAL_CMAKE_ARGS "${_YCM_EP_ADDITIONAL_CMAKE_ARGS}")
+  string(REPLACE " " ";" _YCM_EP_ADDITIONAL_CMAKE_ARGS "${_YCM_EP_ADDITIONAL_CMAKE_ARGS}")
 
   # Default CMAKE_ARGS (Passed to the command line)
   set(_YCM_EP_CMAKE_ARGS "--no-warn-unused-cli"
                          "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}") # Path used by cmake for finding stuff
+  list(APPEND _YCM_EP_CMAKE_ARGS ${_YCM_EP_ADDITIONAL_CMAKE_ARGS})
 
   # Default CMAKE_CACHE_ARGS (Initial cache, forced)
   set(_YCM_EP_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${YCM_EP_INSTALL_DIR}") # Where to do the installation
