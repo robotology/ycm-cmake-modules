@@ -22,14 +22,6 @@
 #
 # FIXME Figure out how to handle the REQUIRED and QUIET arguments
 #
-# This module checks if
-# :variable:`CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY` and/or
-# :variable:`CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY` are, set,
-# and eventually explicitly passes ``NO_CMAKE_PACKAGE_REGISTRY`` and/or
-# ``NO_CMAKE_SYSTEM_PACKAGE_REGISTRY`` to the :command:`find_package`
-# command. These variables will be automatically considered starting
-# form CMake 3.1, see also :cmake-issue:`14849`
-#
 # If the package was found, the ``USE_SYSTEM_<PackageName>`` cached
 # variable can be disabled in order to force CMake to build the package
 # instead of using the one found on the system.
