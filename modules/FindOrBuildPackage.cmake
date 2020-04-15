@@ -166,6 +166,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
         set_property(GLOBAL PROPERTY YCM_PROJECTS ${_ycm_projects})
     endif()
     option(YCM_DISABLE_SYSTEM_PACKAGES "Disable use of all the system installed packages" OFF)
+    mark_as_advanced(YCM_DISABLE_SYSTEM_PACKAGES)
     cmake_dependent_option(USE_SYSTEM_${_PKG} "Use system installed ${_pkg}" ON "HAVE_SYSTEM_${_PKG};NOT YCM_DISABLE_SYSTEM_PACKAGES" OFF)
     mark_as_advanced(USE_SYSTEM_${_PKG})
 
