@@ -240,7 +240,8 @@ but also wants to modify some of the subprojects.
   In order to keep 2 different versions, the superbuild should ignore
   the system version, and download and build it instead.
   This can be done by setting the ``USE_SYSTEM_<PACKAGE>`` variable to
-  ``FALSE``.
+  ``FALSE`` or by setting the ``YCM_DISABLE_SYSTEM_PACKAGES`` variable to
+  ``TRUE`` to do it for all the packages of the superbuild.
 
 This can be done by running :cmake:manual:`ccmake <ccmake(1)>` or
 :cmake:manual:`cmake-gui <cmake-gui(1)>` and changing the value, or by
