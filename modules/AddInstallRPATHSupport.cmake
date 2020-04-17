@@ -1,93 +1,89 @@
-#.rst:
-# AddInstallRPATHSupport
-# ----------------------
-#
-# Add support to RPATH during installation to your project::
-#
-#   add_install_rpath_support([BIN_DIRS dir [dir]]
-#                             [LIB_DIRS dir [dir]]
-#                             [INSTALL_NAME_DIR [dir]]
-#                             [DEPENDS condition [condition]]
-#                             [USE_LINK_PATH])
-#
-# Normally (depending on the platform) when you install a shared
-# library you can either specify its absolute path as the install name,
-# or leave just the library name itself. In the former case the library
-# will be correctly linked during run time by all executables and other
-# shared libraries, but it must not change its install location. This
-# is often the case for libraries installed in the system default
-# library directory (e.g. ``/usr/lib``).
-# In the latter case, instead, the library can be moved anywhere in the
-# file system but at run time the dynamic linker must be able to find
-# it. This is often accomplished by setting environmental variables
-# (i.e. ``LD_LIBRARY_PATH`` on Linux).
-# This procedure is usually not desirable for two main reasons:
-#
-# - by setting the variable you are changing the default behaviour
-#   of the dynamic linker thus potentially breaking executables (not as
-#   destructive as ``LD_PRELOAD``)
-# - the variable will be used only by applications spawned by the shell
-#   and not by other processes.
-#
-# RPATH aims in solving the issues introduced by the second
-# installation method. Using run-path dependent libraries you can
-# create a directory structure containing executables and dependent
-# libraries that users can relocate without breaking it.
-# A run-path dependent library is a dependent library whose complete
-# install name is not known when the library is created.
-# Instead, the library specifies that the dynamic loader must resolve
-# the library’s install name when it loads the executable that depends
-# on the library. The executable or the other shared library will
-# hardcode in the binary itself the additional search directories
-# to be passed to the dynamic linker. This works great in conjunction
-# with relative paths.
-# This command will enable support to RPATH to your project.
-# It will enable the following things:
-#
-#  - If the project builds shared libraries it will generate a run-path
-#    enabled shared library, i.e. its install name will be resolved
-#    only at run time.
-#  - In all cases (building executables and/or shared libraries)
-#    dependent shared libraries with RPATH support will have their name
-#    resolved only at run time, by embedding the search path directly
-#    into the built binary.
-#
-# The command has the following parameters:
-#
-# Options:
-#  - ``USE_LINK_PATH``: if passed the command will automatically adds to
-#    the RPATH the path to all the dependent libraries.
-#
-# Arguments:
-#  - ``BIN_DIRS`` list of directories when the targets (executable and
-#    plugins) will be installed.
-#  - ``LIB_DIRS`` list of directories to be added to the RPATH. These
-#    directories will be added "relative" w.r.t. the ``BIN_DIRS`` and
-#    ``LIB_DIRS``.
-#  - ``INSTALL_NAME_DIR`` directory where the libraries will be installed.
-#    This variable will be used only if ``CMAKE_SKIP_RPATH`` or
-#    ``CMAKE_SKIP_INSTALL_RPATH`` is set to ``TRUE`` as it will set the
-#    ``INSTALL_NAME_DIR`` on all targets
-#  - ``DEPENDS`` list of conditions that should be ``TRUE`` to enable
-#    RPATH, for example ``FOO; NOT BAR``.
-#
-# Note: see https://gitlab.kitware.com/cmake/cmake/issues/16589 for further
-# details.
+# Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
+# file Copyright.txt or https://cmake.org/licensing for details.
 
-#=======================================================================
-# Copyright 2014 Istituto Italiano di Tecnologia (IIT)
-# @author Francesco Romano <francesco.romano@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=======================================================================
-# (To distribute this file outside of CMake, substitute the full
-# License text for the above reference.)
+#[=======================================================================[.rst:
+AddInstallRPATHSupport
+----------------------
 
+Add support to RPATH during installation to the project and the targets
+
+.. command:: add_install_rpath_support
+
+  Add support to RPATH during installation to the project::
+
+  .. code-block:: cmake
+
+    add_install_rpath_support([BIN_DIRS dir [dir]]
+                              [LIB_DIRS dir [dir]]
+                              [INSTALL_NAME_DIR [dir]]
+                              [DEPENDS condition [condition]]
+                              [USE_LINK_PATH])
+
+  Normally (depending on the platform) when you install a shared
+  library you can either specify its absolute path as the install name,
+  or leave just the library name itself. In the former case the library
+  will be correctly linked during run time by all executables and other
+  shared libraries, but it must not change its install location. This
+  is often the case for libraries installed in the system default
+  library directory (e.g. ``/usr/lib``).
+  In the latter case, instead, the library can be moved anywhere in the
+  file system but at run time the dynamic linker must be able to find
+  it. This is often accomplished by setting environmental variables
+  (i.e. ``LD_LIBRARY_PATH`` on Linux).
+  This procedure is usually not desirable for two main reasons:
+
+  - by setting the variable you are changing the default behaviour
+    of the dynamic linker thus potentially breaking executables (not as
+    destructive as ``LD_PRELOAD``)
+  - the variable will be used only by applications spawned by the shell
+    and not by other processes.
+
+  RPATH aims in solving the issues introduced by the second
+  installation method. Using run-path dependent libraries you can
+  create a directory structure containing executables and dependent
+  libraries that users can relocate without breaking it.
+  A run-path dependent library is a dependent library whose complete
+  install name is not known when the library is created.
+  Instead, the library specifies that the dynamic loader must resolve
+  the library’s install name when it loads the executable that depends
+  on the library. The executable or the other shared library will
+  hardcode in the binary itself the additional search directories
+  to be passed to the dynamic linker. This works great in conjunction
+  with relative paths.
+  This command will enable support to RPATH to your project.
+  It will enable the following things:
+
+   - If the project builds shared libraries it will generate a run-path
+     enabled shared library, i.e. its install name will be resolved
+     only at run time.
+   - In all cases (building executables and/or shared libraries)
+     dependent shared libraries with RPATH support will have their name
+     resolved only at run time, by embedding the search path directly
+     into the built binary.
+
+  The command has the following parameters:
+
+  Options:
+   - ``USE_LINK_PATH``: if passed the command will automatically adds to
+     the RPATH the path to all the dependent libraries.
+
+  Arguments:
+   - ``BIN_DIRS`` list of directories when the targets (executable and
+     plugins) will be installed.
+   - ``LIB_DIRS`` list of directories to be added to the RPATH. These
+     directories will be added "relative" w.r.t. the ``BIN_DIRS`` and
+     ``LIB_DIRS``.
+   - ``INSTALL_NAME_DIR`` directory where the libraries will be installed.
+     This variable will be used only if ``CMAKE_SKIP_RPATH`` or
+     ``CMAKE_SKIP_INSTALL_RPATH`` is set to ``TRUE`` as it will set the
+     ``INSTALL_NAME_DIR`` on all targets
+   - ``DEPENDS`` list of conditions that should be ``TRUE`` to enable
+     RPATH, for example ``FOO; NOT BAR``.
+
+  Note: see https://gitlab.kitware.com/cmake/cmake/issues/16589 for further
+  details.
+
+#]=======================================================================]
 
 include(CMakeParseArguments)
 
