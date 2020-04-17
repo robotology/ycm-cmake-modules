@@ -107,6 +107,8 @@ rst_epilog = """
 .. _`YARP Git Repository`: https://github.com/robotology/yarp/
 .. _`iCub Git Repository`: https://github.com/robotology/icub-main/
 .. _`Eigen Mercurial Repository`: https://bitbucket.org/eigen/eigen
+.. _`Eigen GitHub Repository`: https://github.com/eigenteam/eigen-git-mirror
+.. _`Eigen Gitlab Repository`: https://gitlab.com/libeigen/eigen
 .. _`OVITO Git Repository`: https://gitlab.com/stuko/ovito
 .. _`qt-gstreamer Git Repository`: https://github.com/GStreamer/qt-gstreamer/
 .. _`Catch2 Git Repository`: https://github.com/catchorg/Catch2/
