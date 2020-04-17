@@ -45,3 +45,6 @@ Superbuild Modules
 
 * :module:`YCMEPHelper`: The ``YCM_EP_ADDITIONAL_CMAKE_ARGS`` CMake cache variable
   can be used to specify additional CMake arguments for all subprojects.
+* :module:`FindOrBuildPackage`: The ``YCM_DISABLE_SYSTEM_PACKAGES`` CMake cache
+  variable can be used to disable the use of system installed package for all
+  subprojects.
