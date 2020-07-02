@@ -43,7 +43,7 @@ cat > index.html << EOF
 <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="1;url=gh-pages/master/index.html">
+        <meta http-equiv="refresh" content="1;url=gh-pages/git-master/index.html">
         <script type="text/javascript">
             window.location.href = "gh-pages/git-master/index.html"
         </script>
