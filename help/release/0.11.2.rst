@@ -13,11 +13,11 @@ Modules
 Generic Modules
 ---------------
 
-* :module:`InstallBasicPackageFiles`: Fixed handling of PRIVATE_DEPENDENCIES
-  in install_basic_package_files. (#339)
+* :module:`InstallBasicPackageFiles`: Fixed handling of ``PRIVATE_DEPENDENCIES``
+  in :command:`install_basic_package_files` (#339).
 
 3rd Party
 ---------
 
-* Fixed :module:`FindOctave` for Octave 5
-* Fixed :module:`FindACE` when invoked multiple times(see #340)
+* Fixed :module:`FindOctave` for Octave 5 (#333, #334).
+* Fixed :module:`FindACE` when invoked multiple times (#340).
