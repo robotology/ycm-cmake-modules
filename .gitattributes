@@ -4,3 +4,4 @@
 .appveyor.yml                   export-ignore
 .travis.yml                     export-ignore
 .github/                        export-ignore
+/upload*/                       export-ignore
