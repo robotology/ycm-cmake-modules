@@ -39,6 +39,9 @@ Generic Modules
 * The :module:`InstallBasicPackageFiles` default for `INSTALL_DESTINATION` when
   ``ARCH_INDEPENDENT`` is passed is now
   ``${CMAKE_INSTALL_DATADIR}/cmake/<Name>``.
+* Added the new :command:`target_append_install_rpath` to the
+  :module:`AddInstallRPATHSupport` module, to modify the rpath for a single
+  target.
 
 Superbuild Modules
 ------------------
