@@ -15,4 +15,6 @@ Modules
 
 * Update `Catch2 Git Repository`_ to commit
   ``229cc4823c8cbe67366da8179efc6089dd3893e9`` (updated :module:`CatchAddTests`
-  and :module:`ParseAndAddCatchTests` modules).
+  and :module:`ParseAndAddCatchTests` modules). This fixes the issues with
+  :module:`ParseAndAddCatchTests` tests and CMake 3.18.0 (see
+  :cmake-issue:`21017`).
