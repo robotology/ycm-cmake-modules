@@ -155,7 +155,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
 
     # If the module failed, search a PkgConfig.cmake file
     if(NOT ${_pkg}_FOUND AND NOT ${_PKG}_FOUND AND NOT _${_PKG}_MODULE)
-        find_package(${_pkg} ${_version} ${_findArgs} ${_find_or_build_package_registryArgs} CONFIG QUIET)
+        find_package(${_pkg} ${_version} ${_findArgs} CONFIG QUIET)
     endif()
 
     if(${_pkg}_FOUND OR ${_PKG}_FOUND)
@@ -264,7 +264,7 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
 
     if(_runFind)
         # Rerun find_package with all the arguments to display output
-        find_package(${_pkg} ${_version} ${ARGN} ${_find_or_build_package_registryArgs})
+        find_package(${_pkg} ${_version} ${ARGN})
     endif()
 
     get_cmake_property(_vars VARIABLES)
