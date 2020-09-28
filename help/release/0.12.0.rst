@@ -1,4 +1,4 @@
-YCM 0.12.0 (UNRELEASED) Release Notes
+YCM 0.12.0 (2020-09-28) Release Notes
 *************************************
 
 .. only:: html
@@ -39,7 +39,7 @@ Generic Modules
 * The :module:`InstallBasicPackageFiles` default for `INSTALL_DESTINATION` when
   ``ARCH_INDEPENDENT`` is passed is now
   ``${CMAKE_INSTALL_DATADIR}/cmake/<Name>``.
-* Added the new :command:`target_append_install_rpath` to the
+* Added the new :command:`target_append_install_rpath` command to the
   :module:`AddInstallRPATHSupport` module, to modify the rpath for a single
   target.
 
