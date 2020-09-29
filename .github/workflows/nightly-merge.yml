@@ -6,16 +6,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  nightly-merge-ycm-0-11:
+  nightly-merge-ycm-0-12:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v1
 
     - name: Nightly Merge
-      uses: robotology/gh-action-nightly-merge@v1.3.0
+      uses: robotology/gh-action-nightly-merge@v1.3.1
       with:
-        stable_branch: 'ycm-0.11'
+        stable_branch: 'ycm-0.12'
         development_branch: 'master'
         allow_ff: false
         user_name: 'Daniele E. Domenichelli (Nightly Merge Action)'
@@ -27,13 +27,13 @@ jobs:
 
   nightly-merge-ycm-devel:
     runs-on: ubuntu-latest
-    needs: nightly-merge-ycm-0-11
+    needs: nightly-merge-ycm-0-12
     steps:
     - name: Checkout
       uses: actions/checkout@v1
 
     - name: Nightly Merge
-      uses: robotology/gh-action-nightly-merge@v1.3.0
+      uses: robotology/gh-action-nightly-merge@v1.3.1
       with:
         stable_branch: 'master'
         development_branch: 'devel'
