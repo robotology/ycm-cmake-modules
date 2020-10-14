@@ -38,15 +38,7 @@ else()
   standard_find_module(PortAudio portaudio-2.0)
 
   if(NOT PortAudio_FOUND)
-    # If this is not found via usual means, fallback 
-    # on modern config of unreleased portaudio
-    find_package(portaudio CONFIG QUIET)
-    if(TARGET portaudio)
-      set(PortAudio_LIBRARIES portaudio)
-      set(PortAudio_INCLUDE_DIR "")
-      set(PortAudio_INCLUDE_DIRS "")
-      find_package_handle_standard_args(PortAudio DEFAULT_MSG PortAudio_LIBRARIES)
-    elseif(WIN32)
+    if(WIN32)
       if(CMAKE_SIZEOF_VOID_P EQUAL 4)
         set(_suffix "x86")
       else()
