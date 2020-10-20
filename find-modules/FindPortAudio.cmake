@@ -28,40 +28,47 @@
 include(StandardFindModule)
 include(FindPackageHandleStandardArgs)
 
-standard_find_module(PortAudio portaudio-2.0)
+find_package(portaudio CONFIG QUIET)
+if(portaudio_FOUND)
+  set(PortAudio_LIBRARIES portaudio)
+  set(PortAudio_INCLUDE_DIR "")
+  set(PortAudio_INCLUDE_DIRS "")
+  find_package_handle_standard_args(PortAudio DEFAULT_MSG PortAudio_LIBRARIES)
+else()
+  standard_find_module(PortAudio portaudio-2.0)
 
-if(NOT PortAudio_FOUND)
-  if(WIN32)
-    if(CMAKE_SIZEOF_VOID_P EQUAL 4)
-      set(_suffix "x86")
-    else()
-      set(_suffix "x64")
-    endif()
+  if(NOT PortAudio_FOUND)
+    if(WIN32)
+      if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+        set(_suffix "x86")
+      else()
+        set(_suffix "x64")
+      endif()
  
-    find_library(PortAudio_LIBRARY_RELEASE
-                 NAMES portaudio_${_suffix}
-                       portaudio
-                 PATHS "C:/portaudio/build/msvc/Debug_${_suffix}")
-    mark_as_advanced(PortAudio_LIBRARY_RELEASE)
+      find_library(PortAudio_LIBRARY_RELEASE
+                   NAMES portaudio_${_suffix}
+                         portaudio
+                   PATHS "C:/portaudio/build/msvc/Debug_${_suffix}")
+      mark_as_advanced(PortAudio_LIBRARY_RELEASE)
 
-    find_library(PortAudio_LIBRARY_DEBUG
-                 NAMES portaudio_${_suffix}
-                       portaudio
-                 PATHS "C:/portaudio/build/msvc/Debug_${_suffix}")
-    mark_as_advanced(PortAudio_LIBRARY_DEBUG)
+      find_library(PortAudio_LIBRARY_DEBUG
+                   NAMES portaudio_${_suffix}
+                         portaudio
+                   PATHS "C:/portaudio/build/msvc/Debug_${_suffix}")
+      mark_as_advanced(PortAudio_LIBRARY_DEBUG)
 
-    include(SelectLibraryConfigurations)
-    select_library_configurations(PortAudio)
+      include(SelectLibraryConfigurations)
+      select_library_configurations(PortAudio)
 
-    find_path(PortAudio_INCLUDE_DIR portaudio.h C:/portaudio/include)
-    mark_as_advanced(PortAudio_INCLUDE_DIR)
+      find_path(PortAudio_INCLUDE_DIR portaudio.h C:/portaudio/include)
+      mark_as_advanced(PortAudio_INCLUDE_DIR)
 
-    set(PortAudio_LIBRARIES ${PortAudio_LIBRARY})
-    set(PortAudio_INCLUDE_DIRS ${PortAudio_INCLUDE_DIR})
-
-    find_package_handle_standard_args(PortAudio DEFAULT_MSG PortAudio_LIBRARIES)
-    set(PortAudio_FOUND ${PORTAUDIO_FOUND})
-
+      set(PortAudio_LIBRARIES ${PortAudio_LIBRARY})
+      set(PortAudio_INCLUDE_DIRS ${PortAudio_INCLUDE_DIR})
+    
+      find_package_handle_standard_args(PortAudio DEFAULT_MSG PortAudio_LIBRARIES)
+      set(PortAudio_FOUND ${PORTAUDIO_FOUND})
+    endif()
   endif()
 endif()
 
