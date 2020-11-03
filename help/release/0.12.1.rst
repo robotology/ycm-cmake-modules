@@ -15,3 +15,9 @@ Generic Modules
 
 * The :module:`StandardFindModule` learned to handle -framework
   options passed in the Libs field of pkg-config files.
+
+Find Modules
+------------
+
+* The :module:`FindIPOPT` learned to find IPOPT 3.13 and the
+  binaries installed by the conda-forge IPOPT package.
