@@ -24,7 +24,6 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindFuse.cmake
                      FindGLFW3.cmake
                      FindGLM.cmake
-                     FindGLUT.cmake
                      FindGooCanvas.cmake
                      FindGooCanvasMM.cmake
                      FindGSL.cmake

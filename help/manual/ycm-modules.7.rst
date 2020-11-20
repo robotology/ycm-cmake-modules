@@ -81,7 +81,6 @@ Find Package Modules
    /module/FindFuse
    /module/FindGLFW3
    /module/FindGLM
-   /module/FindGLUT
    /module/FindGooCanvas
    /module/FindGooCanvasMM
    /module/FindGSL
@@ -159,4 +158,5 @@ Deprecated Modules
 .. toctree::
    :maxdepth: 1
 
+   /module/FindGLUT
    /module/YCMDefaultDirs
