@@ -36,12 +36,12 @@ Redistribution and use is allowed according to the terms of the MIT License.
 See accompanying file COPYING.CMakeRC for details.
 ")
 
-_ycm_install(3rdparty-catch2 FILES "${_dir}/CMakeRC.cmake"
-                             DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+_ycm_install(3rdparty-cmrc FILES "${_dir}/CMakeRC.cmake"
+                           DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
-_ycm_install(3rdparty-catch2 FILES "${_dir}/LICENSE.txt"
-                             DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty"
-                             RENAME COPYING.CMakeRC)
+_ycm_install(3rdparty-cmrc FILES "${_dir}/LICENSE.txt"
+                           DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty"
+                           RENAME COPYING.CMakeRC)
 
-_ycm_install(3rdparty-catch2 FILES "${_dir}/README.CMakeRC"
-                             DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+_ycm_install(3rdparty-cmrc FILES "${_dir}/README.CMakeRC"
+                           DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
