@@ -66,11 +66,11 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ")
 
-_ycm_install(3rdparty-vtk FILES "${_dir}/UseLATEX.cmake"
-                          DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+_ycm_install(3rdparty-uselatex FILES "${_dir}/UseLATEX.cmake"
+                               DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
-_ycm_install(3rdparty-vtk FILES "${_dir}/COPYING.UseLATEX"
-                          DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+_ycm_install(3rdparty-uselatex FILES "${_dir}/COPYING.UseLATEX"
+                               DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
-_ycm_install(3rdparty-vtk FILES "${_dir}/README.UseLATEX"
-                          DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
+_ycm_install(3rdparty-uselatex FILES "${_dir}/README.UseLATEX"
+                               DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
