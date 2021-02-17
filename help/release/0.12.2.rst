@@ -6,3 +6,12 @@ YCM 0.12.2 (UNRELEASED) Release Notes
   .. contents::
 
 Changes made since YCM 0.12.1 include the following.
+
+
+Modules
+=======
+
+3rd Party
+---------
+
+* Update `Catch2 Git Repository`_ to tag ``v2.13.4``.
