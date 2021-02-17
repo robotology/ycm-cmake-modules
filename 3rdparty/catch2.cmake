@@ -1,5 +1,5 @@
 #=============================================================================
-# Copyright 2013-2019 Istituto Italiano di Tecnologia (IIT)
+# Copyright 2013-2021 Istituto Italiano di Tecnologia (IIT)
 #   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
 #
 # Distributed under the OSI-approved BSD License (the "License");
@@ -16,11 +16,11 @@
 ##############################################################################
 # Catch2 related modules are taken from the Catch2 repository.
 
-set(_files contrib/Catch.cmake                 6f80938187f2fe004db163481ad7b468c6f22ea4
-           contrib/CatchAddTests.cmake         800eac1ea012cc4bea2f23924cc88ae65d2fbc76
-           contrib/ParseAndAddCatchTests.cmake 7ae77456d2e7a24021e38c4af1c16068ed65ef90
+set(_files contrib/Catch.cmake                 8889da7f7aecd616e1101ec1e204171e015d321b
+           contrib/CatchAddTests.cmake         8f078339a147980bac1e501df3978ae9d8c85f02
+           contrib/ParseAndAddCatchTests.cmake 5db399f1259698531acae8ef01b60dbcc4a76e04
            LICENSE.txt                         3cba29011be2b9d59f6204d6fa0a386b1b2dbd90)
-set(_ref de3a208e167c6baee6e8dc46f2c0466b311324c2)
+set(_ref v2.13.4)
 set(_dir "${CMAKE_CURRENT_BINARY_DIR}/catch2")
 _ycm_download(3rdparty-catch2
               "Catch2 (C++ Automated Test Cases in a Header) git repository"
