@@ -619,11 +619,12 @@ function(_YCM_EP_ADD_EDIT_CACHE_STEP _name)
   _ep_get_configure_command_id(${_name} _${_name}_configure_command_id)
   if(_${_name}_configure_command_id STREQUAL "cmake")
 
+    get_property(_source_dir TARGET ${_name} PROPERTY _EP_SOURCE_DIR)
     get_property(_source_subdir TARGET ${_name} PROPERTY _EP_SOURCE_SUBDIR)
     get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
 
     ExternalProject_Add_Step(${_name} edit_cache
-                             COMMAND ${CMAKE_EDIT_COMMAND} -H${_source_subdir} -B${_binary_dir}
+                             COMMAND ${CMAKE_EDIT_COMMAND} -H${_source_dir}${_source_subdir} -B${_binary_dir}
                              WORKING_DIRECTORY ${_binary_dir}
                              DEPENDEES configure
                              EXCLUDE_FROM_MAIN 1
