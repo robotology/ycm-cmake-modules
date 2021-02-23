@@ -22,3 +22,9 @@ Superbuild Modules
 * Fixed a bug in :module:`YCMEPHelper` that prevented from opening the CMake
   cache editor when the corresponding target was used in development mode, e.g.
   ``<project_name>-edit_cache``.
+
+Find Modules
+------------
+
+* The :module:`Findassimp` learned to first check if
+  an assimp CMake config is present in the system.
