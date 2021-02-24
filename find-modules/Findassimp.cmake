@@ -56,6 +56,12 @@ This module defines the following variables:
 
 #]=======================================================================]
 
+find_package(assimp NO_MODULE QUIET)
+if(assimp_FOUND)
+  find_package_handle_standard_args(assimp CONFIG_MODE)
+  return()
+endif()
+
 set(ASSIMP_SHARED_LIBRARY_NAME)
 set(ASSIMP_SHARED_LIBRARY_NAME_DEBUG)
 
