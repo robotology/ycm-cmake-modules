@@ -83,7 +83,7 @@ rst_epilog = """
 .. _`Buildyard`: https://github.com/Eyescale/Buildyard
 .. _`CoDyCo Superbuild Repository`: https://github.com/robotology-playground/codyco-superbuild
 .. _`CoDyCo`: http://codyco.eu/
-.. _`ECM`: https://projects.kde.org/projects/kdesupport/extra-cmake-modules
+.. _`ECM`: https://invent.kde.org/frameworks/extra-cmake-modules
 .. _`GitHub`: https://www.github.com/
 .. _`Istituto Italiano di Tecnologia`: http://www.iit.it/
 .. _`ROS Hydro`: http://wiki.ros.org/hydro

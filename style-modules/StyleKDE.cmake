@@ -21,10 +21,10 @@
 set(YCM_GIT_KDE_USERNAME "" CACHE STRING "Username to use for kde git repositories")
 set(YCM_GIT_KDE_COMMIT_NAME "" CACHE STRING "Name to use for git commits for kde git repositories (if empty will use YCM_GIT_COMMIT_NAME)")
 set(YCM_GIT_KDE_COMMIT_EMAIL "" CACHE STRING "Email address to use for git commits for kde git repositories (if empty will use YCM_GIT_COMMIT_EMAIL)")
-set(YCM_GIT_KDE_BASE_ADDRESS "git://anongit.kde.org/" CACHE STRING "Address to use for kde git repositories")
-set_property(CACHE YCM_GIT_KDE_BASE_ADDRESS PROPERTY STRINGS "git://anongit.kde.org/"
-                                                             "ssh://git@git.kde.org/"
-                                                             "git@git.kde.org:"
+set(YCM_GIT_KDE_BASE_ADDRESS "https://invent.kde.org/" CACHE STRING "Address to use for kde git repositories")
+set_property(CACHE YCM_GIT_KDE_BASE_ADDRESS PROPERTY STRINGS "https://invent.kde.org/"
+                                                             "ssh://git@invent.kde.org/"
+                                                             "git@invent.kde.org:"
                                                              "kde:")
 mark_as_advanced(YCM_GIT_KDE_USERNAME
                  YCM_GIT_KDE_COMMIT_NAME

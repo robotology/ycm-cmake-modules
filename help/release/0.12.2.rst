@@ -28,3 +28,8 @@ Find Modules
 
 * The :module:`Findassimp` learned to first check if
   an assimp CMake config is present in the system.
+
+Style Modules
+-------------
+
+* The :module:`StyleKDE` module was updated to use the new address.
