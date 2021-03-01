@@ -116,6 +116,7 @@ rst_epilog = """
 .. _`qgv Git Repository`: https://github.com/nbergont/qgv/
 .. _`CMakeRC Git Repository`: https://github.com/vector-of-bool/cmrc/
 .. _`UseLATEX Git Repository`: https://gitlab.kitware.com/kmorel/UseLATEX/
+.. _`ECM Git Repository`: https://invent.kde.org/frameworks/extra-cmake-modules
 .. _`10.1109/IRC.2018.00014`: https://doi.org/10.1109/IRC.2018.00014
 .. _`10.1142/S1793351X19400087`: https://doi.org/10.1142/S1793351X19400087
 

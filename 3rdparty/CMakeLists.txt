@@ -28,6 +28,7 @@ if(NOT YCM_NO_3RDPARTY OR YCM_MAINTAINER_MODE)
   include("${CMAKE_CURRENT_LIST_DIR}/qgv.cmake")
   include("${CMAKE_CURRENT_LIST_DIR}/cmrc.cmake")
   include("${CMAKE_CURRENT_LIST_DIR}/uselatex.cmake")
+  include("${CMAKE_CURRENT_LIST_DIR}/ecm.cmake")
 
   # Print a warning if we are overriding some module from CMake
   file(GLOB_RECURSE _modules

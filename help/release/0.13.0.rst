@@ -16,3 +16,13 @@ Deprecated Modules
 * The ``FindGLUT`` module in YCM is deprecated. The one from CMake is now used.
   The ``GLUT_INCLUDE_DIRS`` is therefore deprecated, the target ``GLUT::GLUT``
   should be used instead.
+
+
+Modules
+=======
+
+3rd Party
+---------
+
+
+* Imported :module:`FindUDev` module from `ECM Git Repository`_ +
