@@ -58,6 +58,29 @@ This module defines the following variables:
 
 find_package(assimp NO_MODULE QUIET)
 if(assimp_FOUND)
+  # Workaround for malformed assimp config CMake files in Ubuntu 18.04 and 20.04 
+  # see https://github.com/robotology/idyntree/issues/693 and
+  # https://github.com/robotology/ycm/issues/224 for more details
+  if(DEFINED ASSIMP_INCLUDE_DIRS)
+    string(REPLACE "/usr/lib/include" "/usr/include" ASSIMP_INCLUDE_DIRS "${ASSIMP_INCLUDE_DIRS}")
+  endif()
+  if(TARGET assimp::assimp)
+    get_property(assimp_INTERFACE_INCLUDE_DIRECTORIES
+                 TARGET assimp::assimp
+                 PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+    if(assimp_INTERFACE_INCLUDE_DIRECTORIES MATCHES "/usr/lib/include")
+      string(REPLACE "/usr/lib/include" "/usr/include" assimp_INTERFACE_INCLUDE_DIRECTORIES "${assimp_INTERFACE_INCLUDE_DIRECTORIES}")
+      set_property(TARGET assimp::assimp
+                   PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+                   "${assimp_INTERFACE_INCLUDE_DIRECTORIES}")
+      get_property(assimp_LOCATION_RELEASE
+                   TARGET assimp::assimp
+                   PROPERTY LOCATION_RELEASE)
+      set_property(TARGET assimp::assimp
+                   PROPERTY IMPORTED_LOCATION
+                   "${assimp_LOCATION_RELEASE}")
+    endif()
+  endif()
   find_package_handle_standard_args(assimp CONFIG_MODE)
   return()
 endif()
