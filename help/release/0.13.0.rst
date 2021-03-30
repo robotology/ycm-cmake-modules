@@ -26,3 +26,6 @@ Modules
 
 
 * Imported :module:`FindUDev` module from `ECM Git Repository`_ +
+* Update `VTK Git Repository`_ to tag ``v9.0.1``.
+  The :module:`FindFFMPEG` module now offers targets, but it requires to specify
+  the `COMPONENTS` to the `find_package(FFMPEG)` calls.
