@@ -1,29 +1,17 @@
-#.rst:
-# FindPLXCANAPI
-# -------------
-#
-# Created::
-#
-#  PLXCANAPI_INC_DIRS   - Directories to include to use esdcan api
-#  PLXCANAPI_LIB        - Default library to link against to use the esdcan API
-#  PLXCANAPI_FOUND      - If false, don't try to use esdcan API
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2009 RobotCub Consortium
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2009 RobotCub Consortium
-#   Authors: Alexandre Bernardino <alex@isr.ist.utl.pt>
-#            Paul Fitzpatrick <paulfitz@alum.mit.edu>
-#            Lorenzo Natale <lorenzo.natale@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindPLXCANAPI
+-------------
 
+Created::
+
+ PLXCANAPI_INC_DIRS   - Directories to include to use esdcan api
+ PLXCANAPI_LIB        - Default library to link against to use the esdcan API
+ PLXCANAPI_FOUND      - If false, don't try to use esdcan API
+#]=======================================================================]
 
 IF(NOT PLXCANAPI_FOUND)
     SET(PLXCANAPI_DIR $ENV{PLXCANAPI_DIR} CACHE PATH "Path to PLXCANAPI")

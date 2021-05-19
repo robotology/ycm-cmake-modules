@@ -1,28 +1,18 @@
-#.rst:
-# FindI2C
-# -------
-#
-# Find the I2C device library.
-#
-# Once done this will define the following variables::
-#
-#   I2C_INCLUDE_DIRS    - I2C include directory
-#   I2C_LIBRARIES       - I2C libraries
-#   I2C_FOUND           - if false, you cannot build anything that requires I2C
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2018 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Nicolò Genesio <nicolo.genesio@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindI2C
+-------
+
+Find the I2C device library.
+
+Once done this will define the following variables::
+
+  I2C_INCLUDE_DIRS    - I2C include directory
+  I2C_LIBRARIES       - I2C libraries
+  I2C_FOUND           - if false, you cannot build anything that requires I2C
+#]=======================================================================]
 
 include(FindPackageHandleStandardArgs)
 include(SelectLibraryConfigurations)

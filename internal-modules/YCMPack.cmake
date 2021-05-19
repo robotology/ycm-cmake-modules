@@ -1,18 +1,7 @@
-# This module should not be used outside YCM.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2014 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+# This module should not be used outside YCM.
 
 set(CPACK_PACKAGE_NAME "YCM")
 set(CPACK_PACKAGE_VENDOR "Istituto Italiano di Tecnologia (IIT)")
@@ -25,7 +14,7 @@ set(CPACK_PACKAGE_VERSION "${YCM_VERSION_SHORT}")
 set(CPACK_PACKAGE_DESCRIPTION_FILE "${YCM_SOURCE_DIR}/README.md")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Extra CMake Modules for YARP and friends")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "robotology/ycm-${YCM_VERSION_API}")
-set(CPACK_RESOURCE_FILE_LICENSE "${YCM_SOURCE_DIR}/Copyright.txt")
+set(CPACK_RESOURCE_FILE_LICENSE "${YCM_SOURCE_DIR}/LICENSE")
 set(CPACK_RESOURCE_FILE_WELCOME "${YCM_SOURCE_DIR}/tools/installer/welcome.txt")
 set(CPACK_PACKAGE_ICON "${YCM_SOURCE_DIR}/tools/installer/ycm.ico")
 

@@ -1,70 +1,59 @@
-#.rst:
-# FindOrBuildPackage
-# ------------------
-#
-# Searches for a package and builds it if it cannot be found.
-#
-#
-# .. command:: find_or_build_package
-#
-# Searches for a package and builds it if it cannot be found::
-#
-#  find_or_build_package(<PackageName> <find_package_args>)
-#
-# This module tries to locate a package using :command:`find_package`.
-# If the package cannot be found it tries to build it, by including
-# ``Build<package>``. This file should contain the instructions to
-# download and build the package (for example using
-# :module:`ExternalProject`)
-#
-# The arguments passed to the function, are passed to the
-# :command:`find_package` command.
-#
-# FIXME Figure out how to handle the REQUIRED and QUIET arguments
-#
-# If the package was found, the ``USE_SYSTEM_<PackageName>`` cached
-# variable can be disabled in order to force CMake to build the package
-# instead of using the one found on the system. To automatically force
-# CMake to build all the packages that are also found  on the system,
-# the ``YCM_DISABLE_SYSTEM_PACKAGES`` cache variable can be enabled.
-#
-# This function sets these variables::
-#
-#  HAVE_SYSTEM_<PackageName> # The package was found on the system
-#  HAVE_<PackageName> # The package is available
-#
-# The user should use the latest, to check if a package is available,
-# instead of checking using ``<PackageName>_FOUND``. For example
-#
-# FIXME Check uppercase (${_PKG}) and lowercase (${_pkg}) variables
-#
-#  .. code-block:: cmake
-#
-#    find_or_build_package(Foo)
-#    if(HAVE_Foo)
-#      ...
-#    endif()
-#
-#
-# .. variable:: CMAKE_DISABLE_BUILD_PACKAGE_<PackageName>
-#
-# Using this variable, building a package is explicitly forbidden.
-# therefore if the package cannot be found on the system, the
-# ``HAVE_<PackageName>`` will be set to false.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2013-2014 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindOrBuildPackage
+------------------
+
+Searches for a package and builds it if it cannot be found.
+
+.. command:: find_or_build_package
+
+Searches for a package and builds it if it cannot be found::
+
+ find_or_build_package(<PackageName> <find_package_args>)
+
+This module tries to locate a package using :command:`find_package`.
+If the package cannot be found it tries to build it, by including
+``Build<package>``. This file should contain the instructions to
+download and build the package (for example using
+:module:`ExternalProject`)
+
+The arguments passed to the function, are passed to the
+:command:`find_package` command.
+
+FIXME Figure out how to handle the REQUIRED and QUIET arguments
+
+If the package was found, the ``USE_SYSTEM_<PackageName>`` cached
+variable can be disabled in order to force CMake to build the package
+instead of using the one found on the system. To automatically force
+CMake to build all the packages that are also found  on the system,
+the ``YCM_DISABLE_SYSTEM_PACKAGES`` cache variable can be enabled.
+
+This function sets these variables::
+
+ HAVE_SYSTEM_<PackageName> # The package was found on the system
+ HAVE_<PackageName> # The package is available
+
+The user should use the latest, to check if a package is available,
+instead of checking using ``<PackageName>_FOUND``. For example
+
+FIXME Check uppercase (${_PKG}) and lowercase (${_pkg}) variables
+
+ .. code-block:: cmake
+
+   find_or_build_package(Foo)
+   if(HAVE_Foo)
+     ...
+   endif()
+
+
+.. variable:: CMAKE_DISABLE_BUILD_PACKAGE_<PackageName>
+
+Using this variable, building a package is explicitly forbidden.
+therefore if the package cannot be found on the system, the
+``HAVE_<PackageName>`` will be set to false.
+#]=======================================================================]
 
 
 if(DEFINED __FIND_OR_BUILD_PACKAGE_INCLUDED)

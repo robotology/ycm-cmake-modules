@@ -1,14 +1,5 @@
-#=============================================================================
-# Copyright 2019 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Claudio Fantacci <claudio.fantacci@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
 #[=======================================================================[.rst:
 Findassimp
@@ -53,7 +44,6 @@ This module defines the following variables:
   ASSIMP minor version
 ``ASSIMP_VERSION_REVISION``
   ASSIMP revision version
-
 #]=======================================================================]
 
 find_package(assimp NO_MODULE QUIET)

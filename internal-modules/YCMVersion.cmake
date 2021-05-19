@@ -1,41 +1,32 @@
-#.rst:
-# YCMVersion
-# ----------
-#
-# This module should not be used outside YCM.
-#
-# Variables defined by this module::
-#
-#  YCM_VERSION          - Full version, including git commit and dirty state.
-#  YCM_VERSION_MAJOR    - YCM major version
-#  YCM_VERSION_MINOR    - YCM minor version
-#  YCM_VERSION_PATCH    - YCM patch version
-#  YCM_VERSION_REVISION - Number of commits since latest release (git only)
-#  YCM_VERSION_DATE     - Date of the latest commit (git only)
-#  YCM_VERSION_DATE_REVISION - Number of commits since of beginning of the day
-#                         of the latest commit (git only)
-#  YCM_VERSION_API      - YCM API version
-#  YCM_VERSION_SHORT    - YCM clean version (Not unique, includes the number
-#                         of commits since latest tag).
-#  YCM_VERSION_SOURCE   - YCM source version (includes commit date and hash
-#                         information) (git only)
-#  YCM_VERSION_DIRTY    - "dirty" if the source tree is contains uncommitted
-#                         changes, empty otherwise (git only)
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2000-2014 Kitware, Inc.
-# Copyright 2014 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+# This module should not be used outside YCM.
+
+#[=======================================================================[.rst:
+YCMVersion
+----------
+
+This module should not be used outside YCM.
+
+Variables defined by this module::
+
+ YCM_VERSION          - Full version, including git commit and dirty state.
+ YCM_VERSION_MAJOR    - YCM major version
+ YCM_VERSION_MINOR    - YCM minor version
+ YCM_VERSION_PATCH    - YCM patch version
+ YCM_VERSION_REVISION - Number of commits since latest release (git only)
+ YCM_VERSION_DATE     - Date of the latest commit (git only)
+ YCM_VERSION_DATE_REVISION - Number of commits since of beginning of the day
+                        of the latest commit (git only)
+ YCM_VERSION_API      - YCM API version
+ YCM_VERSION_SHORT    - YCM clean version (Not unique, includes the number
+                        of commits since latest tag).
+ YCM_VERSION_SOURCE   - YCM source version (includes commit date and hash
+                        information) (git only)
+ YCM_VERSION_DIRTY    - "dirty" if the source tree is contains uncommitted
+                        changes, empty otherwise (git only)
+#]=======================================================================]
 
 include(GitInfo)
 

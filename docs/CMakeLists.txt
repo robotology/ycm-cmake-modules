@@ -1,14 +1,8 @@
-#=============================================================================
-# CMake - Cross Platform Makefile Generator
-# Copyright 2000-2013 Kitware, Inc., Insight Software Consortium
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2000-2013 Kitware Inc.
+# SPDX-FileCopyrightText: 2000-2013 Insight Software Consortium
+# SPDX-License-Identifier: BSD-3-Clause
+
 # if(NOT YCM_SOURCE_DIR)
 #   set(CMakeHelp_STANDALONE 1)
 #   cmake_minimum_required(VERSION 2.8.4 FATAL_ERROR)
@@ -54,7 +48,7 @@ endif()
 #   set(conf_copyright "Kitware, Inc.")
 # endif()
 
-set(conf_copyright "Copyright 2013-2019 Istituto Italiano di Tecnologia (IIT)")
+set(conf_copyright "Copyright 2012-2021 Istituto Italiano di Tecnologia (IIT)")
 
 set(conf_docs "${YCM_SOURCE_DIR}/help")
 set(conf_path "${CMAKE_CURRENT_SOURCE_DIR}")

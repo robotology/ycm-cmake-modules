@@ -1,226 +1,216 @@
-#.rst:
-# InstallBasicPackageFiles
-# ------------------------
-#
-# A helper module to make your package easier to be found by other
-# projects.
-#
-#
-# .. command:: install_basic_package_files
-#
-# Create and install a basic version of cmake config files for your
-# project::
-#
-#  install_basic_package_files(<Name>
-#                              COMPATIBILITY <compatibility>
-#                              [VERSION <version>]
-#                              [ARCH_INDEPENDENT]
-#                              [NO_EXPORT | EXPORT <export>] # (default = "EXPORT <Name>")
-#                              [NO_SET_AND_CHECK_MACRO]
-#                              [NO_CHECK_REQUIRED_COMPONENTS_MACRO]
-#                              [VARS_PREFIX <prefix>] # (default = "<Name>")
-#                              [EXPORT_DESTINATION <destination>]
-#                              [INSTALL_DESTINATION <destination>]
-#                              [NAMESPACE <namespace>] # (default = "<Name>::")
-#                              [EXTRA_PATH_VARS_SUFFIX path1 [path2 ...]]
-#                              [CONFIG_TEMPLATE <file>]
-#                              [UPPERCASE_FILENAMES | LOWERCASE_FILENAMES]
-#                              [DEPENDENCIES <dependency1> "<dependency2> [...]" ...]
-#                              [PRIVATE_DEPENDENCIES <dependency1> "<dependency2> [...]" ...]
-#                              [INCLUDE_FILE <file> | INCLUDE_CONTENT <content>]
-#                              [COMPONENT <component>] # (default = "<Name>")
-#                             )
-#
-# Depending on ``UPPERCASE_FILENAMES`` and ``LOWERCASE_FILENAMES``, this
-# function generates 3 files:
-#
-#  - ``<Name>ConfigVersion.cmake`` or ``<name>-config-version.cmake``
-#  - ``<Name>Config.cmake`` or ``<name>-config.cmake``
-#  - ``<Name>Targets.cmake`` or ``<name>-targets.cmake``
-#
-# If neither ``UPPERCASE_FILENAMES`` nor ``LOWERCASE_FILENAMES`` is
-# set, a file ``<Name>Config.cmake.in`` or
-# ``<name>-config.cmake.in`` is searched, and the convention
-# is chosed according to the file found. If no file was found, the
-# uppercase convention is used.
-#
-# The ``DEPENDENCIES`` argument can be used to set a list of dependencies
-# that will be searched using the :cmake:command:`find_dependency` command
-# from the :module:`CMakeFindDependencyMacro` module.
-# Dependencies can be followed by any of the possible
-# :cmake:command:`find_dependency` argument.
-# In this case, all the arguments must be specified within double quotes (e.g.
-# ``"<dependency> 1.0.0 EXACT"``, or ``"<dependency> CONFIG"``).
-# The ``PRIVATE_DEPENDENCIES`` argument is similar to ``DEPENDENCIES``, but
-# these dependencies are included only when :variable:`BUILD_SHARED_LIBS` is
-# ``OFF``.
-# If a libraries is declared ``STATIC``, ``OBJECT`` or ``INTERFACE``, and they
-# link to some dependency, these should be added using the ``DEPENDENCIES``
-# argument, since the ``PRIVATE_DEPENDENCIES`` argument would work only when
-# :variable:`BUILD_SHARED_LIBS` is disabled.
-#
-# When using a custom template file, the ``@PACKAGE_DEPENDENCIES@``
-# string is replaced with the code checking for the dependencies
-# specified by these two argument.
-#
-# If the ``ARCH_INDEPENDENT`` option is enabled, the installed package version
-# will be considered compatible even if it was built for a different
-# architecture than the requested architecture.
-#
-# Each file is generated twice, one for the build directory and one for
-# the installation directory.  The ``INSTALL_DESTINATION`` argument can be
-# passed to install the files in a location different from the default
-# one (``${CMAKE_INSTALL_DATADIR}/cmake/${Name}`` if the ``ARCH_INDEPENDENT``
-# option is enabled, ``${CMAKE_INSTALL_LIBDIR}/cmake/${Name}`` otherwise).
-# The ``EXPORT_DESTINATION`` argument can be passed to
-# generate the files in the build tree in a location different from the default
-# one (``CMAKE_BINARY_DIR``).  If this is a relative path, it is
-# considered relative to the ``CMAKE_CURRENT_BINARY_DIR`` directory.
-#
-# The build directory is exported to the CMake user package registry if the
-# build option ``CMAKE_EXPORT_PACKAGE_REGISTRY`` is set.
-#
-# The ``<Name>ConfigVersion.cmake`` file is generated using
-# :cmake:command:`write_basic_package_version_file`. The ``VERSION``,
-# ``COMPATIBILITY``, and ``ARCH_INDEPENDENT``arguments are passed to this
-# function.
-#
-# ``VERSION`` shall be in the form ``<major>[.<minor>[.<patch>[.<tweak>]]]]``.
-# If no ``VERSION`` is given, the ``PROJECT_VERSION`` variable is used.
-# If this hasn’t been set, it errors out.  The ``VERSION`` argument is also used
-# to replace the ``@PACKAGE_VERSION@`` string in the configuration file.
-#
-# ``COMPATIBILITY`` shall be any of the options accepted by the
-# :cmake:command:`write_basic_package_version_file` command
-# (``AnyNewerVersion``, ``SameMajorVersion``, ``SameMinorVersion`` [CMake 3.11],
-# or ``ExactVersion``).
-# These options are explained in :cmake:command:`write_basic_package_version_file`
-# command documentation.
-# If your project has more elaborate version matching rules, you will need to
-# write your own custom ConfigVersion.cmake file instead of using this macro.
-#
-# The ``<Name>Config.cmake`` file is generated using
-# :cmake:command:`configure_package_config_file`. The
-# ``NO_SET_AND_CHECK_MACRO``, ``NO_CHECK_REQUIRED_COMPONENTS_MACRO``, and
-# arguments are passed to this function.
-#
-# By default :command:`install_basic_package_files` also generates the two helper
-# macros ``set_and_check()`` and ``check_required_components()`` into the
-# ``<Name>Config.cmake`` file. ``set_and_check()`` should be used instead of the
-# normal :cmake:command:`set()` command for setting directories and file locations.
-# Additionally to setting the variable it also checks that the referenced file
-# or directory actually exists and fails with a ``FATAL_ERROR`` otherwise.
-# This makes sure that the created ``<Name>Config.cmake`` file does not contain
-# wrong references.
-# When using the ``NO_SET_AND_CHECK_MACRO, this macro is not generated into the
-# ``<Name>Config.cmake`` file.
-#
-# By default, :command:`install_basic_package_files` append a call to
-# ``check_required_components(<Name>)`` in ``<Name>Config.cmake`` file if the
-# package supports components. This macro checks whether all requested,
-# non-optional components have been found, and if this is not the case, sets the
-# ``<Name>_FOUND`` variable to ``FALSE``, so that the package is considered to
-# be not found. It does that by testing the ``<Name>_<Component>_FOUND``
-# variables for all requested required components. When using the
-# ``NO_CHECK_REQUIRED_COMPONENTS_MACRO`` option, this macro is not generated
-# into the ``<Name>Config.cmake`` file.
-#
-# Finally, the files in the build and install directory are exactly the same.
-#
-# See the documentation of :module:`CMakePackageConfigHelpers` module for
-# further information and references therein.
-#
-# If the ``CONFIG_TEMPLATE`` argument is passed, the specified file
-# is used as template for generating the configuration file, otherwise
-# this module expects to find a ``<Name>Config.cmake.in`` or
-# ``<name>-config.cmake.in`` file either in current source directory.
-# If the file does not exist, a very basic file is created.
-#
-# A set of variables are checked and passed to
-# :cmake:command:`configure_package_config_file` as ``PATH_VARS``. For each of the
-# ``SUFFIX`` considered, if one of the variables::
-#
-#     <VARS_PREFIX>_(BUILD|INSTALL)_<SUFFIX>
-#     (BUILD|INSTALL)_<VARS_PREFIX>_<SUFFIX>
-#
-# is defined, the ``<VARS_PREFIX>_<SUFFIX>`` variable will be defined
-# before configuring the package.  In order to use that variable in the
-# config file, you have to add a line::
-#
-#   set_and_check(<VARS_PREFIX>_<SUFFIX> \"@PACKAGE_<VARS_PREFIX>_<SUFFIX>@\")
-#
-# if the path must exist or just::
-#
-#   set(<VARS_PREFIX>_<SUFFIX> \"@PACKAGE_<VARS_PREFIX>_<SUFFIX>@\")
-#
-# if the path could be missing.
-#
-# These variable will have different values whether you are using the
-# package from the build tree or from the install directory.  Also these
-# files will contain only relative paths, meaning that you can move the
-# whole installation and the CMake files will still work.
-#
-# Default ``PATH_VARS`` suffixes are::
-#
-#   BINDIR          BIN_DIR
-#   SBINDIR         SBIN_DIR
-#   LIBEXECDIR      LIBEXEC_DIR
-#   SYSCONFDIR      SYSCONF_DIR
-#   SHAREDSTATEDIR  SHAREDSTATE_DIR
-#   LOCALSTATEDIR   LOCALSTATE_DIR
-#   LIBDIR          LIB_DIR
-#   INCLUDEDIR      INCLUDE_DIR
-#   OLDINCLUDEDIR   OLDINCLUDE_DIR
-#   DATAROOTDIR     DATAROOT_DIR
-#   DATADIR         DATA_DIR
-#   INFODIR         INFO_DIR
-#   LOCALEDIR       LOCALE_DIR
-#   MANDIR          MAN_DIR
-#   DOCDIR          DOC_DIR
-#
-# more suffixes can be added using the ``EXTRA_PATH_VARS_SUFFIX``
-# argument.
-#
-#
-# The ``<Name>Targets.cmake`` is generated using :cmake:command:`export(EXPORT)`
-# in the build tree and :cmake:command:`install(EXPORT)` in the installation
-# directory. The targets are exported using the value for the ``NAMESPACE``
-# argument as namespace.
-# The export can be passed using the ``EXPORT`` argument. If no export is
-# used (e.g. for a CMake script library), pass ``NO_EXPORT``.
-#
-# If the ``INCLUDE_FILE`` argument is passed, the content of the specified file
-# (which might contain ``@variables@``) is appended to the generated
-# ``<Name>Config.cmake`` file.
-# If the ``INCLUDE_CONTENT`` argument is passed, the specified content
-# (which might contain ``@variables@``) is appended to the generated
-# ``<Name>Config.cmake`` file.
-# When a ``CONFIG_TEMPLATE`` is passed, or a ``<Name>ConfigVersion.cmake.in`` or
-# a ``<name>-config-version.cmake.in file is available, these 2 arguments are
-# used to replace the ``@INCLUDED_CONTENT@`` string in this file.
-# This allows one to inject custom code to this file, useful e.g. to set
-# additional variables which are loaded by downstream projects.
-#
-# Note that content specified with ``INCLUDE_FILE`` or ``INCLUDE_CONTENT``
-# cannot reference any of the ``PATH_VARS`` because this content is not
-# expanded by :cmake:command:`configure_package_config_file`.
-#
-# If the ``COMPONENT`` argument is passed, it is forwarded to the
-# :cmake:command:`install` commands, otherwise ``<Name>`` is used.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2013 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of CMake, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+InstallBasicPackageFiles
+------------------------
+
+A helper module to make your package easier to be found by other
+projects.
+
+
+.. command:: install_basic_package_files
+
+Create and install a basic version of cmake config files for your
+project::
+
+ install_basic_package_files(<Name>
+                             COMPATIBILITY <compatibility>
+                             [VERSION <version>]
+                             [ARCH_INDEPENDENT]
+                             [NO_EXPORT | EXPORT <export>] # (default = "EXPORT <Name>")
+                             [NO_SET_AND_CHECK_MACRO]
+                             [NO_CHECK_REQUIRED_COMPONENTS_MACRO]
+                             [VARS_PREFIX <prefix>] # (default = "<Name>")
+                             [EXPORT_DESTINATION <destination>]
+                             [INSTALL_DESTINATION <destination>]
+                             [NAMESPACE <namespace>] # (default = "<Name>::")
+                             [EXTRA_PATH_VARS_SUFFIX path1 [path2 ...]]
+                             [CONFIG_TEMPLATE <file>]
+                             [UPPERCASE_FILENAMES | LOWERCASE_FILENAMES]
+                             [DEPENDENCIES <dependency1> "<dependency2> [...]" ...]
+                             [PRIVATE_DEPENDENCIES <dependency1> "<dependency2> [...]" ...]
+                             [INCLUDE_FILE <file> | INCLUDE_CONTENT <content>]
+                             [COMPONENT <component>] # (default = "<Name>")
+                            )
+
+Depending on ``UPPERCASE_FILENAMES`` and ``LOWERCASE_FILENAMES``, this
+function generates 3 files:
+
+ - ``<Name>ConfigVersion.cmake`` or ``<name>-config-version.cmake``
+ - ``<Name>Config.cmake`` or ``<name>-config.cmake``
+ - ``<Name>Targets.cmake`` or ``<name>-targets.cmake``
+
+If neither ``UPPERCASE_FILENAMES`` nor ``LOWERCASE_FILENAMES`` is
+set, a file ``<Name>Config.cmake.in`` or
+``<name>-config.cmake.in`` is searched, and the convention
+is chosed according to the file found. If no file was found, the
+uppercase convention is used.
+
+The ``DEPENDENCIES`` argument can be used to set a list of dependencies
+that will be searched using the :cmake:command:`find_dependency` command
+from the :module:`CMakeFindDependencyMacro` module.
+Dependencies can be followed by any of the possible
+:cmake:command:`find_dependency` argument.
+In this case, all the arguments must be specified within double quotes (e.g.
+``"<dependency> 1.0.0 EXACT"``, or ``"<dependency> CONFIG"``).
+The ``PRIVATE_DEPENDENCIES`` argument is similar to ``DEPENDENCIES``, but
+these dependencies are included only when :variable:`BUILD_SHARED_LIBS` is
+``OFF``.
+If a libraries is declared ``STATIC``, ``OBJECT`` or ``INTERFACE``, and they
+link to some dependency, these should be added using the ``DEPENDENCIES``
+argument, since the ``PRIVATE_DEPENDENCIES`` argument would work only when
+:variable:`BUILD_SHARED_LIBS` is disabled.
+
+When using a custom template file, the ``@PACKAGE_DEPENDENCIES@``
+string is replaced with the code checking for the dependencies
+specified by these two argument.
+
+If the ``ARCH_INDEPENDENT`` option is enabled, the installed package version
+will be considered compatible even if it was built for a different
+architecture than the requested architecture.
+
+Each file is generated twice, one for the build directory and one for
+the installation directory.  The ``INSTALL_DESTINATION`` argument can be
+passed to install the files in a location different from the default
+one (``${CMAKE_INSTALL_DATADIR}/cmake/${Name}`` if the ``ARCH_INDEPENDENT``
+option is enabled, ``${CMAKE_INSTALL_LIBDIR}/cmake/${Name}`` otherwise).
+The ``EXPORT_DESTINATION`` argument can be passed to
+generate the files in the build tree in a location different from the default
+one (``CMAKE_BINARY_DIR``).  If this is a relative path, it is
+considered relative to the ``CMAKE_CURRENT_BINARY_DIR`` directory.
+
+The build directory is exported to the CMake user package registry if the
+build option ``CMAKE_EXPORT_PACKAGE_REGISTRY`` is set.
+
+The ``<Name>ConfigVersion.cmake`` file is generated using
+:cmake:command:`write_basic_package_version_file`. The ``VERSION``,
+``COMPATIBILITY``, and ``ARCH_INDEPENDENT``arguments are passed to this
+function.
+
+``VERSION`` shall be in the form ``<major>[.<minor>[.<patch>[.<tweak>]]]]``.
+If no ``VERSION`` is given, the ``PROJECT_VERSION`` variable is used.
+If this hasn’t been set, it errors out.  The ``VERSION`` argument is also used
+to replace the ``@PACKAGE_VERSION@`` string in the configuration file.
+
+``COMPATIBILITY`` shall be any of the options accepted by the
+:cmake:command:`write_basic_package_version_file` command
+(``AnyNewerVersion``, ``SameMajorVersion``, ``SameMinorVersion`` [CMake 3.11],
+or ``ExactVersion``).
+These options are explained in :cmake:command:`write_basic_package_version_file`
+command documentation.
+If your project has more elaborate version matching rules, you will need to
+write your own custom ConfigVersion.cmake file instead of using this macro.
+
+The ``<Name>Config.cmake`` file is generated using
+:cmake:command:`configure_package_config_file`. The
+``NO_SET_AND_CHECK_MACRO``, ``NO_CHECK_REQUIRED_COMPONENTS_MACRO``, and
+arguments are passed to this function.
+
+By default :command:`install_basic_package_files` also generates the two helper
+macros ``set_and_check()`` and ``check_required_components()`` into the
+``<Name>Config.cmake`` file. ``set_and_check()`` should be used instead of the
+normal :cmake:command:`set()` command for setting directories and file locations.
+Additionally to setting the variable it also checks that the referenced file
+or directory actually exists and fails with a ``FATAL_ERROR`` otherwise.
+This makes sure that the created ``<Name>Config.cmake`` file does not contain
+wrong references.
+When using the ``NO_SET_AND_CHECK_MACRO, this macro is not generated into the
+``<Name>Config.cmake`` file.
+
+By default, :command:`install_basic_package_files` append a call to
+``check_required_components(<Name>)`` in ``<Name>Config.cmake`` file if the
+package supports components. This macro checks whether all requested,
+non-optional components have been found, and if this is not the case, sets the
+``<Name>_FOUND`` variable to ``FALSE``, so that the package is considered to
+be not found. It does that by testing the ``<Name>_<Component>_FOUND``
+variables for all requested required components. When using the
+``NO_CHECK_REQUIRED_COMPONENTS_MACRO`` option, this macro is not generated
+into the ``<Name>Config.cmake`` file.
+
+Finally, the files in the build and install directory are exactly the same.
+
+See the documentation of :module:`CMakePackageConfigHelpers` module for
+further information and references therein.
+
+If the ``CONFIG_TEMPLATE`` argument is passed, the specified file
+is used as template for generating the configuration file, otherwise
+this module expects to find a ``<Name>Config.cmake.in`` or
+``<name>-config.cmake.in`` file either in current source directory.
+If the file does not exist, a very basic file is created.
+
+A set of variables are checked and passed to
+:cmake:command:`configure_package_config_file` as ``PATH_VARS``. For each of the
+``SUFFIX`` considered, if one of the variables::
+
+    <VARS_PREFIX>_(BUILD|INSTALL)_<SUFFIX>
+    (BUILD|INSTALL)_<VARS_PREFIX>_<SUFFIX>
+
+is defined, the ``<VARS_PREFIX>_<SUFFIX>`` variable will be defined
+before configuring the package.  In order to use that variable in the
+config file, you have to add a line::
+
+  set_and_check(<VARS_PREFIX>_<SUFFIX> \"@PACKAGE_<VARS_PREFIX>_<SUFFIX>@\")
+
+if the path must exist or just::
+
+  set(<VARS_PREFIX>_<SUFFIX> \"@PACKAGE_<VARS_PREFIX>_<SUFFIX>@\")
+
+if the path could be missing.
+
+These variable will have different values whether you are using the
+package from the build tree or from the install directory.  Also these
+files will contain only relative paths, meaning that you can move the
+whole installation and the CMake files will still work.
+
+Default ``PATH_VARS`` suffixes are::
+
+  BINDIR          BIN_DIR
+  SBINDIR         SBIN_DIR
+  LIBEXECDIR      LIBEXEC_DIR
+  SYSCONFDIR      SYSCONF_DIR
+  SHAREDSTATEDIR  SHAREDSTATE_DIR
+  LOCALSTATEDIR   LOCALSTATE_DIR
+  LIBDIR          LIB_DIR
+  INCLUDEDIR      INCLUDE_DIR
+  OLDINCLUDEDIR   OLDINCLUDE_DIR
+  DATAROOTDIR     DATAROOT_DIR
+  DATADIR         DATA_DIR
+  INFODIR         INFO_DIR
+  LOCALEDIR       LOCALE_DIR
+  MANDIR          MAN_DIR
+  DOCDIR          DOC_DIR
+
+more suffixes can be added using the ``EXTRA_PATH_VARS_SUFFIX``
+argument.
+
+
+The ``<Name>Targets.cmake`` is generated using :cmake:command:`export(EXPORT)`
+in the build tree and :cmake:command:`install(EXPORT)` in the installation
+directory. The targets are exported using the value for the ``NAMESPACE``
+argument as namespace.
+The export can be passed using the ``EXPORT`` argument. If no export is
+used (e.g. for a CMake script library), pass ``NO_EXPORT``.
+
+If the ``INCLUDE_FILE`` argument is passed, the content of the specified file
+(which might contain ``@variables@``) is appended to the generated
+``<Name>Config.cmake`` file.
+If the ``INCLUDE_CONTENT`` argument is passed, the specified content
+(which might contain ``@variables@``) is appended to the generated
+``<Name>Config.cmake`` file.
+When a ``CONFIG_TEMPLATE`` is passed, or a ``<Name>ConfigVersion.cmake.in`` or
+a ``<name>-config-version.cmake.in file is available, these 2 arguments are
+used to replace the ``@INCLUDED_CONTENT@`` string in this file.
+This allows one to inject custom code to this file, useful e.g. to set
+additional variables which are loaded by downstream projects.
+
+Note that content specified with ``INCLUDE_FILE`` or ``INCLUDE_CONTENT``
+cannot reference any of the ``PATH_VARS`` because this content is not
+expanded by :cmake:command:`configure_package_config_file`.
+
+If the ``COMPONENT`` argument is passed, it is forwarded to the
+:cmake:command:`install` commands, otherwise ``<Name>`` is used.
+#]=======================================================================]
 
 
 if(COMMAND install_basic_package_files)

@@ -1,78 +1,67 @@
-#.rst:
-# YCMEPHelper
-# -----------
-#
-# A helper for :module:`ExternalProject`::
-#
-#  ycm_ep_helper(<name>
-#    [DOCS]
-#    [TYPE <type>]
-#    [STYLE <style>]
-#    [COMPONENT <component>] (default = "external")
-#    [FOLDER <folder> (default = "<component>")
-#    [REPOSITORY <repo>]
-#    [EXCLUDE_FROM_ALL <0|1>]
-#   #--Git and Hg only arguments-----------
-#    [TAG <tag>]
-#   #--Svn only arguments-----------
-#    [REVISION <revision>]
-#    [USERNAME <username>]
-#    [PASSWORD <password>]
-#    [TRUST_CERT <0|1>]
-#   #--CMake arguments---------
-#    [CMAKE_ARGS]
-#    [CMAKE_CACHE_ARGS]
-#    [CMAKE_CACHE_DEFAULT_ARGS]
-#    [DEPENDS]
-#    [DOWNLOAD_COMMAND]
-#    [UPDATE_COMMAND]
-#    [PATCH_COMMAND]
-#    [CONFIGURE_COMMAND]
-#    [BUILD_COMMAND]
-#    [INSTALL_COMMAND]
-#    [TEST_COMMAND]
-#    [CLEAN_COMMAND] (not in ExternalProject)
-#    [TEST_AFTER_INSTALL]
-#    [TEST_BEFORE_INSTALL]
-#    [TEST_EXCLUDE_FROM_MAIN]
-#    )
-#
-#  YCM_BOOTSTRAP()
-#
-# .. variable:: NON_INTERACTIVE_BUILD
-#
-# .. variable:: YCM_BOOTSTRAP_BASE_ADDRESS
-#
-# .. variable:: YCM_SKIP_HASH_CHECK
-#
-# .. variable:: YCM_BOOTSTRAP_VERBOSE
-#
-# .. variable:: YCM_EP_INSTALL_DIR
-#
-# .. variable:: YCM_EP_ADDITIONAL_CMAKE_ARGS
-#
-# .. variable:: YCM_<COMPONENT>_COLOR
-#
-# .. variable:: YCM_<COMPONENT>_BGCOLOR
-#
-# .. variable:: YCM_<COMPONENT>_NODECOLOR
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-# TODO Add variable YCM_INSTALL_PREFIX
+#[=======================================================================[.rst:
+YCMEPHelper
+-----------
 
-#=============================================================================
-# Copyright 2013-2014 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+A helper for :module:`ExternalProject`::
 
+ ycm_ep_helper(<name>
+   [DOCS]
+   [TYPE <type>]
+   [STYLE <style>]
+   [COMPONENT <component>] (default = "external")
+   [FOLDER <folder> (default = "<component>")
+   [REPOSITORY <repo>]
+   [EXCLUDE_FROM_ALL <0|1>]
+  #--Git and Hg only arguments-----------
+   [TAG <tag>]
+  #--Svn only arguments-----------
+   [REVISION <revision>]
+   [USERNAME <username>]
+   [PASSWORD <password>]
+   [TRUST_CERT <0|1>]
+  #--CMake arguments---------
+   [CMAKE_ARGS]
+   [CMAKE_CACHE_ARGS]
+   [CMAKE_CACHE_DEFAULT_ARGS]
+   [DEPENDS]
+   [DOWNLOAD_COMMAND]
+   [UPDATE_COMMAND]
+   [PATCH_COMMAND]
+   [CONFIGURE_COMMAND]
+   [BUILD_COMMAND]
+   [INSTALL_COMMAND]
+   [TEST_COMMAND]
+   [CLEAN_COMMAND] (not in ExternalProject)
+   [TEST_AFTER_INSTALL]
+   [TEST_BEFORE_INSTALL]
+   [TEST_EXCLUDE_FROM_MAIN]
+   )
+
+ YCM_BOOTSTRAP()
+
+.. variable:: NON_INTERACTIVE_BUILD
+
+.. variable:: YCM_BOOTSTRAP_BASE_ADDRESS
+
+.. variable:: YCM_SKIP_HASH_CHECK
+
+.. variable:: YCM_BOOTSTRAP_VERBOSE
+
+.. variable:: YCM_EP_INSTALL_DIR
+
+.. variable:: YCM_EP_ADDITIONAL_CMAKE_ARGS
+
+.. variable:: YCM_<COMPONENT>_COLOR
+
+.. variable:: YCM_<COMPONENT>_BGCOLOR
+
+.. variable:: YCM_<COMPONENT>_NODECOLOR
+
+TODO Add variable YCM_INSTALL_PREFIX
+#]=======================================================================]
 
 if(DEFINED __YCMEPHELPER_INCLUDED)
   return()
@@ -89,8 +78,8 @@ set(_ycm_CMakeParseArguments_sha1sum 0c4d3f7ed248145cbeb67cbd6fd7190baf2e4517)
 set(_ycm_ExternalProject_sha1sum     c9d1167ae7730e9e6b1d9e9243a1f4f9bd9e2c5d)
 
 # Files in all projects that need to bootstrap YCM
-set(_ycm_IncludeUrl_sha1sum          e31dffed0897729283ef4e945bbdeb1921b438b5)
-set(_ycm_YCMBootstrap_sha1sum        dd95e1d38e045091e2e6c1ba2a96d540f1b8af0d)
+set(_ycm_IncludeUrl_sha1sum          997de3554f0d03ae22952a64fe26cdad118e8199)
+set(_ycm_YCMBootstrap_sha1sum        59c6dfc84ec36518c5be5aef13af252a8250bad7)
 
 
 ########################################################################

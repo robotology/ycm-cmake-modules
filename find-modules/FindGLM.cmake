@@ -1,14 +1,5 @@
-#=============================================================================
-# Copyright 2019 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Claudio Fantacci <claudio.fantacci@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
 #[=======================================================================[.rst:
 FindGLM
@@ -47,7 +38,6 @@ This module defines the following variables:
   GLM minor version
 ``GLM_VERSION_PATCH``
   GLM patch version
-
 #]=======================================================================]
 
 

@@ -1,32 +1,23 @@
-#.rst:
-# FindZFP
-# -------
-#
-# Find the ZFP floating point compression library.
-#
-# Once done this will define the following variables::
-#
-#   ZFP_INCLUDE_DIRS    - ZFP include directory
-#   ZFP_LIBRARIES       - ZFP libraries
-#   ZFP_FOUND           - if false, you cannot build anything that requires ZFP
-#   ZFP_VERSION         - ZFP version
-#   ZFP_MAJOR_VERSION   - ZFP major version
-#   ZFP_MINOR_VERSION   - ZFP minor version
-#   ZFP_PATCH_VERSION   - ZFP release version
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2016 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Nicolò Genesio <nicolo.genesio@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+
+#[=======================================================================[.rst:
+FindZFP
+-------
+
+Find the ZFP floating point compression library.
+
+Once done this will define the following variables::
+
+  ZFP_INCLUDE_DIRS    - ZFP include directory
+  ZFP_LIBRARIES       - ZFP libraries
+  ZFP_FOUND           - if false, you cannot build anything that requires ZFP
+  ZFP_VERSION         - ZFP version
+  ZFP_MAJOR_VERSION   - ZFP major version
+  ZFP_MINOR_VERSION   - ZFP minor version
+  ZFP_PATCH_VERSION   - ZFP release version
+#]=======================================================================]
 
 include(FindPackageHandleStandardArgs)
 include(SelectLibraryConfigurations)

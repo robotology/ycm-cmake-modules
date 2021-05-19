@@ -1,29 +1,13 @@
-#.rst:
-# FindPortAudio
-# -------------
-#
-# Try to find the PortAudio library.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2008 RobotCub Consortium
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2019 Istituto Italiano di Tecnologia (IIT)
-# Copyright 2008 RobotCub Consortium
-#   Authors: Paul Fitzpatrick <paulfitz@alum.mit.edu>
-#            Hatice Kose-Bagci
-#            Daniele E. Domenichelli
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindPortAudio
+-------------
 
-# hacked together for unix by Paul Fitzpatrick
-# updated to work on windows by Hatice Kose-Bagci
-
+Try to find the PortAudio library.
+#]=======================================================================]
 
 include(StandardFindModule)
 include(FindPackageHandleStandardArgs)
