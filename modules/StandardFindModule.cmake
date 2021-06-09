@@ -1,82 +1,72 @@
-#.rst:
-# StandardFindModule
-# ------------------
-#
-# Try to find a package using a cmake config file, or pkgconfig::
-#
-#   standard_find_module(<name>
-#                        <pkgconfig name>
-#                        [NOT_REQUIRED]
-#                        [QUIET]
-#                        [SKIP_CMAKE_CONFIG]
-#                        [SKIP_PKG_CONFIG]
-#                        [TARGET <target>]
-#                        [REPLACE_TARGETS <target> [...]]
-#   )
-#
-# If the package is found, the following variables (where possible)
-# are created::
-#
-#   <name>_FOUND         - System has <name>
-#   <name>_INCLUDE_DIRS  - <name> include directory
-#   <name>_LIBRARIES     - <name> libraries
-#   <name>_DEFINITIONS   - Additional compiler flags for <name>
-#   <name>_VERSION       - <name> version
-#   <name>_MAJOR_VERSION - <name> major version
-#   <name>_MINOR_VERSION - <name> minor version
-#   <name>_PATCH_VERSION - <name> patch version
-#   <name>_TWEAK_VERSION - <name> tweak version
-#   <name>_VERSION_COUNT - Number of version components, 0 to 4
-#
-# For each library that requires to be linked (i.e. ``-llib``) it
-# creates::
-#
-#   <name>_<LIB>_LIBRARY_RELEASE (cached, advanced)
-#   <name>_<LIB>_LIBRARY_DEBUG (cached, advanced, and empty by default)
-#   <name>_<LIB>_LIBRARY
-#   <name>_<LIB>_LIBRARY_FOUND
-#
-# In a ``FindXXX.cmake`` module, this macro can be used at the beginning.
-# The ``NOT_REQUIRED`` can be added to avoid failing if the package was not
-# found, but ``pkg-config`` is installed.
-# The ``QUIET`` argument can be used to hide the output from
-# `find_package_handle_standard_args`.
-# If ``<name>_FOUND`` is ``FALSE`` at the end, more "custom" searches can be
-# used (for windows, etc.)
-#
-# If ``SKIP_CMAKE_CONFIG`` or ``SKIP_PKG_CONFIG`` are set, the relative step
-# is skipped
-#
-# If ``TARGET`` is specified, in ``pkg-config`` mode, an imported target will
-# be created using the first library returned by ``pkg-config`` as imported
-# location.
-#
-# The ``REPLACE_TARGETS`` can be used to pass a list of imported targets that
-# will be detected in variables and target properties, and replaced with the
-# corresponding target.
-#
-# If one of the ``STANDARD_FIND_MODULE_USE_IMPORTED_TARGET`` or
-# ``STANDARD_FIND_MODULE_USE_IMPORTED_TARGET_<name>`` are enabled, and
-# a ``TARGET`` is specified, the ``<name>_LIBRARIES`` variable content is
-# replaced with the imported target.
-#
-# If one of the variables ``STANDARD_FIND_MODULE_DEBUG`` or
-# ``STANDARD_FIND_MODULE_DEBUG_<name>`` is enabled, prints more useful debug
-# output
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2012-2013 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of CMake, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+StandardFindModule
+------------------
+
+Try to find a package using a cmake config file, or pkgconfig::
+
+  standard_find_module(<name>
+                       <pkgconfig name>
+                       [NOT_REQUIRED]
+                       [QUIET]
+                       [SKIP_CMAKE_CONFIG]
+                       [SKIP_PKG_CONFIG]
+                       [TARGET <target>]
+                       [REPLACE_TARGETS <target> [...]]
+  )
+
+If the package is found, the following variables (where possible)
+are created::
+
+  <name>_FOUND         - System has <name>
+  <name>_INCLUDE_DIRS  - <name> include directory
+  <name>_LIBRARIES     - <name> libraries
+  <name>_DEFINITIONS   - Additional compiler flags for <name>
+  <name>_VERSION       - <name> version
+  <name>_MAJOR_VERSION - <name> major version
+  <name>_MINOR_VERSION - <name> minor version
+  <name>_PATCH_VERSION - <name> patch version
+  <name>_TWEAK_VERSION - <name> tweak version
+  <name>_VERSION_COUNT - Number of version components, 0 to 4
+
+For each library that requires to be linked (i.e. ``-llib``) it
+creates::
+
+  <name>_<LIB>_LIBRARY_RELEASE (cached, advanced)
+  <name>_<LIB>_LIBRARY_DEBUG (cached, advanced, and empty by default)
+  <name>_<LIB>_LIBRARY
+  <name>_<LIB>_LIBRARY_FOUND
+
+In a ``FindXXX.cmake`` module, this macro can be used at the beginning.
+The ``NOT_REQUIRED`` can be added to avoid failing if the package was not
+found, but ``pkg-config`` is installed.
+The ``QUIET`` argument can be used to hide the output from
+`find_package_handle_standard_args`.
+If ``<name>_FOUND`` is ``FALSE`` at the end, more "custom" searches can be
+used (for windows, etc.)
+
+If ``SKIP_CMAKE_CONFIG`` or ``SKIP_PKG_CONFIG`` are set, the relative step
+is skipped
+
+If ``TARGET`` is specified, in ``pkg-config`` mode, an imported target will
+be created using the first library returned by ``pkg-config`` as imported
+location.
+
+The ``REPLACE_TARGETS`` can be used to pass a list of imported targets that
+will be detected in variables and target properties, and replaced with the
+corresponding target.
+
+If one of the ``STANDARD_FIND_MODULE_USE_IMPORTED_TARGET`` or
+``STANDARD_FIND_MODULE_USE_IMPORTED_TARGET_<name>`` are enabled, and
+a ``TARGET`` is specified, the ``<name>_LIBRARIES`` variable content is
+replaced with the imported target.
+
+If one of the variables ``STANDARD_FIND_MODULE_DEBUG`` or
+``STANDARD_FIND_MODULE_DEBUG_<name>`` is enabled, prints more useful debug
+output
+#]=======================================================================]
 
 
 if(DEFINED __STANDARD_FIND_MODULE_INCLUDED)

@@ -1,28 +1,18 @@
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
+
 # This module should not be used outside YCM.
 
-#=============================================================================
-# Copyright 2013-2014 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#            Elena Ceseracciu <elena.ceseracciu@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+Create a target depending on a stamp file::
 
-# Create a target depending on a stamp file::
-#
-#  _ycm_target(<target> [comment])
-#
-# <target>  - The target created
-# <comment> - The comment printed when the target is completed
-#
-# Sets _ycm_target_stamp_file
+ _ycm_target(<target> [comment])
+
+<target>  - The target created
+<comment> - The comment printed when the target is completed
+
+Sets _ycm_target_stamp_file
+#]=======================================================================]
 
 include(CMakeParseArguments)
 
@@ -78,23 +68,24 @@ function(_YCM_TARGET _target)
     set(_ycm_localinstall_stamp_file "${_ycm_localinstall_stamp_file}" PARENT_SCOPE)
 endfunction()
 
+#[=======================================================================[.rst:
+Download files from other repositories::
 
-# Download files from other repositories::
-#
-#  _ycm_download(<target> <description> <url> <ref> <dir> <files> [download args])
-#
-# <target>        - The target that will be performing the download.
-#                   should be created using _YCM_TARGET. If it does not
-#                   exist, it will be created.
-# <description>   - A short string that will be appended to comments
-# <url>           - the url where the file will be dowloaded. The strings
-#                   ```<REF>``` and ```<FILE>``` will be replaced with
-#                   the actual ref and filename
-# <dir>           - The directory where the files will be downloaded. The
-#                   relative hierarchy will be preserved
-# <files>         - A list of files followed by the relative sha1sum
-#                   (i.e. file1;sha1sum1;file2;sha1sum2)
-# [download args] - Optional arguments passed to file(DOWNLOAD)
+ _ycm_download(<target> <description> <url> <ref> <dir> <files> [download args])
+
+<target>        - The target that will be performing the download.
+                  should be created using _YCM_TARGET. If it does not
+                  exist, it will be created.
+<description>   - A short string that will be appended to comments
+<url>           - the url where the file will be dowloaded. The strings
+                  ```<REF>``` and ```<FILE>``` will be replaced with
+                  the actual ref and filename
+<dir>           - The directory where the files will be downloaded. The
+                  relative hierarchy will be preserved
+<files>         - A list of files followed by the relative sha1sum
+                  (i.e. file1;sha1sum1;file2;sha1sum2)
+[download args] - Optional arguments passed to file(DOWNLOAD)
+#]=======================================================================]
 
 function(_YCM_DOWNLOAD _target _desc _url _ref _dir _files)
     _ycm_target(${_target} "Files from ${_desc} (ref ${_ref}) downloaded")
@@ -218,19 +209,20 @@ file(WRITE \"${_dest}\" \"\${_tmp}\")
 endfunction()
 
 
+#[=======================================================================[.rst:
+Install and copy in the build folder at build time::
 
-# Install and copy in the build folder at build time::
-#
-#  _ycm_install(<target> [install() arguments])
-#
-# <target>        - The target that will be performing the copy in the
-#                   build folder. Should be created using
-#                   ```_YCM_TARGET```. If it does not exist, it will be
-#                   created.
-# [install() arguments] - Arguments that will be passed to install()
-#
-# The accepted arguments are the same that are accepted by CMake
-# install() command (not everything is supported yet)
+ _ycm_install(<target> [install() arguments])
+
+<target>        - The target that will be performing the copy in the
+                  build folder. Should be created using
+                  ```_YCM_TARGET```. If it does not exist, it will be
+                  created.
+[install() arguments] - Arguments that will be passed to install()
+
+The accepted arguments are the same that are accepted by CMake
+install() command (not everything is supported yet)
+#]=======================================================================]
 
 function(_YCM_INSTALL _target)
     _ycm_target(${_target} "Files from ${_target} installed in CMake build directory")

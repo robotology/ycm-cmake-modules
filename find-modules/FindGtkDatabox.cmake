@@ -1,37 +1,26 @@
-#.rst:
-# FindGtkDatabox
-# --------------
-#
-# Try to find the GtkDatabox library.
-# Once done this will define the following variables::
-#
-#  GtkDatabox_FOUND         - System has GtkDatabox
-#  GtkDatabox_INCLUDE_DIRS  - GtkDatabox include directory
-#  GtkDatabox_LIBRARIES     - GtkDatabox libraries
-#  GtkDatabox_DEFINITIONS   - Additional compiler flags for GtkDatabox
-#  GtkDatabox_VERSION       - GtkDatabox version
-#  GtkDatabox_MAJOR_VERSION - GtkDatabox major version
-#  GtkDatabox_MINOR_VERSION - GtkDatabox minor version
-#  GtkDatabox_PATCH_VERSION - GtkDatabox patch version
-#  GtkDatabox_TWEAK_VERSION - GtkDatabox tweak version
-#
-# If the library is found, the imported target ``GtkDatabox::gtkdatabox`` is
-# created.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2012-2015 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindGtkDatabox
+--------------
 
+Try to find the GtkDatabox library.
+Once done this will define the following variables::
+
+ GtkDatabox_FOUND         - System has GtkDatabox
+ GtkDatabox_INCLUDE_DIRS  - GtkDatabox include directory
+ GtkDatabox_LIBRARIES     - GtkDatabox libraries
+ GtkDatabox_DEFINITIONS   - Additional compiler flags for GtkDatabox
+ GtkDatabox_VERSION       - GtkDatabox version
+ GtkDatabox_MAJOR_VERSION - GtkDatabox major version
+ GtkDatabox_MINOR_VERSION - GtkDatabox minor version
+ GtkDatabox_PATCH_VERSION - GtkDatabox patch version
+ GtkDatabox_TWEAK_VERSION - GtkDatabox tweak version
+
+If the library is found, the imported target ``GtkDatabox::gtkdatabox`` is
+created.
+#]=======================================================================]
 
 include(StandardFindModule)
 include(ReplaceImportedTargets)

@@ -1,26 +1,18 @@
-#.rst:
-# FindCFW2CANAPI
-# --------------
-#
-# Created::
-#
-#  CFW2CANAPI_INC_DIRS   - Directories to include to use esdcan api
-#  CFW2CANAPI_LIB        - Default library to link against to use the esdcan API
-#  CFF2CANAPI_FOUND      - If false, don't try to use esdcan API
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2010 RobotCub Consortium
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2010 RobotCub Consortium
-#   Authors: Lorenzo Natale <lorenzo.natale@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindCFW2CANAPI
+--------------
+
+Created::
+
+ CFW2CANAPI_INC_DIRS   - Directories to include to use esdcan api
+ CFW2CANAPI_LIB        - Default library to link against to use the esdcan API
+ CFF2CANAPI_FOUND      - If false, don't try to use esdcan API
+#]=======================================================================]
+
 
 if(NOT CFW2CANAPI_FOUND)
     set(CFW2CANAPI_DIR $ENV{CFW2CANAPI_DIR} CACHE PATH "Path to CFW2CANAPI")

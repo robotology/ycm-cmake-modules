@@ -1,28 +1,18 @@
-#.rst:
-# GetAllCMakeProperties
-# ---------------------
-#
-# Return a list containing the names of all known CMake Properties.
-#
-# Only properties returned by ``cmake --help-property-list`` are returned,
-# custom properties will not be on the returned list.
-#
-# Properties containing ``<CONFIG>`` or ``<LANG>`` are expanded to the correct
-# property name.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2015 Istituto Italiano di Tecnologia (IIT)
-#   Author: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+GetAllCMakeProperties
+---------------------
+
+Return a list containing the names of all known CMake Properties.
+
+Only properties returned by ``cmake --help-property-list`` are returned,
+custom properties will not be on the returned list.
+
+Properties containing ``<CONFIG>`` or ``<LANG>`` are expanded to the correct
+property name.
+#]=======================================================================]
 
 cmake_policy(PUSH)
 if(POLICY CMP0054)

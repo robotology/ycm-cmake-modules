@@ -1,19 +1,7 @@
-#=============================================================================
-# Copyright 2000-2014 Kitware, Inc.
-# Copyright 2000-2011 Insight Software Consortium
-# Copyright 2014 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
-
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2000-2014 Kitware Inc.
+# SPDX-FileCopyrightText: 2000-2011 Insight Software Consortium
+# SPDX-License-Identifier: BSD-3-Clause
 
 # Set up test-time configuration.
 set_directory_properties(PROPERTIES TEST_INCLUDE_FILE "${CMAKE_CURRENT_BINARY_DIR}/EnforceConfig.cmake")

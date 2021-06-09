@@ -1,0 +1,28 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: YCM
+Upstream-Contact: Istituto Italiano di Tecnologia (IIT)
+Source: https://github.com/robotology/ycm
+
+Files: *
+Copyright: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+License: BSD-3-Clause
+
+Files: 3rdparty/cmake-wiki/FindOctave.cmake
+Copyright: 2013 Julien Schueller
+License: BSD-3-Clause
+
+Files: cmake-next/proposed/CMakeParseArguments.cmake
+Copyright: 2010 Alexander Neundorf <neundorf@kde.org>
+Copyright: 2000-2021 Kitware, Inc. and Contributors
+License: BSD-3-Clause
+
+Files:
+ cmake-next/proposed/CMakeParseArguments.cmake
+ cmake-next/proposed/ExternalProject-download.cmake.in
+ cmake-next/proposed/ExternalProject-verify.cmake.in
+ cmake-next/proposed/ExternalProject.cmake
+ cmake-next/v3.14/CMakePackageConfigHelpers.cmake
+ cmake-next/v3.14/UseSWIG.cmake
+ cmake-next/v3.14/WriteBasicConfigVersionFile.cmake
+Copyright: 2000-2021 Kitware, Inc. and Contributors
+License: BSD-3-Clause

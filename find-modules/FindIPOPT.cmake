@@ -1,40 +1,28 @@
-#.rst:
-# FindIPOPT
-# ---------
-#
-# Try to locate the IPOPT library
-#
-# On non Windows systems, use pkg-config to try to locate the library,
-# if this fails then try to locate the library in the directory pointed
-# by the IPOPT_DIR environment variable.
-#
-# On Windows systems,  just try to find the library using the IPOPT_DIR
-# environment variable.
-#
-# Create the following variables::
-#
-#  IPOPT_INCLUDE_DIRS - Directories to include to use IPOPT
-#  IPOPT_LIBRARIES    - Default library to link against to use IPOPT
-#  IPOPT_DEFINITIONS  - Flags to be added to linker's options
-#  IPOPT_LINK_FLAGS   - Flags to be added to linker's options
-#  IPOPT_FOUND        - If false, don't try to use IPOPT
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2008-2010 RobotCub Consortium
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright (C) 2008-2010 RobotCub Consortium
-# Copyright (C) 2016 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Ugo Pattacini <ugo.pattacini@iit.it>
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindIPOPT
+---------
 
+Try to locate the IPOPT library
+
+On non Windows systems, use pkg-config to try to locate the library,
+if this fails then try to locate the library in the directory pointed
+by the IPOPT_DIR environment variable.
+
+On Windows systems,  just try to find the library using the IPOPT_DIR
+environment variable.
+
+Create the following variables::
+
+ IPOPT_INCLUDE_DIRS - Directories to include to use IPOPT
+ IPOPT_LIBRARIES    - Default library to link against to use IPOPT
+ IPOPT_DEFINITIONS  - Flags to be added to linker's options
+ IPOPT_LINK_FLAGS   - Flags to be added to linker's options
+ IPOPT_FOUND        - If false, don't try to use IPOPT
+#]=======================================================================]
 
 if(NOT WIN32)
   # On non Windows systems we use PkgConfig to find IPOPT

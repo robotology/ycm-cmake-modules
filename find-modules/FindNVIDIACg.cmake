@@ -1,24 +1,13 @@
-#.rst:
-# FindNVIDIACg
-# ------------
-#
-# Try to find NVIDIACg libraries
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2009 RobotCub Consortium
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2009 RobotCub Consortium
-# Copyright 2016 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Paul Fitzpatrick <paulfitz@alum.mit.edu>
-#            Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindNVIDIACg
+------------
+
+Try to find NVIDIACg libraries
+#]=======================================================================]
 
 find_library(NVIDIACg_CgGL_LIBRARY CgGL)
 find_library(NVIDIACg_pthread_LIBRARY pthread)

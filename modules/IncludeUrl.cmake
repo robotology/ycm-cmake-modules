@@ -1,92 +1,83 @@
-#.rst:
-# IncludeUrl
-# ----------
-#
-# Adds the :command:`include_url` command that useful to download and include
-# other CMake modules from a given url.
-#
-# .. command:: include_url
-#
-# Downloads a file from given url and includes it::
-#
-#  include_url(<url>                 # Url to be downloaded
-#     [DESTINATION <destination>]    # Where the file will be saved
-#     [EXPECTED_HASH <ALGO=value>]   # Verify downloaded file's hash
-#     [EXPECTED_MD5 <sum>]           # Short-hand for "EXPECTED_HASH MD5=sum"
-#     [DOWNLOAD_ONCE]                # Download the file only once
-#     [DOWNLOAD_ALWAYS]              # Download the file every time
-#     [OPTIONAL]                     # Do not fail file cannot be included
-#     [RESULT_VARIABLE <variable>]   # The local path for the file included
-#     [RETRIES <retries>]            # Try download <retries> times (default 3)
-#     [QUIET]                        # Don't print anything
-#    #--Download arguments-----------
-#     [INACTIVITY_TIMEOUT <timeout>] # Timeout after <timeout> seconds of inactivity
-#     [TIMEOUT <timeout>]            # Timeout after <timeout> seconds
-#     [STATUS <status>]              # Download status variable
-#     [LOG <log>]                    # Download log variable
-#     [SHOW_PROGRESS]                # Show download progress
-#     [TLS_VERIFY <on|off>]          # Check certificates
-#     [TLS_CAINFO <file>]            # Custom Certificate Authority file
-#    #--Include arguments------------
-#     [NO_POLICY_SCOPE]              # Do not manage a new policy entry
-#     )
-#
-# The ``include_url`` macro downloads a file from given url and includes it.
-# It works both in -P script mode and when configuring a CMakeLists.txt file.
-#
-# If ``DESTINATION`` is specified, the file is saved at the given location with
-# the original  file name, if ``<destination>`` is a directory, or with the
-# given file  name, if ``<destination>`` is a file name.
-#
-# The arguments ``EXPECTED_HASH``, ``EXPECTED_MD5`` are used to ensure that the
-# file included is the one expected. If the ``<url>`` is a local file (i.e.
-# starts with ``file://``) the hash check is performed also on the file
-# converted to the non-native end-of-line style.  See the documentation of the
-# :command:`file()` command for further information about these arguments.
-#
-# If the ``DOWNLOAD_ONCE`` option is specified, the file is not
-# downloaded if the file already exists and the hash is correct.
-# If the ``DOWNLOAD_ALWAYS`` option is specified, the file is downloaded at
-# every CMake execution, and an error is raised on failure.
-# If none of these two option is specifies, the default behaviour is to try to
-# download the file at every CMake execution, but no error is raised if the
-# download fails if a version of the file already exists. This is useful when
-# CMake should try to update the file to the latest version, before including
-# it.
-#
-# If the ``OPTIONAL`` option is specified, no error will be caused if for any
-# reason the file cannot be downloaded or included.
-# If ``RESULT_VARIABLE`` is given, the variable will be set to the full
-# filename which has been downloaded and included or NOTFOUND if it failed.
-# See the documentation of the :command:`file()` command for further information
-# about these arguments.
-#
-# If the ``RETRIES`` option is specified, the download will be tried
-# If the ``QUIET`` option is specified, the command will emit no output.
-#
-# The arguments ``INACTIVITY_TIMEOUT``, ``TIMEOUT``, ``STATUS``, ``LOG``,
-# ``SHOW_PROGRESS``, ``TLS_VERIFY``, and ``TLS_CAINFO`` are passed to the
-# :command:`file(DOWNLOAD)` command.  See the documentation of the
-# :command:`file()` command for a detailed description of these arguments.
-#
-# The arguments ``NO_POLICY_SCOPE`` is passed to the :command:`include()`
-# command.  See the documentation of the :command:`include()` and
-# :command:`cmake_policy()` commands for a detailed description of this
-# argument.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2013-2015 Daniele E. Domenichelli <ddomenichelli@drdanz.it>
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2013-2015 Istituto Italiano di Tecnologia (IIT)
-# Copyright 2013-2015 Daniele E. Domenichelli <ddomenichelli@drdanz.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of CMake, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+IncludeUrl
+----------
+
+Adds the :command:`include_url` command that useful to download and include
+other CMake modules from a given url.
+
+.. command:: include_url
+
+Downloads a file from given url and includes it::
+
+ include_url(<url>                 # Url to be downloaded
+    [DESTINATION <destination>]    # Where the file will be saved
+    [EXPECTED_HASH <ALGO=value>]   # Verify downloaded file's hash
+    [EXPECTED_MD5 <sum>]           # Short-hand for "EXPECTED_HASH MD5=sum"
+    [DOWNLOAD_ONCE]                # Download the file only once
+    [DOWNLOAD_ALWAYS]              # Download the file every time
+    [OPTIONAL]                     # Do not fail file cannot be included
+    [RESULT_VARIABLE <variable>]   # The local path for the file included
+    [RETRIES <retries>]            # Try download <retries> times (default 3)
+    [QUIET]                        # Don't print anything
+   #--Download arguments-----------
+    [INACTIVITY_TIMEOUT <timeout>] # Timeout after <timeout> seconds of inactivity
+    [TIMEOUT <timeout>]            # Timeout after <timeout> seconds
+    [STATUS <status>]              # Download status variable
+    [LOG <log>]                    # Download log variable
+    [SHOW_PROGRESS]                # Show download progress
+    [TLS_VERIFY <on|off>]          # Check certificates
+    [TLS_CAINFO <file>]            # Custom Certificate Authority file
+   #--Include arguments------------
+    [NO_POLICY_SCOPE]              # Do not manage a new policy entry
+    )
+
+The ``include_url`` macro downloads a file from given url and includes it.
+It works both in -P script mode and when configuring a CMakeLists.txt file.
+
+If ``DESTINATION`` is specified, the file is saved at the given location with
+the original  file name, if ``<destination>`` is a directory, or with the
+given file  name, if ``<destination>`` is a file name.
+
+The arguments ``EXPECTED_HASH``, ``EXPECTED_MD5`` are used to ensure that the
+file included is the one expected. If the ``<url>`` is a local file (i.e.
+starts with ``file://``) the hash check is performed also on the file
+converted to the non-native end-of-line style.  See the documentation of the
+:command:`file()` command for further information about these arguments.
+
+If the ``DOWNLOAD_ONCE`` option is specified, the file is not
+downloaded if the file already exists and the hash is correct.
+If the ``DOWNLOAD_ALWAYS`` option is specified, the file is downloaded at
+every CMake execution, and an error is raised on failure.
+If none of these two option is specifies, the default behaviour is to try to
+download the file at every CMake execution, but no error is raised if the
+download fails if a version of the file already exists. This is useful when
+CMake should try to update the file to the latest version, before including
+it.
+
+If the ``OPTIONAL`` option is specified, no error will be caused if for any
+reason the file cannot be downloaded or included.
+If ``RESULT_VARIABLE`` is given, the variable will be set to the full
+filename which has been downloaded and included or NOTFOUND if it failed.
+See the documentation of the :command:`file()` command for further information
+about these arguments.
+
+If the ``RETRIES`` option is specified, the download will be tried
+If the ``QUIET`` option is specified, the command will emit no output.
+
+The arguments ``INACTIVITY_TIMEOUT``, ``TIMEOUT``, ``STATUS``, ``LOG``,
+``SHOW_PROGRESS``, ``TLS_VERIFY``, and ``TLS_CAINFO`` are passed to the
+:command:`file(DOWNLOAD)` command.  See the documentation of the
+:command:`file()` command for a detailed description of these arguments.
+
+The arguments ``NO_POLICY_SCOPE`` is passed to the :command:`include()`
+command.  See the documentation of the :command:`include()` and
+:command:`cmake_policy()` commands for a detailed description of this
+argument.
+#]=======================================================================]
 
 
 if(DEFINED __INCLUDE_URL_INCLUDED)

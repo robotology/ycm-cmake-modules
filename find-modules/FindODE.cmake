@@ -1,35 +1,22 @@
-#.rst:
-# FindODE
-# -------
-#
-# Options::
-#
-#  ODE_DOUBLE_PRECISION  -use double precision ode libraries
-#  ODE_STATIC            -link against static libraries
-#
-# On exit create the following variables::
-#
-#  ODE_INCLUDE_DIRS  - Directories to include to use ODE
-#  ODE_LIBRARIES     - Default library to link against to use ODE
-#  ODE_FOUND         - If false, library not found
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2009 RobotCub Consortium
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2009 RobotCub Consortium
-#   Authors: Lorenzo Natale <lorenzo.natale@iit.it>
-#            Vadim Tikhanoff <vadim.tikhanoff@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindODE
+-------
 
+Options::
 
-# Dec 2009, reorganized to handle new windows ode versions.
+ ODE_DOUBLE_PRECISION  -use double precision ode libraries
+ ODE_STATIC            -link against static libraries
+
+On exit create the following variables::
+
+ ODE_INCLUDE_DIRS  - Directories to include to use ODE
+ ODE_LIBRARIES     - Default library to link against to use ODE
+ ODE_FOUND         - If false, library not found
+#]=======================================================================]
 
 # find (all) header files for include directories:
 if(NOT ODE_DIR)

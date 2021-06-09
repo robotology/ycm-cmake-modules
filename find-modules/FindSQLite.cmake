@@ -1,33 +1,23 @@
-#.rst:
-# FindSQLite
-# ----------
-#
-# Try to find the SQLite library.
-# Once done this will define the following variables::
-#
-#  SQLite_FOUND         - System has SQLite
-#  SQLite_INCLUDE_DIRS  - SQLite include directory
-#  SQLite_LIBRARIES     - SQLite libraries
-#  SQLite_DEFINITIONS   - Additional compiler flags for SQLite
-#  SQLite_VERSION       - SQLite version
-#  SQLite_MAJOR_VERSION - SQLite major version
-#  SQLite_MINOR_VERSION - SQLite minor version
-#  SQLite_PATCH_VERSION - SQLite patch version
-#  SQLite_TWEAK_VERSION - SQLite tweak version
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2012-2013 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindSQLite
+----------
+
+Try to find the SQLite library.
+Once done this will define the following variables::
+
+ SQLite_FOUND         - System has SQLite
+ SQLite_INCLUDE_DIRS  - SQLite include directory
+ SQLite_LIBRARIES     - SQLite libraries
+ SQLite_DEFINITIONS   - Additional compiler flags for SQLite
+ SQLite_VERSION       - SQLite version
+ SQLite_MAJOR_VERSION - SQLite major version
+ SQLite_MINOR_VERSION - SQLite minor version
+ SQLite_PATCH_VERSION - SQLite patch version
+ SQLite_TWEAK_VERSION - SQLite tweak version
+#]=======================================================================]
 
 
 include(StandardFindModule)

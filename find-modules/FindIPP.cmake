@@ -1,24 +1,13 @@
-#.rst:
-# FindIPP
-# -------
-#
-# Try to find the IPP library.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2010 RobotCub Consortium
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2010 RobotCub Consortium
-#   Authors: Francesco Rea <francesco.rea@iit.it>
-#            Giorgio Metta <giorgio.metta@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindIPP
+-------
 
+Try to find the IPP library.
+#]=======================================================================]
 
 SET(VERBOSE OFF)
 

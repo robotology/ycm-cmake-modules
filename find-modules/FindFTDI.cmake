@@ -1,29 +1,18 @@
-#.rst:
-# FindFTDI
-# --------
-#
-# Try to find ftdi.
-# Once done this will define::
-#
-#  FTDI_FOUND - system has ftdi
-#  FTDI_INCLUDE_DIR - ~ the ftdi include directory
-#  FTDI_LIBRARY - Link these to use ftdi
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2010 Ze Ji
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2010 Ze Ji
-# Copyright 2012-2014 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindFTDI
+--------
 
+Try to find ftdi.
+Once done this will define::
+
+ FTDI_FOUND - system has ftdi
+ FTDI_INCLUDE_DIR - ~ the ftdi include directory
+ FTDI_LIBRARY - Link these to use ftdi
+#]=======================================================================]
 
 include(FindPackageHandleStandardArgs)
 

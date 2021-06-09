@@ -1,47 +1,37 @@
-#.rst:
-# ReplaceImportedTargets
-# ----------------------
-#
-# Adds the :command:`replace_imported_targets` command that useful to
-# replace paths with imported targets in link variables (like
-# ``<FOO>_LIBRARIES``) and targets.
-#
-# .. command:: replace_imported_targets
-#
-# Replace imported targets in a list of and targets and paths::
-#
-#  replace_imported_targets(<var> [target [target [...]]])
-#
-# Each path in ``var`` corrisponding to one of the ``targets`` will be
-# replaced with the corrisponding ``target``, taking care to remove the
-# relative ``optimized`` and ``debug`` keywords.
-#
-# For each existing target in ``var``, the following properties will be
-# searched for imported locations of targets, and, if set, will be
-# replaced in the same way::
-#
-#  IMPORTED_LINK_DEPENDENT_LIBRARIES
-#  IMPORTED_LINK_DEPENDENT_LIBRARIES_<CONFIG>
-#  IMPORTED_LINK_INTERFACE_LIBRARIES
-#  IMPORTED_LINK_INTERFACE_LIBRARIES_<CONFIG>
-#  INTERFACE_LINK_LIBRARIES
-#  LINK_INTERFACE_LIBRARIES
-#  LINK_INTERFACE_LIBRARIES_<CONFIG>
-#  LINK_LIBRARIES
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2015 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+ReplaceImportedTargets
+----------------------
+
+Adds the :command:`replace_imported_targets` command that useful to
+replace paths with imported targets in link variables (like
+``<FOO>_LIBRARIES``) and targets.
+
+.. command:: replace_imported_targets
+
+Replace imported targets in a list of and targets and paths::
+
+ replace_imported_targets(<var> [target [target [...]]])
+
+Each path in ``var`` corrisponding to one of the ``targets`` will be
+replaced with the corrisponding ``target``, taking care to remove the
+relative ``optimized`` and ``debug`` keywords.
+
+For each existing target in ``var``, the following properties will be
+searched for imported locations of targets, and, if set, will be
+replaced in the same way::
+
+ IMPORTED_LINK_DEPENDENT_LIBRARIES
+ IMPORTED_LINK_DEPENDENT_LIBRARIES_<CONFIG>
+ IMPORTED_LINK_INTERFACE_LIBRARIES
+ IMPORTED_LINK_INTERFACE_LIBRARIES_<CONFIG>
+ INTERFACE_LINK_LIBRARIES
+ LINK_INTERFACE_LIBRARIES
+ LINK_INTERFACE_LIBRARIES_<CONFIG>
+ LINK_LIBRARIES
+#]=======================================================================]
 
 
 function(_REPLACE_IMPORTED_TARGETS_INTERNAL _var)

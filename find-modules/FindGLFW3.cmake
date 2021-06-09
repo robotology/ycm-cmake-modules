@@ -1,44 +1,33 @@
-#.rst:
-# FindGLFW3
-# ---------
-#
-# Find the GLFW3 framework.
-#
-# IMPORTED Targets
-# ^^^^^^^^^^^^^^^^
-#
-# This module defines the :prop_tgt:`IMPORTED` target ``GLFW3::GLFW3``,
-# if GLFW3 has been found.
-#
-# Result Variables
-# ^^^^^^^^^^^^^^^^
-#
-# This module defines the following variables::
-#
-#   GLFW3_INCLUDE_DIRS - include directories for GLFW3
-#   GLFW3_LIBRARIES - libraries to link against GLFW3
-#   GLFW3_FOUND - true if GLFW3 has been found and can be used
-#
-# Environment Variables
-# ^^^^^^^^^^^^^^^^^^^^^
-#
-# If the library is not found on system paths, the ``GLFW3_ROOT``
-# environment variable can be used to locate the lbrary.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
+#[=======================================================================[.rst:
+FindGLFW3
+---------
 
-#=============================================================================
-# Copyright 2015 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+Find the GLFW3 framework.
+
+IMPORTED Targets
+^^^^^^^^^^^^^^^^
+
+This module defines the :prop_tgt:`IMPORTED` target ``GLFW3::GLFW3``,
+if GLFW3 has been found.
+
+Result Variables
+^^^^^^^^^^^^^^^^
+
+This module defines the following variables::
+
+  GLFW3_INCLUDE_DIRS - include directories for GLFW3
+  GLFW3_LIBRARIES - libraries to link against GLFW3
+  GLFW3_FOUND - true if GLFW3 has been found and can be used
+
+Environment Variables
+^^^^^^^^^^^^^^^^^^^^^
+
+If the library is not found on system paths, the ``GLFW3_ROOT``
+environment variable can be used to locate the lbrary.
+#]=======================================================================]
 
 include(StandardFindModule)
 standard_find_module(GLFW3 glfw3)

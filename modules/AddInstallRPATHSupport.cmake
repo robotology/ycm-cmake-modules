@@ -1,5 +1,5 @@
-# Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
-# file Copyright.txt or https://cmake.org/licensing for details.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
 #[=======================================================================[.rst:
 AddInstallRPATHSupport
@@ -11,8 +11,7 @@ Add support to RPATH during installation to the project and the targets
 
   Add support to RPATH during installation to the project::
 
-  .. code-block:: cmake
-
+.. code-block:: cmake
     add_install_rpath_support([BIN_DIRS dir [dir]]
                               [LIB_DIRS dir [dir]]
                               [INSTALL_NAME_DIR [dir]]
@@ -87,7 +86,7 @@ Add support to RPATH during installation to the project and the targets
 
   Add extra paths to RPATH for a specific target::
 
-  .. code-block:: cmake
+.. code-block:: cmake
 
     target_append_install_rpath(<target>
                                 <INSTALL_DESTINATION destination>
@@ -100,7 +99,6 @@ Add support to RPATH during installation to the project and the targets
      directories will be added "relative" w.r.t. the ``INSTALL_DESTINATION``.
    - ``DEPENDS`` list of conditions that should be ``TRUE`` to enable
      RPATH, for example ``FOO; NOT BAR``.
-
 #]=======================================================================]
 
 include(CMakeParseArguments)

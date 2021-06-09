@@ -1,47 +1,23 @@
-#.rst:
-# FindGSL
-# -------
-#
-# Try to find GSL library
-# Once run this will define::
-#
-#  GSL_FOUND
-#  GSL_INCLUDE_DIR
-#  GSL_INCLUDE_DIRS
-#  GSL_LIBRARIES
-#  GSL_LINK_DIRECTORIES
-#  GSLCBLAS_LIBRARY
-#  GSL_LIBRARY
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2010 Jan Woetzel
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2010 Jan Woetzel
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindGSL
+-------
 
+Try to find GSL library
+Once run this will define::
 
-# Small modifications by Lorenzo Natale and Francesco Nori
+ GSL_FOUND
+ GSL_INCLUDE_DIR
+ GSL_INCLUDE_DIRS
+ GSL_LIBRARIES
+ GSL_LINK_DIRECTORIES
+ GSLCBLAS_LIBRARY
+ GSL_LIBRARY
 
-#
-# 2004/05 Jan Woetzel, Friso, Daniel Grest 
-# 2006 complete rewrite by Jan Woetzel
-##
-# www.mip.informatik.uni-kiel.de/
-# --------------------------------
-#
-# Modified by macl
-#
-
-# Included in yarp by nat March 07.
-# Some changes to account for different include dirs.
-# 08/11/2011, Lorenzo Natale: added <prefix>/Release to library search path
+#]=======================================================================]
 
 ##### check GSL_ROOT
 if(EXISTS "$ENV{GSL_ROOT}")

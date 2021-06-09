@@ -1,49 +1,38 @@
-#.rst:
-# FindLibOVR
-# -----------
-#
-# Find the LibOVR library in Oculus Rift SDK.
-#
-# IMPORTED Targets
-# ^^^^^^^^^^^^^^^^
-#
-# This module defines the following :prop_tgt:`IMPORTED` targets if
-# LibOVR has been found::
-#
-#   LibOVR::OVRKernel
-#   LibOVR::OVR
-#
-# Result Variables
-# ^^^^^^^^^^^^^^^^
-#
-# This module defines the following variables::
-#
-#   LibOVR_FOUND                   - System has LibOVR
-#   LibOVR_VERSION                 - LibOVR version
-#   LibOVR_VERSION_PRODUCT         - LibOVR product version
-#   LibOVR_VERSION_MAJOR           - LibOVR major version
-#   LibOVR_VERSION_MINOR           - LibOVR minor version
-#   LibOVR_VERSION_PATCH           - LibOVR patch version
-#   LibOVR_VERSION_BUILD           - LibOVR build number
-#   LibOVR_VERSION_STRING          - LibOVR version
-#   LibOVR_VERSION_DETAILED_STRING - LibOVR version (including build number)
-#   LibOVR_INCLUDE_DIRS            - Include directories for LibOVR
-#   LibOVR_LIBRARIES               - libraries to link against LibOVR
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2015 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindLibOVR
+-----------
 
+Find the LibOVR library in Oculus Rift SDK.
+
+IMPORTED Targets
+^^^^^^^^^^^^^^^^
+
+This module defines the following :prop_tgt:`IMPORTED` targets if
+LibOVR has been found::
+
+  LibOVR::OVRKernel
+  LibOVR::OVR
+
+Result Variables
+^^^^^^^^^^^^^^^^
+
+This module defines the following variables::
+
+  LibOVR_FOUND                   - System has LibOVR
+  LibOVR_VERSION                 - LibOVR version
+  LibOVR_VERSION_PRODUCT         - LibOVR product version
+  LibOVR_VERSION_MAJOR           - LibOVR major version
+  LibOVR_VERSION_MINOR           - LibOVR minor version
+  LibOVR_VERSION_PATCH           - LibOVR patch version
+  LibOVR_VERSION_BUILD           - LibOVR build number
+  LibOVR_VERSION_STRING          - LibOVR version
+  LibOVR_VERSION_DETAILED_STRING - LibOVR version (including build number)
+  LibOVR_INCLUDE_DIRS            - Include directories for LibOVR
+  LibOVR_LIBRARIES               - libraries to link against LibOVR
+#]=======================================================================]
 
 
 set(OculusSDK_DIR "$ENV{OculusSDK_ROOT}")

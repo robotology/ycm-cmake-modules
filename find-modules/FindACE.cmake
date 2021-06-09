@@ -1,49 +1,36 @@
-#.rst:
-# FindACE
-# -------
-#
-# Try to find the ACE library
-#
-# Targets set::
-#
-#   ACE::ACE (links the ACE library)
-#   ACE::ACE_INLINE (INTERFACE library for ACE inlines only)
-#
-# Variables set::
-#
-#   ACE_FOUND           - System has ACE library
-#   ACE_LIBRARIES       - ACE link libraries
-#   ACE_INCLUDE_DIRS    - ACE library include directories
-#   ACE_DEFINITIONS     - Additional compiler flags for ACE library
-#   ACE_VERSION         - ACE library version
-#   ACE_MAJOR_VERSION   - ACE major version
-#   ACE_MINOR_VERSION   - ACE minor version
-#   ACE_BETA_VERSION    - ACE beta version
-#
-# Options variables::
-#
-#   ACE_INLINE (default ON)
-#     The ACE::ACE target passes __ACE_INLINE__ by default, this can be
-#     changed by setting ACE_INLINE = OFF.
-#     The ACE_DEFINITIONS variable is also influenced by the same option.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2009 RobotCub Consortium
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2009 RobotCub Consortium
-# Copyright 2013-2014 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Alexandre Bernardino <alex@isr.ist.utl.pt>
-#            Paul Fitzpatrick <paulfitz@alum.mit.edu>
-#            Lorenzo Natale <lorenzo.natale@iit.it>
-#            Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindACE
+-------
+
+Try to find the ACE library
+
+Targets set::
+
+  ACE::ACE (links the ACE library)
+  ACE::ACE_INLINE (INTERFACE library for ACE inlines only)
+
+Variables set::
+
+  ACE_FOUND           - System has ACE library
+  ACE_LIBRARIES       - ACE link libraries
+  ACE_INCLUDE_DIRS    - ACE library include directories
+  ACE_DEFINITIONS     - Additional compiler flags for ACE library
+  ACE_VERSION         - ACE library version
+  ACE_MAJOR_VERSION   - ACE major version
+  ACE_MINOR_VERSION   - ACE minor version
+  ACE_BETA_VERSION    - ACE beta version
+
+Options variables::
+
+  ACE_INLINE (default ON)
+    The ACE::ACE target passes __ACE_INLINE__ by default, this can be
+    changed by setting ACE_INLINE = OFF.
+    The ACE_DEFINITIONS variable is also influenced by the same option.
+#]=======================================================================]
 
 
 include(StandardFindModule)

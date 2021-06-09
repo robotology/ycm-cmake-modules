@@ -1,163 +1,147 @@
-#.rst:
-# GitInfo
-# -------
-#
-# Extract information from a git repository.
-#
-#
-# .. command :: git_commit_info
-#
-#  Extract information about one commit from one git repository in
-#  ``SOURCE DIR``::
-#
-#    git_commit_info([SOURCE DIR <dir>]
-#                    [PREFIX <prefix>]
-#                    [REVISION <rev>]
-#                    [FATAL])
-#
-#  If ``SOURCE_DIR`` is a git repository, it checks the given
-#  ``REVISION`` and sets the following variables:
-#
-#  ``<PREFIX>_GIT_COMMIT_DESCRIBE``
-#    The output of ``git describe <ref>``.
-#  ``<PREFIX>_GIT_COMMIT_DESCRIBE_CONTAINS``
-#    The output of ``git describe --contains <ref>``.
-#  ``<PREFIX>_GIT_COMMIT_TAG``
-#    The most recent tag that is reachable from a commit.
-#  ``<PREFIX>_GIT_COMMIT_REVISION``
-#    The number of commits since the beginning of the git history.
-#  ``<PREFIX>_GIT_COMMIT_TAG_REVISION``
-#    The number of commits since the last tag.
-#  ``<PREFIX>_GIT_COMMIT_DATE_REVISION``
-#    The number of commits since the beginning of the day.
-#  ``<PREFIX>_GIT_COMMIT_AUTHOR_DATE``
-#    The commit author date.
-#  ``<PREFIX>_GIT_COMMIT_AUTHOR_TIME``
-#    The commit author time.
-#  ``<PREFIX>_GIT_COMMIT_AUTHOR_TZ``
-#    The commit author time zone.
-#  ``<PREFIX>_GIT_COMMIT_AUTHOR_NAME``
-#    The commit author name.
-#  ``<PREFIX>_GIT_COMMIT_AUTHOR_EMAIL``
-#    The commit author e-mail.
-#  ``<PREFIX>_GIT_COMMIT_COMMITTER_DATE``
-#    The commit committer date.
-#  ``<PREFIX>_GIT_COMMIT_COMMITTER_TIME``
-#    The commit author time.
-#  ``<PREFIX>_GIT_COMMIT_COMMITTER_TZ``
-#    The commit author time zone.
-#  ``<PREFIX>_GIT_COMMIT_COMMITTER_NAME``
-#    The commit committer name.
-#  ``<PREFIX>_GIT_COMMIT_COMMITTER_EMAIL``
-#    The commit committer email.
-#  ``<PREFIX>_GIT_COMMIT_HASH``
-#    The commit hash.
-#  ``<PREFIX>_GIT_COMMIT_HASH_SHORT``
-#    The abbreviated commit hash.
-#  ``<PREFIX>_GIT_COMMIT_SUBJECT``
-#    The commit log message subject line.
-#  ``<PREFIX>_GIT_COMMIT_BODY``
-#    The commit log message body.
-#
-#  If ``SOURCE_DIR`` is not set, then the ``PROJECT_SOURCE_DIR`` cmake
-#  variable is used.
-#
-#  If ``PREFIX`` is not set, then the ``PROJECT_NAME`` cmake variable is
-#  used.
-#
-#  ``REVISION`` can be a commit hash, a tag, a branch, or anything that
-#  git can parse as a revision. If ``REVISION` is not set, then ``HEAD``
-#  is used.
-#
-#  If ``FATAL`` is set, a fatal error is emitted when the source dir
-#  is not a git repository, or when git was not found. This is disabled
-#  by default to allow downloads from non-git sources (archives,
-#  wrappers, etc.), but can be enabled if required.
-#
-#
-#
-#
-# .. command :: git_wt_info
-#
-#  Extract information about current working tree from one git
-#  repository in ``SOURCE DIR``::
-#
-#    git_wt_info([SOURCE DIR <dir>]
-#                [PREFIX <prefix>]
-#                [FATAL])
-#
-#  If ``SOURCE_DIR`` is a git repository, it checks current revision and
-#  sets the following variables:
-#
-#  ``<PREFIX>_GIT_WT_DESCRIBE``
-#    The output of ``git describe HEAD``.
-#  ``<PREFIX>_GIT_WT_DESCRIBE_CONTAINS``
-#    The output of ``git describe --contains HEAD``.
-#  ``<PREFIX>_GIT_WT_TAG``
-#    The most recent tag that is reachable from current commit.
-#  ``<PREFIX>_GIT_WT_REVISION``
-#    The number of commits since the beginning of the git history.
-#  ``<PREFIX>_GIT_WT_TAG_REVISION``
-#    The number of commits since the last tag.
-#  ``<PREFIX>_GIT_WT_DATE_REVISION``
-#    The number of commits since the beginning of the day.
-#  ``<PREFIX>_GIT_WT_AUTHOR_DATE``
-#    The current commit author date.
-#  ``<PREFIX>_GIT_WT_AUTHOR_TIME``
-#    The current commit author time.
-#  ``<PREFIX>_GIT_WT_AUTHOR_TZ``
-#    The current commit author time zone.
-#  ``<PREFIX>_GIT_WT_AUTHOR_NAME``
-#    The current commit author name.
-#  ``<PREFIX>_GIT_WT_AUTHOR_EMAIL``
-#    The current commit author e-mail.
-#  ``<PREFIX>_GIT_WT_COMMITTER_DATE``
-#    The current commit committer date.
-#  ``<PREFIX>_GIT_WT_COMMITTER_TIME``
-#    The current commit author time.
-#  ``<PREFIX>_GIT_WT_COMMITTER_TZ``
-#    The current commit author time zone.
-#  ``<PREFIX>_GIT_WT_COMMITTER_NAME``
-#    The current commit committer name.
-#  ``<PREFIX>_GIT_WT_COMMITTER_EMAIL``
-#    The current commit committer email.
-#  ``<PREFIX>_GIT_WT_HASH``
-#    The current commit hash.
-#  ``<PREFIX>_GIT_WT_HASH_SHORT``
-#    The abbreviated commit hash.
-#  ``<PREFIX>_GIT_WT_SUBJECT``
-#    The current commit log message subject line.
-#  ``<PREFIX>_GIT_WT_BODY``
-#    The current commit log message body.
-#  ``<PREFIX>_GIT_WT_DIRTY``
-#    Whether the current working tree is clean or not.
-#
-#
-#  If ``SOURCE_DIR`` is not set, then the ``PROJECT_SOURCE_DIR`` cmake
-#  variable is used.
-#
-#  If ``PREFIX`` is not set, then the ``PROJECT_NAME`` cmake variable is
-#  used.
-#
-#  If ``FATAL`` is set, a fatal error is emitted when the source dir
-#  is not a git repository, or when git was not found. This is disabled
-#  by default to allow downloads from non-git sources (archives,
-#  wrappers, etc.), but can be enabled if required.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2000-2014 Kitware Inc.
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2000-2014 Kitware, Inc.
-# Copyright 2014 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+GitInfo
+-------
+
+Extract information from a git repository.
+
+.. command:: git_commit_info
+
+  Extract information about one commit from one git repository in
+  ``SOURCE DIR``::
+
+     git_commit_info([SOURCE DIR <dir>]
+                     [PREFIX <prefix>]
+                     [REVISION <rev>]
+                     [FATAL])
+
+  If ``SOURCE_DIR`` is a git repository, it checks the given ``REVISION`` and
+  sets the following variables:
+
+  ``<PREFIX>_GIT_COMMIT_DESCRIBE``
+    The output of ``git describe <ref>``.
+  ``<PREFIX>_GIT_COMMIT_DESCRIBE_CONTAINS``
+    The output of ``git describe --contains <ref>``.
+  ``<PREFIX>_GIT_COMMIT_TAG``
+    The most recent tag that is reachable from a commit.
+  ``<PREFIX>_GIT_COMMIT_REVISION``
+    The number of commits since the beginning of the git history.
+  ``<PREFIX>_GIT_COMMIT_TAG_REVISION``
+    The number of commits since the last tag.
+  ``<PREFIX>_GIT_COMMIT_DATE_REVISION``
+    The number of commits since the beginning of the day.
+  ``<PREFIX>_GIT_COMMIT_AUTHOR_DATE``
+    The commit author date.
+  ``<PREFIX>_GIT_COMMIT_AUTHOR_TIME``
+    The commit author time.
+  ``<PREFIX>_GIT_COMMIT_AUTHOR_TZ``
+    The commit author time zone.
+  ``<PREFIX>_GIT_COMMIT_AUTHOR_NAME``
+    The commit author name.
+  ``<PREFIX>_GIT_COMMIT_AUTHOR_EMAIL``
+    The commit author e-mail.
+  ``<PREFIX>_GIT_COMMIT_COMMITTER_DATE``
+    The commit committer date.
+  ``<PREFIX>_GIT_COMMIT_COMMITTER_TIME``
+    The commit author time.
+  ``<PREFIX>_GIT_COMMIT_COMMITTER_TZ``
+    The commit author time zone.
+  ``<PREFIX>_GIT_COMMIT_COMMITTER_NAME``
+    The commit committer name.
+  ``<PREFIX>_GIT_COMMIT_COMMITTER_EMAIL``
+    The commit committer email.
+  ``<PREFIX>_GIT_COMMIT_HASH``
+    The commit hash.
+  ``<PREFIX>_GIT_COMMIT_HASH_SHORT``
+    The abbreviated commit hash.
+  ``<PREFIX>_GIT_COMMIT_SUBJECT``
+    The commit log message subject line.
+  ``<PREFIX>_GIT_COMMIT_BODY``
+    The commit log message body.
+
+  If ``SOURCE_DIR`` is not set, then the ``PROJECT_SOURCE_DIR`` cmake variable
+  is used.
+
+  If ``PREFIX`` is not set, then the ``PROJECT_NAME`` cmake variable is used.
+
+  ``REVISION`` can be a commit hash, a tag, a branch, or anything that git can
+  parse as a revision. If ``REVISION` is not set, then ``HEAD`` is used.
+
+  If ``FATAL`` is set, a fatal error is emitted when the source dir is not a git
+  repository, or when git was not found. This is disabled by default to allow
+  downloads from non-git sources (archives, wrappers, etc.), but can be enabled
+  if required.
+
+
+.. command:: git_wt_info
+
+  Extract information about current working tree from one git repository in
+  ``SOURCE DIR``::
+
+    git_wt_info([SOURCE DIR <dir>]
+                [PREFIX <prefix>]
+                [FATAL])
+
+  If ``SOURCE_DIR`` is a git repository, it checks current revision and sets the
+  following variables:
+
+  ``<PREFIX>_GIT_WT_DESCRIBE``
+    The output of ``git describe HEAD``.
+  ``<PREFIX>_GIT_WT_DESCRIBE_CONTAINS``
+    The output of ``git describe --contains HEAD``.
+  ``<PREFIX>_GIT_WT_TAG``
+    The most recent tag that is reachable from current commit.
+  ``<PREFIX>_GIT_WT_REVISION``
+    The number of commits since the beginning of the git history.
+  ``<PREFIX>_GIT_WT_TAG_REVISION``
+    The number of commits since the last tag.
+  ``<PREFIX>_GIT_WT_DATE_REVISION``
+    The number of commits since the beginning of the day.
+  ``<PREFIX>_GIT_WT_AUTHOR_DATE``
+    The current commit author date.
+  ``<PREFIX>_GIT_WT_AUTHOR_TIME``
+    The current commit author time.
+  ``<PREFIX>_GIT_WT_AUTHOR_TZ``
+    The current commit author time zone.
+  ``<PREFIX>_GIT_WT_AUTHOR_NAME``
+    The current commit author name.
+  ``<PREFIX>_GIT_WT_AUTHOR_EMAIL``
+    The current commit author e-mail.
+  ``<PREFIX>_GIT_WT_COMMITTER_DATE``
+    The current commit committer date.
+  ``<PREFIX>_GIT_WT_COMMITTER_TIME``
+    The current commit author time.
+  ``<PREFIX>_GIT_WT_COMMITTER_TZ``
+    The current commit author time zone.
+  ``<PREFIX>_GIT_WT_COMMITTER_NAME``
+    The current commit committer name.
+  ``<PREFIX>_GIT_WT_COMMITTER_EMAIL``
+    The current commit committer email.
+  ``<PREFIX>_GIT_WT_HASH``
+    The current commit hash.
+  ``<PREFIX>_GIT_WT_HASH_SHORT``
+    The abbreviated commit hash.
+  ``<PREFIX>_GIT_WT_SUBJECT``
+    The current commit log message subject line.
+  ``<PREFIX>_GIT_WT_BODY``
+    The current commit log message body.
+  ``<PREFIX>_GIT_WT_DIRTY``
+    Whether the current working tree is clean or not.
+
+
+  If ``SOURCE_DIR`` is not set, then the ``PROJECT_SOURCE_DIR`` cmake variable
+  is used.
+
+  If ``PREFIX`` is not set, then the ``PROJECT_NAME`` cmake variable is used.
+
+  If ``FATAL`` is set, a fatal error is emitted when the source dir is not a git
+  repository, or when git was not found. This is disabled by default to allow
+  downloads from non-git sources (archives, wrappers, etc.), but can be enabled
+  if required.
+#]=======================================================================]
 
 
 if(DEFINED __GIT_INFO_INCLUDED)

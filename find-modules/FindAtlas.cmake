@@ -1,23 +1,13 @@
-#.rst:
-# FindAtlas
-# ---------
-#
-# Find the Atlas (and Lapack) libraries
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2010 RobotCub Consortium
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2010 RobotCub Consortium
-#   Authors: Arjan Gijsberts <arjan.gijsberts@idiap.ch>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindAtlas
+---------
 
+Find the Atlas (and Lapack) libraries
+#]=======================================================================]
 
 set(ATLAS_POSSIBLE_INCLUDE_PATHS
     /usr/include

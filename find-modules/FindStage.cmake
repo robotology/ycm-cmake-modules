@@ -1,41 +1,21 @@
-#.rst:
-# FindStage
-# ------------
-#
-# Try to find Stage, a library for easy editing of command lines.
-# Once done this will define the following variables::
-#
-#  Stage_FOUND         - System has Stage
-#  Stage_INCLUDE_DIRS  - Stage include directory
-#  Stage_LIBRARIES     - Stage libraries
-#  Stage_DEFINITIONS   - Additional compiler flags for Stage
-#  Stage_VERSION       - Stage version
-#  Stage_MAJOR_VERSION - Stage major version
-#  Stage_MINOR_VERSION - Stage minor version
-#
-# Environment variables used to locate the Stage library:
-# Stage_DIR - Stage root directory
-#
-# Cached variables used to locate the Stage library:
-# Stage_INCLUDE_DIR - the Stage include directory
-# Stage_LIBRARY_RELEASE - Stage library (release)
-# Stage_LIBRARY_DEBUG - Stage library (debug)
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2009 RobotCub Consortium
-# Copyright 2014 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Paul Fitzpatrick <paulfitz@alum.mit.edu>
-#            Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindStage
+---------
+
+Try to find Stage, a library for easy editing of command lines.
+Once done this will define the following variables::
+
+ Stage_FOUND         - System has Stage
+ Stage_INCLUDE_DIRS  - Stage include directory
+ Stage_LIBRARIES     - Stage libraries
+ Stage_DEFINITIONS   - Additional compiler flags for Stage
+ Stage_VERSION       - Stage version
+ Stage_MAJOR_VERSION - Stage major version
+ Stage_MINOR_VERSION - Stage minor version
+#]=======================================================================]
 
 
 include(StandardFindModule)

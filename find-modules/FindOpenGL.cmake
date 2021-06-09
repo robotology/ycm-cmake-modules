@@ -1,33 +1,23 @@
-#.rst:
-# FindOpenGL
-# ----------
-#
-# Wrap kitware's original FindOpenGL. Standardize variables.
-#
-# In windows require you set ``OpenGL_DIR``
-#
-# Set::
-#
-#  OpenGL_FOUND
-#  OpenGL_LIBRARIES
-#  OpenGL_INCLUDE_DIRS
-#
-# .. todo:: Check if this module is still needed with recent CMake releases.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-FileCopyrightText: 2010 RobotCub Consortium
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2010 RobotCub Consortium
-#   Authors: Lorenzo Natale <lorenzo.natale@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindOpenGL
+----------
 
+Wrap kitware's original FindOpenGL. Standardize variables.
+
+In windows require you set ``OpenGL_DIR``
+
+Set::
+
+ OpenGL_FOUND
+ OpenGL_LIBRARIES
+ OpenGL_INCLUDE_DIRS
+
+.. todo:: Check if this module is still needed with recent CMake releases.
+#]=======================================================================]
 
 # Save current CMAKE_MODULE_PATH, disable it 
 # to avoid recursive calls to FindGLUT

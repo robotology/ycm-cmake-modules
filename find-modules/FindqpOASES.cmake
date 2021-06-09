@@ -1,32 +1,22 @@
-#.rst:
-# FindqpOASES
-# -----------
-#
-# Try to find the qpOASES library.
-# Once done this will define the following variables::
-#
-#  qpOASES_FOUND         - System has qpOASES
-#  qpOASES_INCLUDE_DIRS  - qpOASES include directory
-#  qpOASES_LIBRARIES     - qpOASES libraries
-#
-# qpOASES does not have an "install" step, and the includes are in the source
-# tree, while the libraries are in the build tree.
-# Therefore the environment and cmake variables `qpOASES_SOURCE_DIR` and
-# `qpOASES_BINARY_DIR` will be used to locate the includes and libraries.
+# SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
+# SPDX-License-Identifier: BSD-3-Clause
 
-#=============================================================================
-# Copyright 2014 Istituto Italiano di Tecnologia (IIT)
-#   Authors: Daniele E. Domenichelli <daniele.domenichelli@iit.it>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of YCM, substitute the full
-#  License text for the above reference.)
+#[=======================================================================[.rst:
+FindqpOASES
+-----------
+
+Try to find the qpOASES library.
+Once done this will define the following variables::
+
+ qpOASES_FOUND         - System has qpOASES
+ qpOASES_INCLUDE_DIRS  - qpOASES include directory
+ qpOASES_LIBRARIES     - qpOASES libraries
+
+qpOASES does not have an "install" step, and the includes are in the source
+tree, while the libraries are in the build tree.
+Therefore the environment and cmake variables `qpOASES_SOURCE_DIR` and
+`qpOASES_BINARY_DIR` will be used to locate the includes and libraries.
+#]=======================================================================]
 
 
 include(FindPackageHandleStandardArgs)
