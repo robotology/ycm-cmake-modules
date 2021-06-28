@@ -1,0 +1,139 @@
+name: Python CI/CD
+
+on:
+  push:
+    branches: ['**']
+    tags-ignore: ['**']
+  pull_request:
+  release:
+    types:
+      - published
+
+jobs:
+
+  build_sdist:
+    name: Build source distribution
+    runs-on: ubuntu-20.04
+
+    steps:
+
+      - uses: actions/checkout@master
+      - run: git fetch --prune --unshallow
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install pypa/build
+        run: pip install build
+
+      - name: Build sdist
+        run: python -m build --sdist --outdir dist/ tools/pip
+
+      - name: Install sdist
+        run: pip -v install --use-feature=in-tree-build dist/ycm_cmake_modules-*.tar.gz
+
+      - name: Test import
+        run: python -c 'import ycm_cmake_modules'
+
+      - name: Remove external wheels
+        run: find dist/ -type f -not -name 'ycm_cmake_modules-*' -delete -print
+
+      - name: Inspect dist folder
+        run: ls -lah dist/
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/*.tar.gz
+
+  build_wheel:
+    name: Build wheel
+    runs-on: ubuntu-20.04
+
+    steps:
+
+      - uses: actions/checkout@master
+      - run: git fetch --prune --unshallow
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install pypa/build
+        run: pip install build
+
+      - name: Build wheel
+        run: python -m build --wheel --outdir dist/ tools/pip
+
+      - name: Remove external wheels
+        run: find dist/ -type f -not -name 'ycm_cmake_modules-*' -delete -print
+
+      # setuptools thinks that the package is OS-dependent because it uses a
+      # build extension, but instead it does not contain any compiled code.
+      - name: Rename wheel
+        run: |
+          sudo apt update
+          sudo apt install -y rename
+          find . -type f -name "*.whl" -exec rename -v "s/cp(\d)(\d)-cp(\d)(\d)-linux_x86_64/py3-none-any/g" {} +
+
+      - name: Install wheel
+        run: pip install dist/ycm_cmake_modules-*.whl
+
+      - name: Test import
+        run: python -c 'import ycm_cmake_modules'
+
+      - name: Inspect dist folder
+        run: ls -lah dist/
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: ./dist/*.whl
+
+  upload_pypi:
+    needs:
+      - build_sdist
+      - build_wheel
+    runs-on: ubuntu-latest
+    # Branch master produces pre-releases.
+    # GitHub Releases 'vX.Y.Z' produce stable releases.
+
+    steps:
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist
+
+      - name: Inspect dist folder
+        run: ls -lah dist/
+
+      # Validate the tag accordingly to PEP440
+      # From https://stackoverflow.com/a/37972030/12150968
+      - name: Check PEP440 compliance
+        if: github.event_name == 'release'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y source-highlight
+          last_tag_with_v="$(git describe --abbrev=0 --tags)"
+          last_tag=${last_tag_with_v#v}
+          rel_regexp='^(\d+!)?(\d+)(\.\d+)+([\.\-\_])?((a(lpha)?|b(eta)?|c|r(c|ev)?|pre(view)?)\d*)?(\.?(post|dev)\d*)?$'
+          echo ""
+          echo $last_tag
+          echo ""
+          check-regexp ${rel_regexp} ${last_tag}
+          match=$(check-regexp ${rel_regexp} ${last_tag} | grep matches | cut -d ' ' -f 5)
+          test $match -eq 1 && true
+
+      - uses: pypa/gh-action-pypi-publish@master
+        if: |
+          github.repository == 'robotology/ycm' &&
+          ((github.event_name == 'release' && github.event.action == 'published') ||
+           (github.event_name == 'push' && github.ref == 'refs/heads/master'))
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}
+          skip_existing: true
