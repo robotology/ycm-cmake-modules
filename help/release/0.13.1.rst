@@ -5,4 +5,4 @@ YCM 0.13.1 (UNRELEASED) Release Notes
 
   .. contents::
 
-Changes made since YCM 0.13.1 include the following.
+Changes made since YCM 0.13.0 include the following.
