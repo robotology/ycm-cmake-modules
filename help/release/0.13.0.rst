@@ -1,4 +1,4 @@
-YCM 0.13.0 (UNRELEASED) Release Notes
+YCM 0.13.0 (2021-07-05) Release Notes
 *************************************
 
 .. only:: html
@@ -28,6 +28,6 @@ Modules
 * Imported :module:`FindUDev` module from `ECM Git Repository`_ +
 * Update `VTK Git Repository`_ to tag ``v9.0.1``.
   The :module:`FindFFMPEG` module now offers targets, but it requires to specify
-  the `COMPONENTS` to the `find_package(FFMPEG)` calls.
-* The :module:`CMakeRC` module is now imported from `robotology-dependencies`
-  fork in order to be able to produce `OBJECT` libraries.
+  the ``COMPONENTS`` to the ``find_package(FFMPEG)`` calls.
+* The :module:`CMakeRC` module is now imported from ``robotology-dependencies``
+  fork in order to be able to produce ``OBJECT`` libraries.
