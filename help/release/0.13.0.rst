@@ -29,3 +29,5 @@ Modules
 * Update `VTK Git Repository`_ to tag ``v9.0.1``.
   The :module:`FindFFMPEG` module now offers targets, but it requires to specify
   the `COMPONENTS` to the `find_package(FFMPEG)` calls.
+* The :module:`CMakeRC` module is now imported from `robotology-dependencies`
+  fork in order to be able to produce `OBJECT` libraries.
