@@ -4,19 +4,14 @@
 ##############################################################################
 # CMakeRC.cmake is taken from the CMakeRC repository.
 
-set(_files CMakeRC.cmake  8eceaebb7b1bb703695b8bdf84c0fc111bc66de5
+set(_files CMakeRC.cmake  15109e38dddefce15028a0d0563557b2dc72446a
            LICENSE.txt    053245749bccc40304ec4d9d0a47aea0b1c9f8f6)
-set(_ref 1bf6fe0b1299068561fac87bfba93980511bbe6a)
+set(_ref f26f6e35a859b0ba28818dbcc0ed9b3880881cf4)
 set(_dir "${CMAKE_CURRENT_BINARY_DIR}/cmrc")
-
-#_ycm_download(3rdparty-cmrc
-              #"CMakeRC (A Standalone CMake-Based C++ Resource Compiler) git repository"
-              #"https://raw.githubusercontent.com/vector-of-bool/cmrc/<REF>/<FILE>"
-              #${_ref} "${_dir}" "${_files}")
 
 _ycm_download(3rdparty-cmrc
               "CMakeRC (A Standalone CMake-Based C++ Resource Compiler) git repository"
-              "https://raw.githubusercontent.com/robotology-dependencies/cmrc/<REF>/<FILE>"
+              "https://raw.githubusercontent.com/vector-of-bool/cmrc/<REF>/<FILE>"
               ${_ref} "${_dir}" "${_files}")
 
 file(WRITE "${_dir}/README.CMakeRC"
