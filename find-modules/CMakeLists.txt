@@ -36,7 +36,7 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindPortAudio.cmake
                      FindqpOASES.cmake
                      FindReadline.cmake
-                     FindSoxr.cmake
+                     FindSOXR.cmake
                      FindSQLite.cmake
                      FindStage.cmake
                      FindTinyXML.cmake
