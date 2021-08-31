@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.16)
 project(${RunCMake_TEST} NONE)
 set(YCM_DIR "${YCM_BINARY_DIR}")
 find_package(YCM REQUIRED NO_DEFAULT_PATH)

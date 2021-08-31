@@ -11,7 +11,7 @@ How to Use YCM in Your Project
 ==============================
 
 In order to use YCM in your project, your software will have to depend
-on CMake 3.12 or later. Therefore your ``CMakeLists.txt`` file should
+on CMake 3.16 or later. Therefore your ``CMakeLists.txt`` file should
 include a :cmake:command:`cmake_minimum_required` call to set the
 :cmake:variable:`CMAKE_MINIMUM_REQUIRED_VERSION` and the relative
 CMake policies.
@@ -19,7 +19,7 @@ CMake policies.
 
 .. code-block:: cmake
 
-    cmake_minimum_required(VERSION 3.12)
+    cmake_minimum_required(VERSION 3.16)
 
 Now you have to set variables that control which components are enabled (all
 the following variables should be set before calling ``find_package(YCM)``, it
