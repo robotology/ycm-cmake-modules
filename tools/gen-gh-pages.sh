@@ -32,14 +32,14 @@ cat > index.html << EOF
 <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="1;url=gh-pages/git-master/index.html">
+        <meta http-equiv="refresh" content="1;url=gh-pages/latest/index.html">
         <script type="text/javascript">
-            window.location.href = "gh-pages/git-master/index.html"
+            window.location.href = "gh-pages/latest/index.html"
         </script>
         <title>Page Redirection</title>
     </head>
     <body>
-        If you are not redirected automatically, follow the <a href='gh-pages/git-master/index.html'>link to the documentation</a>
+        If you are not redirected automatically, follow the <a href='gh-pages/latest/index.html'>link to the documentation</a>
     </body>
 </html>
 EOF
