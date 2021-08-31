@@ -8,6 +8,12 @@ YCM 0.14.0 (UNRELEASED) Release Notes
 Changes made since YCM 0.13.0 include the following.
 
 
+Important Changes
+=================
+
+* CMake 3.16 or later is now required.
+
+
 Modules
 =======
 

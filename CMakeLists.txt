@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.16)
 project(YCM NONE)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/internal-modules")
@@ -49,17 +49,6 @@ add_subdirectory(deprecated)
 add_subdirectory(build-modules)
 add_subdirectory(style-modules)
 add_subdirectory(docs)
-
-# Use the new CMakePackageConfigHelpers from CMake repository in order to use
-# the new ARCH_INDEPENDENT argument for write_basic_package_version_file
-if(CMAKE_MINIMUM_REQUIRED_VERSION VERSION_GREATER_EQUAL 3.14)
-    # Just a reminder to remove this when we change cmake version
-    message(AUTHOR_WARNING "CMake minimum required version greater than 3.14. You can remove this.")
-endif()
-if(CMAKE_VERSION VERSION_LESS 3.14)
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-next/v3.14")
-endif()
-include(CMakePackageConfigHelpers)
 
 include(InstallBasicPackageFiles)
 install_basic_package_files(YCM

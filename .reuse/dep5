@@ -21,8 +21,5 @@ Files:
  cmake-next/proposed/ExternalProject-download.cmake.in
  cmake-next/proposed/ExternalProject-verify.cmake.in
  cmake-next/proposed/ExternalProject.cmake
- cmake-next/v3.14/CMakePackageConfigHelpers.cmake
- cmake-next/v3.14/UseSWIG.cmake
- cmake-next/v3.14/WriteBasicConfigVersionFile.cmake
 Copyright: 2000-2021 Kitware, Inc. and Contributors
 License: BSD-3-Clause
