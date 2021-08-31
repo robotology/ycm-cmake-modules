@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YCM Highlights &#8212; YCM 0.12.2 Documentation</title>
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+    <script src="static/jquery.js"></script>
+    <script src="static/underscore.js"></script>
+    <script src="static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+    <script type="text/javascript" src="../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+  <li>
+    <img src="static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.12.2</span>
+    <a href="index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">YCM Highlights</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ycm-highlights">
+<h1><a class="toc-backref" href="#id1">YCM Highlights</a><a class="headerlink" href="#ycm-highlights" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#ycm-highlights" id="id1">YCM Highlights</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-problem" id="id2">The problem</a></p></li>
+<li><p><a class="reference internal" href="#the-solution" id="id3">The solution</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="the-problem">
+<h2><a class="toc-backref" href="#id2">The problem</a><a class="headerlink" href="#the-problem" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Research environment:</p>
+<ul>
+<li><p>Publish or perish.</p></li>
+<li><p>Quick development.</p></li>
+<li><p>Write software that just “works”.</p></li>
+<li><p>No time to spend on the build system.</p></li>
+<li><p>No time to work directly upstream.</p></li>
+<li><p>No software review process.</p></li>
+</ul>
+</li>
+<li><p>Users:</p>
+<ul>
+<li><p>A very different set of skills:</p>
+<ul>
+<li><p>Different field: software, firmware, electronics, hardware.</p></li>
+<li><p>Different role: students, researchers, developers, release managers, team leaders.</p></li>
+<li><p>Different goals.</p></li>
+<li><p>Different operating system.</p></li>
+<li><p>Different habits.</p></li>
+</ul>
+</li>
+<li><p>Will modify only a limited subset of packages.</p></li>
+<li><p>Will not be properly trained before committing to the repositories.</p></li>
+<li><p>Everyone has commit access to all the repositories, and will commit directly
+without requesting a review.</p></li>
+</ul>
+</li>
+<li><p>Research groups:</p>
+<ul>
+<li><p>Group identity.</p></li>
+<li><p>Different hosts where the code is stored.</p></li>
+<li><p>Sometimes the code is not public.</p></li>
+<li><p>Different SCM.</p></li>
+<li><p>Different build system.</p></li>
+</ul>
+</li>
+<li><p>Funded Projects:</p>
+<ul>
+<li><p>Re-use parts from other projects.</p></li>
+<li><p>Will have parts that are supposed to be reused by other projects, and
+parts specific to that project and not supposed to be reused.</p></li>
+<li><p>Can produce different demos at specific stages of the project.</p></li>
+<li><p>Produce “stacks” (list of software used to accomplish something).</p></li>
+</ul>
+</li>
+<li><p>Demos:</p>
+<ul>
+<li><p>“Snapshot” of a project at a certain stage.</p></li>
+<li><p>Shows a certain feature, not necessarily properly integrated with the
+others.</p></li>
+<li><p>Software is not always stable, but a user must be able to checkout the whole
+stack at a specific version.</p></li>
+<li><p>Must use software at a specific revision, to minimize Murphy’s Law
+effects applied to demos (nonetheless your code will not work).</p></li>
+</ul>
+</li>
+<li><p>Software Projects:</p>
+<ul>
+<li><p>Must be reusable by other projects. In order to be found it should provide
+at least a <code class="docutils literal notranslate"><span class="pre">ProjectConfig.cmake</span></code> file.</p></li>
+<li><p>Need to find other package. Not all the dependencies use cmake or provide a
+<code class="docutils literal notranslate"><span class="pre">ProjectConfig.cmake</span></code>. If they don’t:</p>
+<ul>
+<li><p>You can provide a <code class="docutils literal notranslate"><span class="pre">ProjectConfig.cmake</span></code> upstream, but sometimes you have
+to support older version of the library that still don’t have the file.</p></li>
+<li><p>You can provide a <code class="docutils literal notranslate"><span class="pre">FindProject.cmake</span></code> to CMake, but sometimes it is not
+enough because you need to support an older version of cmake.</p></li>
+<li><p>You can to include a <code class="docutils literal notranslate"><span class="pre">FindPackage.cmake</span></code> in your project, but if you
+have several projects that use the same library, you have to keep multiple
+copies of this file and keep them in sync when you update one.</p></li>
+</ul>
+</li>
+<li><p>Can be developed by third party.</p></li>
+<li><p>Can offer another way to be found (e.g. <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code>)</p></li>
+<li><p>Different build system (CMake, autotools, etc).</p></li>
+</ul>
+</li>
+<li><p>Operating system:</p>
+<ul>
+<li><p>Linux, Windows, OS X.</p></li>
+<li><p>Different IDEs.</p></li>
+<li><p>Packages can be supplied by the operating system.</p></li>
+<li><p>Packages can be installed manually by the system administrator or
+by the user.</p></li>
+<li><p>Support CMake version released with the system.</p></li>
+<li><p>Reduce the number of tools that needs to be installed on the system.</p></li>
+<li><p>Stable distribution, therefore it takes a lot of time before the new
+software is available.</p></li>
+</ul>
+</li>
+<li><p>Hardware:</p>
+<ul>
+<li><p>PC</p></li>
+<li><p>Servers and clusters</p></li>
+<li><p>Robots</p></li>
+</ul>
+</li>
+<li><p>Superbuild</p>
+<ul>
+<li><p>Download all missing repositories</p></li>
+<li><p>Handle dependencies</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="the-solution">
+<h2><a class="toc-backref" href="#id3">The solution</a><a class="headerlink" href="#the-solution" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>CMake</p>
+<ul>
+<li><p>Minimum amount of dependencies (no Ruby, Python, etc).</p></li>
+<li><p>Handles “external projects”.</p></li>
+<li><p>Easy to check if a pacakage is installed.</p></li>
+<li><p>No new tools to learn.</p></li>
+<li><p>Cross platform.</p></li>
+<li><p>Support for different compilers, build system, and IDE.</p></li>
+<li><p>Can be used as a cross platform scripting language.</p></li>
+</ul>
+</li>
+<li><p>Contribute upstream</p>
+<ul>
+<li><p>Contribute patches upstream to make the world a better place.</p></li>
+<li><p>Write patches in a way that will allow them to be accepted upstream.</p></li>
+<li><p>Minimize duplication of efforts.</p></li>
+<li><p>Reduce the effort to maintain code.</p></li>
+<li><p>Visibility in other communities.</p></li>
+<li><p>Solve the issues “in the proper way” reducing the number of hacks
+and workarounds.</p></li>
+</ul>
+</li>
+<li><p>YCM</p>
+<ul>
+<li><p>A very tiny layer of CMake modules, easy to maintain.</p></li>
+<li><p>Incubator and testing ground for CMake modules and patches that can be later
+ported upstream.</p></li>
+<li><p>No extra dependencies.</p></li>
+<li><p>No magic (except maybe some for the bootstrap phase).</p></li>
+<li><p>Try to respect standards and conventions.</p></li>
+<li><p>Easy for basic users, but powerful for advanced users.</p></li>
+<li><p>Use the same documentation and testing tools used upstream to simplify the
+contribution of patches and modules.</p></li>
+<li><p>Not as much stable as CMake, but try to maintain compatibility.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">YCM Highlights</a><ul>
+<li><a class="reference internal" href="#the-problem">The problem</a></li>
+<li><a class="reference internal" href="#the-solution">The solution</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="sources/highlights.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+  <li>
+    <img src="static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.12.2</span>
+    <a href="index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">YCM Highlights</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2019 Istituto Italiano di Tecnologia (IIT).
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

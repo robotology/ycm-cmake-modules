@@ -1,0 +1,41 @@
+YCM 0.11.1 (2020-03-27) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.11.0 include the following.
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`InstallBasicPackageFiles`: A CMake version dependent inconsistency
+  was fixed. (#314)
+
+Find Modules
+------------
+
+* The :module:`FindESDCANAPI` module no longer uses ``NO_DEFAULT_PATH``.
+  If the ``ESDCANAPI`` ``ntcan`` library is installed via a custom vcpkg port
+  instead of the official installers, its location will not be already listed in
+  the ``ESDCAN_LIB_DIRS``, and instead  would be found with the usual
+  ``CMAKE_PREFIX_PATH`` introspection. (#320)
+* The :module:`FindODE` now handles the :cmake:variable:`CMAKE_CROSSCOMPILING`
+  variable properly.
+* The :module:`FindIPOPT` call to search for ``IPOPT_INCLUDE_DIRS`` was fixed.
+  (#325)
+
+CMake Next
+----------
+
+* Updated to CMake ``v3.15.7``
+
+3rd Party
+---------
+
+* The :module:`FindEigen3` module is now downloaded from the
+  `Eigen Gitlab Repository`_ (#303)

@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FindLibOVR &#8212; YCM 0.10.4 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FindLibusb1" href="FindLibusb1.html" />
+    <link rel="prev" title="FindLibedit" href="FindLibedit.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="FindLibusb1.html" title="FindLibusb1"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="FindLibedit.html" title="FindLibedit"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.10.4</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" accesskey="U">ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindLibOVR</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="findlibovr">
+<span id="FindLibOVR"></span><h1>FindLibOVR<a class="headerlink" href="#findlibovr" title="Permalink to this headline">¶</a></h1>
+<p>Find the LibOVR library in Oculus Rift SDK.</p>
+<div class="section" id="imported-targets">
+<h2>IMPORTED Targets<a class="headerlink" href="#imported-targets" title="Permalink to this headline">¶</a></h2>
+<p>This module defines the following <span class="target" id="index-0-prop_tgt:IMPORTED"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/prop_tgt/IMPORTED.html#IMPORTED" title="(in CMake v3.0.0)"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">IMPORTED</span></code></a> targets if
+LibOVR has been found:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LibOVR</span><span class="p">::</span><span class="n">OVRKernel</span>
+<span class="n">LibOVR</span><span class="p">::</span><span class="n">OVR</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="result-variables">
+<h2>Result Variables<a class="headerlink" href="#result-variables" title="Permalink to this headline">¶</a></h2>
+<p>This module defines the following variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LibOVR_FOUND</span>                   <span class="o">-</span> <span class="n">System</span> <span class="n">has</span> <span class="n">LibOVR</span>
+<span class="n">LibOVR_VERSION</span>                 <span class="o">-</span> <span class="n">LibOVR</span> <span class="n">version</span>
+<span class="n">LibOVR_VERSION_PRODUCT</span>         <span class="o">-</span> <span class="n">LibOVR</span> <span class="n">product</span> <span class="n">version</span>
+<span class="n">LibOVR_VERSION_MAJOR</span>           <span class="o">-</span> <span class="n">LibOVR</span> <span class="n">major</span> <span class="n">version</span>
+<span class="n">LibOVR_VERSION_MINOR</span>           <span class="o">-</span> <span class="n">LibOVR</span> <span class="n">minor</span> <span class="n">version</span>
+<span class="n">LibOVR_VERSION_PATCH</span>           <span class="o">-</span> <span class="n">LibOVR</span> <span class="n">patch</span> <span class="n">version</span>
+<span class="n">LibOVR_VERSION_BUILD</span>           <span class="o">-</span> <span class="n">LibOVR</span> <span class="n">build</span> <span class="n">number</span>
+<span class="n">LibOVR_VERSION_STRING</span>          <span class="o">-</span> <span class="n">LibOVR</span> <span class="n">version</span>
+<span class="n">LibOVR_VERSION_DETAILED_STRING</span> <span class="o">-</span> <span class="n">LibOVR</span> <span class="n">version</span> <span class="p">(</span><span class="n">including</span> <span class="n">build</span> <span class="n">number</span><span class="p">)</span>
+<span class="n">LibOVR_INCLUDE_DIRS</span>            <span class="o">-</span> <span class="n">Include</span> <span class="n">directories</span> <span class="k">for</span> <span class="n">LibOVR</span>
+<span class="n">LibOVR_LIBRARIES</span>               <span class="o">-</span> <span class="n">libraries</span> <span class="n">to</span> <span class="n">link</span> <span class="n">against</span> <span class="n">LibOVR</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">FindLibOVR</a><ul>
+<li><a class="reference internal" href="#imported-targets">IMPORTED Targets</a></li>
+<li><a class="reference internal" href="#result-variables">Result Variables</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="FindLibedit.html"
+                        title="previous chapter">FindLibedit</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="FindLibusb1.html"
+                        title="next chapter">FindLibusb1</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/module/FindLibOVR.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="FindLibusb1.html" title="FindLibusb1"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="FindLibedit.html" title="FindLibedit"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.10.4</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" >ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindLibOVR</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2018 Istituto Italiano di Tecnologia (IIT).
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

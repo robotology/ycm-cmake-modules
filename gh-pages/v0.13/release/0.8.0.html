@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YCM 0.8.0 (2018-06-11) Release Notes &#8212; YCM 0.13.0 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="YCM 0.6.0 (2017-12-21) Release Notes" href="0.6.0.html" />
+    <link rel="prev" title="YCM 0.8.1 (2018-06-14) Release Notes" href="0.8.1.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="0.6.0.html" title="YCM 0.6.0 (2017-12-21) Release Notes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="0.8.1.html" title="YCM 0.8.1 (2018-06-14) Release Notes"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.13.0</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">YCM Release Notes</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">YCM 0.8.0 (2018-06-11) Release Notes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ycm-0-8-0-2018-06-11-release-notes">
+<h1><a class="toc-backref" href="#id1">YCM 0.8.0 (2018-06-11) Release Notes</a><a class="headerlink" href="#ycm-0-8-0-2018-06-11-release-notes" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#ycm-0-8-0-2018-06-11-release-notes" id="id1">YCM 0.8.0 (2018-06-11) Release Notes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#build-system" id="id2">Build System</a></p></li>
+<li><p><a class="reference internal" href="#modules" id="id3">Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#generic-modules" id="id4">Generic Modules</a></p></li>
+<li><p><a class="reference internal" href="#find-modules" id="id5">Find Modules</a></p></li>
+<li><p><a class="reference internal" href="#cmake-next" id="id6">CMake Next</a></p></li>
+<li><p><a class="reference internal" href="#rd-party" id="id7">3rd Party</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Changes made since YCM 0.6 include the following.</p>
+<div class="section" id="build-system">
+<h2><a class="toc-backref" href="#id2">Build System</a><a class="headerlink" href="#build-system" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>CMake 3.5 or newer is now required.</p></li>
+</ul>
+</div>
+<div class="section" id="modules">
+<h2><a class="toc-backref" href="#id3">Modules</a><a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="generic-modules">
+<h3><a class="toc-backref" href="#id4">Generic Modules</a><a class="headerlink" href="#generic-modules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><span class="target" id="index-0-module:GitInfo"></span><a class="reference internal" href="../module/GitInfo.html#GitInfo" title="GitInfo"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">GitInfo</span></code></a>: Fixed for clones using <cite>git-worktree</cite></p></li>
+<li><p><span class="target" id="index-0-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: Added <code class="docutils literal notranslate"><span class="pre">INCLUDE_FILE</span></code> argument to
+support appending user content to the generated <code class="docutils literal notranslate"><span class="pre">PackageConfig.cmake</span></code> file.</p></li>
+<li><p><span class="target" id="index-1-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: Added <code class="docutils literal notranslate"><span class="pre">EXPORT</span></code> arguments to use
+<span class="target" id="index-0-command:export"></span><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">export(EXPORT)</span></code> instead of <span class="target" id="index-1-command:export"></span><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">export(TARGETS)</span></code>
+(default = &lt;name&gt;) if <code class="docutils literal notranslate"><span class="pre">TARGETS</span></code>-related arguments are not passed.</p></li>
+<li><p><span class="target" id="index-2-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: Added <code class="docutils literal notranslate"><span class="pre">FIRST_TARGET</span></code> argument to
+specify a target to check when using <code class="docutils literal notranslate"><span class="pre">EXPORT</span></code> (default = &lt;name&gt;)</p></li>
+<li><p><span class="target" id="index-3-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: Added <code class="docutils literal notranslate"><span class="pre">COMPONENT</span></code> argument, forwarded
+to the <span class="target" id="index-0-command:install"></span><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install()</span></code> commands.</p></li>
+<li><p><span class="target" id="index-4-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: Added <code class="docutils literal notranslate"><span class="pre">INSTALL_DESTINATION</span></code> and
+<code class="docutils literal notranslate"><span class="pre">EXPORT_DESTINATION</span></code> arguments, to install and generate the files in a
+path different from the default. The <code class="docutils literal notranslate"><span class="pre">DESTINATION</span></code> argument is now
+deprecated in favour of <code class="docutils literal notranslate"><span class="pre">INSTALL_DESTINATION</span></code>.</p></li>
+<li><p><span class="target" id="index-5-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: Added <code class="docutils literal notranslate"><span class="pre">PRIVATE_DEPENDENCIES</span></code> argument
+to support dependencies that should be located only if the targets are built
+<code class="docutils literal notranslate"><span class="pre">STATIC</span></code> (i.e. libraries linked as <code class="docutils literal notranslate"><span class="pre">PRIVATE</span></code>).</p></li>
+<li><p><span class="target" id="index-6-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: Fixed support for CMake &lt; 3.9.</p></li>
+</ul>
+</div>
+<div class="section" id="find-modules">
+<h3><a class="toc-backref" href="#id5">Find Modules</a><a class="headerlink" href="#find-modules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-module:FindFFMPEG"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindFFMPEG</span></code> was replaced by the 3rd party one.</p></li>
+</ul>
+</div>
+<div class="section" id="cmake-next">
+<h3><a class="toc-backref" href="#id6">CMake Next</a><a class="headerlink" href="#cmake-next" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Updated to CMake v3.11.2 + commit
+<a class="reference external" href="http://cmake.org/gitweb?p=cmake.git;a=commitdiff;h=f248f8ad7898816a5a627e288d3a04fed993967f">f248f8ad7898816a5a627e288d3a04fed993967f</a>).</p></li>
+<li><p>Imported modules <code class="docutils literal notranslate"><span class="pre">FindPython.cmake</span></code>, <code class="docutils literal notranslate"><span class="pre">FindPython/Support.cmake</span></code>,
+<code class="docutils literal notranslate"><span class="pre">FindPython2.cmake</span></code>, and <code class="docutils literal notranslate"><span class="pre">Find3Python.cmake</span></code> from CMake master (3.12).</p></li>
+</ul>
+</div>
+<div class="section" id="rd-party">
+<h3><a class="toc-backref" href="#id7">3rd Party</a><a class="headerlink" href="#rd-party" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>qt-gstreamer modules are now imported from the official
+<a class="reference external" href="https://github.com/GStreamer/qt-gstreamer/">qt-gstreamer Git Repository</a> instead of from the <cite>robotology-dependencies</cite>
+clone.</p></li>
+<li><p><span class="target" id="index-0-module:Catch"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">Catch</span></code>, <span class="target" id="index-0-module:CatchAddTests"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CatchAddTests</span></code>, and <span class="target" id="index-0-module:ParseAndAddCatchTests"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">ParseAndAddCatchTests</span></code>
+modules imported from <a class="reference external" href="https://github.com/catchorg/Catch2/">Catch2 Git Repository</a>.</p></li>
+<li><p>The <span class="target" id="index-1-module:FindFFMPEG"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindFFMPEG</span></code> module is now imported from the <a class="reference external" href="https://gitlab.kitware.com/vtk/vtk/">VTK Git Repository</a>
+(ref v8.1.1).</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">YCM 0.8.0 (2018-06-11) Release Notes</a><ul>
+<li><a class="reference internal" href="#build-system">Build System</a></li>
+<li><a class="reference internal" href="#modules">Modules</a><ul>
+<li><a class="reference internal" href="#generic-modules">Generic Modules</a></li>
+<li><a class="reference internal" href="#find-modules">Find Modules</a></li>
+<li><a class="reference internal" href="#cmake-next">CMake Next</a></li>
+<li><a class="reference internal" href="#rd-party">3rd Party</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="0.8.1.html"
+                        title="previous chapter">YCM 0.8.1 (2018-06-14) Release Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="0.6.0.html"
+                        title="next chapter">YCM 0.6.0 (2017-12-21) Release Notes</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/release/0.8.0.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="0.6.0.html" title="YCM 0.6.0 (2017-12-21) Release Notes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="0.8.1.html" title="YCM 0.8.1 (2018-06-14) Release Notes"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.13.0</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >YCM Release Notes</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">YCM 0.8.0 (2018-06-11) Release Notes</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2012-2021 Istituto Italiano di Tecnologia (IIT).
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

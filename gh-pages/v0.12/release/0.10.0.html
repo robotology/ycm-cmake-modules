@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YCM 0.10.0 (2019-04-01) Release Notes &#8212; YCM 0.12.2 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="YCM 0.9.1 (2018-11-28) Release Notes" href="0.9.1.html" />
+    <link rel="prev" title="YCM 0.10.1 (2019-04-08) Release Notes" href="0.10.1.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="0.9.1.html" title="YCM 0.9.1 (2018-11-28) Release Notes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="0.10.1.html" title="YCM 0.10.1 (2019-04-08) Release Notes"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.12.2</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">YCM Release Notes</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">YCM 0.10.0 (2019-04-01) Release Notes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ycm-0-10-0-2019-04-01-release-notes">
+<h1><a class="toc-backref" href="#id1">YCM 0.10.0 (2019-04-01) Release Notes</a><a class="headerlink" href="#ycm-0-10-0-2019-04-01-release-notes" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#ycm-0-10-0-2019-04-01-release-notes" id="id1">YCM 0.10.0 (2019-04-01) Release Notes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#build-system" id="id2">Build System</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id3">Variables</a></p></li>
+<li><p><a class="reference internal" href="#modules" id="id4">Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#generic-modules" id="id5">Generic Modules</a></p></li>
+<li><p><a class="reference internal" href="#superbuild-helper-modules" id="id6">Superbuild Helper Modules</a></p></li>
+<li><p><a class="reference internal" href="#find-modules" id="id7">Find Modules</a></p></li>
+<li><p><a class="reference internal" href="#cmake-next" id="id8">CMake Next</a></p></li>
+<li><p><a class="reference internal" href="#rd-party" id="id9">3rd Party</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Changes made since YCM 0.9 include the following.</p>
+<div class="section" id="build-system">
+<h2><a class="toc-backref" href="#id2">Build System</a><a class="headerlink" href="#build-system" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>YCM can now be included safely in another project using
+<span class="target" id="index-0-module:FetchContent"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FetchContent</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="variables">
+<h2><a class="toc-backref" href="#id3">Variables</a><a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The following varibales are no longer cached, since they should be set from
+the project maintainer, and not by the user:
+* <span class="target" id="index-0-variable:YCM_USE_CMAKE_&lt;VERSION&gt;"></span><a class="reference internal" href="../variable/YCM_USE_CMAKE_VERSION.html#YCM_USE_CMAKE_&lt;VERSION&gt;" title="YCM_USE_CMAKE_&lt;VERSION&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">YCM_USE_CMAKE_&lt;VERSION&gt;</span></code></a>
+* <span class="target" id="index-0-variable:YCM_USE_CMAKE_NEXT"></span><a class="reference internal" href="../variable/YCM_USE_CMAKE_NEXT.html#YCM_USE_CMAKE_NEXT" title="YCM_USE_CMAKE_NEXT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">YCM_USE_CMAKE_NEXT</span></code></a>
+* <span class="target" id="index-0-variable:YCM_USE_CMAKE_PROPOSED"></span><a class="reference internal" href="../variable/YCM_USE_CMAKE_PROPOSED.html#YCM_USE_CMAKE_PROPOSED" title="YCM_USE_CMAKE_PROPOSED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">YCM_USE_CMAKE_PROPOSED</span></code></a>
+* <span class="target" id="index-0-variable:YCM_USE_3RDPARTY"></span><a class="reference internal" href="../variable/YCM_USE_3RDPARTY.html#YCM_USE_3RDPARTY" title="YCM_USE_3RDPARTY"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">YCM_USE_3RDPARTY</span></code></a>
+* <span class="target" id="index-0-variable:YCM_USE_DEPRECATED"></span><a class="reference internal" href="../variable/YCM_USE_DEPRECATED.html#YCM_USE_DEPRECATED" title="YCM_USE_DEPRECATED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">YCM_USE_DEPRECATED</span></code></a></p></li>
+<li><p>The <span class="target" id="index-0-variable:YCM_USE_CMAKE"></span><a class="reference internal" href="../variable/YCM_USE_CMAKE.html#YCM_USE_CMAKE" title="YCM_USE_CMAKE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">YCM_USE_CMAKE</span></code></a> can now be used to disable simultaneously all
+the <span class="target" id="index-1-variable:YCM_USE_CMAKE_&lt;VERSION&gt;"></span><a class="reference internal" href="../variable/YCM_USE_CMAKE_VERSION.html#YCM_USE_CMAKE_&lt;VERSION&gt;" title="YCM_USE_CMAKE_&lt;VERSION&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">YCM_USE_CMAKE_&lt;VERSION&gt;</span></code></a>, <span class="target" id="index-1-variable:YCM_USE_CMAKE_NEXT"></span><a class="reference internal" href="../variable/YCM_USE_CMAKE_NEXT.html#YCM_USE_CMAKE_NEXT" title="YCM_USE_CMAKE_NEXT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">YCM_USE_CMAKE_NEXT</span></code></a>, and
+<span class="target" id="index-1-variable:YCM_USE_CMAKE_PROPOSED"></span><a class="reference internal" href="../variable/YCM_USE_CMAKE_PROPOSED.html#YCM_USE_CMAKE_PROPOSED" title="YCM_USE_CMAKE_PROPOSED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">YCM_USE_CMAKE_PROPOSED</span></code></a> variables.</p></li>
+</ul>
+</div>
+<div class="section" id="modules">
+<h2><a class="toc-backref" href="#id4">Modules</a><a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="generic-modules">
+<h3><a class="toc-backref" href="#id5">Generic Modules</a><a class="headerlink" href="#generic-modules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a> module learned to forward the
+<code class="docutils literal notranslate"><span class="pre">ARCH_INDEPENDENT</span></code> option to <span class="target" id="index-0-command:write_basic_package_version_file"></span><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">write_basic_package_version_file()</span></code>.</p></li>
+<li><p>The <span class="target" id="index-0-module:IncludeUrl"></span><a class="reference internal" href="../module/IncludeUrl.html#IncludeUrl" title="IncludeUrl"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">IncludeUrl</span></code></a> module no longer uses locks.</p></li>
+<li><p>The <span class="target" id="index-1-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a> module no longer looks for the
+<code class="docutils literal notranslate"><span class="pre">Config.cmake.in</span></code> in the root directory, only current source directory is
+supported.</p></li>
+<li><p>The <span class="target" id="index-0-module:YCMDefaultDirs"></span><a class="reference internal" href="../module/YCMDefaultDirs.html#YCMDefaultDirs" title="YCMDefaultDirs"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">YCMDefaultDirs</span></code></a> module default dirs now use
+<code class="docutils literal notranslate"><span class="pre">CMAKE_CURRENT_BINARY_DIR</span></code> instead of <code class="docutils literal notranslate"><span class="pre">CMAKE_BINARY_DIR</span></code>.</p></li>
+<li><p>The <span class="target" id="index-1-module:YCMDefaultDirs"></span><a class="reference internal" href="../module/YCMDefaultDirs.html#YCMDefaultDirs" title="YCMDefaultDirs"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">YCMDefaultDirs</span></code></a> module is now deprecated.</p></li>
+<li><p>The <span class="target" id="index-2-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a> module no longer needs <code class="docutils literal notranslate"><span class="pre">FIRST_TARGET</span></code>
+when used with <code class="docutils literal notranslate"><span class="pre">EXPORT</span></code>. Using <code class="docutils literal notranslate"><span class="pre">FIRST_TARGET</span></code> is deprecated.</p></li>
+<li><p><span class="target" id="index-3-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: the <code class="docutils literal notranslate"><span class="pre">TARGETS</span></code>, <code class="docutils literal notranslate"><span class="pre">TARGETS_PROPERTY</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">TARGETS_PROPERTIES</span></code> arguments are deprecated.</p></li>
+<li><p>The <span class="target" id="index-0-module:AddUninstallTarget"></span><a class="reference internal" href="../module/AddUninstallTarget.html#AddUninstallTarget" title="AddUninstallTarget"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">AddUninstallTarget</span></code></a> module must now be included in your main
+<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>. If included in a subdirectory it does nothing.
+This allows you to use it safely in your main <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> and include
+your project using <code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code> (for example when using it with
+<span class="target" id="index-1-module:FetchContent"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FetchContent</span></code>).</p></li>
+<li><p>The <span class="target" id="index-1-module:AddUninstallTarget"></span><a class="reference internal" href="../module/AddUninstallTarget.html#AddUninstallTarget" title="AddUninstallTarget"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">AddUninstallTarget</span></code></a> module no longer tries to add the
+<code class="docutils literal notranslate"><span class="pre">uninstall</span></code> target if the target it already exists, instead it does nothing.</p></li>
+<li><p><span class="target" id="index-4-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: The list of targets is no longer used to
+decide whether <code class="docutils literal notranslate"><span class="pre">PRIVATE_DEPENDENCIES</span></code> should be enabled or not (only the
+<span class="target" id="index-0-variable:BUILD_SHARED_LIBS"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/variable/BUILD_SHARED_LIBS.html#BUILD_SHARED_LIBS" title="(in CMake v3.0.0)"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">BUILD_SHARED_LIBS</span></code></a> variable is used). Dependencies
+for <code class="docutils literal notranslate"><span class="pre">STATIC</span></code>, <code class="docutils literal notranslate"><span class="pre">OBJECT</span></code>, and <code class="docutils literal notranslate"><span class="pre">INTERFACE</span></code> libraries should be passed as
+<code class="docutils literal notranslate"><span class="pre">DEPENDENCIES</span></code> instead.</p></li>
+<li><p><span class="target" id="index-5-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: The <code class="docutils literal notranslate"><span class="pre">NO_COMPATIBILITY_VARS</span></code> option is
+deprecated. The compatibility variables are no longer generated by default,
+and their generation is broken when using <code class="docutils literal notranslate"><span class="pre">EXPORT</span></code>. If required, it is
+possible to re-enable it using the <code class="docutils literal notranslate"><span class="pre">ENABLE_COMPATIBILITY_VARS</span></code> option
+(deprecated) or define them using either <code class="docutils literal notranslate"><span class="pre">INCLUDE_FILE</span></code> or
+<code class="docutils literal notranslate"><span class="pre">INCLUDE_CONTENT</span></code> (recommended).</p></li>
+<li><p><span class="target" id="index-6-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: Fixed malformed <cite>find_package()</cite> when a
+package dependency had a required version, for CMake older than 3.9.</p></li>
+<li><p>The <span class="target" id="index-7-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a> module now considers a relative
+<code class="docutils literal notranslate"><span class="pre">EXPORT_DESTINATION</span></code> as relative to <code class="docutils literal notranslate"><span class="pre">CMAKE_CURRENT_BINARY_DIR</span></code> instead
+of <code class="docutils literal notranslate"><span class="pre">CURRENT_BINARY_DIR</span></code>.</p></li>
+<li><p><span class="target" id="index-8-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: Fixed export destination when
+<code class="docutils literal notranslate"><span class="pre">EXPORT_DESTINATION</span></code> is an absolute path.</p></li>
+</ul>
+</div>
+<div class="section" id="superbuild-helper-modules">
+<h3><a class="toc-backref" href="#id6">Superbuild Helper Modules</a><a class="headerlink" href="#superbuild-helper-modules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-module:YCMEPHelper"></span><a class="reference internal" href="../module/YCMEPHelper.html#YCMEPHelper" title="YCMEPHelper"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">YCMEPHelper</span></code></a> module now supports the <code class="docutils literal notranslate"><span class="pre">CMAKE_CACHE_DEFAULT_ARGS</span></code>
+argument.</p></li>
+<li><p>The <span class="target" id="index-1-module:YCMEPHelper"></span><a class="reference internal" href="../module/YCMEPHelper.html#YCMEPHelper" title="YCMEPHelper"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">YCMEPHelper</span></code></a> module supports the <code class="docutils literal notranslate"><span class="pre">SOURCE_SUBDIR</span></code> argument.
+The <code class="docutils literal notranslate"><span class="pre">CONFIGURE_SOURCE_DIR</span></code> argument is now deprecated in favour of
+<code class="docutils literal notranslate"><span class="pre">SOURCE_SUBDIR</span></code>.</p></li>
+<li><p>The <span class="target" id="index-2-module:YCMEPHelper"></span><a class="reference internal" href="../module/YCMEPHelper.html#YCMEPHelper" title="YCMEPHelper"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">YCMEPHelper</span></code></a> module now passes the variable
+<code class="docutils literal notranslate"><span class="pre">CMAKE_TOOLCHAIN_FILE</span></code> to the children projects.</p></li>
+<li><p><span class="target" id="index-3-module:YCMEPHelper"></span><a class="reference internal" href="../module/YCMEPHelper.html#YCMEPHelper" title="YCMEPHelper"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">YCMEPHelper</span></code></a>: The <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH`</span> <span class="pre">list</span> <span class="pre">passed</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">subproject</span>
+<span class="pre">now</span> <span class="pre">has</span> <span class="pre">the</span> <span class="pre">first</span> <span class="pre">element</span> <span class="pre">the</span> <span class="pre">installation</span> <span class="pre">directory</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">superbuild.</span> <span class="pre">This</span>
+<span class="pre">is</span> <span class="pre">to</span> <span class="pre">ensure</span> <span class="pre">that</span> <span class="pre">if</span> <span class="pre">a</span> <span class="pre">package</span> <span class="pre">is</span> <span class="pre">available</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">system</span> <span class="pre">but</span> <span class="pre">it</span> <span class="pre">is</span> <span class="pre">disabled</span>
+<span class="pre">using</span> <span class="pre">``USE_SYSTEM_&lt;package&gt;</span></code> set to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>, the version installed by the
+superbuild is the one found by the other packages in the superbuild.</p></li>
+<li><p>The <span class="target" id="index-4-module:YCMEPHelper"></span><a class="reference internal" href="../module/YCMEPHelper.html#YCMEPHelper" title="YCMEPHelper"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">YCMEPHelper</span></code></a> module now adds subproject to the main install
+target, if they provide a <code class="docutils literal notranslate"><span class="pre">cmake_install.cmake</span></code> file in their build
+directory. This file is automatically provided by CMake for projects
+installing at least one file. This feature should be considered experimental
+and might be modified or removed in the future.
+Please note that non-relocatable file will contain the path for the project
+installation (i.e. the path to the <code class="docutils literal notranslate"><span class="pre">install</span></code> folder inside the superbuild
+binary directory), not to <code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="find-modules">
+<h3><a class="toc-backref" href="#id7">Find Modules</a><a class="headerlink" href="#find-modules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-module:FindLibOVR"></span><a class="reference internal" href="../module/FindLibOVR.html#FindLibOVR" title="FindLibOVR"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindLibOVR</span></code></a> module now works properly with VS2015.</p></li>
+<li><p>The <span class="target" id="index-0-module:FindPortAudio"></span><a class="reference internal" href="../module/FindPortAudio.html#FindPortAudio" title="FindPortAudio"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindPortAudio</span></code></a> module should now detect the library installed by
+vcpkg.</p></li>
+<li><p>The <span class="target" id="index-1-module:FindPortAudio"></span><a class="reference internal" href="../module/FindPortAudio.html#FindPortAudio" title="FindPortAudio"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindPortAudio</span></code></a> module now handles debug and release libraries.</p></li>
+<li><p>Import <span class="target" id="index-0-module:FindI2C"></span><a class="reference internal" href="../module/FindI2C.html#FindI2C" title="FindI2C"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindI2C</span></code></a> module from <a class="reference external" href="https://github.com/robotology/yarp/">YARP Git Repository</a>.</p></li>
+<li><p>The <span class="target" id="index-0-module:FindACE"></span><a class="reference internal" href="../module/FindACE.html#FindACE" title="FindACE"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindACE</span></code></a> module now creates the <code class="docutils literal notranslate"><span class="pre">ACE::ACE</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ACE::ACE_INLINE</span></code> imported targets.
+The <code class="docutils literal notranslate"><span class="pre">ACE_ADDR_HAS_LOOPBACK_METHOD</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ACE_COMPILES_WITHOUT_INLINE_&lt;CONFIG&gt;</span></code> are now deprecated.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">FindQt3</span></code> module is deprecated in favour of one from CMake.</p></li>
+<li><p>Added <span class="target" id="index-0-module:Findassimp"></span><a class="reference internal" href="../module/Findassimp.html#Findassimp" title="Findassimp"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">Findassimp</span></code></a> module to locate the Open Asset Importer Library
+(assimp).</p></li>
+<li><p>Added <span class="target" id="index-0-module:FindGLM"></span><a class="reference internal" href="../module/FindGLM.html#FindGLM" title="FindGLM"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindGLM</span></code></a> module to locate the OpenGL Mathematics (GLM) library.</p></li>
+</ul>
+</div>
+<div class="section" id="cmake-next">
+<h3><a class="toc-backref" href="#id8">CMake Next</a><a class="headerlink" href="#cmake-next" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Updated to CMake v3.14.0 + commit
+<a class="reference external" href="http://cmake.org/gitweb?p=cmake.git;a=commitdiff;h=e67e4dbaadf3583d665fb5409b425e1a238d9748">e67e4dbaadf3583d665fb5409b425e1a238d9748</a>.</p></li>
+<li><p>Imported <span class="target" id="index-0-module:FindDoxygen"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/module/FindDoxygen.html#FindDoxygen" title="(in CMake v3.0.0)"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindDoxygen</span></code></a> module from CMake 3.9.</p></li>
+<li><p>Imported <span class="target" id="index-0-module:WriteBasicConfigVersionFile"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/module/WriteBasicConfigVersionFile.html#WriteBasicConfigVersionFile" title="(in CMake v3.0.0)"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">WriteBasicConfigVersionFile</span></code></a> and
+<span class="target" id="index-0-module:CMakePackageConfigHelpers"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/module/CMakePackageConfigHelpers.html#CMakePackageConfigHelpers" title="(in CMake v3.0.0)"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CMakePackageConfigHelpers</span></code></a> modules from CMake master, to support
+the <code class="docutils literal notranslate"><span class="pre">ARCH_INDEPENDENT</span></code> option in
+<span class="target" id="index-1-command:write_basic_package_version_file"></span><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">write_basic_package_version_file()</span></code>.</p></li>
+<li><p>Imported <span class="target" id="index-2-module:FetchContent"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FetchContent</span></code> module from CMake 3.11.</p></li>
+<li><p>Imported <span class="target" id="index-0-module:FindOpenGL"></span><a class="reference internal" href="../module/FindOpenGL.html#FindOpenGL" title="FindOpenGL"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindOpenGL</span></code></a> module from CMake 3.10.</p></li>
+<li><p>The <span class="target" id="index-0-module:ExternalProject"></span><a class="reference internal" href="../module/ExternalProject.html#ExternalProject" title="ExternalProject"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">ExternalProject</span></code></a> module was updated from CMake next.
+All the customizations were removed, with the exception of the <code class="docutils literal notranslate"><span class="pre">git</span></code>
+deleting clones fix.</p></li>
+<li><p>The <span class="target" id="index-0-module:FindGlew"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindGlew</span></code> module is now dowloaded from CMake master.</p></li>
+</ul>
+</div>
+<div class="section" id="rd-party">
+<h3><a class="toc-backref" href="#id9">3rd Party</a><a class="headerlink" href="#rd-party" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Imported <span class="target" id="index-0-module:FindGObject"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindGObject</span></code> module from <a class="reference external" href="https://github.com/GStreamer/qt-gstreamer/">qt-gstreamer Git Repository</a> +
+some unmerged changes from robotology-dependencies fork.</p></li>
+<li><p>Imported <span class="target" id="index-0-module:CMakeRC"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CMakeRC</span></code> module from <a class="reference external" href="https://github.com/vector-of-bool/cmrc/">CMakeRC Git Repository</a>.</p></li>
+<li><p>Update <a class="reference external" href="https://github.com/catchorg/Catch2/">Catch2 Git Repository</a> to commit
+<code class="docutils literal notranslate"><span class="pre">4902cd721586822ded795afe0c418c553137306a</span></code> + some unmerged changes from
+robotology-dependencies fork.</p></li>
+<li><p>Imported <span class="target" id="index-0-module:UseLATEX"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">UseLATEX</span></code> module from <a class="reference external" href="https://gitlab.kitware.com/kmorel/UseLATEX/">UseLATEX Git Repository</a>.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">YCM 0.10.0 (2019-04-01) Release Notes</a><ul>
+<li><a class="reference internal" href="#build-system">Build System</a></li>
+<li><a class="reference internal" href="#variables">Variables</a></li>
+<li><a class="reference internal" href="#modules">Modules</a><ul>
+<li><a class="reference internal" href="#generic-modules">Generic Modules</a></li>
+<li><a class="reference internal" href="#superbuild-helper-modules">Superbuild Helper Modules</a></li>
+<li><a class="reference internal" href="#find-modules">Find Modules</a></li>
+<li><a class="reference internal" href="#cmake-next">CMake Next</a></li>
+<li><a class="reference internal" href="#rd-party">3rd Party</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="0.10.1.html"
+                        title="previous chapter">YCM 0.10.1 (2019-04-08) Release Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="0.9.1.html"
+                        title="next chapter">YCM 0.9.1 (2018-11-28) Release Notes</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/release/0.10.0.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="0.9.1.html" title="YCM 0.9.1 (2018-11-28) Release Notes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="0.10.1.html" title="YCM 0.10.1 (2019-04-08) Release Notes"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.12.2</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >YCM Release Notes</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">YCM 0.10.0 (2019-04-01) Release Notes</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2019 Istituto Italiano di Tecnologia (IIT).
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

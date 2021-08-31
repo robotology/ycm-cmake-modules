@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CMakeParseArguments &#8212; YCM 0.9.1 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FindGLEW" href="FindGLEW.html" />
+    <link rel="prev" title="ExternalProject" href="ExternalProject.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="FindGLEW.html" title="FindGLEW"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ExternalProject.html" title="ExternalProject"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.9.1</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" accesskey="U">ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMakeParseArguments</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="cmakeparsearguments">
+<span id="CMakeParseArguments"></span><h1>CMakeParseArguments<a class="headerlink" href="#cmakeparsearguments" title="Permalink to this headline">¶</a></h1>
+<p>Parse arguments given to a macro or a function.</p>
+<p>cmake_parse_arguments() is intended to be used in macros or functions
+for parsing the arguments given to that macro or function.  It
+processes the arguments and defines a set of variables which hold the
+values of the respective options.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake_parse_arguments</span><span class="p">(</span><span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span>
+                      <span class="o">&lt;</span><span class="n">options</span><span class="o">&gt;</span>
+                      <span class="o">&lt;</span><span class="n">one_value_keywords</span><span class="o">&gt;</span>
+                      <span class="o">&lt;</span><span class="n">multi_value_keywords</span><span class="o">&gt;</span>
+                      <span class="p">[</span><span class="n">CMAKE_PARSE_ARGUMENTS_SKIP_EMPTY</span><span class="o">|</span><span class="n">CMAKE_PARSE_ARGUMENTS_KEEP_EMPTY</span><span class="p">]</span>
+                      <span class="n">args</span><span class="o">...</span>
+                      <span class="p">)</span>
+</pre></div>
+</div>
+<p>The &lt;options&gt; argument contains all options for the respective macro,
+i.e.  keywords which can be used when calling the macro without any
+value following, like e.g.  the OPTIONAL keyword of the install()
+command.</p>
+<p>The &lt;one_value_keywords&gt; argument contains all keywords for this macro
+which are followed by one value, like e.g.  DESTINATION keyword of the
+install() command.</p>
+<p>The &lt;multi_value_keywords&gt; argument contains all keywords for this
+macro which can be followed by more than one value, like e.g.  the
+TARGETS or FILES keywords of the install() command.</p>
+<p>When done, cmake_parse_arguments() will have defined for each of the
+keywords listed in &lt;options&gt;, &lt;one_value_keywords&gt; and
+&lt;multi_value_keywords&gt; a variable composed of the given &lt;prefix&gt;
+followed by “_” and the name of the respective keyword.  These
+variables will then hold the respective value from the argument list.
+For the &lt;options&gt; keywords this will be TRUE or FALSE.</p>
+<p>All remaining arguments are collected in a variable
+&lt;prefix&gt;_UNPARSED_ARGUMENTS, this can be checked afterwards to see
+whether your macro was called with unrecognized parameters.</p>
+<p>The cmake CMAKE_PARSE_ARGUMENTS_SKIP_EMPTY (old behaviour) and
+CMAKE_PARSE_ARGUMENTS_KEEP_EMPTY options decide how empty arguments
+should be handled. If none of these options is set, for backwards
+compatibility, if CMAKE_MINIMUM_REQUIRED_VERSION &lt; 3.0.0, the default
+behaviour is to skip empty arguments, otherwise the default behaviour
+is to keep them. Using the CMAKE_PARSE_ARGUMENTS_DEFAULT_SKIP_EMPTY
+variable the user can explicitly set the default behaviour in current
+scope.</p>
+<p>As an example here a my_install() macro, which takes similar arguments
+as the real install() command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">function</span><span class="p">(</span><span class="n">MY_INSTALL</span><span class="p">)</span>
+  <span class="nb">set</span><span class="p">(</span><span class="n">options</span> <span class="n">OPTIONAL</span> <span class="n">FAST</span><span class="p">)</span>
+  <span class="nb">set</span><span class="p">(</span><span class="n">oneValueArgs</span> <span class="n">DESTINATION</span> <span class="n">RENAME</span><span class="p">)</span>
+  <span class="nb">set</span><span class="p">(</span><span class="n">multiValueArgs</span> <span class="n">TARGETS</span> <span class="n">CONFIGURATIONS</span><span class="p">)</span>
+  <span class="n">cmake_parse_arguments</span><span class="p">(</span><span class="n">MY_INSTALL</span> <span class="s2">&quot;$</span><span class="si">{options}</span><span class="s2">&quot;</span> <span class="s2">&quot;$</span><span class="si">{oneValueArgs}</span><span class="s2">&quot;</span> <span class="s2">&quot;$</span><span class="si">{multiValueArgs}</span><span class="s2">&quot;</span> <span class="s2">&quot;$</span><span class="si">{ARGN}</span><span class="s2">&quot;</span> <span class="p">)</span>
+  <span class="o">...</span>
+</pre></div>
+</div>
+<p>Assume my_install() has been called like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_install</span><span class="p">(</span><span class="n">TARGETS</span> <span class="n">foo</span> <span class="n">bar</span> <span class="n">DESTINATION</span> <span class="nb">bin</span> <span class="n">OPTIONAL</span> <span class="n">blub</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After the cmake_parse_arguments() call the macro will have set the
+following variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MY_INSTALL_OPTIONAL</span> <span class="o">=</span> <span class="n">TRUE</span>
+<span class="n">MY_INSTALL_FAST</span> <span class="o">=</span> <span class="n">FALSE</span> <span class="p">(</span><span class="n">this</span> <span class="n">option</span> <span class="n">was</span> <span class="ow">not</span> <span class="n">used</span> <span class="n">when</span> <span class="n">calling</span> <span class="n">my_install</span><span class="p">()</span>
+<span class="n">MY_INSTALL_DESTINATION</span> <span class="o">=</span> <span class="s2">&quot;bin&quot;</span>
+<span class="n">MY_INSTALL_RENAME</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="p">(</span><span class="n">was</span> <span class="ow">not</span> <span class="n">used</span><span class="p">)</span>
+<span class="n">MY_INSTALL_TARGETS</span> <span class="o">=</span> <span class="s2">&quot;foo;bar&quot;</span>
+<span class="n">MY_INSTALL_CONFIGURATIONS</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="p">(</span><span class="n">was</span> <span class="ow">not</span> <span class="n">used</span><span class="p">)</span>
+<span class="n">MY_INSTALL_UNPARSED_ARGUMENTS</span> <span class="o">=</span> <span class="s2">&quot;blub&quot;</span> <span class="p">(</span><span class="n">no</span> <span class="n">value</span> <span class="n">expected</span> <span class="n">after</span> <span class="s2">&quot;OPTIONAL&quot;</span>
+</pre></div>
+</div>
+<p>You can then continue and process these variables.</p>
+<p>Keywords terminate lists of values, e.g.  if directly after a
+one_value_keyword another recognized keyword follows, this is
+interpreted as the beginning of the new option.  E.g.
+my_install(TARGETS foo DESTINATION OPTIONAL) would result in
+MY_INSTALL_DESTINATION set to “OPTIONAL”, but MY_INSTALL_DESTINATION
+would be empty and MY_INSTALL_OPTIONAL would be set to TRUE therefore.</p>
+<p>If the “CMAKE_PARSE_ARGUMENTS_SKIP_EMPTY” option is set,
+cmake_parse_argumentswill not consider empty arguments.
+Therefore</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_install</span><span class="p">(</span><span class="n">DESTINATION</span> <span class="s2">&quot;&quot;</span> <span class="n">TARGETS</span> <span class="n">foo</span> <span class="s2">&quot;&quot;</span> <span class="n">bar</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will set</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MY_INSTALL_DESTINATION</span> <span class="o">=</span> <span class="p">(</span><span class="n">unset</span><span class="p">)</span>
+<span class="n">MY_INSTALL_MULTI</span> <span class="o">=</span> <span class="s2">&quot;foo;bar&quot;</span>
+</pre></div>
+</div>
+<p>Using the “CMAKE_PARSE_ARGUMENTS_SKIP_EMPTY” option instead, will set</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MY_INSTALL_SINGLE</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">MY_INSTALL_MULTI</span> <span class="o">=</span> <span class="s2">&quot;foo;;bar&quot;</span>
+</pre></div>
+</div>
+<p>It is also important to note that:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cmake_parse_arguments(MY_INSTALL &quot;${options}&quot; &quot;${oneValueArgs}&quot; &quot;${multiValueArgs}&quot; &quot;${ARGN}&quot; )
+cmake_parse_arguments(MY_INSTALL &quot;${options}&quot; &quot;${oneValueArgs}&quot; &quot;${multiValueArgs}&quot; ${ARGN} )
+</pre></div>
+</div>
+<p>Will behave differently, because in the latter case empty arguments
+are not passed to cmake_parse_arguments.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ExternalProject.html"
+                        title="previous chapter">ExternalProject</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="FindGLEW.html"
+                        title="next chapter">FindGLEW</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/module/CMakeParseArguments.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="FindGLEW.html" title="FindGLEW"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ExternalProject.html" title="ExternalProject"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.9.1</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" >ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMakeParseArguments</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2018 Istituto Italiano di Tecnologia (IIT).
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

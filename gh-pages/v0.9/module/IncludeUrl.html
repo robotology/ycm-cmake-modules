@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IncludeUrl &#8212; YCM 0.9.1 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ReplaceImportedTargets" href="ReplaceImportedTargets.html" />
+    <link rel="prev" title="GitInfo" href="GitInfo.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ReplaceImportedTargets.html" title="ReplaceImportedTargets"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="GitInfo.html" title="GitInfo"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.9.1</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" accesskey="U">ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">IncludeUrl</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="includeurl">
+<span id="IncludeUrl"></span><h1>IncludeUrl<a class="headerlink" href="#includeurl" title="Permalink to this headline">¶</a></h1>
+<p>Adds the <span class="target" id="index-0-command:include_url"></span><a class="reference internal" href="#include_url" title="include_url"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">include_url()</span></code></a> command that useful to download and include
+other CMake modules from a given url.</p>
+<dl class="cmake command">
+<dt id="include_url">
+<code class="sig-name descname"><span class="pre">include_url</span></code><a class="headerlink" href="#include_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Downloads a file from given url and includes it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include_url</span><span class="p">(</span><span class="o">&lt;</span><span class="n">url</span><span class="o">&gt;</span>                 <span class="c1"># Url to be downloaded</span>
+   <span class="p">[</span><span class="n">DESTINATION</span> <span class="o">&lt;</span><span class="n">destination</span><span class="o">&gt;</span><span class="p">]</span>    <span class="c1"># Where the file will be saved</span>
+   <span class="p">[</span><span class="n">EXPECTED_HASH</span> <span class="o">&lt;</span><span class="n">ALGO</span><span class="o">=</span><span class="n">value</span><span class="o">&gt;</span><span class="p">]</span>   <span class="c1"># Verify downloaded file&#39;s hash</span>
+   <span class="p">[</span><span class="n">EXPECTED_MD5</span> <span class="o">&lt;</span><span class="nb">sum</span><span class="o">&gt;</span><span class="p">]</span>           <span class="c1"># Short-hand for &quot;EXPECTED_HASH MD5=sum&quot;</span>
+   <span class="p">[</span><span class="n">DOWNLOAD_ONCE</span><span class="p">]</span>                <span class="c1"># Download the file only once</span>
+   <span class="p">[</span><span class="n">DOWNLOAD_ALWAYS</span><span class="p">]</span>              <span class="c1"># Download the file every time</span>
+   <span class="p">[</span><span class="n">OPTIONAL</span><span class="p">]</span>                     <span class="c1"># Do not fail file cannot be included</span>
+   <span class="p">[</span><span class="n">RESULT_VARIABLE</span> <span class="o">&lt;</span><span class="n">variable</span><span class="o">&gt;</span><span class="p">]</span>   <span class="c1"># The local path for the file included</span>
+   <span class="p">[</span><span class="n">RETRIES</span> <span class="o">&lt;</span><span class="n">retries</span><span class="o">&gt;</span><span class="p">]</span>            <span class="c1"># Try download &lt;retries&gt; times (default 3)</span>
+   <span class="p">[</span><span class="n">QUIET</span><span class="p">]</span>                        <span class="c1"># Don&#39;t print anything</span>
+  <span class="c1">#--Download arguments-----------</span>
+   <span class="p">[</span><span class="n">INACTIVITY_TIMEOUT</span> <span class="o">&lt;</span><span class="n">timeout</span><span class="o">&gt;</span><span class="p">]</span> <span class="c1"># Timeout after &lt;timeout&gt; seconds of inactivity</span>
+   <span class="p">[</span><span class="n">TIMEOUT</span> <span class="o">&lt;</span><span class="n">timeout</span><span class="o">&gt;</span><span class="p">]</span>            <span class="c1"># Timeout after &lt;timeout&gt; seconds</span>
+   <span class="p">[</span><span class="n">STATUS</span> <span class="o">&lt;</span><span class="n">status</span><span class="o">&gt;</span><span class="p">]</span>              <span class="c1"># Download status variable</span>
+   <span class="p">[</span><span class="n">LOG</span> <span class="o">&lt;</span><span class="n">log</span><span class="o">&gt;</span><span class="p">]</span>                    <span class="c1"># Download log variable</span>
+   <span class="p">[</span><span class="n">SHOW_PROGRESS</span><span class="p">]</span>                <span class="c1"># Show download progress</span>
+   <span class="p">[</span><span class="n">TLS_VERIFY</span> <span class="o">&lt;</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="o">&gt;</span><span class="p">]</span>          <span class="c1"># Check certificates</span>
+   <span class="p">[</span><span class="n">TLS_CAINFO</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span>            <span class="c1"># Custom Certificate Authority file</span>
+  <span class="c1">#--Include arguments------------</span>
+   <span class="p">[</span><span class="n">NO_POLICY_SCOPE</span><span class="p">]</span>              <span class="c1"># Do not manage a new policy entry</span>
+   <span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">include_url</span></code> macro downloads a file from given url and includes it.
+It works both in -P script mode and when configuring a CMakeLists.txt file.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">DESTINATION</span></code> is specified, the file is saved at the given location with
+the original  file name, if <code class="docutils literal notranslate"><span class="pre">&lt;destination&gt;</span></code> is a directory, or with the
+given file  name, if <code class="docutils literal notranslate"><span class="pre">&lt;destination&gt;</span></code> is a file name.</p>
+<p>The arguments <code class="docutils literal notranslate"><span class="pre">EXPECTED_HASH</span></code>, <code class="docutils literal notranslate"><span class="pre">EXPECTED_MD5</span></code> are used to ensure that the
+file included is the one expected. If the <code class="docutils literal notranslate"><span class="pre">&lt;url&gt;</span></code> is a local file (i.e.
+starts with <code class="docutils literal notranslate"><span class="pre">file://</span></code>) the hash check is performed also on the file
+converted to the non-native end-of-line style.  See the documentation of the
+<span class="target" id="index-0-command:file"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/command/file.html#file" title="(in CMake v3.0.0)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">file()</span></code></a> command for further information about these arguments.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">DOWNLOAD_ONCE</span></code> option is specified, the file is not
+downloaded if the file already exists and the hash is correct.
+If the <code class="docutils literal notranslate"><span class="pre">DOWNLOAD_ALWAYS</span></code> option is specified, the file is downloaded at
+every CMake execution, and an error is raised on failure.
+If none of these two option is specifies, the default behaviour is to try to
+download the file at every CMake execution, but no error is raised if the
+download fails if a version of the file already exists. This is useful when
+CMake should try to update the file to the latest version, before including
+it.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">OPTIONAL</span></code> option is specified, no error will be caused if for any
+reason the file cannot be downloaded or included.
+If <code class="docutils literal notranslate"><span class="pre">RESULT_VARIABLE</span></code> is given, the variable will be set to the full
+filename which has been downloaded and included or NOTFOUND if it failed.
+See the documentation of the <span class="target" id="index-1-command:file"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/command/file.html#file" title="(in CMake v3.0.0)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">file()</span></code></a> command for further information
+about these arguments.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">RETRIES</span></code> option is specified, the download will be tried
+If the <code class="docutils literal notranslate"><span class="pre">QUIET</span></code> option is specified, the command will emit no output.</p>
+<p>The arguments <code class="docutils literal notranslate"><span class="pre">INACTIVITY_TIMEOUT</span></code>, <code class="docutils literal notranslate"><span class="pre">TIMEOUT</span></code>, <code class="docutils literal notranslate"><span class="pre">STATUS</span></code>, <code class="docutils literal notranslate"><span class="pre">LOG</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SHOW_PROGRESS</span></code>, <code class="docutils literal notranslate"><span class="pre">TLS_VERIFY</span></code>, and <code class="docutils literal notranslate"><span class="pre">TLS_CAINFO</span></code> are passed to the
+<span class="target" id="index-2-command:file"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/command/file.html#file" title="(in CMake v3.0.0)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">file(DOWNLOAD)</span></code></a> command.  See the documentation of the
+<span class="target" id="index-3-command:file"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/command/file.html#file" title="(in CMake v3.0.0)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">file()</span></code></a> command for a detailed description of these arguments.</p>
+<p>The arguments <code class="docutils literal notranslate"><span class="pre">NO_POLICY_SCOPE</span></code> is passed to the <span class="target" id="index-0-command:include"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/command/include.html#include" title="(in CMake v3.0.0)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">include()</span></code></a>
+command.  See the documentation of the <span class="target" id="index-1-command:include"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/command/include.html#include" title="(in CMake v3.0.0)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">include()</span></code></a> and
+<span class="target" id="index-0-command:cmake_policy"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/command/cmake_policy.html#cmake_policy" title="(in CMake v3.0.0)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_policy()</span></code></a> commands for a detailed description of this
+argument.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="GitInfo.html"
+                        title="previous chapter">GitInfo</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ReplaceImportedTargets.html"
+                        title="next chapter">ReplaceImportedTargets</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/module/IncludeUrl.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ReplaceImportedTargets.html" title="ReplaceImportedTargets"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="GitInfo.html" title="GitInfo"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.9.1</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" >ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">IncludeUrl</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2018 Istituto Italiano di Tecnologia (IIT).
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ycm-build-system-support(7) &#8212; YCM 0.2.3 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ycm-superbuild(7)" href="ycm-superbuild.7.html" />
+    <link rel="prev" title="ycm-using(7)" href="ycm-using.7.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ycm-superbuild.7.html" title="ycm-superbuild(7)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ycm-using.7.html" title="ycm-using(7)"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.2.3</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">ycm-build-system-support(7)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="ycm-build-system-support(7)"></span><div class="section" id="ycm-build-system-support-7">
+<h1><a class="toc-backref" href="#id1">ycm-build-system-support(7)</a><a class="headerlink" href="#ycm-build-system-support-7" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#ycm-build-system-support-7" id="id1">ycm-build-system-support(7)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ycm-build-system-support" id="id2">YCM Build System Support</a></p></li>
+<li><p><a class="reference internal" href="#a-practical-example" id="id3">A Practical Example</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="ycm-build-system-support">
+<h2><a class="toc-backref" href="#id2">YCM Build System Support</a><a class="headerlink" href="#ycm-build-system-support" title="Permalink to this headline">¶</a></h2>
+<p>YCM offers a few macros and Find scripts that can be used in your build system.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="ycm-modules.7.html#generic-modules"><span class="std std-ref">Generic Modules</span></a> that add functionalities to CMake that might
+be useful in your project.</p></li>
+<li><p><a class="reference internal" href="ycm-modules.7.html#find-package-modules"><span class="std std-ref">Find Package Modules</span></a>, that help in finding software on the
+system.</p></li>
+<li><p><a class="reference internal" href="ycm-modules.7.html#packaging-helper-modules"><span class="std std-ref">Packaging Helper Modules</span></a>, that are useful to simplify the
+generation of a package that can be used by other packages.</p></li>
+<li><p>Support for new CMake features in older CMake versions.</p></li>
+<li><p>Support for new features in CMake before these are actually
+released.</p></li>
+<li><p>Support for 3rd party CMake modules.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>You can find for using YCM in your project in <span class="target" id="index-0-manual:ycm-using(7)"></span><a class="reference internal" href="ycm-using.7.html#ycm-using(7)" title="ycm-using(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">ycm-using(7)</span></code></a>.</p>
+</div>
+<p>YCM also offers functionalities to make a superbuild. Documentation for this can
+be found elsewhere.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="ycm-superbuild.7.html#ycm-superbuild-manual"><span class="std std-ref">YCM Superbuild</span></a></p>
+</div>
+</div>
+<div class="section" id="a-practical-example">
+<h2><a class="toc-backref" href="#id3">A Practical Example</a><a class="headerlink" href="#a-practical-example" title="Permalink to this headline">¶</a></h2>
+<p>Suppose you have created a package that contains a library, called
+<code class="docutils literal notranslate"><span class="pre">TemplatePkg</span></code>. You want to package this library, providing versioning,
+installation rules for header as well as binary files and cmake files for
+finding and using the library within other projects.</p>
+<p>This is the code you need to add to your CMakeLists.txt:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8.11</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">TemplatePkg</span> <span class="s">CXX</span><span class="p">)</span>
+
+<span class="c"># declare a variable with the name of the project</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">VARS_PREFIX</span> <span class="s2">&quot;TEMPLATE_PKG&quot;</span><span class="p">)</span>
+
+<span class="c"># ser variables that store version number</span>
+<span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">VARS_PREFIX</span><span class="o">}</span><span class="s">_MAJOR_VERSION</span> <span class="s">0</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">VARS_PREFIX</span><span class="o">}</span><span class="s">_MINOR_VERSION</span> <span class="s">0</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">VARS_PREFIX</span><span class="o">}</span><span class="s">_PATCH_VERSION</span> <span class="s">1</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">VARS_PREFIX</span><span class="o">}</span><span class="s">_VERSION</span> <span class="o">${</span><span class="nv">${VARS_PREFIX</span><span class="o">}</span><span class="s">_MAJOR_VERSION}.</span><span class="o">${</span><span class="nv">${VARS_PREFIX</span><span class="o">}</span><span class="s">_MINOR_VERSION}.</span><span class="o">${</span><span class="nv">${VARS_PREFIX</span><span class="o">}</span><span class="s">_PATCH_VERSION}</span><span class="p">)</span>
+
+<span class="c"># find and use YCM</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">YCM</span> <span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="nb">include</span><span class="p">(</span><span class="s">YCMDefaultDirs</span><span class="p">)</span>
+<span class="nb">ycm_default_dirs</span><span class="p">(</span><span class="o">${</span><span class="nv">VARS_PREFIX</span><span class="o">}</span><span class="p">)</span>
+
+<span class="c"># add sources</span>
+<span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">src</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So far nothing special. We have declared our library, added source codes and
+included YCM.</p>
+<p>We now need to instruct CMake to install the library and generate <code class="docutils literal notranslate"><span class="pre">CMake</span></code>
+(<code class="docutils literal notranslate"><span class="pre">FindTemplatePkg.cmake</span></code>) have also been generated so that <code class="docutils literal notranslate"><span class="pre">TemplatePkg</span></code> can
+be found using <code class="docutils literal notranslate"><span class="pre">CMake</span></code>.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># include macro for installing packaging files and invoke it</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">InstallBasicPackageFiles</span><span class="p">)</span>
+<span class="nb">install_basic_package_files</span><span class="p">(</span><span class="s">TemplatePkg</span> <span class="s">VARS_PREFIX</span> <span class="o">${</span><span class="nv">VARS_PREFIX</span><span class="o">}</span>
+                                        <span class="s">VERSION</span> <span class="o">${</span><span class="nv">${VARS_PREFIX</span><span class="o">}</span><span class="s">_VERSION}</span>
+                                        <span class="s">COMPATIBILITY</span> <span class="s">SameMajorVersion</span>
+                                        <span class="s">TARGETS_PROPERTY</span> <span class="o">${</span><span class="nv">VARS_PREFIX</span><span class="o">}</span><span class="s">_TARGETS</span>
+                                        <span class="s">NO_CHECK_REQUIRED_COMPONENTS_MACRO</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function generates all the configuration files required for other packages
+to locate and use the library compiled by <code class="docutils literal notranslate"><span class="pre">TemplatePkg</span></code> and adds the required
+installation rules for these files.</p>
+<p>Finally we add uninstall rules:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">include</span><span class="p">(</span><span class="s">AddUninstallTarget</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now you can compile the package by simply doing:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir build
+<span class="nb">cd</span> build
+cmake ..
+make
+make install
+</pre></div>
+</div>
+<p>This will install your package using <code class="docutils literal notranslate"><span class="pre">/usr/local/</span></code> as installation prefix.
+You can change the prefix by changing the
+<span class="target" id="index-0-variable:CMAKE_INSTALL_PREFIX"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/variable/CMAKE_INSTALL_PREFIX.html#CMAKE_INSTALL_PREFIX" title="(in CMake v3.0.0)"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code></a> variable, for
+example</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_INSTALL_PREFIX:PATH<span class="o">=</span>/opt/ycm ..
+</pre></div>
+</div>
+<p>If you check inside the build directory or <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;/lib</span></code> you should see that
+<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> has built the project and installed header files and the
+library correctly. The file <code class="docutils literal notranslate"><span class="pre">TemplatePkgConfig.cmake</span></code> should be in
+<code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;/lib/cmake/TemplatePkg/</span></code>.
+This file will be found by other packages when they call:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">find_package</span><span class="p">(</span><span class="s">TemplatePkg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example code can be downloaded from <a class="reference external" href="https://gitlab.robotology.eu/walkman/template-pkg">TemplatePkg</a> repository.</p>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ycm-build-system-support(7)</a><ul>
+<li><a class="reference internal" href="#ycm-build-system-support">YCM Build System Support</a></li>
+<li><a class="reference internal" href="#a-practical-example">A Practical Example</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ycm-using.7.html"
+                        title="previous chapter">ycm-using(7)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ycm-superbuild.7.html"
+                        title="next chapter">ycm-superbuild(7)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/manual/ycm-build-system-support.7.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ycm-superbuild.7.html" title="ycm-superbuild(7)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ycm-using.7.html" title="ycm-using(7)"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.2.3</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">ycm-build-system-support(7)</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2014  iCub Facility, Istituto Italiano di Tecnologia.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

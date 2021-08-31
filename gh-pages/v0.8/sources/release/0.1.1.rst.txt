@@ -1,0 +1,34 @@
+YCM 0.1.1 (2015-08-28) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.1.0 include the following.
+
+Build System
+============
+
+* If available, use the new ``MESSAGE_NEVER`` argument for the
+  :cmake:command:`file(INSTALL)` command. This will remove the "install" output
+  during the build.
+* Fix ``_YCM_CMAKE_NEXT_DOWNLOAD_NOW`` function on Windows.
+* Use the full version in offline source packages.
+
+
+Modules
+=======
+
+* 3rdparty/FindEigen3: Update to the last revision (see
+  https://bitbucket.org/eigen/eigen/pull-request/76/).
+* :module:`ExtractVersion`: Unset macro internal variables before exiting.
+* Import recent changes from yarp to :module:`FindFFMPEG` and
+  :module:`FindPortAudio` modules.
+* :module:`FindOrBuildPackage`: Properly pass a ``<PKG>_BUILD_COMPONENTS``
+  variable to ``Build<PKG>.cmake``.
+* :module:`YCMEPHelper`: Fix ``edit-cache`` step (:ycm-issue:`72`).
+* :module:`YCMEPHelper`: Documentation, templates and examples are no
+  longer in the :prop_gbl:`YCM_PROJECT` global property.
+* :module:`InstallBasicPackageFiles`: Fix variable names for install
+  tree destinations.

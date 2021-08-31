@@ -1,0 +1,23 @@
+YCM 0.11.2 (2020-07-14) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.11.1 include the following.
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`InstallBasicPackageFiles`: Fixed handling of ``PRIVATE_DEPENDENCIES``
+  in :command:`install_basic_package_files` (#339).
+
+3rd Party
+---------
+
+* Fixed :module:`FindOctave` for Octave 5 (#333, #334).
+* Fixed :module:`FindACE` when invoked multiple times (#340).

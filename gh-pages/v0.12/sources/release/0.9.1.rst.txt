@@ -1,0 +1,36 @@
+YCM 0.9.1 (2018-11-28) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.9.0 include the following.
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`FindOrBuildPackage`: Fixed a typo that made ``find_or_build_package``
+  dismiss the first argument passed after the requested package name.
+
+Find Modules
+------------
+
+* The :module:`FindGLFW3` module is now using the ``glfw`` target exported from
+  upstream if available.
+* The :module:`FindESDCANAPI` module is now also compatible with 64 bit
+  libraries.
+
+CMake Next
+----------
+
+* Updated to CMake v3.13.0 + commit
+  :cmake-commit:`3804122ab2793b9d54aa8c69df62ed86f526d50f`.
+
+3rd Party
+---------
+
+* Fixed ``gstconfig.h`` detection on windows in :module:`FindGStreamer` module.

@@ -1,0 +1,38 @@
+YCM 0.10.3 (2019-05-29) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.10.2 include the following.
+
+Build System
+============
+
+* Paths are no longer duplicated in :cmake:variable:`CMAKE_MODULE_PATH` when
+  ``YCMConfig.cmake`` is included more than once.
+
+
+Modules
+=======
+
+Find Modules
+------------
+
+* The :module:`Findassimp.cmake` now defines also the ``assimp_FOUND`` variable.
+
+CMake Next
+----------
+
+* Updated to CMake ``v3.13.5`` + ``v3.14.4`` + commit
+  :cmake-commit:`e13b18e2c70f42c23ed7e7fddb93557ce19b7359`.
+* The :module:`FindSWIG` module now supports SWIG 4.
+
+3rd Party
+---------
+
+* Update `Catch2 Git Repository`_ to ``v2.8.0`` (updated :module:`CatchAddTests`
+  and :module:`ParseAndAddCatchTests` modules).
+* The :module:`ParseAndAddCatchTests` module is no longer imported from the
+  robotology-dependencies fork.

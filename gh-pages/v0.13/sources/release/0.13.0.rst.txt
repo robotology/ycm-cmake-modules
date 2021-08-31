@@ -1,0 +1,33 @@
+YCM 0.13.0 (2021-07-05) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.12.0 include the following.
+
+Important Changes
+=================
+
+Deprecated Modules
+------------------
+
+* The ``FindGLUT`` module in YCM is deprecated. The one from CMake is now used.
+  The ``GLUT_INCLUDE_DIRS`` is therefore deprecated, the target ``GLUT::GLUT``
+  should be used instead.
+
+
+Modules
+=======
+
+3rd Party
+---------
+
+
+* Imported :module:`FindUDev` module from `ECM Git Repository`_ +
+* Update `VTK Git Repository`_ to tag ``v9.0.1``.
+  The :module:`FindFFMPEG` module now offers targets, but it requires to specify
+  the ``COMPONENTS`` to the ``find_package(FFMPEG)`` calls.
+* The :module:`CMakeRC` module is now imported from ``robotology-dependencies``
+  fork in order to be able to produce ``OBJECT`` libraries.

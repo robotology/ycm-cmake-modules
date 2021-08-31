@@ -1,0 +1,22 @@
+YCM 0.8.2 (2018-07-12) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.8.1 include the following.
+
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`InstallBasicPackageFiles`: Generator expressions are used to get
+  INTERFACE_INCLUDE_DIRECTORIES for NO_COMPATIBILITY_VARS.
+* :module:`InstallBasicPackageFiles`: The ``INCLUDE_FILE`` arguments now
+  configures the file using ``@ONLY``.
+* :module:`GitInfo`: Ensure that git commands are not executed outside a git
+  repository or if the git executable is not available.

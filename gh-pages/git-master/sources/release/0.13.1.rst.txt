@@ -1,0 +1,17 @@
+YCM 0.13.1 (UNRELEASED) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.13.0 include the following.
+
+Modules
+=======
+
+3rd Party
+---------
+
+* The :module:`CMakeRC` module is imported again from the official repository,
+  and it no longer prints the debug message.

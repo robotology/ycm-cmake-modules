@@ -1,0 +1,31 @@
+YCM 0.10.2 (2019-04-26) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.10.1 include the following.
+
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`InstallBasicPackageFiles`: Fixed regular expressions for CMake < 3.9.
+* :module:`YCMEPHelper`: Fixed CMake prefix path of subprojects.
+
+
+CMake Next
+----------
+
+* Updated to CMake v3.14.3 + commit
+  :cmake-commit:`d170a3177fdc57c96034f8a2ecf5d0f9aff70af4`.
+* :module:`FetchContent`: Fixed missing template file.
+* Fixed a few version checks that prevented from downloading future CMake
+  modules or using them in YCM-dependent projects.
+* :module:`FindDoxygen` imported from CMake 3.9 was not compatible with Doxygen
+  1.8.15. Now imported from CMake 3.13 to fix this.
+* :module:`FindPython`: Fixed ``find_package(Python)`` for CMake < 3.7.

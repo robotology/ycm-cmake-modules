@@ -1,0 +1,20 @@
+YCM 0.11.3 (2020-07-27) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.11.2 include the following.
+
+Modules
+=======
+
+3rd Party
+---------
+
+* Update `Catch2 Git Repository`_ to commit
+  ``229cc4823c8cbe67366da8179efc6089dd3893e9`` (updated :module:`CatchAddTests`
+  and :module:`ParseAndAddCatchTests` modules). This fixes the issues with
+  :module:`ParseAndAddCatchTests` tests and CMake 3.18.0 (see
+  :cmake-issue:`21017`).

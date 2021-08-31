@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FindGtkMMWin32 (Replaced by FindGTK2) &#8212; YCM 0.8.2 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FindGtkPlus (Replaced by FindGTK2)" href="FindGtkPlus.html" />
+    <link rel="prev" title="FindGtkMMUnix (Replaced by FindGTK2)" href="FindGtkMMUnix.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="FindGtkPlus.html" title="FindGtkPlus (Replaced by FindGTK2)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="FindGtkMMUnix.html" title="FindGtkMMUnix (Replaced by FindGTK2)"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.8.2</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" accesskey="U">ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindGtkMMWin32 (Replaced by <code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindGTK2</span></code>)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="findgtkmmwin32-replaced-by-findgtk2">
+<span id="FindGtkMMWin32"></span><h1>FindGtkMMWin32 (Replaced by <span class="target" id="index-0-module:FindGTK2"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/module/FindGTK2.html#FindGTK2" title="(in CMake v3.0.0)"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindGTK2</span></code></a>)<a class="headerlink" href="#findgtkmmwin32-replaced-by-findgtk2" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This module is deprecated. You should use <span class="target" id="index-1-module:FindGTK2"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/module/FindGTK2.html#FindGTK2" title="(in CMake v3.0.0)"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindGTK2</span></code></a> instead.</p>
+</div>
+<p>Searches GtkMM on Windows.</p>
+<p>Assumes that the environment variable <code class="docutils literal notranslate"><span class="pre">GTKMM_BASEPATH</span></code> is set to the place
+where GtkMM libs have been unpacked/installed. Users that want to install
+gtkmm manually must define <code class="docutils literal notranslate"><span class="pre">GTKMM_BASEPATH</span></code> accordingly.</p>
+<p>Creates:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GtkMM_INCLUDE_DIRS</span>   <span class="o">-</span> <span class="n">Directories</span> <span class="n">to</span> <span class="n">include</span> <span class="n">to</span> <span class="n">use</span> <span class="n">GTKMM</span>
+<span class="n">GtkMM_LIBRARIES</span>      <span class="o">-</span> <span class="n">Files</span> <span class="n">to</span> <span class="n">link</span> <span class="n">against</span> <span class="n">to</span> <span class="n">use</span> <span class="n">GTKMM</span>
+<span class="n">GtkMM_C_FLAGS</span>        <span class="o">-</span> <span class="n">Flags</span> <span class="n">to</span> <span class="k">pass</span> <span class="n">to</span> <span class="n">the</span> <span class="n">C</span><span class="o">/</span><span class="n">C</span><span class="o">++</span> <span class="n">compiler</span> <span class="k">for</span> <span class="n">GTKMM</span><span class="o">.</span>
+<span class="n">GtkMM_FOUND</span>          <span class="o">-</span> <span class="n">If</span> <span class="n">false</span><span class="p">,</span> <span class="n">don</span><span class="s1">&#39;t try to use GTKMM</span>
+<span class="n">GtkMM_VERSION</span>        <span class="o">-</span> <span class="n">version</span> <span class="n">info</span>
+<span class="n">GtkMM_MAJOR_VERSION</span>  <span class="o">-</span> <span class="n">major</span> <span class="n">version</span>
+<span class="n">GtkMM_MINOR_VERSION</span>  <span class="o">-</span> <span class="n">minor</span> <span class="n">version</span>
+</pre></div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="FindGtkMMUnix.html"
+                        title="previous chapter">FindGtkMMUnix (Replaced by <code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindGTK2</span></code>)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="FindGtkPlus.html"
+                        title="next chapter">FindGtkPlus (Replaced by <code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindGTK2</span></code>)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/module/FindGtkMMWin32.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="FindGtkPlus.html" title="FindGtkPlus (Replaced by FindGTK2)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="FindGtkMMUnix.html" title="FindGtkMMUnix (Replaced by FindGTK2)"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.8.2</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" >ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindGtkMMWin32 (Replaced by <code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindGTK2</span></code>)</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2018 Istituto Italiano di Tecnologia (IIT).
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

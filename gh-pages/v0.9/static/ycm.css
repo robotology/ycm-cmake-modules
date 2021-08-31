@@ -1,0 +1,38 @@
+/* Import the Sphinx theme style.  */
+@import url("default.css");
+
+/* Wrap sidebar content even within words so that long
+   document names do not escape sidebar borders.  */
+div.sphinxsidebarwrapper {
+  word-wrap: break-word;
+}
+
+/* Reduce the font size of the side bar */
+div.sphinxsidebar {
+  font-size: 75%;
+}
+
+/* Reduce the font size of the initial toc tree */
+div.contents {
+  font-size: 75%;
+}
+
+/* Reduce the size for the admonition boxes */
+div.admonition {
+  font-size: 85%;
+}
+
+/* Make the "See Also" boxes borders darker */
+div.seealso {
+    border-color: #fe6;
+}
+
+/* Draw a box for todo items */
+div.admonition-todo {
+    border: 1px solid #ddd;
+    background-color: #fcfcfc;
+}
+
+table.docutils td, table.docutils th {
+    border-width: 0;
+}

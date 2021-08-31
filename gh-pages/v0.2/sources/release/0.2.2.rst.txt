@@ -1,0 +1,26 @@
+YCM 0.2.2 (2016-11-28) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.2.1 include the following.
+
+Modules
+=======
+
+Superbuild Helper Modules
+-------------------------
+
+* Fixed bootstrap address in :module:`YCMEPHelper` (#108, #109)
+
+CMake Next
+----------
+
+* Fixed typo code for CMake < 3.0 (#107).
+
+3rd Party
+---------
+
+* Fixed OVITO new repository URL (#103).

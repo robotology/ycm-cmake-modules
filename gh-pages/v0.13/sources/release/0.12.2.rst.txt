@@ -1,0 +1,35 @@
+YCM 0.12.2 (2021-05-19) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.12.1 include the following.
+
+
+Modules
+=======
+
+3rd Party
+---------
+
+* Update `Catch2 Git Repository`_ to tag ``v2.13.4``.
+
+Superbuild Modules
+------------------
+
+* Fixed a bug in :module:`YCMEPHelper` that prevented from opening the CMake
+  cache editor when the corresponding target was used in development mode, e.g.
+  ``<project_name>-edit_cache``.
+
+Find Modules
+------------
+
+* The :module:`Findassimp` learned to first check if
+  an assimp CMake config is present in the system.
+
+Style Modules
+-------------
+
+* The :module:`StyleKDE` module was updated to use the new address.

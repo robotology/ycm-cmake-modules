@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YCMEPHelper &#8212; YCM 0.13.20210831.3-20210831.3+git1860bad Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="StyleBITBUCKET" href="StyleBITBUCKET.html" />
+    <link rel="prev" title="FindOrBuildPackage" href="FindOrBuildPackage.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="StyleBITBUCKET.html" title="StyleBITBUCKET"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="FindOrBuildPackage.html" title="FindOrBuildPackage"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.13.20210831.3-20210831.3+git1860bad</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" accesskey="U">ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">YCMEPHelper</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ycmephelper">
+<span id="YCMEPHelper"></span><h1>YCMEPHelper<a class="headerlink" href="#ycmephelper" title="Permalink to this headline">¶</a></h1>
+<p>A helper for <span class="target" id="index-0-module:ExternalProject"></span><a class="reference internal" href="ExternalProject.html#ExternalProject" title="ExternalProject"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">ExternalProject</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ycm_ep_helper</span><span class="p">(</span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
+  <span class="p">[</span><span class="n">DOCS</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">TYPE</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">STYLE</span> <span class="o">&lt;</span><span class="n">style</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">COMPONENT</span> <span class="o">&lt;</span><span class="n">component</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;external&quot;</span><span class="p">)</span>
+  <span class="p">[</span><span class="n">FOLDER</span> <span class="o">&lt;</span><span class="n">folder</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;&lt;component&gt;&quot;</span><span class="p">)</span>
+  <span class="p">[</span><span class="n">REPOSITORY</span> <span class="o">&lt;</span><span class="n">repo</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">EXCLUDE_FROM_ALL</span> <span class="o">&lt;</span><span class="mi">0</span><span class="o">|</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">]</span>
+ <span class="c1">#--Git and Hg only arguments-----------</span>
+  <span class="p">[</span><span class="n">TAG</span> <span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span><span class="p">]</span>
+ <span class="c1">#--Svn only arguments-----------</span>
+  <span class="p">[</span><span class="n">REVISION</span> <span class="o">&lt;</span><span class="n">revision</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">USERNAME</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">PASSWORD</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">TRUST_CERT</span> <span class="o">&lt;</span><span class="mi">0</span><span class="o">|</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">]</span>
+ <span class="c1">#--CMake arguments---------</span>
+  <span class="p">[</span><span class="n">CMAKE_ARGS</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">CMAKE_CACHE_ARGS</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">CMAKE_CACHE_DEFAULT_ARGS</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">DEPENDS</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">DOWNLOAD_COMMAND</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">UPDATE_COMMAND</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">PATCH_COMMAND</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">CONFIGURE_COMMAND</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">BUILD_COMMAND</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">INSTALL_COMMAND</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">TEST_COMMAND</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">CLEAN_COMMAND</span><span class="p">]</span> <span class="p">(</span><span class="ow">not</span> <span class="ow">in</span> <span class="n">ExternalProject</span><span class="p">)</span>
+  <span class="p">[</span><span class="n">TEST_AFTER_INSTALL</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">TEST_BEFORE_INSTALL</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">TEST_EXCLUDE_FROM_MAIN</span><span class="p">]</span>
+  <span class="p">)</span>
+
+<span class="n">YCM_BOOTSTRAP</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="cmake variable">
+<dt id="NON_INTERACTIVE_BUILD">
+<code class="sig-name descname"><span class="pre">NON_INTERACTIVE_BUILD</span></code><a class="headerlink" href="#NON_INTERACTIVE_BUILD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="cmake variable">
+<dt id="YCM_BOOTSTRAP_BASE_ADDRESS">
+<code class="sig-name descname"><span class="pre">YCM_BOOTSTRAP_BASE_ADDRESS</span></code><a class="headerlink" href="#YCM_BOOTSTRAP_BASE_ADDRESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="cmake variable">
+<dt id="YCM_SKIP_HASH_CHECK">
+<code class="sig-name descname"><span class="pre">YCM_SKIP_HASH_CHECK</span></code><a class="headerlink" href="#YCM_SKIP_HASH_CHECK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="cmake variable">
+<dt id="YCM_BOOTSTRAP_VERBOSE">
+<code class="sig-name descname"><span class="pre">YCM_BOOTSTRAP_VERBOSE</span></code><a class="headerlink" href="#YCM_BOOTSTRAP_VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="cmake variable">
+<dt id="YCM_EP_INSTALL_DIR">
+<code class="sig-name descname"><span class="pre">YCM_EP_INSTALL_DIR</span></code><a class="headerlink" href="#YCM_EP_INSTALL_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="cmake variable">
+<dt id="YCM_EP_ADDITIONAL_CMAKE_ARGS">
+<code class="sig-name descname"><span class="pre">YCM_EP_ADDITIONAL_CMAKE_ARGS</span></code><a class="headerlink" href="#YCM_EP_ADDITIONAL_CMAKE_ARGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="cmake variable">
+<dt id="YCM_&lt;COMPONENT&gt;_COLOR">
+<code class="sig-name descname"><span class="pre">YCM_&lt;COMPONENT&gt;_COLOR</span></code><a class="headerlink" href="#YCM_<COMPONENT>_COLOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="cmake variable">
+<dt id="YCM_&lt;COMPONENT&gt;_BGCOLOR">
+<code class="sig-name descname"><span class="pre">YCM_&lt;COMPONENT&gt;_BGCOLOR</span></code><a class="headerlink" href="#YCM_<COMPONENT>_BGCOLOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="cmake variable">
+<dt id="YCM_&lt;COMPONENT&gt;_NODECOLOR">
+<code class="sig-name descname"><span class="pre">YCM_&lt;COMPONENT&gt;_NODECOLOR</span></code><a class="headerlink" href="#YCM_<COMPONENT>_NODECOLOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>TODO Add variable YCM_INSTALL_PREFIX</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="FindOrBuildPackage.html"
+                        title="previous chapter">FindOrBuildPackage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="StyleBITBUCKET.html"
+                        title="next chapter">StyleBITBUCKET</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/module/YCMEPHelper.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="StyleBITBUCKET.html" title="StyleBITBUCKET"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="FindOrBuildPackage.html" title="FindOrBuildPackage"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.13.20210831.3-20210831.3+git1860bad</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" >ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">YCMEPHelper</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2012-2021 Istituto Italiano di Tecnologia (IIT).
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

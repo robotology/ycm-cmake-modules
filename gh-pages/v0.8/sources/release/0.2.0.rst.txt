@@ -1,0 +1,179 @@
+YCM 0.2.0 (2016-11-17) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.1 include the following.
+
+
+Build System
+============
+
+* Use the ``INSTALL_PREFIX`` argument for
+  :cmake:module:`CMakePackageConfigHelpers`. This simplifies a lot the creation
+  of the ``YCMConfig.cmake`` file for the binary tree.
+* Fixed warnings with CMake 3.2.
+* Added RunCMake unit tests.
+* Added :variable:`YCM_CMAKE_DOWNLOAD_URL` variable and use github as default
+  download url.
+* Try to download the files up to 3 times in order to avoid common network
+  issues.
+* ``YCMBootstrap``: Fix env variables list truncated to first element in
+  Windows (#100).
+
+
+Modules
+=======
+
+
+Generic Modules
+---------------
+
+* :module:`StandardFindModule`: Add QUIET argument.
+* New module :module:`GitInfo`.
+* :module:`IncludeUrl`: Several bug fixes and improvement.
+* New module :module:`ReplaceImportedTargets`.
+* :module:`StandardFindModule`: handle the new ``TARGET`` and
+  ``REPLACE_TARGETS`` arguments, to create automatically the specified
+  imported target and to replace the known targets paths with the
+  relative target name (in pkg-config mode only). If any of the
+  ``STANDARD_FIND_MODULE_USE_IMPORTED_TARGET`` or
+  ``STANDARD_FIND_MODULE_USE_IMPORTED_TARGET_<NAME>`` are specified, and the
+  ``TARGET`` argument is given, the ``<NAME>_LIBRARIES`` variable content is
+  replaced with the corresponding imported target.
+* :module:`StandardFindModule`: Ensure that include directories exists.
+* :module:`StandardFindModule`: Fix `INTERFACE_COMPILE_{DEFINITIONS,OPTIONS}`
+  properties.
+* New module :module:`GetAllCMakeProperties`.
+* :module:`StandardFindModule` Fix QUIET argument.
+
+
+Packaging Helper Modules
+------------------------
+
+* :module:`InstallBasicPackageFiles`: Use the new ``INSTALL_PREFIX`` argument
+  for :cmake:module:`CMakePackageConfigHelpers`.
+* New module :module:`AddInstallRPATHSupport`: Add RPATH support when
+  building executables or shared libraries.
+* :module:`AddInstallRPATHSupport`: Accept multiple conditions for the DEPENDS
+  argument. This makes the DEPENDS argument similar to the
+  :cmake:module:`CMakeDependentOptions` module.
+* fix :module:`AddInstallRPATHSupport` for installation in system path
+
+
+Superbuild Helper Modules
+-------------------------
+
+* :module:`YCMEPHelper` now handles tests for sub-projects.
+* :module:`YCMEPHelper`: Pass ``PKG_CONFIG_USE_CMAKE_PREFIX_PATH`` to
+  subprojects.
+* :module:`YCMEPHelper`: Prepare for ``CMAKE_CACHE_DEFAULT_ARGS``. The argument
+  is accepted, but not yet passed to :command:`ExternalProject_Add`
+* :module:`YCMEPHelper`: Pass ``PKG_CONFIG_PATH`` to non CMake subprojects.
+* :cmake:module:`ExternalProject`: Fix :cmake:policy:`CMP0054` warnings.
+* :module:`YCMEPHelper`: Move ``CMAKE_PREFIX_PATH`` to command line arguments.
+  This fixes pkg-config not able to detect packages built by YCM.
+* :module:`YCMEPHelper`: Fix .dot files generation for modules containing the
+  ``-`` character in the name.
+* :module:`YCMEPHelper`: Do not force CMake cache default arguments that are not
+  set in the main project.
+* :module:`FindOrBuildPackage`: Extract version argument from ARGN.
+* :module:`YCMEPHelper`: variables in commands are no longer replaced. Instead
+  of passing variables that are internal to YCMEPHelper, the user should use
+  ``<SOURCE_DIR>``, ``<BINARY_DIR>``, ``<INSTALL_DIR>``, and ``<TMP_DIR>`` that
+  are automatically replaced by ExternalProject.
+* :module:`YCMEPHelper`: Handle and use CONFIGURE_SOURCE_DIR argument in order
+  to support projects in a subdirectory.
+* :module:`YCMEPHelper`: Propagate CMAKE_SKIP_INSTALL_RPATH flag to all
+  sub-projects.
+
+
+Find Package Modules
+--------------------
+
+* New module :module:`FindqpOASES`.
+* Import :module:`FindFreenect` new module from `YARP Git Repository`_.
+* Import :module:`FindFTDI` new module from `YARP Git Repository`_.
+* Import :module:`FindLibusb1` new module from `YARP Git Repository`_.
+* Import :module:`FindOpenNI` new module from `YARP Git Repository`_.
+* Import :module:`FindReadline` new module from `YARP Git Repository`_.
+* Import :module:`FindStage` new module from `YARP Git Repository`_.
+* New module :module:`FindLibdc1394`.
+* :module:`FindFFMPEG`: Fix for recent ffmpeg version on debian
+* Import :module:`FindFuse` new module from `YARP Git Repository`_.
+* Import :module:`FindGLFW3` new module from `YARP Git Repository`_.
+* Import :module:`FindLibOVR` new module from `YARP Git Repository`_.
+* :module:`FindODE`: Use double precision by default when available.
+* :module:`FindESDCANAPI`: Fixed find library procedure.
+* :module:`FindIPOPT`: Improvements and restored required IPOPT_LINK_FLAGS
+  variable.
+* Import :module:`FindLibv4l2` new module from `iCub Git Repository`_.
+* Import :module:`FindLibv4lconvert` new module from `iCub Git Repository`_.
+* Create imported targets in :module:`FindGooCanvas`, :module:`FindGooCanvasMM`,
+  :module:`FindGtkDatabox`, and :module:`FindGtkDataboxMM` modules.
+* :module:`FindIPOPT` supports IPOPT from new binary releases of the
+  `iCub Git Repository`_.
+* :module:`FindIPOPT` supports IPOPT from the coinor-libipopt-dev debian
+  package.
+* :module:`FindGLFW3` improves detection on windows.
+* Fixed :module:`FindGLUT` module on Window 64 bit.
+* Fixed stray `;` character in :module:`FindODE`.
+* New module :module:`FindLibedit`.
+* New module :module:`FindNVIDIACg`.
+
+
+Build Package Modules
+---------------------
+
+* New module :module:`BuildqpOASES`.
+* :module:`BuildGooCanvas`: Change command variable style.
+* New modules :module:`BuildGooCanvasMM` :module:`BuildGtkDatabox`
+  :module:`BuildGtkDataboxMM`.
+* :module:`BuildYARP`: Build and use GooCanvasMM and GtkDataboxMM as
+  dependencies.
+* :module:`BuildICUB`: Do not build canBus devices.
+
+
+CMake Proposed Modules
+----------------------
+
+* :cmake:module:`ExternalProject`: Init only selected git submodules.
+* :cmake:module:`ExternalProject`: Handle CONFIGURE_SOURCE_DIR argument. This
+  argument can be used when the the main CMakeLists.txt file is not in the
+  source directory, but in a subdirectory.
+
+
+CMake Next
+----------
+
+* Updated to CMake v3.7.0 + commit
+  :cmake-commit:`ab4a9a98266fb29008cecc9649a91fc844c541f5`).
+* :cmake:module:`CMakePackageConfigHelpers` module imported from CMake 3.1.
+* :cmake:module:`FindLua` module imported from CMake 3.0.
+* :cmake:module:`FindMatlab` module imported from CMake 3.7.
+* :cmake:module:`FindArmadillo` module removed (available in CMake
+  2.8.9).
+* :module:`FindGLEW` module imported with patch applied to improve
+  detection on windows.
+* :module:`ExternalProject`: Handle CONFIGURE_SOURCE_DIR argument in
+  order to support projects in a subdirectory.
+* :cmake:module:`CMakeFindDependencyMacro` module imported from CMake 3.0.
+* :cmake:module:`FindSWIG` and :cmake:module:`UseSWIG` modules imported from
+  CMake master.
+
+
+3rd Party
+---------
+
+* Updated to `Eigen Mercurial Repository`_ commit 00094bd
+* :module:`FindOctave` imported from https://cmake.org/Wiki/CMakeUserFindOctave
+* :module:`FindQCustomPlot` imported from `OVITO Git Repository`_.
+
+
+Variables
+=========
+
+* Update :variable:`YCM_USE_CMAKE_<VERSION>`: variables and relative
+  documentation.

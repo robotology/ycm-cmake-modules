@@ -1,0 +1,15 @@
+YCM 0.10.4 (2019-06-07) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.10.3 include the following.
+
+CMake Next
+----------
+
+* The :module:`UseSWIG` module works again with older CMake releases.
+  Some features cannot be properly supported with CMake older than 3.12, and
+  therefore are disabled on these versions.

@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StandardFindModule &#8212; YCM 0.4.0 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="InstallBasicPackageFiles" href="InstallBasicPackageFiles.html" />
+    <link rel="prev" title="ReplaceImportedTargets" href="ReplaceImportedTargets.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="InstallBasicPackageFiles.html" title="InstallBasicPackageFiles"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ReplaceImportedTargets.html" title="ReplaceImportedTargets"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.4.0</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" accesskey="U">ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">StandardFindModule</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="standardfindmodule">
+<span id="StandardFindModule"></span><h1>StandardFindModule<a class="headerlink" href="#standardfindmodule" title="Permalink to this headline">¶</a></h1>
+<p>Try to find a package using a cmake config file, or pkgconfig:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">standard_find_module</span><span class="p">(</span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
+                     <span class="o">&lt;</span><span class="n">pkgconfig</span> <span class="n">name</span><span class="o">&gt;</span>
+                     <span class="p">[</span><span class="n">NOT_REQUIRED</span><span class="p">]</span>
+                     <span class="p">[</span><span class="n">QUIET</span><span class="p">]</span>
+                     <span class="p">[</span><span class="n">SKIP_CMAKE_CONFIG</span><span class="p">]</span>
+                     <span class="p">[</span><span class="n">SKIP_PKG_CONFIG</span><span class="p">]</span>
+                     <span class="p">[</span><span class="n">TARGET</span> <span class="o">&lt;</span><span class="n">target</span><span class="o">&gt;</span><span class="p">]</span>
+                     <span class="p">[</span><span class="n">REPLACE_TARGETS</span> <span class="o">&lt;</span><span class="n">target</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">...</span><span class="p">]]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>If the package is found, the following variables (where possible)
+are created:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_FOUND</span>         <span class="o">-</span> <span class="n">System</span> <span class="n">has</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_INCLUDE_DIRS</span>  <span class="o">-</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="n">include</span> <span class="n">directory</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_LIBRARIES</span>     <span class="o">-</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="n">libraries</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_DEFINITIONS</span>   <span class="o">-</span> <span class="n">Additional</span> <span class="n">compiler</span> <span class="n">flags</span> <span class="k">for</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_VERSION</span>       <span class="o">-</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="n">version</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_MAJOR_VERSION</span> <span class="o">-</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="n">major</span> <span class="n">version</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_MINOR_VERSION</span> <span class="o">-</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="n">minor</span> <span class="n">version</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_PATCH_VERSION</span> <span class="o">-</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="n">patch</span> <span class="n">version</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_TWEAK_VERSION</span> <span class="o">-</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="n">tweak</span> <span class="n">version</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_VERSION_COUNT</span> <span class="o">-</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">version</span> <span class="n">components</span><span class="p">,</span> <span class="mi">0</span> <span class="n">to</span> <span class="mi">4</span>
+</pre></div>
+</div>
+<p>For each library that requires to be linked (i.e. <code class="docutils literal notranslate"><span class="pre">-llib</span></code>) it
+creates:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="n">LIB</span><span class="o">&gt;</span><span class="n">_LIBRARY_RELEASE</span> <span class="p">(</span><span class="n">cached</span><span class="p">,</span> <span class="n">advanced</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="n">LIB</span><span class="o">&gt;</span><span class="n">_LIBRARY_DEBUG</span> <span class="p">(</span><span class="n">cached</span><span class="p">,</span> <span class="n">advanced</span><span class="p">,</span> <span class="ow">and</span> <span class="n">empty</span> <span class="n">by</span> <span class="n">default</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="n">LIB</span><span class="o">&gt;</span><span class="n">_LIBRARY</span>
+<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="n">LIB</span><span class="o">&gt;</span><span class="n">_LIBRARY_FOUND</span>
+</pre></div>
+</div>
+<p>In a <code class="docutils literal notranslate"><span class="pre">FindXXX.cmake</span></code> module, this macro can be used at the beginning.
+The <code class="docutils literal notranslate"><span class="pre">NOT_REQUIRED</span></code> can be added to avoid failing if the package was not
+found, but <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> is installed.
+The <code class="docutils literal notranslate"><span class="pre">QUIET</span></code> argument can be used to hide the output from
+<cite>find_package_handle_standard_args</cite>.
+If <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_FOUND</span></code> is <code class="docutils literal notranslate"><span class="pre">FALSE</span></code> at the end, more “custom” searches can be
+used (for windows, etc.)</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">SKIP_CMAKE_CONFIG</span></code> or <code class="docutils literal notranslate"><span class="pre">SKIP_PKG_CONFIG</span></code> are set, the relative step
+is skipped</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">TARGET</span></code> is specified, in <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> mode, an imported target will
+be created using the first library returned by <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> as imported
+location.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">REPLACE_TARGETS</span></code> can be used to pass a list of imported targets that
+will be detected in variables and target properties, and replaced with the
+corresponding target.</p>
+<p>If one of the <code class="docutils literal notranslate"><span class="pre">STANDARD_FIND_MODULE_USE_IMPORTED_TARGET</span></code> or
+<code class="docutils literal notranslate"><span class="pre">STANDARD_FIND_MODULE_USE_IMPORTED_TARGET_&lt;name&gt;</span></code> are enabled, and
+a <code class="docutils literal notranslate"><span class="pre">TARGET</span></code> is specified, the <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_LIBRARIES</span></code> variable content is
+replaced with the imported target.</p>
+<p>If one of the variables <code class="docutils literal notranslate"><span class="pre">STANDARD_FIND_MODULE_DEBUG</span></code> or
+<code class="docutils literal notranslate"><span class="pre">STANDARD_FIND_MODULE_DEBUG_&lt;name&gt;</span></code> is enabled, prints more useful debug
+output</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ReplaceImportedTargets.html"
+                        title="previous chapter">ReplaceImportedTargets</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="InstallBasicPackageFiles.html"
+                        title="next chapter">InstallBasicPackageFiles</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/module/StandardFindModule.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="InstallBasicPackageFiles.html" title="InstallBasicPackageFiles"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ReplaceImportedTargets.html" title="ReplaceImportedTargets"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.4.0</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" >ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">StandardFindModule</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2014  iCub Facility, Istituto Italiano di Tecnologia.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

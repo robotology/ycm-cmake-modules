@@ -1,0 +1,48 @@
+YCM 0.11.0 (2019-11-28) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.10.0 include the following.
+
+
+Important Changes
+=================
+
+* CMake 3.12 or later is now required.
+
+
+Build System
+============
+
+* Fixed issue for which the default generator was always used by the
+  bootstrapped YCM (#290)
+
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`InstallBasicPackageFiles`: The package is now exported to the user
+  package registry, when the :cmake:variable:`CMAKE_EXPORT_PACKAGE_REGISTRY` is
+  enabled.
+* :module:`InstallBasicPackageFiles`: Added the new ``NO_EXPORT`` option, that
+  can be used to install a set of CMake files when you don't have an export set
+  or any targets to export.
+
+Superbuild Modules
+------------------
+
+* :module:`YCMEPHelper`: The ``YCM_EP_INSTALL_DIR`` variable can be used to
+  change where the subprojects will be installed (default
+  ``${PROJECT_BINARY_DIR}/install``).
+  You should not change the ``YCM_EP_INSTALL_DIR`` variable, unless you wish to
+  build the superbuild only once, and discard the build directory. In this case
+  you should change this variable to the final destination of the build since,
+  for many projects, the build is not relocatable.
+  Please also note that, if you change it to a folder that is not writable by
+  current user, you will have to run the whole build as superuser.

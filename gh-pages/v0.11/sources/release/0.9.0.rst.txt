@@ -1,0 +1,31 @@
+YCM 0.9.0 (2017-07-23) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.8 include the following.
+
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`InstallBasicPackageFiles`: Added ``INCLUDE_CONTENT`` argument,
+  similar to ``INCLUDE_FILE`` but that passes the content from the command
+  instead of an external file.
+* :module:`InstallBasicPackageFiles`: The ``@INCLUDED_FILE_CONTENT@`` variable
+  in the template config file is deprecated in favour of ``@INCLUDED_CONTENT@``.
+
+3rd Party
+---------
+
+* Update `Catch2 Git Repository`_ to commit
+  ``76790604f523f7fb63741aca5fc7fc1cbc140763`` (updated :module:`CatchAddTests`
+  and :module:`ParseAndAddCatchTests` modules).
+* Imported modified version of the :module:`FindGraphviz` module from the
+  `qgv Git Repository`_ (modified version found
+  `here <https://github.com/robotology-legacy/yarpviz/blob/master/cmake/modules/FindGraphviz.cmake>_).

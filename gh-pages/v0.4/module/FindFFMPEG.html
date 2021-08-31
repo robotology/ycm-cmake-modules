@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FindFFMPEG &#8212; YCM 0.4.0 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FindFreenect" href="FindFreenect.html" />
+    <link rel="prev" title="FindESDCANAPI" href="FindESDCANAPI.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="FindFreenect.html" title="FindFreenect"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="FindESDCANAPI.html" title="FindESDCANAPI"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.4.0</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" accesskey="U">ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindFFMPEG</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="findffmpeg">
+<span id="FindFFMPEG"></span><h1>FindFFMPEG<a class="headerlink" href="#findffmpeg" title="Permalink to this headline">¶</a></h1>
+<p>Find the native FFMPEG includes and library</p>
+<p>This module defines:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FFMPEG_INCLUDE_DIR</span><span class="p">,</span> <span class="n">where</span> <span class="n">to</span> <span class="n">find</span> <span class="n">avcodec</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="n">avformat</span><span class="o">.</span><span class="n">h</span> <span class="o">...</span>
+<span class="n">FFMPEG_LIBRARIES</span><span class="p">,</span> <span class="n">the</span> <span class="n">libraries</span> <span class="n">to</span> <span class="n">link</span> <span class="n">against</span> <span class="n">to</span> <span class="n">use</span> <span class="n">FFMPEG</span><span class="o">.</span>
+<span class="n">FFMPEG_FOUND</span><span class="p">,</span> <span class="n">If</span> <span class="n">false</span><span class="p">,</span> <span class="n">do</span> <span class="ow">not</span> <span class="k">try</span> <span class="n">to</span> <span class="n">use</span> <span class="n">FFMPEG</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>also defined, but not for general use are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FFMPEG_avformat_LIBRARY</span><span class="p">,</span> <span class="n">where</span> <span class="n">to</span> <span class="n">find</span> <span class="n">the</span> <span class="n">FFMPEG</span> <span class="n">avformat</span> <span class="n">library</span><span class="o">.</span>
+<span class="n">FFMPEG_avcodec_LIBRARY</span><span class="p">,</span> <span class="n">where</span> <span class="n">to</span> <span class="n">find</span> <span class="n">the</span> <span class="n">FFMPEG</span> <span class="n">avcodec</span> <span class="n">library</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>This is useful to do it this way so that we can always add more libraries
+if needed to <code class="docutils literal notranslate"><span class="pre">FFMPEG_LIBRARIES</span></code> if ffmpeg ever changes…</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="FindESDCANAPI.html"
+                        title="previous chapter">FindESDCANAPI</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="FindFreenect.html"
+                        title="next chapter">FindFreenect</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/module/FindFFMPEG.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="FindFreenect.html" title="FindFreenect"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="FindESDCANAPI.html" title="FindESDCANAPI"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.4.0</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" >ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindFFMPEG</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2014  iCub Facility, Istituto Italiano di Tecnologia.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

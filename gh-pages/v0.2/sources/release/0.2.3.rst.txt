@@ -1,0 +1,24 @@
+YCM 0.2.3 (2017-06-15) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.2.2 include the following.
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`InstallBasicPackageFiles`: Fixed an error that was forcing the user
+  to set specific GLOBAL variables to properly export a project. Compatibility
+  is preserved. (#112)
+
+Superbuild Helper Modules
+-------------------------
+
+* Fixed  empty commands for CMake > 3.0 bootstrap address in
+  :module:`YCMEPHelper` (robotology-playground/robotology-superbuild#15)

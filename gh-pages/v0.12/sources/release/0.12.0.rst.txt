@@ -1,0 +1,53 @@
+YCM 0.12.0 (2020-09-28) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.11.0 include the following.
+
+Important Changes
+=================
+
+Deprecated Modules
+------------------
+
+* The following deprecated modules are no longer available:
+
+  - ``FindGthread``
+  - ``FindGtkMM``
+  - ``FindGtkMMUnix``
+  - ``FindGtkMMWin32``
+  - ``FindGtkPlus``
+  - ``FindGtkWin32``
+  - ``FindQt3``
+  - ``MacroExtractVersion``
+  - ``MacroStandardFindModule``
+  - ``MacroUninstallTarget``
+  - ``YCMDeprecatedWarning``
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* The :module:`InstallBasicPackageFiles` default for `INSTALL_DESTINATION` on
+  Windows is now the same as for the other operating systems
+  (``${CMAKE_INSTALL_LIBDIR}/cmake/<Name>``).
+* The :module:`InstallBasicPackageFiles` default for `INSTALL_DESTINATION` when
+  ``ARCH_INDEPENDENT`` is passed is now
+  ``${CMAKE_INSTALL_DATADIR}/cmake/<Name>``.
+* Added the new :command:`target_append_install_rpath` command to the
+  :module:`AddInstallRPATHSupport` module, to modify the rpath for a single
+  target.
+
+Superbuild Modules
+------------------
+
+* :module:`YCMEPHelper`: The ``YCM_EP_ADDITIONAL_CMAKE_ARGS`` CMake cache variable
+  can be used to specify additional CMake arguments for all subprojects.
+* :module:`FindOrBuildPackage`: The ``YCM_DISABLE_SYSTEM_PACKAGES`` CMake cache
+  variable can be used to disable the use of system installed package for all
+  subprojects.

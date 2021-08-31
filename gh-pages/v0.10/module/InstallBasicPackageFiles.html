@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InstallBasicPackageFiles &#8212; YCM 0.10.4 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="AddUninstallTarget" href="AddUninstallTarget.html" />
+    <link rel="prev" title="StandardFindModule" href="StandardFindModule.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="AddUninstallTarget.html" title="AddUninstallTarget"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="StandardFindModule.html" title="StandardFindModule"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.10.4</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" accesskey="U">ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">InstallBasicPackageFiles</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installbasicpackagefiles">
+<span id="InstallBasicPackageFiles"></span><h1>InstallBasicPackageFiles<a class="headerlink" href="#installbasicpackagefiles" title="Permalink to this headline">¶</a></h1>
+<p>A helper module to make your package easier to be found by other
+projects.</p>
+<dl class="cmake command">
+<dt id="install_basic_package_files">
+<code class="sig-name descname"><span class="pre">install_basic_package_files</span></code><a class="headerlink" href="#install_basic_package_files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Create and install a basic version of cmake config files for your
+project:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">install_basic_package_files</span><span class="p">(</span><span class="o">&lt;</span><span class="n">Name</span><span class="o">&gt;</span>
+                            <span class="n">VERSION</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>
+                            <span class="n">COMPATIBILITY</span> <span class="o">&lt;</span><span class="n">compatibility</span><span class="o">&gt;</span>
+                            <span class="p">[</span><span class="n">ARCH_INDEPENDENT</span><span class="p">]</span>
+                            <span class="p">[</span><span class="n">EXPORT</span> <span class="o">&lt;</span><span class="n">export</span><span class="o">&gt;</span><span class="p">]</span> <span class="c1"># (default = &quot;&lt;Name&gt;&quot;)</span>
+                            <span class="p">[</span><span class="n">NO_SET_AND_CHECK_MACRO</span><span class="p">]</span>
+                            <span class="p">[</span><span class="n">NO_CHECK_REQUIRED_COMPONENTS_MACRO</span><span class="p">]</span>
+                            <span class="p">[</span><span class="n">VARS_PREFIX</span> <span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="p">]</span> <span class="c1"># (default = &quot;&lt;Name&gt;&quot;)</span>
+                            <span class="p">[</span><span class="n">EXPORT_DESTINATION</span> <span class="o">&lt;</span><span class="n">destination</span><span class="o">&gt;</span><span class="p">]</span>
+                            <span class="p">[</span><span class="n">INSTALL_DESTINATION</span> <span class="o">&lt;</span><span class="n">destination</span><span class="o">&gt;</span><span class="p">]</span>
+                            <span class="p">[</span><span class="n">NAMESPACE</span> <span class="o">&lt;</span><span class="n">namespace</span><span class="o">&gt;</span><span class="p">]</span> <span class="c1"># (default = &quot;&lt;Name&gt;::&quot;)</span>
+                            <span class="p">[</span><span class="n">EXTRA_PATH_VARS_SUFFIX</span> <span class="n">path1</span> <span class="p">[</span><span class="n">path2</span> <span class="o">...</span><span class="p">]]</span>
+                            <span class="p">[</span><span class="n">CONFIG_TEMPLATE</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span>
+                            <span class="p">[</span><span class="n">UPPERCASE_FILENAMES</span> <span class="o">|</span> <span class="n">LOWERCASE_FILENAMES</span><span class="p">]</span>
+                            <span class="p">[</span><span class="n">DEPENDENCIES</span> <span class="o">&lt;</span><span class="n">dependency1</span><span class="o">&gt;</span> <span class="s2">&quot;&lt;dependency2&gt; [...]&quot;</span> <span class="o">...</span><span class="p">]</span>
+                            <span class="p">[</span><span class="n">PRIVATE_DEPENDENCIES</span> <span class="o">&lt;</span><span class="n">dependency1</span><span class="o">&gt;</span> <span class="s2">&quot;&lt;dependency2&gt; [...]&quot;</span> <span class="o">...</span><span class="p">]</span>
+                            <span class="p">[</span><span class="n">INCLUDE_FILE</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span> <span class="o">|</span> <span class="n">INCLUDE_CONTENT</span> <span class="o">&lt;</span><span class="n">content</span><span class="o">&gt;</span><span class="p">]</span>
+                            <span class="p">[</span><span class="n">COMPONENT</span> <span class="o">&lt;</span><span class="n">component</span><span class="o">&gt;</span><span class="p">]</span> <span class="c1"># (default = &quot;&lt;Name&gt;&quot;)</span>
+                           <span class="p">)</span>
+</pre></div>
+</div>
+<p>Depending on <code class="docutils literal notranslate"><span class="pre">UPPERCASE_FILENAMES</span></code> and <code class="docutils literal notranslate"><span class="pre">LOWERCASE_FILENAMES</span></code>, this
+function generates 3 files:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;ConfigVersion.cmake</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;-config-version.cmake</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;Config.cmake</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;-config.cmake</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;Targets.cmake</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;-targets.cmake</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>If neither <code class="docutils literal notranslate"><span class="pre">UPPERCASE_FILENAMES</span></code> nor <code class="docutils literal notranslate"><span class="pre">LOWERCASE_FILENAMES</span></code> is
+set, a file <code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;ConfigVersion.cmake.in</span></code> or
+<code class="docutils literal notranslate"><span class="pre">&lt;name&gt;-config-version.cmake.in</span></code> is searched, and the convention
+is chosed according to the file found. If no file was found, the
+uppercase convention is used.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">DEPENDENCIES</span></code> argument can be used to set a list of dependencies
+that will be searched using the <span class="target" id="index-0-command:find_dependency"></span><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">find_dependency()</span></code> command
+from the <span class="target" id="index-0-module:CMakeFindDependencyMacro"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/module/CMakeFindDependencyMacro.html#CMakeFindDependencyMacro" title="(in CMake v3.0.0)"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CMakeFindDependencyMacro</span></code></a> module.
+Dependencies can be followed by any of the possible <span class="target" id="index-1-command:find_dependency"></span><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">find_dependency()</span></code>
+argument.
+In this case, all the arguments must be specified within double quotes (e.g.
+<code class="docutils literal notranslate"><span class="pre">&quot;&lt;dependency&gt;</span> <span class="pre">1.0.0</span> <span class="pre">EXACT&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;&lt;dependency&gt;</span> <span class="pre">CONFIG&quot;</span></code>).
+The <code class="docutils literal notranslate"><span class="pre">PRIVATE_DEPENDENCIES</span></code> argument is similar to <code class="docutils literal notranslate"><span class="pre">DEPENDENCIES</span></code>, but
+these dependencies are included only when <span class="target" id="index-0-variable:BUILD_SHARED_LIBS"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/variable/BUILD_SHARED_LIBS.html#BUILD_SHARED_LIBS" title="(in CMake v3.0.0)"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">BUILD_SHARED_LIBS</span></code></a> is
+<code class="docutils literal notranslate"><span class="pre">OFF</span></code>.
+If a libraries is declared <code class="docutils literal notranslate"><span class="pre">STATIC</span></code>, <code class="docutils literal notranslate"><span class="pre">OBJECT</span></code> or <code class="docutils literal notranslate"><span class="pre">INTERFACE</span></code>, and they
+link to some dependency, these should be added using the <code class="docutils literal notranslate"><span class="pre">DEPENDENCIES</span></code>
+argument, since the <code class="docutils literal notranslate"><span class="pre">PRIVATE_DEPENDENCIES</span></code> argument would work only when
+<span class="target" id="index-1-variable:BUILD_SHARED_LIBS"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/variable/BUILD_SHARED_LIBS.html#BUILD_SHARED_LIBS" title="(in CMake v3.0.0)"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">BUILD_SHARED_LIBS</span></code></a> is disabled.</p>
+<p>When using a custom template file, the <code class="docutils literal notranslate"><span class="pre">&#64;PACKAGE_DEPENDENCIES&#64;</span></code>
+string is replaced with the code checking for the dependencies
+specified by these two argument.</p>
+<p>Each file is generated twice, one for the build directory and one for
+the installation directory.  The <code class="docutils literal notranslate"><span class="pre">INSTALL_DESTINATION</span></code> argument can be
+passed to install the files in a location different from the default
+one (<code class="docutils literal notranslate"><span class="pre">CMake</span></code> on Windows, <code class="docutils literal notranslate"><span class="pre">${CMAKE_INSTALL_LIBDIR}/cmake/${Name}</span></code>
+on other platforms.  The <code class="docutils literal notranslate"><span class="pre">EXPORT_DESTINATION</span></code> argument can be passed to
+generate the files in the build tree in a location different from the default
+one (<code class="docutils literal notranslate"><span class="pre">CMAKE_BINARY_DIR</span></code>).  If this is a relative path, it is
+considered relative to the <code class="docutils literal notranslate"><span class="pre">CMAKE_CURRENT_BINARY_DIR</span></code> directory.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;ConfigVersion.cmake</span></code> file is generated using
+<code class="docutils literal notranslate"><span class="pre">write_basic_package_version_file</span></code>. The <code class="docutils literal notranslate"><span class="pre">VERSION</span></code>, <code class="docutils literal notranslate"><span class="pre">COMPATIBILITY</span></code>, and
+<a href="#id1"><span class="problematic" id="id2">``</span></a>ARCH_INDEPENDENT``arguments are passed to this function.</p>
+<p><code class="docutils literal notranslate"><span class="pre">VERSION</span></code> shall be in the form <code class="docutils literal notranslate"><span class="pre">&lt;major&gt;[.&lt;minor&gt;[.&lt;patch&gt;[.&lt;tweak&gt;]]]]</span></code>.
+If no <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> is given, the <code class="docutils literal notranslate"><span class="pre">PROJECT_VERSION</span></code> variable is used.
+If this hasn’t been set, it errors out.  The <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> argument is also used
+to replace the <code class="docutils literal notranslate"><span class="pre">&#64;PACKAGE_VERSION&#64;</span></code> string in the configuration file.</p>
+<p><code class="docutils literal notranslate"><span class="pre">COMPATIBILITY</span></code> shall be any of the options accepted by the
+<span class="target" id="index-0-command:write_basic_package_version_file"></span><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">write_basic_package_version_file()</span></code> command
+(<code class="docutils literal notranslate"><span class="pre">AnyNewerVersion</span></code>, <code class="docutils literal notranslate"><span class="pre">SameMajorVersion</span></code>, <code class="docutils literal notranslate"><span class="pre">SameMinorVersion</span></code> [CMake 3.11],
+or <code class="docutils literal notranslate"><span class="pre">ExactVersion</span></code>).
+These options are explained in <span class="target" id="index-1-command:write_basic_package_version_file"></span><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">write_basic_package_version_file()</span></code>
+command documentation.
+If your project has more elaborated version matching rules, you will need to
+write your own custom ConfigVersion.cmake file instead of using this macro.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">ARCH_INDEPENDENT</span></code> option is enabled, the installed package version
+will be considered compatible even if it was built for a different
+architecture than the requested architecture.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;Config.cmake</span></code> file is generated using
+<code class="docutils literal notranslate"><span class="pre">configure_package_config_file</span></code>. The  <code class="docutils literal notranslate"><span class="pre">NO_SET_AND_CHECK_MACRO</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">NO_CHECK_REQUIRED_COMPONENTS_MACRO</span></code>, and arguments are passed to this
+function.</p>
+<p>By default <code class="docutils literal notranslate"><span class="pre">install_basic_package_files</span></code> also generates the two helper
+macros <code class="docutils literal notranslate"><span class="pre">set_and_check()</span></code> and <code class="docutils literal notranslate"><span class="pre">check_required_components()</span></code> into the
+<code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;Config.cmake</span></code> file. <code class="docutils literal notranslate"><span class="pre">set_and_check()</span></code> should be used instead of the
+normal <span class="target" id="index-0-command:set"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/command/set.html#set" title="(in CMake v3.0.0)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">set()</span></code></a> command for setting directories and file locations.
+Additionally to setting the variable it also checks that the referenced file
+or directory actually exists and fails with a <code class="docutils literal notranslate"><span class="pre">FATAL_ERROR</span></code> otherwise.
+This makes sure that the created <code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;Config.cmake</span></code> file does not contain
+wrong references.
+When using the <code class="docutils literal notranslate"><span class="pre">NO_SET_AND_CHECK_MACRO,</span> <span class="pre">this</span> <span class="pre">macro</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">generated</span> <span class="pre">into</span> <span class="pre">the</span>
+<span class="pre">``&lt;Name&gt;Config.cmake</span></code> file.</p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">install_basic_package_files</span></code> append a call to
+<code class="docutils literal notranslate"><span class="pre">check_required_components(&lt;Name&gt;)</span></code> in <code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;Config.cmake</span></code> file if the
+package supports components. This macro checks whether all requested,
+non-optional components have been found, and if this is not the case, sets the
+<code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;_FOUND</span></code> variable to <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>, so that the package is considered to
+be not found. It does that by testing the <code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;_&lt;Component&gt;_FOUND</span></code>
+variables for all requested required components. When using the
+<code class="docutils literal notranslate"><span class="pre">NO_CHECK_REQUIRED_COMPONENTS_MACRO</span></code> option, this macro is not generated
+into the <code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;Config.cmake</span></code> file.</p>
+<p>Finally, the files in the build and install directory are exactly the same.</p>
+<p>See the documentation of <span class="target" id="index-0-module:CMakePackageConfigHelpers"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/module/CMakePackageConfigHelpers.html#CMakePackageConfigHelpers" title="(in CMake v3.0.0)"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CMakePackageConfigHelpers</span></code></a> module for
+further information and references therein.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">CONFIG_TEMPLATE</span></code> argument is passed, the specified file
+is used as template for generating the configuration file, otherwise
+this module expects to find a <code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;Config.cmake.in</span></code> or
+<code class="docutils literal notranslate"><span class="pre">&lt;name&gt;-config.cmake.in</span></code> file either in current source directory.
+If the file does not exist, a very basic file is created.</p>
+<p>A set of variables are checked and passed to
+<code class="docutils literal notranslate"><span class="pre">configure_package_config_file</span></code> as <code class="docutils literal notranslate"><span class="pre">PATH_VARS</span></code>. For each of the
+<code class="docutils literal notranslate"><span class="pre">SUFFIX</span></code> considered, if one of the variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">VARS_PREFIX</span><span class="o">&gt;</span><span class="n">_</span><span class="p">(</span><span class="n">BUILD</span><span class="o">|</span><span class="n">INSTALL</span><span class="p">)</span><span class="n">_</span><span class="o">&lt;</span><span class="n">SUFFIX</span><span class="o">&gt;</span>
+<span class="p">(</span><span class="n">BUILD</span><span class="o">|</span><span class="n">INSTALL</span><span class="p">)</span><span class="n">_</span><span class="o">&lt;</span><span class="n">VARS_PREFIX</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="n">SUFFIX</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>is defined, the <code class="docutils literal notranslate"><span class="pre">&lt;VARS_PREFIX&gt;_&lt;SUFFIX&gt;</span></code> variable will be defined
+before configuring the package.  In order to use that variable in the
+config file, you have to add a line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">set_and_check</span><span class="p">(</span><span class="o">&lt;</span><span class="n">VARS_PREFIX</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="n">SUFFIX</span><span class="o">&gt;</span> \<span class="s2">&quot;@PACKAGE_&lt;VARS_PREFIX&gt;_&lt;SUFFIX&gt;@</span><span class="se">\&quot;</span><span class="s2">)</span>
+</pre></div>
+</div>
+<p>if the path must exist or just:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="o">&lt;</span><span class="n">VARS_PREFIX</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="n">SUFFIX</span><span class="o">&gt;</span> \<span class="s2">&quot;@PACKAGE_&lt;VARS_PREFIX&gt;_&lt;SUFFIX&gt;@</span><span class="se">\&quot;</span><span class="s2">)</span>
+</pre></div>
+</div>
+<p>if the path could be missing.</p>
+<p>These variable will have different values whether you are using the
+package from the build tree or from the install directory.  Also these
+files will contain only relative paths, meaning that you can move the
+whole installation and the CMake files will still work.</p>
+<p>Default <code class="docutils literal notranslate"><span class="pre">PATH_VARS</span></code> suffixes are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BINDIR</span>          <span class="n">BIN_DIR</span>
+<span class="n">SBINDIR</span>         <span class="n">SBIN_DIR</span>
+<span class="n">LIBEXECDIR</span>      <span class="n">LIBEXEC_DIR</span>
+<span class="n">SYSCONFDIR</span>      <span class="n">SYSCONF_DIR</span>
+<span class="n">SHAREDSTATEDIR</span>  <span class="n">SHAREDSTATE_DIR</span>
+<span class="n">LOCALSTATEDIR</span>   <span class="n">LOCALSTATE_DIR</span>
+<span class="n">LIBDIR</span>          <span class="n">LIB_DIR</span>
+<span class="n">INCLUDEDIR</span>      <span class="n">INCLUDE_DIR</span>
+<span class="n">OLDINCLUDEDIR</span>   <span class="n">OLDINCLUDE_DIR</span>
+<span class="n">DATAROOTDIR</span>     <span class="n">DATAROOT_DIR</span>
+<span class="n">DATADIR</span>         <span class="n">DATA_DIR</span>
+<span class="n">INFODIR</span>         <span class="n">INFO_DIR</span>
+<span class="n">LOCALEDIR</span>       <span class="n">LOCALE_DIR</span>
+<span class="n">MANDIR</span>          <span class="n">MAN_DIR</span>
+<span class="n">DOCDIR</span>          <span class="n">DOC_DIR</span>
+</pre></div>
+</div>
+<p>more suffixes can be added using the <code class="docutils literal notranslate"><span class="pre">EXTRA_PATH_VARS_SUFFIX</span></code>
+argument.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;Targets.cmake</span></code> is generated using <span class="target" id="index-0-command:export"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/command/export.html#export" title="(in CMake v3.0.0)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">export(EXPORT)</span></code></a> in
+the build tree and <span class="target" id="index-0-command:install"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/command/install.html#install" title="(in CMake v3.0.0)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(EXPORT)</span></code></a> in the installation directory.
+The targets are exported using the value for the <code class="docutils literal notranslate"><span class="pre">NAMESPACE</span></code> argument as
+namespace.
+The export can be passed using the <code class="docutils literal notranslate"><span class="pre">EXPORT</span></code> argument.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">INCLUDE_FILE</span></code> argument is passed, the content of the specified file
+(which might contain <code class="docutils literal notranslate"><span class="pre">&#64;variables&#64;</span></code>) is appended to the generated
+<code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;Config.cmake</span></code> file.
+If the <code class="docutils literal notranslate"><span class="pre">INCLUDED_CONTENT</span></code> argument is passed, the specified content
+(which might contain <code class="docutils literal notranslate"><span class="pre">&#64;variables&#64;</span></code>) is appended to the generated
+<code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;Config.cmake</span></code> file.
+When a <code class="docutils literal notranslate"><span class="pre">CONFIG_TEMPLATE</span></code> is passed, or a <code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;ConfigVersion.cmake.in</span></code> or
+a <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;-config-version.cmake.in</span> <span class="pre">file</span> <span class="pre">is</span> <span class="pre">available,</span> <span class="pre">these</span> <span class="pre">2</span> <span class="pre">arguments</span> <span class="pre">are</span>
+<span class="pre">used</span> <span class="pre">to</span> <span class="pre">replace</span> <span class="pre">the</span> <span class="pre">``&#64;INCLUDED_CONTENT&#64;</span></code> string in this file.
+This allows one to inject custom code to this file, useful e.g. to set
+additional variables which are loaded by downstream projects.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">COMPONENT</span></code> argument is passed, it is forwarded to the
+<span class="target" id="index-1-command:install"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/command/install.html#install" title="(in CMake v3.0.0)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install()</span></code></a> commands, otherwise <code class="docutils literal notranslate"><span class="pre">&lt;Name&gt;</span></code> is used.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="StandardFindModule.html"
+                        title="previous chapter">StandardFindModule</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="AddUninstallTarget.html"
+                        title="next chapter">AddUninstallTarget</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/module/InstallBasicPackageFiles.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="AddUninstallTarget.html" title="AddUninstallTarget"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="StandardFindModule.html" title="StandardFindModule"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.10.4</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" >ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">InstallBasicPackageFiles</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2018 Istituto Italiano di Tecnologia (IIT).
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

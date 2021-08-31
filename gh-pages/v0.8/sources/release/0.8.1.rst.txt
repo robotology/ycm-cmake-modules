@@ -1,0 +1,24 @@
+YCM 0.8.1 (2018-06-14) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.8.0 include the following.
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`InstallBasicPackageFiles`: Fixed targets list when using `EXPORT` and
+  `FIRST_TARGET` options
+
+
+Find Package Modules
+--------------------
+
+* :module:`FindACE`: Fixed deprecation warning when the module is included
+  twice.

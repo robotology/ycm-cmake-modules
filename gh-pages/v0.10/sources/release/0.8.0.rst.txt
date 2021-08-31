@@ -1,0 +1,67 @@
+YCM 0.8.0 (2018-06-11) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.6 include the following.
+
+
+Build System
+============
+
+* CMake 3.5 or newer is now required.
+
+
+Modules
+=======
+
+Generic Modules
+---------------
+
+* :module:`GitInfo`: Fixed for clones using `git-worktree`
+* :module:`InstallBasicPackageFiles`: Added ``INCLUDE_FILE`` argument to
+  support appending user content to the generated ``PackageConfig.cmake`` file.
+* :module:`InstallBasicPackageFiles`: Added ``EXPORT`` arguments to use
+  :cmake:command:`export(EXPORT)` instead of :cmake:command:`export(TARGETS)`
+  (default = <name>) if ``TARGETS``-related arguments are not passed.
+* :module:`InstallBasicPackageFiles`: Added ``FIRST_TARGET`` argument to
+  specify a target to check when using ``EXPORT`` (default = <name>)
+* :module:`InstallBasicPackageFiles`: Added ``COMPONENT`` argument, forwarded
+  to the :cmake:command:`install` commands.
+* :module:`InstallBasicPackageFiles`: Added ``INSTALL_DESTINATION`` and
+  ``EXPORT_DESTINATION`` arguments, to install and generate the files in a
+  path different from the default. The ``DESTINATION`` argument is now
+  deprecated in favour of ``INSTALL_DESTINATION``.
+* :module:`InstallBasicPackageFiles`: Added ``PRIVATE_DEPENDENCIES`` argument
+  to support dependencies that should be located only if the targets are built
+  ``STATIC`` (i.e. libraries linked as ``PRIVATE``).
+* :module:`InstallBasicPackageFiles`: Fixed support for CMake < 3.9.
+
+
+Find Modules
+------------
+
+* The :module:`FindFFMPEG` was replaced by the 3rd party one.
+
+
+CMake Next
+----------
+
+* Updated to CMake v3.11.2 + commit
+  :cmake-commit:`f248f8ad7898816a5a627e288d3a04fed993967f`).
+* Imported modules ``FindPython.cmake``, ``FindPython/Support.cmake``,
+  ``FindPython2.cmake``, and ``Find3Python.cmake`` from CMake master (3.12).
+
+
+3rd Party
+---------
+
+* qt-gstreamer modules are now imported from the official
+  `qt-gstreamer Git Repository`_ instead of from the `robotology-dependencies`
+  clone.
+* :module:`Catch`, :module:`CatchAddTests`, and :module:`ParseAndAddCatchTests`
+  modules imported from `Catch2 Git Repository`_.
+* The :module:`FindFFMPEG` module is now imported from the `VTK Git Repository`_
+  (ref v8.1.1).

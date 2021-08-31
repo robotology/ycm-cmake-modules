@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YCM 0.11.1 (2020-03-27) Release Notes &#8212; YCM 0.11.4 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="YCM 0.11.0 (2019-11-28) Release Notes" href="0.11.0.html" />
+    <link rel="prev" title="YCM 0.11.2 (2020-07-14) Release Notes" href="0.11.2.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="0.11.0.html" title="YCM 0.11.0 (2019-11-28) Release Notes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="0.11.2.html" title="YCM 0.11.2 (2020-07-14) Release Notes"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.11.4</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">YCM Release Notes</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">YCM 0.11.1 (2020-03-27) Release Notes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ycm-0-11-1-2020-03-27-release-notes">
+<h1><a class="toc-backref" href="#id1">YCM 0.11.1 (2020-03-27) Release Notes</a><a class="headerlink" href="#ycm-0-11-1-2020-03-27-release-notes" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#ycm-0-11-1-2020-03-27-release-notes" id="id1">YCM 0.11.1 (2020-03-27) Release Notes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#modules" id="id2">Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#generic-modules" id="id3">Generic Modules</a></p></li>
+<li><p><a class="reference internal" href="#find-modules" id="id4">Find Modules</a></p></li>
+<li><p><a class="reference internal" href="#cmake-next" id="id5">CMake Next</a></p></li>
+<li><p><a class="reference internal" href="#rd-party" id="id6">3rd Party</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Changes made since YCM 0.11.0 include the following.</p>
+<div class="section" id="modules">
+<h2><a class="toc-backref" href="#id2">Modules</a><a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="generic-modules">
+<h3><a class="toc-backref" href="#id3">Generic Modules</a><a class="headerlink" href="#generic-modules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><span class="target" id="index-0-module:InstallBasicPackageFiles"></span><a class="reference internal" href="../module/InstallBasicPackageFiles.html#InstallBasicPackageFiles" title="InstallBasicPackageFiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">InstallBasicPackageFiles</span></code></a>: A CMake version dependent inconsistency
+was fixed. (#314)</p></li>
+</ul>
+</div>
+<div class="section" id="find-modules">
+<h3><a class="toc-backref" href="#id4">Find Modules</a><a class="headerlink" href="#find-modules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-module:FindESDCANAPI"></span><a class="reference internal" href="../module/FindESDCANAPI.html#FindESDCANAPI" title="FindESDCANAPI"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindESDCANAPI</span></code></a> module no longer uses <code class="docutils literal notranslate"><span class="pre">NO_DEFAULT_PATH</span></code>.
+If the <code class="docutils literal notranslate"><span class="pre">ESDCANAPI</span></code> <code class="docutils literal notranslate"><span class="pre">ntcan</span></code> library is installed via a custom vcpkg port
+instead of the official installers, its location will not be already listed in
+the <code class="docutils literal notranslate"><span class="pre">ESDCAN_LIB_DIRS</span></code>, and instead  would be found with the usual
+<code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> introspection. (#320)</p></li>
+<li><p>The <span class="target" id="index-0-module:FindODE"></span><a class="reference internal" href="../module/FindODE.html#FindODE" title="FindODE"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindODE</span></code></a> now handles the <span class="target" id="index-0-variable:CMAKE_CROSSCOMPILING"></span><a class="reference external" href="http://cmake.org/cmake/help/git-master/variable/CMAKE_CROSSCOMPILING.html#CMAKE_CROSSCOMPILING" title="(in CMake v3.0.0)"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_CROSSCOMPILING</span></code></a>
+variable properly.</p></li>
+<li><p>The <span class="target" id="index-0-module:FindIPOPT"></span><a class="reference internal" href="../module/FindIPOPT.html#FindIPOPT" title="FindIPOPT"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindIPOPT</span></code></a> call to search for <code class="docutils literal notranslate"><span class="pre">IPOPT_INCLUDE_DIRS</span></code> was fixed.
+(#325)</p></li>
+</ul>
+</div>
+<div class="section" id="cmake-next">
+<h3><a class="toc-backref" href="#id5">CMake Next</a><a class="headerlink" href="#cmake-next" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Updated to CMake <code class="docutils literal notranslate"><span class="pre">v3.15.7</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="rd-party">
+<h3><a class="toc-backref" href="#id6">3rd Party</a><a class="headerlink" href="#rd-party" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-module:FindEigen3"></span><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindEigen3</span></code> module is now downloaded from the
+<a class="reference external" href="https://gitlab.com/libeigen/eigen">Eigen Gitlab Repository</a> (#303)</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">YCM 0.11.1 (2020-03-27) Release Notes</a><ul>
+<li><a class="reference internal" href="#modules">Modules</a><ul>
+<li><a class="reference internal" href="#generic-modules">Generic Modules</a></li>
+<li><a class="reference internal" href="#find-modules">Find Modules</a></li>
+<li><a class="reference internal" href="#cmake-next">CMake Next</a></li>
+<li><a class="reference internal" href="#rd-party">3rd Party</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="0.11.2.html"
+                        title="previous chapter">YCM 0.11.2 (2020-07-14) Release Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="0.11.0.html"
+                        title="next chapter">YCM 0.11.0 (2019-11-28) Release Notes</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/release/0.11.1.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="0.11.0.html" title="YCM 0.11.0 (2019-11-28) Release Notes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="0.11.2.html" title="YCM 0.11.2 (2020-07-14) Release Notes"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.11.4</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >YCM Release Notes</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">YCM 0.11.1 (2020-03-27) Release Notes</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2019 Istituto Italiano di Tecnologia (IIT).
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

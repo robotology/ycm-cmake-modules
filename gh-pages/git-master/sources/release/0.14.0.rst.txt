@@ -1,0 +1,23 @@
+YCM 0.14.0 (UNRELEASED) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.13.0 include the following.
+
+
+Important Changes
+=================
+
+* CMake 3.16 or later is now required.
+
+
+Modules
+=======
+
+Find Modules
+------------
+
+* Added new find module `FindSOXR.cmake` for libsoxr.

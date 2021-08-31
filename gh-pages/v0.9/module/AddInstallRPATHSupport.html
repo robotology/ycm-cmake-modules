@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AddInstallRPATHSupport &#8212; YCM 0.9.1 Documentation</title>
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/underscore.js"></script>
+    <script src="../static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FindOrBuildPackage" href="FindOrBuildPackage.html" />
+    <link rel="prev" title="YCMDefaultDirs" href="YCMDefaultDirs.html" /> 
+    <script type="text/javascript" src="../../version_switch.js"></script>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="FindOrBuildPackage.html" title="FindOrBuildPackage"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="YCMDefaultDirs.html" title="YCMDefaultDirs"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.9.1</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" accesskey="U">ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">AddInstallRPATHSupport</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="addinstallrpathsupport">
+<span id="AddInstallRPATHSupport"></span><h1>AddInstallRPATHSupport<a class="headerlink" href="#addinstallrpathsupport" title="Permalink to this headline">¶</a></h1>
+<p>Add support to RPATH during installation to your project:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">add_install_rpath_support</span><span class="p">([</span><span class="n">BIN_DIRS</span> <span class="nb">dir</span> <span class="p">[</span><span class="nb">dir</span><span class="p">]]</span>
+                          <span class="p">[</span><span class="n">LIB_DIRS</span> <span class="nb">dir</span> <span class="p">[</span><span class="nb">dir</span><span class="p">]]</span>
+                          <span class="p">[</span><span class="n">INSTALL_NAME_DIR</span> <span class="p">[</span><span class="nb">dir</span><span class="p">]]</span>
+                          <span class="p">[</span><span class="n">DEPENDS</span> <span class="n">condition</span> <span class="p">[</span><span class="n">condition</span><span class="p">]]</span>
+                          <span class="p">[</span><span class="n">USE_LINK_PATH</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Normally (depending on the platform) when you install a shared
+library you can either specify its absolute path as the install name,
+or leave just the library name itself. In the former case the library
+will be correctly linked during run time by all executables and other
+shared libraries, but it must not change its install location. This
+is often the case for libraries installed in the system default
+library directory (e.g. <code class="docutils literal notranslate"><span class="pre">/usr/lib</span></code>).
+In the latter case, instead, the library can be moved anywhere in the
+file system but at run time the dynamic linker must be able to find
+it. This is often accomplished by setting environmental variables
+(i.e. <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> on Linux).
+This procedure is usually not desirable for two main reasons:</p>
+<ul class="simple">
+<li><p>by setting the variable you are changing the default behaviour
+of the dynamic linker thus potentially breaking executables (not as
+destructive as <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code>)</p></li>
+<li><p>the variable will be used only by applications spawned by the shell
+and not by other processes.</p></li>
+</ul>
+<p>RPATH aims in solving the issues introduced by the second
+installation method. Using run-path dependent libraries you can
+create a directory structure containing executables and dependent
+libraries that users can relocate without breaking it.
+A run-path dependent library is a dependent library whose complete
+install name is not known when the library is created.
+Instead, the library specifies that the dynamic loader must resolve
+the library’s install name when it loads the executable that depends
+on the library. The executable or the other shared library will
+hardcode in the binary itself the additional search directories
+to be passed to the dynamic linker. This works great in conjunction
+with relative paths.
+This command will enable support to RPATH to your project.
+It will enable the following things:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If the project builds shared libraries it will generate a run-path
+enabled shared library, i.e. its install name will be resolved
+only at run time.</p></li>
+<li><p>In all cases (building executables and/or shared libraries)
+dependent shared libraries with RPATH support will have their name
+resolved only at run time, by embedding the search path directly
+into the built binary.</p></li>
+</ul>
+</div></blockquote>
+<p>The command has the following parameters:</p>
+<dl class="simple">
+<dt>Options:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">USE_LINK_PATH</span></code>: if passed the command will automatically adds to
+the RPATH the path to all the dependent libraries.</p></li>
+</ul>
+</dd>
+<dt>Arguments:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BIN_DIRS</span></code> list of directories when the targets (executable and
+plugins) will be installed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LIB_DIRS</span></code> list of directories to be added to the RPATH. These
+directories will be added “relative” w.r.t. the <code class="docutils literal notranslate"><span class="pre">BIN_DIRS</span></code> and
+<code class="docutils literal notranslate"><span class="pre">LIB_DIRS</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INSTALL_NAME_DIR</span></code> directory where the libraries will be installed.
+This variable will be used only if <code class="docutils literal notranslate"><span class="pre">CMAKE_SKIP_RPATH</span></code> or
+<code class="docutils literal notranslate"><span class="pre">CMAKE_SKIP_INSTALL_RPATH</span></code> is set to <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> as it will set the
+<code class="docutils literal notranslate"><span class="pre">INSTALL_NAME_DIR</span></code> on all targets</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEPENDS</span></code> list of conditions that should be <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> to enable
+RPATH, for example <code class="docutils literal notranslate"><span class="pre">FOO;</span> <span class="pre">NOT</span> <span class="pre">BAR</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Note: see <a class="reference external" href="https://gitlab.kitware.com/cmake/cmake/issues/16589">https://gitlab.kitware.com/cmake/cmake/issues/16589</a> for further
+details.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="YCMDefaultDirs.html"
+                        title="previous chapter">YCMDefaultDirs</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="FindOrBuildPackage.html"
+                        title="next chapter">FindOrBuildPackage</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/module/AddInstallRPATHSupport.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="FindOrBuildPackage.html" title="FindOrBuildPackage"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="YCMDefaultDirs.html" title="YCMDefaultDirs"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &#187;
+  </li>
+  <li>
+    <span class="version_switch">0.9.1</span>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/ycm-modules.7.html" >ycm-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">AddInstallRPATHSupport</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2013-2018 Istituto Italiano di Tecnologia (IIT).
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>

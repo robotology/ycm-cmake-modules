@@ -1,0 +1,22 @@
+YCM 0.2.1 (2016-11-23) Release Notes
+************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.2.0 include the following.
+
+Build System
+============
+
+* Fix build tree not installed correctly the first time that "make" is executed.
+* Improved versioning system (`YCM_VERSION_PACKAGE` was removed).
+
+Modules
+=======
+
+CMake Next
+----------
+
+* Fix imported files for older CMake versions.
