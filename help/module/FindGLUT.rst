@@ -1,1 +1,1 @@
-.. cmake-module:: ../../find-modules/FindGLUT.cmake
+.. cmake-module:: ../../deprecated/FindGLUT.cmake
