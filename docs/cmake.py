@@ -17,8 +17,12 @@ CMakeLexer.tokens["args"].append(('(\\$<)(.+?)(>)',
 
 # Monkey patch for sphinx generating invalid content for qcollectiongenerator
 # https://bitbucket.org/birkenfeld/sphinx/issue/1435/qthelp-builder-should-htmlescape-keywords
-from sphinx.util.pycompat import htmlescape
-from sphinx.builders.qthelp import QtHelpBuilder
+import html
+try:
+  from sphinxcontrib.qthelp import QtHelpBuilder
+except ImportError:
+  # sphinx < 4.0
+  from sphinx.builders.qthelp import QtHelpBuilder
 old_build_keywords = QtHelpBuilder.build_keywords
 def new_build_keywords(self, title, refs, subitems):
   old_items = old_build_keywords(self, title, refs, subitems)
@@ -27,7 +31,7 @@ def new_build_keywords(self, title, refs, subitems):
     before, rest = item.split("ref=\"", 1)
     ref, after = rest.split("\"")
     if ("<" in ref and ">" in ref):
-      new_items.append(before + "ref=\"" + htmlescape(ref) + "\"" + after)
+      new_items.append(before + "ref=\"" + html.escape(ref) + "\"" + after)
     else:
       new_items.append(item)
   return new_items
@@ -125,7 +129,7 @@ class _cmake_index_entry:
         self.desc = desc
 
     def __call__(self, title, targetid, main = 'main'):
-        return ('pair', u'%s ; %s' % (self.desc, title), targetid, main)
+        return ('pair', u'%s ; %s' % (self.desc, title), targetid, main, None)
 
 _cmake_index_objs = {
     'command':    _cmake_index_entry('command'),
