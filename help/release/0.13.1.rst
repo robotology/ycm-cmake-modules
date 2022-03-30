@@ -1,4 +1,4 @@
-YCM 0.13.1 (UNRELEASED) Release Notes
+YCM 0.13.1 (2022-03-31) Release Notes
 *************************************
 
 .. only:: html
@@ -7,11 +7,10 @@ YCM 0.13.1 (UNRELEASED) Release Notes
 
 Changes made since YCM 0.13.0 include the following.
 
-Modules
-=======
+Important Changes
+=================
 
-3rd Party
----------
+* The ``ExternalProject`` module vendored in YCM (used in ``YCMBootstrap``)
+  has been updated for compatibility with CMake 3.23 .
 
-* The :module:`CMakeRC` module is imported again from the official repository,
-  and it no longer prints the debug message.
+* FindGraphviz: Fix finding graphviz not installed in system directories .

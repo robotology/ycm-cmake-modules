@@ -88,6 +88,7 @@ find_path(Graphviz_INCLUDE_DIR
                 /usr/include/graphviz
                 /usr/local/include
                 /usr/local/include/graphviz
+          PATH_SUFFIXES graphviz
           HINTS ${Graphviz_PKG_INCLUDE_DIR})
 mark_as_advanced(Graphviz_INCLUDE_DIR)
 
