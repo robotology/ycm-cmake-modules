@@ -965,6 +965,14 @@ set(_ep_hash_regex "^(${_ep_hash_algos})=([0-9A-Fa-f]+)$")
 set(_ExternalProject_SELF "${CMAKE_CURRENT_LIST_FILE}")
 get_filename_component(_ExternalProject_SELF_DIR "${_ExternalProject_SELF}" PATH)
 
+# Check location of RepositoryInfo.txt.in
+# Workaround of https://github.com/robotology/robotology-superbuild/issues/1074
+if(EXISTS "${CMAKE_ROOT}/Modules/RepositoryInfo.txt.in")
+  set(_ExternalProject_RepositoryInfo_Location "${CMAKE_ROOT}/Modules/RepositoryInfo.txt.in")
+elseif(EXISTS "${CMAKE_ROOT}/Modules/ExternalProject/RepositoryInfo.txt.in")
+  set(_ExternalProject_RepositoryInfo_Location "${CMAKE_ROOT}/Modules/ExternalProject/RepositoryInfo.txt.in")
+endif()
+
 function(_ep_parse_arguments f name ns args)
   # Transfer the arguments to this function into target properties for the
   # new custom target we just added so that we can set up all the build steps
@@ -2427,7 +2435,7 @@ function(_ep_add_download_command name)
     set(module ${cvs_module})
     set(tag ${cvs_tag})
     configure_file(
-      "${_ExternalProject_SELF_DIR}/RepositoryInfo.txt.in"
+      "${_ExternalProject_RepositoryInfo_Location}"
       "${stamp_dir}/${name}-cvsinfo.txt"
       @ONLY
       )
@@ -2452,7 +2460,7 @@ function(_ep_add_download_command name)
     set(module)
     set(tag ${svn_revision})
     configure_file(
-      "${_ExternalProject_SELF_DIR}/RepositoryInfo.txt.in"
+      "${_ExternalProject_RepositoryInfo_Location}"
       "${stamp_dir}/${name}-svninfo.txt"
       @ONLY
       )
@@ -2515,7 +2523,7 @@ function(_ep_add_download_command name)
     set(module)
     set(tag ${git_remote_name})
     configure_file(
-      "${_ExternalProject_SELF_DIR}/RepositoryInfo.txt.in"
+      "${_ExternalProject_RepositoryInfo_Location}"
       "${stamp_dir}/${name}-gitinfo.txt"
       @ONLY
       )
@@ -2555,7 +2563,7 @@ function(_ep_add_download_command name)
     set(module)
     set(tag)
     configure_file(
-      "${_ExternalProject_SELF_DIR}/RepositoryInfo.txt.in"
+      "${_ExternalProject_RepositoryInfo_Location}"
       "${stamp_dir}/${name}-hginfo.txt"
       @ONLY
       )
@@ -2593,7 +2601,7 @@ function(_ep_add_download_command name)
     set(module "${url}")
     set(tag "${hash}")
     configure_file(
-      "${_ExternalProject_SELF_DIR}/RepositoryInfo.txt.in"
+      "${_ExternalProject_RepositoryInfo_Location}"
       "${stamp_dir}/${name}-urlinfo.txt"
       @ONLY
       )
