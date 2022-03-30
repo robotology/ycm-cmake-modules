@@ -2427,7 +2427,7 @@ function(_ep_add_download_command name)
     set(module ${cvs_module})
     set(tag ${cvs_tag})
     configure_file(
-      "${CMAKE_ROOT}/Modules/RepositoryInfo.txt.in"
+      "${_ExternalProject_SELF_DIR}/RepositoryInfo.txt.in"
       "${stamp_dir}/${name}-cvsinfo.txt"
       @ONLY
       )
@@ -2452,7 +2452,7 @@ function(_ep_add_download_command name)
     set(module)
     set(tag ${svn_revision})
     configure_file(
-      "${CMAKE_ROOT}/Modules/RepositoryInfo.txt.in"
+      "${_ExternalProject_SELF_DIR}/RepositoryInfo.txt.in"
       "${stamp_dir}/${name}-svninfo.txt"
       @ONLY
       )
@@ -2515,7 +2515,7 @@ function(_ep_add_download_command name)
     set(module)
     set(tag ${git_remote_name})
     configure_file(
-      "${CMAKE_ROOT}/Modules/RepositoryInfo.txt.in"
+      "${_ExternalProject_SELF_DIR}/RepositoryInfo.txt.in"
       "${stamp_dir}/${name}-gitinfo.txt"
       @ONLY
       )
@@ -2555,7 +2555,7 @@ function(_ep_add_download_command name)
     set(module)
     set(tag)
     configure_file(
-      "${CMAKE_ROOT}/Modules/RepositoryInfo.txt.in"
+      "${_ExternalProject_SELF_DIR}/RepositoryInfo.txt.in"
       "${stamp_dir}/${name}-hginfo.txt"
       @ONLY
       )
@@ -2593,7 +2593,7 @@ function(_ep_add_download_command name)
     set(module "${url}")
     set(tag "${hash}")
     configure_file(
-      "${CMAKE_ROOT}/Modules/RepositoryInfo.txt.in"
+      "${_ExternalProject_SELF_DIR}/RepositoryInfo.txt.in"
       "${stamp_dir}/${name}-urlinfo.txt"
       @ONLY
       )
