@@ -7,4 +7,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Changed
-* Releases after 0.13.2 document their changes in a `CHANGELOG.md` file in the root of the repo.
+* Releases after 0.13.2 document their changes in a `CHANGELOG.md` file in the root of the repo (https://github.com/robotology/ycm/pull/397).
