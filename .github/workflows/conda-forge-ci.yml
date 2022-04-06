@@ -40,13 +40,13 @@ jobs:
 
     - name: CMake [Latest]
       shell: bash -l {0}
-      if: contains(matrix.cmake_version, 'latest')
+      if: matrix.cmake_version == 'latest'
       run: |
         mamba install cmake
 
     - name: CMake [Specified Version]
       shell: bash -l {0}
-      #if: !(contains(matrix.cmake_version, 'latest'))
+      if: matrix.cmake_version != 'latest'
       run: |
         mamba install cmake=${{ matrix.cmake_version }}
 
