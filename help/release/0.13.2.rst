@@ -1,0 +1,13 @@
+YCM 0.13.2 (YYYY-MM-DD) Release Notes
+*************************************
+
+.. only:: html
+
+  .. contents::
+
+Changes made since YCM 0.13.1 include the following.
+
+Important Changes
+=================
+
+* For releases after YCM 0.13.2, the changelog is now mantained in the `CHANGELOG.md` file in the root of the source code.
