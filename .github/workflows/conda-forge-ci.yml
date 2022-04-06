@@ -1,0 +1,102 @@
+name: C++ CI Workflow with conda-forge dependencies
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+  schedule:
+  # * is a special character in YAML so you have to quote this string
+  # Execute a "nightly" build at 2 AM UTC
+  - cron:  '0 2 * * *'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        build_type: [Release]
+        os: [ubuntu-latest, windows-2019, macos-latest]
+        cmake_version: ["3.16","3.18","3.21","3.23","latest"]
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        mamba-version: "*"
+        channels: conda-forge
+        channel-priority: true
+
+    - name: Dependencies
+      shell: bash -l {0}
+      run: |
+        # Workaround for https://github.com/conda-incubator/setup-miniconda/issues/186
+        conda config --remove channels defaults
+        # Compilation related dependencies
+        mamba install compilers make ninja pkg-config
+
+    - name: CMake [Latest]
+      shell: bash -l {0}
+      if: matrix.cmake_version == 'latest'
+      run: |
+        mamba install cmake
+
+    - name: CMake [Specified Version]
+      shell: bash -l {0}
+      if: matrix.cmake_version != 'latest'
+      run: |
+        mamba install cmake=${{ matrix.cmake_version }}
+
+    - name: Windows-only Dependencies [Windows]
+      if: contains(matrix.os, 'windows')
+      shell: bash -l {0}
+      run: |
+        # Compilation related dependencies
+        mamba install vs2019_win-64
+
+    - name: Configure [Linux&macOS]
+      if: contains(matrix.os, 'macos') || contains(matrix.os, 'ubuntu')
+      shell: bash -l {0}
+      run: |
+        mkdir -p build
+        cd build
+        cmake -GNinja -DBUILD_TESTING:BOOL=ON -DFRAMEWORK_COMPILE_IK:BOOL=OFF \
+              -DFRAMEWORK_COMPILE_PYTHON_BINDINGS:BOOL=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} ..
+
+    - name: Build [Linux&macOS]
+      if: contains(matrix.os, 'macos') || contains(matrix.os, 'ubuntu')
+      shell: bash -l {0}
+      run: |
+        cd build
+        cmake --build . --config ${{ matrix.build_type }}
+
+    - name: Test [Linux&macOS]
+      if: contains(matrix.os, 'macos') || contains(matrix.os, 'ubuntu')
+      shell: bash -l {0}
+      run: |
+        cd build
+        ctest --output-on-failure -C ${{ matrix.build_type }} -E "Bootstrap"
+
+    - name: Configure [Windows]
+      if: contains(matrix.os, 'windows')
+      shell: cmd /C call {0}
+      run: |
+        mkdir -p build
+        cd build
+        cmake -GNinja -DBUILD_TESTING:BOOL=ON -DFRAMEWORK_COMPILE_PYTHON_BINDINGS:BOOL=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} ..
+
+    - name: Build [Windows]
+      if: contains(matrix.os, 'windows')
+      shell: cmd /C call {0}
+      run: |
+        cd build
+        cmake --build . --config ${{ matrix.build_type }}
+
+    - name: Test [Windows]
+      if: contains(matrix.os, 'windows')
+      shell: cmd /C call {0}
+      run: |
+        cd build
+        ctest --output-on-failure -C ${{ matrix.build_type }} -E "Bootstrap"
