@@ -14,7 +14,6 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindGLM.cmake
                      FindGooCanvas.cmake
                      FindGooCanvasMM.cmake
-                     FindGSL.cmake
                      FindGtkDatabox.cmake
                      FindGtkDataboxMM.cmake
                      FindI2C.cmake
@@ -29,7 +28,6 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindNVIDIACg.cmake
                      FindODE.cmake
                      FindOpenCV.cmake
-                     FindOpenGL.cmake
                      FindOpenNI.cmake
                      FindOpenNI2.cmake
                      FindPLXCANAPI.cmake
