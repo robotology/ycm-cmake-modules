@@ -7,15 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased Minor]
 
 ### Added
-
 * Added new find module `FindSOXR.cmake` for libsoxr (https://github.com/robotology/ycm/pull/385)
 
 ### Changed
-
 * CMake 3.16 or later is now required (https://github.com/robotology/ycm/pull/386).
+* The `CMakeRC` module is imported again from the official repository, and it no longer prints the debug message (https://github.com/robotology/ycm/pull/384).
 
-* The :module:`CMakeRC` module is imported again from the official repository, and it no longer prints the debug message (https://github.com/robotology/ycm/pull/384).
-
+### Removed
+* Removed `FindEigen3.cmake` module (https://github.com/robotology/ycm/pull/399).
 
 ## [Unreleased Patch]
 
