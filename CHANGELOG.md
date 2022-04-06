@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Removed
 * Removed `FindEigen3.cmake` module (https://github.com/robotology/ycm/pull/399).
+* Removed `FindGSL.cmake`, `FindGLUT.cmake`, `FindOpenGL.cmake` and `YCMDefaultDirs.cmake`. The first three are available in CMake, while the last one has been deprecated for a long time (https://github.com/robotology/ycm/pull/401).
 
 ## [Unreleased Patch]
 
