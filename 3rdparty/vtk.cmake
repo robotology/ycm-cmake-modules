@@ -4,17 +4,19 @@
 ##############################################################################
 # FindFFMPEG.cmake is taken from the VTK repository
 
-set(_files Copyright.txt                       73e1eb91dcdfcedf106ced4e67bc691614f0a3b3
-           CMake/FindFFMPEG.cmake              08ef5c25b33a4ee3cd4d65027412d2ef60c46281)
-set(_ref v9.0.1)
-set(_dir "${CMAKE_CURRENT_BINARY_DIR}/vtk")
+set(_dir "${CMAKE_CURRENT_SOURCE_DIR}/vtk")
 
-_ycm_download(3rdparty-vtk
-              "VTK (Visualization Toolkit) git repository"
-              "https://gitlab.kitware.com/vtk/vtk/raw/<REF>/<FILE>"
-              ${_ref} "${_dir}" "${_files}")
+if(YCM_DOWNLOAD_3RDPARTY)
+  set(_files Copyright.txt                       73e1eb91dcdfcedf106ced4e67bc691614f0a3b3
+             CMake/FindFFMPEG.cmake              08ef5c25b33a4ee3cd4d65027412d2ef60c46281)
+  set(_ref v9.0.1)
 
-file(WRITE "${_dir}/README.VTK"
+  _ycm_download(3rdparty-vtk
+                "VTK (Visualization Toolkit) git repository"
+                "https://gitlab.kitware.com/vtk/vtk/raw/<REF>/<FILE>"
+                ${_ref} "${_dir}" "${_files}")
+
+  file(WRITE "${_dir}/README.VTK"
 "Some of the files in this folder and its subfolder come from the VTK git
 repository (ref ${_ref}):
 
@@ -23,6 +25,7 @@ repository (ref ${_ref}):
 Redistribution and use is allowed according to the terms of the 3-clause
 BSD license. See accompanying file COPYING.VTK for details.
 ")
+endif()
 
 _ycm_install(3rdparty-vtk FILES "${_dir}/CMake/FindFFMPEG.cmake"
                           DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")

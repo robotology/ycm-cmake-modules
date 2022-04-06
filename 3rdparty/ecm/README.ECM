@@ -1,0 +1,7 @@
+Some of the files in this folder and its subfolder come from the ECM git
+repository (ref v5.79.0):
+
+  https://invent.kde.org/frameworks/extra-cmake-modules
+
+Redistribution and use is allowed according to the terms of the 3-clause
+BSD license. See accompanying file COPYING.ECM for details.
