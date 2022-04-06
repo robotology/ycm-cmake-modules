@@ -78,7 +78,7 @@ jobs:
       shell: bash -l {0}
       run: |
         cd build
-        ctest --output-on-failure -C ${{ matrix.build_type }}
+        ctest --output-on-failure -C ${{ matrix.build_type }} -E "Bootstrap"
 
     - name: Configure [Windows]
       if: contains(matrix.os, 'windows')
@@ -100,4 +100,4 @@ jobs:
       shell: cmd /C call {0}
       run: |
         cd build
-        ctest --output-on-failure -C ${{ matrix.build_type }}
+        ctest --output-on-failure -C ${{ matrix.build_type }} -E "Bootstrap"
