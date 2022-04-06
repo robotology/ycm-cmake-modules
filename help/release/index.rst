@@ -5,14 +5,7 @@ YCM Release Notes
 
    .. contents::
 
-YCM 0.14 Series
----------------
-
-.. toctree::
-   :maxdepth: 1
-
-   YCM 0.14.0 (UNRELEASED) <0.14.0>
-
+Since YCM 0.13.2 the changelog of YCM is mantained in the `CHANGELOG.md` in the root of the repo.
 
 YCM 0.13 Series
 ---------------
@@ -20,7 +13,7 @@ YCM 0.13 Series
 .. toctree::
    :maxdepth: 1
 
-   YCM 0.13.1 (UNRELEASED) <0.13.1>
+   YCM 0.13.1 (2022-03-31) <0.13.1>
    YCM 0.13.0 (2021-07-05) <0.13.0>
 
 YCM 0.12 Series
