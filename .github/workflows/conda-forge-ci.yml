@@ -17,7 +17,8 @@ jobs:
     strategy:
       matrix:
         build_type: [Release]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-2019, macos-latest]
+        cmake_version: ["3.16","3.18","3.21","3.23","latest"]
       fail-fast: false
 
     steps:
@@ -35,7 +36,19 @@ jobs:
         # Workaround for https://github.com/conda-incubator/setup-miniconda/issues/186
         conda config --remove channels defaults
         # Compilation related dependencies
-        mamba install cmake compilers make ninja pkg-config
+        mamba install compilers make ninja pkg-config
+
+    - name: CMake (Latest)
+      shell: bash -l {0}
+      if: contains(matrix.cmake_version, 'latest')
+      run: |
+        mamba install cmake
+
+    - name: CMake (Specified Version)
+      shell: bash -l {0}
+      if: !contains(matrix.cmake_version, 'latest')
+      run: |
+        mamba install cmake=${{ matrix.cmake_version }}
 
     - name: Windows-only Dependencies [Windows]
       if: contains(matrix.os, 'windows')
