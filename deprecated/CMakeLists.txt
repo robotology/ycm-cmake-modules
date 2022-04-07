@@ -7,11 +7,11 @@ mark_as_advanced(YARP_NO_DEPRECATED)
 # Deprecated modules installed for compatibility
 if(NOT YCM_NO_DEPRECATED)
   set(YCM_DEPRECATED_FILES
-    FindGLUT.cmake
-    YCMDefaultDirs.cmake
   )
-  _ycm_install(deprecated FILES ${YCM_DEPRECATED_FILES}
-                          DESTINATION "${YCM_INSTALL_MODULE_DIR}/deprecated")
+  if(YCM_DEPRECATED_FILES)
+    _ycm_install(deprecated FILES ${YCM_DEPRECATED_FILES}
+                            DESTINATION "${YCM_INSTALL_MODULE_DIR}/deprecated")
+  endif()
 
   # Print a warning if we are overriding some module from CMake
   foreach(_module IN LISTS YCM_DEPRECATED_FILES)
