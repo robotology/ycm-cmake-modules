@@ -4,16 +4,18 @@
 ##############################################################################
 # UseLATEX.cmake is taken from the UseLATEX repository
 
-set(_files UseLATEX.cmake f0f49b4029a872b41a7247c2b1e1dd3ddb14c607)
-set(_ref 56d5753c842ab327fb3f297c6bcbd51622ffbe9c)
-set(_dir "${CMAKE_CURRENT_BINARY_DIR}/uselatex")
+set(_dir "${CMAKE_CURRENT_SOURCE_DIR}/uselatex")
 
-_ycm_download(3rdparty-uselatex
-              "UseLATEX git repository"
-              "https://gitlab.kitware.com/kmorel/UseLATEX/raw/<REF>/<FILE>"
-              ${_ref} "${_dir}" "${_files}")
+if(YCM_DOWNLOAD_3RDPARTY)
+  set(_files UseLATEX.cmake f0f49b4029a872b41a7247c2b1e1dd3ddb14c607)
+  set(_ref 56d5753c842ab327fb3f297c6bcbd51622ffbe9c)
 
-file(WRITE "${_dir}/README.UseLATEX"
+  _ycm_download(3rdparty-uselatex
+                "UseLATEX git repository"
+                "https://gitlab.kitware.com/kmorel/UseLATEX/raw/<REF>/<FILE>"
+                ${_ref} "${_dir}" "${_files}")
+
+  file(WRITE "${_dir}/README.UseLATEX"
 "Some of the files in this folder and its subfolder come from the UseLATEX git
 repository (ref ${_ref}):
 
@@ -23,7 +25,7 @@ Redistribution and use is allowed according to the terms of the 3-clause
 BSD license. See accompanying file COPYING.UseLATEX for details.
 ")
 
-file(WRITE "${_dir}/COPYING.UseLATEX"
+  file(WRITE "${_dir}/COPYING.UseLATEX"
 "This software is released under the BSD 3-Clause License.
 
 Redistribution and use in source and binary forms, with or without
@@ -53,6 +55,7 @@ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ")
+endif()
 
 _ycm_install(3rdparty-uselatex FILES "${_dir}/UseLATEX.cmake"
                                DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")

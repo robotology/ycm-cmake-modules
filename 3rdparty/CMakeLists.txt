@@ -4,6 +4,9 @@
 option(YCM_NO_3RDPARTY "Disable 3rd party modules." FALSE)
 mark_as_advanced(YCM_NO_3RDPARTY)
 
+option(YCM_DOWNLOAD_3RDPARTY "Download 3rd party modules instead of relying local copies." FALSE)
+mark_as_advanced(YCM_DOWNLOAD_3RDPARTY)
+
 # Useful 3rd party modules
 if(NOT YCM_NO_3RDPARTY OR YCM_MAINTAINER_MODE)
 
