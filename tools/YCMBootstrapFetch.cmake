@@ -81,9 +81,14 @@ message(STATUS "YCM not found. Bootstrapping it.")
 # Download and use a copy of the YCM library for bootstrapping
 # This is different from the YCM that will be downloaded as part of the superbuild
 include(FetchContent)
+if(DEFINED YCM_TAG)
+  set(YCM_FETCHCONTENT_TAG ${YCM_TAG})
+else()
+  set(YCM_FETCHCONTENT_TAG master)
+endif()
 FetchContent_Declare(YCM
                      GIT_REPOSITORY https://github.com/robotology/ycm
-                     GIT_TAG master)
+                     GIT_TAG ${YCM_FETCHCONTENT_TAG})
 
 FetchContent_GetProperties(YCM)
 if(NOT YCM_POPULATED)
