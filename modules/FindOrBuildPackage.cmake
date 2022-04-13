@@ -134,16 +134,19 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
         set(_findArgs ${_${_PKG}_UNPARSED_ARGUMENTS})
     endif()
 
+    option(YCM_DISABLE_SYSTEM_PACKAGES "Disable use of all the system installed packages" OFF)
+    mark_as_advanced(YCM_DISABLE_SYSTEM_PACKAGES)
+
 # Preliminary find_package to enable/disable USE_SYSTEM_${_PKG} option
     # Use the FindPkg.cmake module first
-    if(NOT _${_PKG}_NO_MODULE AND NOT _${_PKG}_CONFIG)
+    if(NOT _${_PKG}_NO_MODULE AND NOT _${_PKG}_CONFIG AND NOT YCM_DISABLE_SYSTEM_PACKAGES)
         # FIXME This might require to check for all the other arguments, or they
         #       might conflict with the MODULE argument
         find_package(${_pkg} ${_version} ${_findArgs} MODULE QUIET)
     endif()
 
     # If the module failed, search a PkgConfig.cmake file
-    if(NOT ${_pkg}_FOUND AND NOT ${_PKG}_FOUND AND NOT _${_PKG}_MODULE)
+    if(NOT ${_pkg}_FOUND AND NOT ${_PKG}_FOUND AND NOT _${_PKG}_MODULE AND NOT YCM_DISABLE_SYSTEM_PACKAGES)
         find_package(${_pkg} ${_version} ${_findArgs} CONFIG QUIET)
     endif()
 
@@ -154,8 +157,6 @@ function(FIND_OR_BUILD_PACKAGE _pkg)
         list(REMOVE_DUPLICATES _ycm_projects)
         set_property(GLOBAL PROPERTY YCM_PROJECTS ${_ycm_projects})
     endif()
-    option(YCM_DISABLE_SYSTEM_PACKAGES "Disable use of all the system installed packages" OFF)
-    mark_as_advanced(YCM_DISABLE_SYSTEM_PACKAGES)
     cmake_dependent_option(USE_SYSTEM_${_PKG} "Use system installed ${_pkg}" ON "HAVE_SYSTEM_${_PKG};NOT YCM_DISABLE_SYSTEM_PACKAGES" OFF)
     mark_as_advanced(USE_SYSTEM_${_PKG})
 
