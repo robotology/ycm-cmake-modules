@@ -95,7 +95,6 @@ if(NOT YCM_POPULATED)
     message(STATUS "Fetching YCM.")
     FetchContent_Populate(YCM)
     # Add YCM modules in CMAKE_MODULE_PATH
-    message(STATUS "YCM_SOURCE_DIR: ${ycm_SOURCE_DIR}")
     include(${ycm_SOURCE_DIR}/tools/UseYCMFromSource.cmake)
 endif()
 
