@@ -107,7 +107,7 @@ Create a ``CMakeLists.txt`` with this content:
 
    # Choose whether you want YCM to be a soft or a hard dependency and uncomment
    # the appropriate line:
-   include(YCMBootstrap) # This will make it a soft dependency
+   include(YCMBootstrapFetch) # This will make it a soft dependency
    # find_package(YCM 0.1 REQUIRED) # This will make it a hard dependency
 
    include(FindOrBuildPackage)
