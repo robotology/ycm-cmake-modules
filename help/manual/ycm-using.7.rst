@@ -123,7 +123,7 @@ Using YCM as Soft Dependency
 ----------------------------
 
 In order to make it a soft dependency, you will need to get the files
-``tools/YCMBootstrap.cmake`` and ``modules/IncludeUrl.cmake`` from the YCM
+``tools/YCMBootstrapFetch.cmake`` from the YCM
 sources (see :manual:`ycm-installing(7)` for instructions on how to download
 YCM) and copy them inside your project tree:
 
@@ -131,8 +131,7 @@ YCM) and copy them inside your project tree:
 
    cd <YOUR_PROJECT_DIR>
    mkdir cmake
-   cp <PATH_TO_YCM_SOURCES>/tools/YCMBootstrap.cmake cmake
-   cp modules/IncludeUrl.cmake cmake
+   cp <PATH_TO_YCM_SOURCES>/tools/YCMBootstrapFetch.cmake cmake
 
 These files must be in a folder included in :cmake:variable:`CMAKE_MODULE_PATH`
 for your project:
@@ -141,7 +140,7 @@ for your project:
 
    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-Now you can include ``YCMBootstrap.cmake``:
+Now you can include ``YCMBootstrapFetch.cmake``:
 
 .. code-block:: cmake
 
@@ -149,7 +148,7 @@ Now you can include ``YCMBootstrap.cmake``:
    # set(YCM_TAG [tag, branch, or commit hash])
 
    # Bootstrap YCM
-   include(YCMBootstrap)
+   include(YCMBootstrapFetch)
 
 This is the suggested method when you build a superbuild. Downloading all your
 project would require a network connection anyway, therefore you will need to
