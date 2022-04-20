@@ -7,6 +7,8 @@
 
 # CMake variables read as input by this module:
 # YCM_MINIMUM_VERSION : minimum version of YCM requested to use a system YCM
+# YCM_REPOSITORY : if no suitable system YCM was found, bootstrap from this
+#             : GitHub reporitory of YCM
 # YCM_TAG     : if no suitable system YCM was found, bootstrap from this
 #             : TAG (either branch, commit or tag) of YCM repository
 # USE_SYSTEM_YCM : if defined and set FALSE, skip searching for a system
@@ -81,13 +83,18 @@ message(STATUS "YCM not found. Bootstrapping it.")
 # Download and use a copy of the YCM library for bootstrapping
 # This is different from the YCM that will be downloaded as part of the superbuild
 include(FetchContent)
+if(DEFINED YCM_REPOSITORY)
+  set(YCM_FETCHCONTENT_REPOSITORY ${YCM_REPOSITORY})
+else()
+  set(YCM_FETCHCONTENT_REPOSITORY robotology/ycm.git)
+endif()
 if(DEFINED YCM_TAG)
   set(YCM_FETCHCONTENT_TAG ${YCM_TAG})
 else()
   set(YCM_FETCHCONTENT_TAG master)
 endif()
 FetchContent_Declare(YCM
-                     GIT_REPOSITORY https://github.com/robotology/ycm
+                     GIT_REPOSITORY https://github.com/${YCM_FETCHCONTENT_REPOSITORY}
                      GIT_TAG ${YCM_FETCHCONTENT_TAG})
 
 FetchContent_GetProperties(YCM)
