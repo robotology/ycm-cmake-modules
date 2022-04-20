@@ -92,7 +92,7 @@ set(_ycm_YCMBootstrap_sha1sum        59c6dfc84ec36518c5be5aef13af252a8250bad7)
 # new scope the variables added by the included files.
 
 macro(_YCM_INCLUDE _module)
-  if(YCM_FOUND)
+  if(YCM_FOUND OR DEFINED __USEYCMFROMSOURCE_INCLUDED)
     include(${_module})
   else()
     # We assume that YCMEPHelper was included using include_url, or that at
@@ -215,7 +215,7 @@ macro(_YCM_SETUP)
     set(_print-directories-all print-directories-all)
   endif()
 
-  if(NOT YCM_FOUND) # Useless if we don't need to bootstrap
+  if(NOT (YCM_FOUND OR DEFINED __USEYCMFROMSOURCE_INCLUDED)) # Useless if we don't need to bootstrap
     set(YCM_BOOTSTRAP_BASE_ADDRESS "https://raw.github.com/robotology/ycm/HEAD/" CACHE STRING "Base address of YCM repository")
     mark_as_advanced(YCM_BOOTSTRAP_BASE_ADDRESS)
   endif()
@@ -1327,7 +1327,7 @@ endfunction()
 
 unset(__YCM_BOOTSTRAPPED_CALLED CACHE)
 macro(YCM_BOOTSTRAP)
-  if(YCM_FOUND OR DEFINED __YCM_BOOTSTRAPPED_CALLED)
+  if(YCM_FOUND OR DEFINED __YCM_BOOTSTRAPPED_CALLED OR DEFINED __USEYCMFROMSOURCE_INCLUDED)
     return()
   endif()
   set(__YCM_BOOTSTRAPPED_CALLED TRUE CACHE INTERNAL "")

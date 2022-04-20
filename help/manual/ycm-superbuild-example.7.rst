@@ -107,7 +107,7 @@ Create a ``CMakeLists.txt`` with this content:
 
    # Choose whether you want YCM to be a soft or a hard dependency and uncomment
    # the appropriate line:
-   include(YCMBootstrap) # This will make it a soft dependency
+   include(YCMBootstrapFetch) # This will make it a soft dependency
    # find_package(YCM 0.1 REQUIRED) # This will make it a hard dependency
 
    include(FindOrBuildPackage)
@@ -125,12 +125,12 @@ Create a ``cmake`` folder that will contain all required CMake modules
    mkdir cmake
 
 If you want YCM as a soft dependency you will need to get the files
-``tools/YCMBootstrap.cmake`` and ``modules/IncludeUrl.cmake`` from the YCM
+``tools/YCMBootstrapFetch.cmake`` from the YCM
 sources. If you want to make it a hard dependency you don't have to add these
 files, but the user will have to install YCM before he can build the superbuild.
 
 .. note:
-   If the user has YCM installed, ``YCMBootstrap`` will find it and will
+   If the user has YCM installed, ``YCMBootstrapFetch`` will find it and will
    not download it again, but it will use the user's installation.
 
 Create the files  ``cmake/BuildTemplatePkg.cmake`` and
