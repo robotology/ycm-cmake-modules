@@ -24,6 +24,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
+          
+      - name: Make sure to use an updated pip
+        run: python -m pip install -–upgrade pip
 
       - name: Install pypa/build
         run: pip install build
@@ -32,7 +35,7 @@ jobs:
         run: python -m build --sdist --outdir dist/ tools/pip
 
       - name: Install sdist
-        run: pip -v install --use-feature=in-tree-build dist/ycm_cmake_modules-*.tar.gz
+        run: pip -v install dist/ycm_cmake_modules-*.tar.gz
 
       - name: Test import
         run: python -c 'import ycm_cmake_modules'
