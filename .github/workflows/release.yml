@@ -1,0 +1,52 @@
+name: C++ CI Workflow with apt dependencies for release
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+  release:
+    types: [published]
+  schedule:
+  # * is a special character in YAML so you have to quote this string
+  # Execute a "nightly" build at 2 AM UTC
+  - cron:  '0 2 * * *'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        build_type: [Release]
+        os: [ubuntu-20.04]
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Dependencies
+      run: |
+        sudo apt-get install cmake build-essential rename
+        
+    - name: Create packages 
+      run: |
+        mkdir -p build
+        cd build
+        cmake -DYCM_MAINTAINER_MODE:BOOL=ON -DCPACK_BINARY_DEB:BOOL=ON -DCPACK_DEBIAN_PACKAGE_DEPENDS="cmake" \
+              -DCPACK_DEBIAN_PACKAGE_NAME="ycm-cmake-modules" -DCPACK_DEBIAN_PACKAGE_MAINTAINER="Silvio Traversaro" ..
+        make
+        make package
+        rename 's/YCM/ycm-cmake-modules/' YCM-*-all.deb
+        export YCM_VERSION=`ls ycm-cmake-modules-*-all.deb | cut -d - -f 4`
+        echo "YCM_VERSION=$YCM_VERSION" >> ${GITHUB_ENV}
+        
+    - name: Upload .deb package
+      if: github.event_name == 'release'
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: build/ycm-cmake-modules-${{ env.YCM_VERSION }}-all.deb
+          asset_name: ycm-cmake-modules-${{ env.YCM_VERSION }}-all.deb
+          asset_content_type: application/octet-stream
