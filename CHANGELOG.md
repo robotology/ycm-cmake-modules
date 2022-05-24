@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased Patch]
 
+## [0.14.1] - 2022-05-24
+
+### Added
+* For each new release now `.deb` packages are automatically uploaded in the GitHub release page (https://github.com/robotology/ycm/pull/410).
+
 ## [0.14.0] - 2022-04-20
 
 ### Added
