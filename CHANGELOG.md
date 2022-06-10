@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased Patch]
 
+## [0.14.2] - 2022-06-10
+
+### Added
+
+* FindGraphviz: Add Graphviz_DEFINITIONS to define GVDLL to permit compilation against graphviz 3 (https://github.com/robotology/ycm/pull/414).
+
 ## [0.14.1] - 2022-05-24
 
 ### Added
