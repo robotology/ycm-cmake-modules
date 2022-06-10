@@ -4,6 +4,7 @@
 #  Graphviz_FOUND - system has Graphviz installed
 #  Graphviz_LIBRARIES
 #  Graphviz_INCLUDE_DIRS
+#  Graphviz_DEFINITIONS
 
 if(EXISTS "$ENV{Graphviz_ROOT}")
     set(Graphviz_POSSIBLE_INCDIRS
@@ -93,6 +94,19 @@ find_path(Graphviz_INCLUDE_DIR
 mark_as_advanced(Graphviz_INCLUDE_DIR)
 
 set(Graphviz_INCLUDE_DIRS ${Graphviz_INCLUDE_DIR})
+
+set(Graphviz_DEFINITIONS "")
+if(WIN32)
+  # If Graphviz >= 3.0.0 is used as shared library, the GVDLL preprocess definition
+  # should be defined. As at this point we can't know if graphviz is shared or static,
+  # we always defined GVDLL, leaving an option that users can use to explicitly
+  # specify that the linked graphviz is static
+  option(YCM_FINDGRAPHVIZ_USE_STATIC_GRAPHVIZ "Enable when linking a static graphviz" OFF)
+  mark_as_advanced(YCM_FINDGRAPHVIZ_USE_STATIC_GRAPHVIZ)
+  if(NOT YCM_FINDGRAPHVIZ_USE_STATIC_GRAPHVIZ)
+    set(Graphviz_DEFINITIONS "GVDLL")
+  endif()
+endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Graphviz
