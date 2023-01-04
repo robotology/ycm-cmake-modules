@@ -16,6 +16,7 @@ uWebSockets::uWebSockets
 include(FindPackageHandleStandardArgs)
 include(CMakeFindDependencyMacro)
 
+find_dependency(uSockets REQUIRED)
 find_dependency(ZLIB REQUIRED)
 
 find_path(uWebSockets_INCLUDE_DIR WebSocket.h PATH_SUFFIXES uwebsockets uWebSockets)
@@ -29,6 +30,8 @@ if(uWebSockets_FOUND)
       set_target_properties(uWebSockets::uWebSockets PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${uWebSockets_INCLUDE_DIR}")
       set_target_properties(uWebSockets::uWebSockets PROPERTIES 
-        INTERFACE_LINK_LIBRARIES ZLIB::ZLIB)  
+        INTERFACE_LINK_LIBRARIES ZLIB::ZLIB)
+      set_property(TARGET uWebSockets::uWebSockets APPEND PROPERTY
+        INTERFACE_LINK_LIBRARIES uSockets::uSockets)
     endif()
 endif()
