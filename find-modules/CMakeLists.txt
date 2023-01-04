@@ -38,6 +38,8 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindSQLite.cmake
                      FindStage.cmake
                      FindTinyXML.cmake
+                     FinduSockets.cmake
+                     FinduWebSockets.cmake
                      FindYamlCpp.cmake
                      FindZFP.cmake)
 
