@@ -25,7 +25,7 @@ if(uSockets_FOUND)
       add_library(uSockets::uSockets UNKNOWN IMPORTED)
       set_target_properties(uSockets::uSockets PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${uSockets_INCLUDE_DIR}")
-      set_property(TARGET uSockets::uSockets APPEND PROPERTY
+      set_property(TARGET uSockets::uSockets PROPERTY
         IMPORTED_LOCATION "${uSockets_LIBRARY}")
     endif()
 endif()
