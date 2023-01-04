@@ -19,7 +19,7 @@
 #        set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake.modules/")          #
 #        enable_testing()                                                                          #
 #                                                                                                  #
-#        find_path(CATCH_INCLUDE_DIR "catch.hpp")                                                  #
+#        find_path(CATCH_INCLUDE_DIR "catch_amalgamated.hpp")                                                  #
 #        include_directories(${INCLUDE_DIRECTORIES} ${CATCH_INCLUDE_DIR})                          #
 #                                                                                                  #
 #        file(GLOB SOURCE_FILES "*.cpp")                                                           #

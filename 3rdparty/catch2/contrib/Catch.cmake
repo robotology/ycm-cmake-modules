@@ -41,7 +41,7 @@ same as the Catch name; see also ``TEST_PREFIX`` and ``TEST_SUFFIX``.
 
   ``catch_discover_tests`` sets up a post-build command on the test executable
   that generates the list of tests by parsing the output from running the test
-  with the ``--list-test-names-only`` argument.  This ensures that the full
+  with the ``--list-tests`` argument.  This ensures that the full
   list of tests is obtained.  Since test discovery occurs at build time, it is
   not necessary to re-run CMake when the list of tests changes.
   However, it requires that :prop_tgt:`CROSSCOMPILING_EMULATOR` is properly set
@@ -64,7 +64,7 @@ same as the Catch name; see also ``TEST_PREFIX`` and ``TEST_SUFFIX``.
 
   ``TEST_SPEC arg1...``
     Specifies test cases, wildcarded test cases, tags and tag expressions to
-    pass to the Catch executable with the ``--list-test-names-only`` argument.
+    pass to the Catch executable with the ``--list-tests`` argument.
 
   ``EXTRA_ARGS arg1...``
     Any extra arguments to pass on the command line to each test case.
