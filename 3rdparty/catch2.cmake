@@ -7,11 +7,11 @@
 set(_dir "${CMAKE_CURRENT_SOURCE_DIR}/catch2")
 
 if(YCM_DOWNLOAD_3RDPARTY)
-  set(_files contrib/Catch.cmake                 8889da7f7aecd616e1101ec1e204171e015d321b
-             contrib/CatchAddTests.cmake         8f078339a147980bac1e501df3978ae9d8c85f02
-             contrib/ParseAndAddCatchTests.cmake 5db399f1259698531acae8ef01b60dbcc4a76e04
-             LICENSE.txt                         3cba29011be2b9d59f6204d6fa0a386b1b2dbd90)
-  set(_ref v2.13.4)
+  set(_files extras/Catch.cmake                 ab6c7375be9a8e71ee84c6f8537113f9f47daf99
+             extras/CatchAddTests.cmake         ab6c7375be9a8e71ee84c6f8537113f9f47daf99
+             extras/ParseAndAddCatchTests.cmake ab6c7375be9a8e71ee84c6f8537113f9f47daf99
+             LICENSE.txt                        ab6c7375be9a8e71ee84c6f8537113f9f47daf99)
+  set(_ref v3.2.1)
   _ycm_download(3rdparty-catch2
                 "Catch2 (C++ Automated Test Cases in a Header) git repository"
                 "https://raw.githubusercontent.com/catchorg/Catch2/<REF>/<FILE>"
@@ -28,9 +28,9 @@ License. See accompanying file COPYING.Catch2 for details.
 ")
 endif()
 
-_ycm_install(3rdparty-catch2 FILES "${_dir}/contrib/Catch.cmake"
-                                   "${_dir}/contrib/CatchAddTests.cmake"
-                                   "${_dir}/contrib/ParseAndAddCatchTests.cmake"
+_ycm_install(3rdparty-catch2 FILES "${_dir}/extras/Catch.cmake"
+                                   "${_dir}/extras/CatchAddTests.cmake"
+                                   "${_dir}/extras/ParseAndAddCatchTests.cmake"
                              DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
 _ycm_install(3rdparty-catch2 FILES "${_dir}/LICENSE.txt"
