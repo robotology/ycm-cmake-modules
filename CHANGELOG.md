@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased Minor]
 
+### Changed
+
+* Update Catch vendored files from v2.13.4 to v3.2.1 (https://github.com/robotology/ycm/pull/422).
+
 ## [Unreleased Patch]
 
 ## [0.14.2] - 2022-06-10
