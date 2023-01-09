@@ -31,6 +31,7 @@ endif()
 _ycm_install(3rdparty-catch2 FILES "${_dir}/extras/Catch.cmake"
                                    "${_dir}/extras/CatchAddTests.cmake"
                                    "${_dir}/extras/ParseAndAddCatchTests.cmake"
+                                   "${_dir}/YarpCatchUtils.cmake"
                              DESTINATION "${YCM_INSTALL_MODULE_DIR}/3rdparty")
 
 _ycm_install(3rdparty-catch2 FILES "${_dir}/LICENSE.txt"
