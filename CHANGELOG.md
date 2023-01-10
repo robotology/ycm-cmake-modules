@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 * Update Catch vendored files from v2.13.4 to v3.2.1 (https://github.com/robotology/ycm/pull/422).
-* Since release 0.15, all releases and development are happening on the `master` branch, while no ycm-0.15 or similar branches are created. 
+* Since release 0.15, all releases and development are happening on the `master` branch, while no ycm-0.15 or similar branches are created (https://github.com/robotology/ycm/issues/150). 
 
 ## [0.14.2] - 2022-06-10
 
