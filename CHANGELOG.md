@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased Patch]
 
+## [0.15.1] - 2023-01-10
+
+### Added
+
+* Added packaging for .tar.gz archives (https://github.com/robotology/ycm/pull/425).
+
+
 ## [0.15.0] - 2023-01-10
 
 ### Added
