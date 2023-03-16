@@ -2,7 +2,6 @@ include(RunCMake)
 
 run_cmake(IncludeUrl_url)
 run_cmake(IncludeUrl_DESTINATION)
-run_cmake(IncludeUrl_QUIET)
 run_cmake(IncludeUrl_RESULT_VARIABLE)
 run_cmake(IncludeUrl_STATUS)
 run_cmake(IncludeUrl_RETRIES)
