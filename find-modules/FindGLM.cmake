@@ -61,7 +61,7 @@ if(glm_FOUND)
     set_target_properties(glm::glm PROPERTIES INTERFACE_LINK_LIBRARIES glm)
   endif()
 
-  find_package_handle_standard_args(GLM DEFAULT_MSG GLM_CONFIG)
+  find_package_handle_standard_args(GLM DEFAULT_MSG glm_FOUND)
   return()
 endif()
 
