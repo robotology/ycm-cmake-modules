@@ -18,8 +18,9 @@ The following variables may be set to influence this module’s behavior:
 Imported Targets
 ^^^^^^^^^^^^^^^^
 
-This module defines the :prop_tgt:`IMPORTED` target ``glm`` for the
-library glm.
+This module defines the :prop_tgt:`IMPORTED` target ``glm::glm`` for the
+library glm. For backward compatibility, it also defines ``glm`` imported target.
+
 
 Result Variables
 ^^^^^^^^^^^^^^^^
@@ -43,9 +44,23 @@ This module defines the following variables:
 
 include(FindPackageHandleStandardArgs)
 
-find_package(GLM CONFIG QUIET)
+find_package(glm CONFIG QUIET)
 
-if(GLM_FOUND)
+if(glm_FOUND)
+  # glm::glm exists, glm not
+  if(TARGET glm::glm AND NOT TARGET glm)
+    add_library(glm INTERFACE IMPORTED)
+    # Equivalent to target_link_libraries INTERFACE, but compatible with CMake 3.10
+    set_target_properties(glm PROPERTIES INTERFACE_LINK_LIBRARIES glm::glm)
+  endif()
+
+  # glm exists, glm::glm not
+  if(TARGET glm AND NOT TARGET glm::glm)
+    add_library(glm::glm INTERFACE IMPORTED)
+    # Equivalent to target_link_libraries INTERFACE, but compatible with CMake 3.10
+    set_target_properties(glm::glm PROPERTIES INTERFACE_LINK_LIBRARIES glm)
+  endif()
+
   find_package_handle_standard_args(GLM DEFAULT_MSG GLM_CONFIG)
   return()
 endif()
@@ -105,6 +120,19 @@ if(NOT TARGET glm)
                         PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${GLM_INCLUDE_DIRS}")
 
 endif()
+
+if(NOT TARGET glm::glm)
+  if(GLM_VERBOSE)
+    message(STATUS "Findglm: Creating glm::glm imported target.")
+  endif()
+
+  add_library(glm::glm INTERFACE IMPORTED)
+
+  set_target_properties(glm::glm
+                        PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${GLM_INCLUDE_DIRS}")
+
+endif()
+
 
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)
