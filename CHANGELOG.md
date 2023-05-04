@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-* Make sure that FindGLM defines both `glm` and `glm::glm` imported targets (https://github.com/ami-iit/yarp-device-openxrheadset/issues/35, ).
+* Make sure that FindGLM defines both `glm` and `glm::glm` imported targets (https://github.com/ami-iit/yarp-device-openxrheadset/issues/35, https://github.com/robotology/ycm/pull/430).
 
 ## [0.15.1] - 2023-01-10
 
