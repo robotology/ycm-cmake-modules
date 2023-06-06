@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-* Fixed wrong CMake version ().
+* Fixed wrong CMake version (https://github.com/robotology/ycm/pull/432).
 
 ## [0.15.2] - 2023-05-05
 
