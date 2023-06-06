@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased Patch]
 
+## [0.15.3] - 2023-06-06
+
+### Fixed
+
+* Fixed wrong CMake version ().
+
 ## [0.15.2] - 2023-05-05
 
 ### Fixed
