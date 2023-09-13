@@ -1,4 +1,5 @@
-name: C++ CI Workflow with conda-forge dependencies
+name: CI Workflow
+# C++ CI Workflow with conda-forge dependencies
 
 on:
   push:
