@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased Patch]
 
+### Deprecated
+
+Deprecate `OpenCV_LIBRARIES` library set by `find_package(OpenCV)`, downstream users should just use `OpenCV_LIBS` as set by official OpenCV CMake config files (https://github.com/robotology/ycm/pull/434).
+
+### Removed
+
+* Remove support for finding OpenCV <= 2 with `FindOpenCV.cmake` module (https://github.com/robotology/ycm/pull/434).
+
 ## [0.15.3] - 2023-06-06
 
 ### Fixed
