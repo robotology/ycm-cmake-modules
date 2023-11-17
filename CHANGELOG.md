@@ -8,9 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased Patch]
 
+### Changed
+
+* Update CMakeRC to latest version as of November 2023 (https://github.com/robotology/ycm/pull/436).
+
 ### Deprecated
 
-Deprecate `OpenCV_LIBRARIES` library set by `find_package(OpenCV)`, downstream users should just use `OpenCV_LIBS` as set by official OpenCV CMake config files (https://github.com/robotology/ycm/pull/434).
+* Deprecate `OpenCV_LIBRARIES` library set by `find_package(OpenCV)`, downstream users should just use `OpenCV_LIBS` as set by official OpenCV CMake config files (https://github.com/robotology/ycm/pull/434).
 
 ### Removed
 

@@ -7,10 +7,10 @@
 set(_dir "${CMAKE_CURRENT_SOURCE_DIR}/catch2")
 
 if(YCM_DOWNLOAD_3RDPARTY)
-  set(_files extras/Catch.cmake                 ab6c7375be9a8e71ee84c6f8537113f9f47daf99
-             extras/CatchAddTests.cmake         ab6c7375be9a8e71ee84c6f8537113f9f47daf99
-             extras/ParseAndAddCatchTests.cmake ab6c7375be9a8e71ee84c6f8537113f9f47daf99
-             LICENSE.txt                        ab6c7375be9a8e71ee84c6f8537113f9f47daf99)
+  set(_files extras/Catch.cmake                 b54f8d387479caeffb8da540c65dff40e649dd91
+             extras/CatchAddTests.cmake         75e59b4c924d7233bc947cad05fb4ee86a784eec
+             extras/ParseAndAddCatchTests.cmake 021c11738cad3f2139e09b2bb252a44d357bfd34
+             LICENSE.txt                        3cba29011be2b9d59f6204d6fa0a386b1b2dbd90)
   set(_ref v3.2.1)
   _ycm_download(3rdparty-catch2
                 "Catch2 (C++ Automated Test Cases in a Header) git repository"

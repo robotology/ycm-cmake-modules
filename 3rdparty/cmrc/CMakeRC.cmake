@@ -34,7 +34,7 @@ endif()
 
 set(_version 2.0.0)
 
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.12)
 include(CMakeParseArguments)
 
 if(COMMAND cmrc_add_resource_library)
@@ -76,6 +76,10 @@ set(hpp_content [==[
 #include <string>
 #include <system_error>
 #include <type_traits>
+
+#if !(defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND) || defined(CMRC_NO_EXCEPTIONS))
+#define CMRC_NO_EXCEPTIONS 1
+#endif
 
 namespace cmrc { namespace detail { struct dummy; } }
 
@@ -243,15 +247,15 @@ public:
             return !(*this == rhs);
         }
 
-        iterator operator++() noexcept {
+        iterator& operator++() noexcept {
+            ++_base_iter;
+            return *this;
+        }
+
+        iterator operator++(int) noexcept {
             auto cp = *this;
             ++_base_iter;
             return cp;
-        }
-
-        iterator& operator++(int) noexcept {
-            ++_base_iter;
-            return *this;
         }
     };
 
@@ -339,7 +343,12 @@ public:
     file open(const std::string& path) const {
         auto entry_ptr = _get(path);
         if (!entry_ptr || !entry_ptr->is_file()) {
+#ifdef CMRC_NO_EXCEPTIONS
+            fprintf(stderr, "Error no such file or directory: %s\n", path.c_str());
+            abort();
+#else
             throw std::system_error(make_error_code(std::errc::no_such_file_or_directory), path);
+#endif
         }
         auto& dat = entry_ptr->as_file();
         return file{dat.begin_ptr, dat.end_ptr};
@@ -362,10 +371,20 @@ public:
     directory_iterator iterate_directory(const std::string& path) const {
         auto entry_ptr = _get(path);
         if (!entry_ptr) {
+#ifdef CMRC_NO_EXCEPTIONS
+            fprintf(stderr, "Error no such file or directory: %s\n", path.c_str());
+            abort();
+#else
             throw std::system_error(make_error_code(std::errc::no_such_file_or_directory), path);
+#endif
         }
         if (!entry_ptr->is_directory()) {
+#ifdef CMRC_NO_EXCEPTIONS
+            fprintf(stderr, "Error not a directory: %s\n", path.c_str());
+            abort();
+#else
             throw std::system_error(make_error_code(std::errc::not_a_directory), path);
+#endif
         }
         return entry_ptr->as_directory().begin();
     }
@@ -387,7 +406,7 @@ endif()
 file(GENERATE OUTPUT "${cmrc_hpp}" CONTENT "${hpp_content}" CONDITION ${_generate})
 
 add_library(cmrc-base INTERFACE)
-target_include_directories(cmrc-base INTERFACE "${CMRC_INCLUDE_DIR}")
+target_include_directories(cmrc-base INTERFACE $<BUILD_INTERFACE:${CMRC_INCLUDE_DIR}>)
 # Signal a basic C++11 feature to require C++11.
 target_compile_features(cmrc-base INTERFACE cxx_nullptr)
 set_property(TARGET cmrc-base PROPERTY INTERFACE_CXX_EXTENSIONS OFF)
@@ -566,7 +585,7 @@ function(cmrc_add_resources name)
         endif()
         get_filename_component(dirpath "${ARG_PREFIX}${relpath}" DIRECTORY)
         _cmrc_register_dirs("${name}" "${dirpath}")
-        get_filename_component(abs_out "${libdir}/intermediate/${relpath}.cpp" ABSOLUTE)
+        get_filename_component(abs_out "${libdir}/intermediate/${ARG_PREFIX}${relpath}.cpp" ABSOLUTE)
         # Generate a symbol name relpath the file's character array
         _cm_encode_fpath(sym "${relpath}")
         # Get the symbol name for the parent directory
