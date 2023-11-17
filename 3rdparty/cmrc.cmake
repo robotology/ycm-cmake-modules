@@ -7,9 +7,9 @@
 set(_dir "${CMAKE_CURRENT_SOURCE_DIR}/cmrc")
 
 if(YCM_DOWNLOAD_3RDPARTY)
-  set(_files CMakeRC.cmake  15109e38dddefce15028a0d0563557b2dc72446a
+  set(_files CMakeRC.cmake  6f82bf951d9d32c610892b1315ad588dbfc2f8de
              LICENSE.txt    053245749bccc40304ec4d9d0a47aea0b1c9f8f6)
-  set(_ref f26f6e35a859b0ba28818dbcc0ed9b3880881cf4)
+  set(_ref 952ffddba731fc110bd50409e8d2b8a06abbd237)
 
   _ycm_download(3rdparty-cmrc
                 "CMakeRC (A Standalone CMake-Based C++ Resource Compiler) git repository"
