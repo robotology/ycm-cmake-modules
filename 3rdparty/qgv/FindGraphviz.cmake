@@ -50,9 +50,9 @@ endif()
 # in the FIND_PATH() and FIND_LIBRARY() calls
 find_package(PkgConfig QUIET)
 if(PKG_CONFIG_FOUND)
-  pkg_check_modules(Graphviz_GVC_PKG gvc QUIET)
-  pkg_check_modules(Graphviz_CGRAPH_PKG cgraph QUIET)
-  pkg_check_modules(Graphviz_CDT_PKG cdt QUIET)
+  pkg_check_modules(Graphviz_GVC_PKG libgvc QUIET)
+  pkg_check_modules(Graphviz_CGRAPH_PKG libcgraph QUIET)
+  pkg_check_modules(Graphviz_CDT_PKG libcdt QUIET)
 endif()
 
 find_library(Graphviz_GVC_LIBRARY
