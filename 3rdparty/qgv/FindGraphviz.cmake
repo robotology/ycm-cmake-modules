@@ -5,6 +5,10 @@
 #  Graphviz_LIBRARIES
 #  Graphviz_INCLUDE_DIRS
 #  Graphviz_DEFINITIONS
+#
+# If pkg-config and .pc files for graphviz are found,
+# it will also define:
+#  Graphviz_VERSION
 
 if(EXISTS "$ENV{Graphviz_ROOT}")
     set(Graphviz_POSSIBLE_INCDIRS
@@ -44,8 +48,8 @@ endif()
 
 # use pkg-config to get the directories and then use these values
 # in the FIND_PATH() and FIND_LIBRARY() calls
-if(NOT WIN32)
-  find_package(PkgConfig)
+find_package(PkgConfig QUIET)
+if(PKG_CONFIG_FOUND)
   pkg_check_modules(Graphviz_GVC_PKG gvc QUIET)
   pkg_check_modules(Graphviz_CGRAPH_PKG cgraph QUIET)
   pkg_check_modules(Graphviz_CDT_PKG cdt QUIET)
@@ -106,6 +110,11 @@ if(WIN32)
   if(NOT YCM_FINDGRAPHVIZ_USE_STATIC_GRAPHVIZ)
     set(Graphviz_DEFINITIONS "GVDLL")
   endif()
+endif()
+
+if( (Graphviz_GVC_PKG_VERSION VERSION_EQUAL Graphviz_CGRAPH_PKG_VERSION) AND
+    (Graphviz_GVC_PKG_VERSION VERSION_EQUAL Graphviz_CDT_PKG_VERSION) )
+  set(Graphviz_VERSION ${Graphviz_GVC_PKG_VERSION})
 endif()
 
 include(FindPackageHandleStandardArgs)
