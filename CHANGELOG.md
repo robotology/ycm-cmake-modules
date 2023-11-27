@@ -8,9 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased Patch]
 
+## [0.16.0] - 2023-11-27
+
 ### Changed
 
 * Update CMakeRC to latest version as of November 2023 (https://github.com/robotology/ycm/pull/436).
+* FindGraphviz: if available export version of the package from pkg-config (https://github.com/robotology/ycm/pull/438).
 
 ### Deprecated
 
