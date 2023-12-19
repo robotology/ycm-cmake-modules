@@ -15,6 +15,8 @@ A helper for :module:`ExternalProject`::
    [FOLDER <folder> (default = "<component>")
    [REPOSITORY <repo>]
    [EXCLUDE_FROM_ALL <0|1>]
+  #--Git only arguments-----------
+   [SHALLOW <bool>]
   #--Git and Hg only arguments-----------
    [TAG <tag>]
   #--Svn only arguments-----------
@@ -732,6 +734,7 @@ function(YCM_EP_HELPER _name)
                     COMPONENT
                     FOLDER
                     EXCLUDE_FROM_ALL
+                    SHALLOW     # GIT only
                     REPOSITORY  # GIT, SVN and HG
                     TAG         # GIT and HG only
                     REVISION    # SVN only
@@ -965,6 +968,10 @@ function(YCM_EP_HELPER _name)
 
     if(DEFINED _YH_${_name}_TAG)
       list(APPEND ${_name}_REPOSITORY_ARGS GIT_TAG ${_YH_${_name}_TAG})
+    endif()
+
+    if(DEFINED _YH_${_name}_SHALLOW)
+      list(APPEND ${_name}_REPOSITORY_ARGS GIT_SHALLOW ${_YH_${_name}_SHALLOW})
     endif()
 
     if(YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_NAME)
