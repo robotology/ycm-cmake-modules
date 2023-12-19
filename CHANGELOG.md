@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-* YCMEPHelper: add SHALLOW option to permit to pass GIT_SHALLOW option to ExternalProject_Add ().
+* YCMEPHelper: add SHALLOW option to permit to pass GIT_SHALLOW option to ExternalProject_Add (https://github.com/robotology/ycm/pull/440).
 
 ## [0.16.1] - 2023-11-27
 
