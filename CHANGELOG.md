@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased Patch]
 
+### Deprecated
+
+* FindGLFW3: Use glfw3Config.cmake and mark module as deprecated. Instead of using `find_package(GLFW3)`, please use `find_package(glfw3 NO_MODULE)` and link the `glfw` imported target (https://github.com/robotology/ycm/pull/441).
+
 ## [0.16.2] - 2023-12-20
 
 ### Added
