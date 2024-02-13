@@ -7,16 +7,22 @@ FindGLFW3
 
 Find the GLFW3 framework.
 
+This module is deprecated, please use find_package(glfw3 NO_MODULE)
+to find glfw3 instead.
+
 IMPORTED Targets
 ^^^^^^^^^^^^^^^^
 
-This module defines the :prop_tgt:`IMPORTED` target ``GLFW3::GLFW3``,
+This module defines the :prop_tgt:`IMPORTED` target ``glfw``,
 if GLFW3 has been found.
+
+This module also defines the :prop_tgt:`IMPORTED` target ``GLFW3::GLFW3``,
+for backward compatibility with old YCM versions, but support for it will be removed.
 
 Result Variables
 ^^^^^^^^^^^^^^^^
 
-This module defines the following variables::
+This module defines the following deprecated variables::
 
   GLFW3_INCLUDE_DIRS - include directories for GLFW3
   GLFW3_LIBRARIES - libraries to link against GLFW3
@@ -29,61 +35,72 @@ If the library is not found on system paths, the ``GLFW3_ROOT``
 environment variable can be used to locate the lbrary.
 #]=======================================================================]
 
-include(StandardFindModule)
-standard_find_module(GLFW3 glfw3)
+message(DEPRECATION "find_package(GLFW3) is deprecated, please use find_package(glfw3 NO_MODULE) and link glfw instead.")
 
-if(NOT GLFW3_FOUND)
-  find_path(GLFW3_INCLUDE_DIR
-            DOC "Path to GLFW3 include directory."
-            NAMES GLFW/glfw3.h
-            PATH_SUFFIXES include
-            PATHS /usr/
-                  /usr/local/
-                  ${GLFW3_ROOT_DIR}
-                  ENV GLFW3_ROOT)
+find_package(glfw3 NO_MODULE QUIET)
 
-  find_library(GLFW3_GLFW_LIBRARY
-              DOC "Absolute path to GLFW3 library."
-              NAMES glfw3
-                    glfw3dll
-              PATH_SUFFIXES lib
-                            lib-vc2010
+if(glfw3_FOUND)
+
+  include(FindPackageHandleStandardArgs)
+  find_package_handle_standard_args(GLFW3
+                                    REQUIRED_VARS glfw3_FOUND)
+else()
+  include(StandardFindModule)
+  standard_find_module(GLFW3 glfw3)
+  
+  if(NOT GLFW3_FOUND)
+    find_path(GLFW3_INCLUDE_DIR
+              DOC "Path to GLFW3 include directory."
+              NAMES GLFW/glfw3.h
+              PATH_SUFFIXES include
               PATHS /usr/
                     /usr/local/
                     ${GLFW3_ROOT_DIR}
                     ENV GLFW3_ROOT)
-  if(WIN32)
-    find_library(GLFW3_OPENGL_LIBRARY
-                 NAMES OpenGL32
-                 PATHS "C:\\Program Files (x86)\\Microsoft SDKs\\Windows\\v7.0A\\Lib"
-                       "C:\\Program Files (x86)\\Microsoft SDKs\\Windows\\v7.1A\\Lib")
+  
+    find_library(GLFW3_GLFW_LIBRARY
+                DOC "Absolute path to GLFW3 library."
+                NAMES glfw3
+                      glfw3dll
+                PATH_SUFFIXES lib
+                              lib-vc2010
+                PATHS /usr/
+                      /usr/local/
+                      ${GLFW3_ROOT_DIR}
+                      ENV GLFW3_ROOT)
+    if(WIN32)
+      find_library(GLFW3_OPENGL_LIBRARY
+                   NAMES OpenGL32
+                   PATHS "C:\\Program Files (x86)\\Microsoft SDKs\\Windows\\v7.0A\\Lib"
+                         "C:\\Program Files (x86)\\Microsoft SDKs\\Windows\\v7.1A\\Lib")
+    endif()
+  
+    set(GLFW3_GLFW_glfw3_h "${GLFW3_INCLUDE_DIR}/GLFW/glfw3.h")
+    if(GLFW3_INCLUDE_DIR AND EXISTS "${GLFW3_GLFW_glfw3_h}")
+      file(STRINGS "${GLFW3_GLFW_glfw3_h}" GLFW3_GLFW_glfw3_h_CONTENTS
+          REGEX "^#[\t ]*define[\t ]+GLFW_VERSION_(MAJOR|MINOR|REVISION)[\t ]+[0-9]+$")
+  
+      foreach(_part MAJOR MINOR REVISION)
+        string(REGEX REPLACE ".*#[\t ]*define[ \t]+GLFW_VERSION_${_part}[ \t]+([0-9]+).*" "\\1"
+              GLFW3_VERSION_${_part} "${GLFW3_GLFW_glfw3_h_CONTENTS}")
+      endforeach(_part)
+  
+      set(GLFW3_VERSION_STRING "${GLFW3_VERSION_MAJOR}.${GLFW3_VERSION_MINOR}.${GLFW3_VERSION_REVISION}")
+  
+    endif()
+  
+    set(GLFW3_INCLUDE_DIRS "${GLFW3_INCLUDE_DIR}")
+    set(GLFW3_LIBRARIES "${GLFW3_GLFW_LIBRARY}")
+    if(WIN32)
+      list(APPEND GLFW3_LIBRARIES "${GLFW3_OPENGL_LIBRARY}")
+    endif()
+  
+    include(FindPackageHandleStandardArgs)
+    find_package_handle_standard_args(GLFW3
+                                      REQUIRED_VARS GLFW3_LIBRARIES
+                                                    GLFW3_INCLUDE_DIRS
+                                      VERSION_VAR GLFW3_VERSION_STRING)
   endif()
-
-  set(GLFW3_GLFW_glfw3_h "${GLFW3_INCLUDE_DIR}/GLFW/glfw3.h")
-  if(GLFW3_INCLUDE_DIR AND EXISTS "${GLFW3_GLFW_glfw3_h}")
-    file(STRINGS "${GLFW3_GLFW_glfw3_h}" GLFW3_GLFW_glfw3_h_CONTENTS
-        REGEX "^#[\t ]*define[\t ]+GLFW_VERSION_(MAJOR|MINOR|REVISION)[\t ]+[0-9]+$")
-
-    foreach(_part MAJOR MINOR REVISION)
-      string(REGEX REPLACE ".*#[\t ]*define[ \t]+GLFW_VERSION_${_part}[ \t]+([0-9]+).*" "\\1"
-            GLFW3_VERSION_${_part} "${GLFW3_GLFW_glfw3_h_CONTENTS}")
-    endforeach(_part)
-
-    set(GLFW3_VERSION_STRING "${GLFW3_VERSION_MAJOR}.${GLFW3_VERSION_MINOR}.${GLFW3_VERSION_REVISION}")
-
-  endif()
-
-  set(GLFW3_INCLUDE_DIRS "${GLFW3_INCLUDE_DIR}")
-  set(GLFW3_LIBRARIES "${GLFW3_GLFW_LIBRARY}")
-  if(WIN32)
-    list(APPEND GLFW3_LIBRARIES "${GLFW3_OPENGL_LIBRARY}")
-  endif()
-
-  include(FindPackageHandleStandardArgs)
-  find_package_handle_standard_args(GLFW3
-                                    REQUIRED_VARS GLFW3_LIBRARIES
-                                                  GLFW3_INCLUDE_DIRS
-                                    VERSION_VAR GLFW3_VERSION_STRING)
 endif()
 
 # Set package properties if FeatureSummary was included
