@@ -255,6 +255,12 @@ macro(_YCM_SETUP)
                          "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}") # Path used by cmake for finding stuff
   list(APPEND _YCM_EP_CMAKE_ARGS ${_YCM_EP_ADDITIONAL_CMAKE_ARGS})
 
+  # If CMAKE_EXPORT_COMPILE_COMMANDS is defined, pass it along to the sub-projects
+  # See https://github.com/robotology/robotology-superbuild/issues/1596
+  if(DEFINED CMAKE_EXPORT_COMPILE_COMMANDS AND ${CMAKE_EXPORT_COMPILE_COMMANDS})
+    list(APPEND _YCM_EP_CMAKE_ARGS "-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=${CMAKE_EXPORT_COMPILE_COMMANDS}")
+  endif()
+
   # Default CMAKE_CACHE_ARGS (Initial cache, forced)
   set(_YCM_EP_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${YCM_EP_INSTALL_DIR}") # Where to do the installation
 
