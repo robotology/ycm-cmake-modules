@@ -145,7 +145,7 @@ ${all_versions}
   }
 
   function patch_url(url, new_version) {
-    return url.replace(url_re, 'robotology.github.io/ycm/gh-pages/' + new_version + '/');
+    return url.replace(url_re, 'robotology.github.io/ycm-cmake-modules/gh-pages/' + new_version + '/');
   }
 
   function on_switch() {
@@ -162,7 +162,7 @@ ${all_versions}
            window.location.href = new_url;
         },
         error: function() {
-           window.location.href = 'http://robotology.github.io/ycm/gh-pages/' + selected;
+           window.location.href = 'http://robotology.github.io/ycm-cmake-modules/gh-pages/' + selected;
         }
       });
     }
