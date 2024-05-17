@@ -1,12 +1,12 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+This file documents notable changes to this project done before May 2024. For changes after that date, plase refers to the release notes of each release at https://github.com/robotology/ycm-cmake-modules/releases .
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+## [0.16.3] - 2024-05-17
 
-## [Unreleased Minor]
+### Fixed
 
-## [Unreleased Patch]
+* FindACE: Require at least C++17 when using ACE 8 (https://github.com/robotology/ycm-cmake-modules/pull/#446).
 
 ### Changed
 
