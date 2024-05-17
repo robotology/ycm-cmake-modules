@@ -5,7 +5,7 @@ Extra CMake Modules for YARP and friends
 
 ## Documentation
 
-Online documentation is available here: [http://robotology.github.io/ycm](http://robotology.github.io/ycm).
+Online documentation is available here: [http://robotology.github.io/ycm-cmake-modules](http://robotology.github.io/ycm-cmake-modules).
 
 
 [![GitHub Release](https://img.shields.io/github/release/robotology/ycm.svg)](http://github.com/robotology/ycm/releases) 
