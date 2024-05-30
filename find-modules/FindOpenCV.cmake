@@ -96,7 +96,7 @@ if(OpenCV_FOUND)
     endif()
 endif()
 
-find_package_handle_standard_args(OpenCV DEFAULT_MSG OpenCV_CONFIG)
+find_package_handle_standard_args(OpenCV REQUIRED_VARS OpenCV_FOUND CONFIG_MODE)
 
 if(COMMAND set_package_properties)
     set_package_properties(OpenCV PROPERTIES DESCRIPTION "Open source computer vision library"
