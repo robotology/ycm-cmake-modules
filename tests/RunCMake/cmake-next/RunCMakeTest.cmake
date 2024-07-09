@@ -2,7 +2,6 @@ include(RunCMake)
 
 run_cmake(find_package_Doxygen)
 run_cmake(find_package_GLEW)
-run_cmake(find_package_Matlab)
 run_cmake(find_package_OpenGL)
 run_cmake(find_package_Python)
 run_cmake(find_package_Python2)
