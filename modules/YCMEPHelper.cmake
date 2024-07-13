@@ -70,6 +70,21 @@ if(DEFINED __YCMEPHELPER_INCLUDED)
 endif()
 set(__YCMEPHELPER_INCLUDED TRUE)
 
+# Handle CMP0114 (see https://cmake.org/cmake/help/latest/policy/CMP0114.html 
+# and https://github.com/robotology/ycm-cmake-modules/pull/452)
+get_property(_yeph_YCM_USE_CMAKE_NEXT GLOBAL PROPERTY YCM_USE_CMAKE_NEXT)
+
+if(_yeph_YCM_USE_CMAKE_NEXT OR CMAKE_VERSION VERSION_LESS 3.18)
+  # If we are using the vendored ExternalProject or CMake is 3.16 or 3.17, let's use NO_DEPENDS
+  set_property(GLOBAL PROPERTY _yeph_NO_DEPENDS "NO_DEPENDS")
+  set_property(GLOBAL PROPERTY _yeph_INDEPENDENT "")
+else()
+  # Otherwise let's use INDEPENDENT
+  set_property(GLOBAL PROPERTY _yeph_NO_DEPENDS "")
+  set_property(GLOBAL PROPERTY _yeph_INDEPENDENT "INDEPENDENT")
+endif()
+
+
 
 
 ########################################################################
@@ -375,9 +390,11 @@ function(_YCM_EP_ADD_UPDATE_STEP)
     set_property(TARGET ${_update-all} PROPERTY FOLDER "YCMTargets")
   endif()
 
+  get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
+
   # The update step is automatically created, we just need to explicitly
   # make it a target
-  ExternalProject_Add_StepTargets(${_name} NO_DEPENDS update)
+  ExternalProject_Add_StepTargets(${_name} ${_yeph_NO_DEPENDS} update)
   add_dependencies(${_update-all} ${_name}-update)
 endfunction()
 
@@ -432,14 +449,18 @@ function(_YCM_EP_ADD_FETCH_STEP _name)
       set_property(TARGET ${_fetch-all} PROPERTY FOLDER "YCMTargets")
     endif()
 
+    get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
+    get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
+
     ExternalProject_Add_Step(${_name} fetch
                              COMMAND ${GIT_EXECUTABLE} fetch --all --prune
                              WORKING_DIRECTORY ${${_name}_SOURCE_DIR}
                              COMMENT "Performing fetch step for '${_name}'"
                              DEPENDEES download
+                             ${_yeph_INDEPENDENT}
                              EXCLUDE_FROM_MAIN 1
                              ALWAYS 1)
-    ExternalProject_Add_StepTargets(${_name} NO_DEPENDS fetch)
+    ExternalProject_Add_StepTargets(${_name} ${_yeph_NO_DEPENDS} fetch)
     add_dependencies(${_fetch-all} ${_name}-fetch)
   endif()
 endfunction()
@@ -466,15 +487,19 @@ function(_YCM_EP_ADD_STATUS_STEP _name)
       set_property(TARGET ${_status-all} PROPERTY FOLDER "YCMTargets")
     endif()
 
+    get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
+    get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
+
     ExternalProject_Get_Property(${_name} source_dir)
     ExternalProject_Add_Step(${_name} status
                              COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "Working directory: ${source_dir}"
                              ${_cmd}
                              WORKING_DIRECTORY ${source_dir}
                              DEPENDEES download
+                             ${_yeph_INDEPENDENT}
                              EXCLUDE_FROM_MAIN 1
                              ALWAYS 1)
-    ExternalProject_Add_StepTargets(${_name} NO_DEPENDS status)
+    ExternalProject_Add_StepTargets(${_name} ${_yeph_NO_DEPENDS} status)
     add_dependencies(${_status-all} ${_name}-status)
     unset(_cmd)
   endif()
@@ -502,14 +527,18 @@ function(_YCM_EP_ADD_CLEAN_STEP _name)
       set_property(TARGET ${_clean-all} PROPERTY FOLDER "YCMTargets")
     endif()
 
+    get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
+    get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
+
     ExternalProject_Add_Step(${_name} clean
                              COMMAND ${_cmd}
                              WORKING_DIRECTORY ${${_name}_BINARY_DIR}
                              COMMENT "Performing clean step for '${_name}'"
                              DEPENDEES configure
                              EXCLUDE_FROM_MAIN 1
+                             ${_yeph_INDEPENDENT}
                              ALWAYS 1)
-    ExternalProject_Add_StepTargets(${_name} NO_DEPENDS clean)
+    ExternalProject_Add_StepTargets(${_name} ${_yeph_NO_DEPENDS} clean)
     add_dependencies(${_clean-all} ${_name}-clean)
     unset(_cmd)
   endif()
@@ -524,6 +553,9 @@ endfunction()
 function(_YCM_EP_ADD_DEPENDEES_STEPS _name)
   get_property(_depends_set TARGET ${_name} PROPERTY _EP_DEPENDS SET)
 
+  get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
+  get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
+
   if(_depends_set)
     get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
     get_property(_depends TARGET ${_name} PROPERTY _EP_DEPENDS)
@@ -533,8 +565,9 @@ function(_YCM_EP_ADD_DEPENDEES_STEPS _name)
                              WORKING_DIRECTORY ${_binary_dir}
                              COMMENT "Dependencies for '${_name}' built."
                              EXCLUDE_FROM_MAIN 1
+                             ${_yeph_INDEPENDENT}
                              ALWAYS 1)
-    ExternalProject_Add_StepTargets(${_name} NO_DEPENDS dependees)
+    ExternalProject_Add_StepTargets(${_name} ${_yeph_NO_DEPENDS} dependees)
     foreach(_dep ${_depends})
       if(TARGET ${_dep})
         ExternalProject_Add_StepDependencies(${_name} dependees ${_dep})
@@ -546,8 +579,9 @@ function(_YCM_EP_ADD_DEPENDEES_STEPS _name)
                              WORKING_DIRECTORY ${binary_dir}
                              COMMENT "Dependencies for '${_name}' updated."
                              EXCLUDE_FROM_MAIN 1
+                             ${_yeph_INDEPENDENT}
                              ALWAYS 1)
-    ExternalProject_Add_StepTargets(${_name} NO_DEPENDS dependees-update)
+    ExternalProject_Add_StepTargets(${_name} ${_yeph_NO_DEPENDS} dependees-update)
     foreach(_dep ${_depends})
       if(TARGET ${_dep}-update) # only if the target update exists for the dependency
         ExternalProject_Add_StepDependencies(${_name} dependees-update ${_dep}-update)
@@ -566,6 +600,9 @@ endfunction()
 function(_YCM_EP_ADD_DEPENDERS_STEPS _name)
   get_property(_depends_set TARGET ${_name} PROPERTY _EP_DEPENDS SET)
 
+  get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
+  get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
+
   if(_depends_set)
     get_property(_depends TARGET ${_name} PROPERTY _EP_DEPENDS)
     foreach(_dep ${_depends})
@@ -581,8 +618,9 @@ function(_YCM_EP_ADD_DEPENDERS_STEPS _name)
                                        WORKING_DIRECTORY ${_dep_binary_dir}
                                        COMMENT "Dependers for '${_dep}' built."
                                        EXCLUDE_FROM_MAIN 1
+                                       ${_yeph_INDEPENDENT}
                                        ALWAYS 1)
-              ExternalProject_Add_StepTargets(${_dep} NO_DEPENDS dependers)
+              ExternalProject_Add_StepTargets(${_dep} ${_yeph_NO_DEPENDS} dependers)
             endif()
             ExternalProject_Add_StepDependencies(${_dep} dependers ${_name})
 
@@ -593,8 +631,9 @@ function(_YCM_EP_ADD_DEPENDERS_STEPS _name)
                                          WORKING_DIRECTORY ${${_dep}_BINARY_DIR}
                                          COMMENT "Dependers for '${_dep}' updated."
                                          EXCLUDE_FROM_MAIN 1
+                                         ${_yeph_INDEPENDENT}
                                          ALWAYS 1)
-                ExternalProject_Add_StepTargets(${_dep} NO_DEPENDS dependers-update)
+                ExternalProject_Add_StepTargets(${_dep} ${_yeph_NO_DEPENDS} dependers-update)
               endif()
               ExternalProject_Add_StepDependencies(${_dep} dependers-update ${_name}-update)
             endif()
@@ -616,6 +655,9 @@ function(_YCM_EP_ADD_EDIT_CACHE_STEP _name)
   _ep_get_configure_command_id(${_name} _${_name}_configure_command_id)
   if(_${_name}_configure_command_id STREQUAL "cmake")
 
+    get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
+    get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
+
     get_property(_source_dir TARGET ${_name} PROPERTY _EP_SOURCE_DIR)
     get_property(_source_subdir TARGET ${_name} PROPERTY _EP_SOURCE_SUBDIR)
     get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
@@ -626,8 +668,9 @@ function(_YCM_EP_ADD_EDIT_CACHE_STEP _name)
                              DEPENDEES configure
                              EXCLUDE_FROM_MAIN 1
                              COMMENT "Running CMake cache editor for ${_name}..."
+                             ${_yeph_INDEPENDENT}
                              ALWAYS 1)
-    ExternalProject_Add_StepTargets(${_name} NO_DEPENDS edit_cache)
+    ExternalProject_Add_StepTargets(${_name} ${_yeph_NO_DEPENDS} edit_cache)
   endif()
 endfunction()
 
@@ -647,6 +690,8 @@ function(_YCM_EP_ADD_PRINT_DIRECTORIES_STEP _name)
   get_property(_source_dir TARGET ${_name} PROPERTY _EP_SOURCE_DIR)
   get_property(_source_subdir TARGET ${_name} PROPERTY _EP_SOURCE_SUBDIR)
   get_property(_binary_dir TARGET ${_name} PROPERTY _EP_BINARY_DIR)
+  get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
+  get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
 
   if("${_source_dir}" STREQUAL "${_source_subdir}")
     set(_source_cmd COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
@@ -670,8 +715,9 @@ function(_YCM_EP_ADD_PRINT_DIRECTORIES_STEP _name)
                            WORKING_DIRECTORY ${_source_dir}
                            EXCLUDE_FROM_MAIN 1
                            COMMENT "Directories for ${_name}"
+                           ${_yeph_INDEPENDENT}
                            ALWAYS 1)
-  ExternalProject_Add_StepTargets(${_name} NO_DEPENDS print-directories)
+  ExternalProject_Add_StepTargets(${_name} ${_yeph_NO_DEPENDS} print-directories)
   add_dependencies(${_print-directories-all} ${_name}-print-directories)
 endfunction()
 
@@ -693,6 +739,9 @@ function(_YCM_EP_ADD_OPEN_STEP _name)
   endif()
 
   if(DEFINED _cmd)
+    get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
+    get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
+  
     ExternalProject_Add_Step(${_name} open
                              COMMAND ${CMAKE_COMMAND} -E echo \"\"
                              COMMAND ${_cmd}
@@ -700,8 +749,9 @@ function(_YCM_EP_ADD_OPEN_STEP _name)
                              DEPENDEES configure
                              EXCLUDE_FROM_MAIN 1
                              COMMENT "Opening ${_name}..."
+                             ${_yeph_INDEPENDENT}
                              ALWAYS 1)
-    ExternalProject_Add_StepTargets(${_name} NO_DEPENDS open)
+    ExternalProject_Add_StepTargets(${_name} ${_yeph_NO_DEPENDS} open)
   endif()
 endfunction()
 
