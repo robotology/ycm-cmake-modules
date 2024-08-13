@@ -490,9 +490,15 @@ function(_YCM_EP_ADD_STATUS_STEP _name)
     get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
     get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
 
+    if(CMAKE_GENERATOR STREQUAL "Unix Makefiles")
+      set(_command_echo_color_if_supported "cmake_echo_color --switch=$\(COLOR\) --cyan")
+    else()
+      set(_command_echo_color_if_supported "echo")
+    endif()
+
     ExternalProject_Get_Property(${_name} source_dir)
     ExternalProject_Add_Step(${_name} status
-                             COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "Working directory: ${source_dir}"
+                             COMMAND ${CMAKE_COMMAND} -E ${_command_echo_color_if_supported} "Working directory: ${source_dir}"
                              ${_cmd}
                              WORKING_DIRECTORY ${source_dir}
                              DEPENDEES download
@@ -693,17 +699,23 @@ function(_YCM_EP_ADD_PRINT_DIRECTORIES_STEP _name)
   get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
   get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
 
+  if(CMAKE_GENERATOR STREQUAL "Unix Makefiles")
+    set(_command_echo_color_if_supported "cmake_echo_color --switch=$\(COLOR\) --cyan")
+  else()
+    set(_command_echo_color_if_supported "echo")
+  endif()
+
   if("${_source_dir}" STREQUAL "${_source_subdir}")
-    set(_source_cmd COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
+    set(_source_cmd COMMAND ${CMAKE_COMMAND} -E ${_command_echo_color_if_supported} "${_name} SOURCE directory: "
                     COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_dir}")
   else()
-    set(_source_cmd COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} REPOSITORY directory: "
+    set(_source_cmd COMMAND ${CMAKE_COMMAND} -E ${_command_echo_color_if_supported} "${_name} REPOSITORY directory: "
                     COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_dir}"
                     COMMAND ${CMAKE_COMMAND} -E echo ""
-                    COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} SOURCE directory: "
+                    COMMAND ${CMAKE_COMMAND} -E ${_command_echo_color_if_supported} "${_name} SOURCE directory: "
                     COMMAND ${CMAKE_COMMAND} -E echo "    ${_source_subdir}")
   endif()
-  set(_binary_cmd COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=$(COLOR) --cyan "${_name} BINARY directory: "
+  set(_binary_cmd COMMAND ${CMAKE_COMMAND} -E ${_command_echo_color_if_supported} "${_name} BINARY directory: "
                   COMMAND ${CMAKE_COMMAND} -E echo "    ${_binary_dir}")
 
   ExternalProject_Add_Step(${_name} print-directories
