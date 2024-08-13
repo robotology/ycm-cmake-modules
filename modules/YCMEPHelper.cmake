@@ -491,7 +491,7 @@ function(_YCM_EP_ADD_STATUS_STEP _name)
     get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
 
     if(CMAKE_GENERATOR STREQUAL "Unix Makefiles")
-      set(_command_echo_color_if_supported "cmake_echo_color --switch=$\(COLOR\) --cyan")
+      set(_command_echo_color_if_supported cmake_echo_color --switch=$\(COLOR\) --cyan)
     else()
       set(_command_echo_color_if_supported "echo")
     endif()
