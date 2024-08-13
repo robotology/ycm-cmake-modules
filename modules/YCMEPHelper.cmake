@@ -70,7 +70,7 @@ if(DEFINED __YCMEPHELPER_INCLUDED)
 endif()
 set(__YCMEPHELPER_INCLUDED TRUE)
 
-# Handle CMP0114 (see https://cmake.org/cmake/help/latest/policy/CMP0114.html 
+# Handle CMP0114 (see https://cmake.org/cmake/help/latest/policy/CMP0114.html
 # and https://github.com/robotology/ycm-cmake-modules/pull/452)
 get_property(_yeph_YCM_USE_CMAKE_NEXT GLOBAL PROPERTY YCM_USE_CMAKE_NEXT)
 
@@ -753,7 +753,7 @@ function(_YCM_EP_ADD_OPEN_STEP _name)
   if(DEFINED _cmd)
     get_property(_yeph_NO_DEPENDS GLOBAL PROPERTY _yeph_NO_DEPENDS)
     get_property(_yeph_INDEPENDENT GLOBAL PROPERTY _yeph_INDEPENDENT)
-  
+
     ExternalProject_Add_Step(${_name} open
                              COMMAND ${CMAKE_COMMAND} -E echo \"\"
                              COMMAND ${_cmd}
@@ -783,6 +783,104 @@ function(_YCM_EP_ADD_INSTALLATION _name)
   endif()"
           COMPONENT ${_name})
 endfunction()
+
+
+
+########################################################################
+# _YCM_EP_WRITE_GITCLONE_SCRIPT
+#
+# Helper function to generate a gitclone script for download repos without deleting it
+# inspired from https://gitlab.kitware.com/cmake/cmake/-/blob/v3.30.2/Modules/ExternalProject/shared_internal_commands.cmake#L381
+
+function(_ycm_ep_write_gitclone_script
+  script_filename
+  source_dir
+  git_EXECUTABLE
+  git_repository
+  git_tag
+  git_remote_name
+  init_submodules
+  git_submodules_recurse
+  git_submodules
+  git_shallow
+  git_progress
+  git_config
+  src_name
+  work_dir
+  gitclone_infofile
+  gitclone_stampfile
+  tls_version
+  tls_verify
+)
+
+  if(NOT GIT_VERSION_STRING VERSION_LESS 1.8.5)
+    # Use `git checkout <tree-ish> --` to avoid ambiguity with a local path.
+    set(git_checkout_explicit-- "--")
+  else()
+    # Use `git checkout <branch>` even though this risks ambiguity with a
+    # local path.  Unfortunately we cannot use `git checkout <tree-ish> --`
+    # because that will not search for remote branch names, a common use case.
+    set(git_checkout_explicit-- "")
+  endif()
+  if("${git_tag}" STREQUAL "")
+    message(FATAL_ERROR "Tag for git checkout should not be empty.")
+  endif()
+
+  if(GIT_VERSION_STRING VERSION_LESS 2.20 OR
+    2.21 VERSION_LESS_EQUAL GIT_VERSION_STRING)
+    set(git_clone_options "--no-checkout")
+  else()
+    set(git_clone_options)
+  endif()
+  if(git_shallow)
+    if(NOT GIT_VERSION_STRING VERSION_LESS 1.7.10)
+      list(APPEND git_clone_options "--depth 1 --no-single-branch")
+    else()
+      list(APPEND git_clone_options "--depth 1")
+    endif()
+  endif()
+  if(git_progress)
+    list(APPEND git_clone_options --progress)
+  endif()
+  foreach(config IN LISTS git_config)
+    list(APPEND git_clone_options --config \"${config}\")
+  endforeach()
+  if(NOT ${git_remote_name} STREQUAL "origin")
+    list(APPEND git_clone_options --origin \"${git_remote_name}\")
+  endif()
+
+  # The clone config option is sticky, it will apply to all subsequent git
+  # update operations. The submodules config option is not sticky, because
+  # git doesn't provide any way to do that. Thus, we will have to pass the
+  # same config option in the update step too for submodules, but not for
+  # the main git repo.
+  set(git_submodules_config_options "")
+  if(NOT "x${tls_version}" STREQUAL "x")
+    list(APPEND git_clone_options -c http.sslVersion=tlsv${tls_version})
+    list(APPEND git_submodules_config_options -c http.sslVersion=tlsv${tls_version})
+  endif()
+  if(NOT "x${tls_verify}" STREQUAL "x")
+    if(tls_verify)
+      # Default git behavior is "true", but the user might have changed the
+      # global default to "false". Since TLS_VERIFY was given, ensure we honor
+      # the specified setting regardless of what the global default might be.
+      list(APPEND git_clone_options -c http.sslVerify=true)
+      list(APPEND git_submodules_config_options -c http.sslVerify=true)
+    else()
+      list(APPEND git_clone_options -c http.sslVerify=false)
+      list(APPEND git_submodules_config_options -c http.sslVerify=false)
+    endif()
+  endif()
+
+  string (REPLACE ";" " " git_clone_options "${git_clone_options}")
+
+  configure_file(
+    ${CMAKE_CURRENT_LIST_DIR}/YCMEPHelper/gitsafeclone.cmake.in
+    ${script_filename}
+    @ONLY
+  )
+endfunction()
+
 
 ########################################################################
 # YCM_EP_HELPER
@@ -1052,6 +1150,99 @@ function(YCM_EP_HELPER _name)
       set(_setup_repo_cmd ${_setup_repo_cmd}
                           COMMAND ${GIT_EXECUTABLE} config --local user.email ${YCM_GIT_${_YH_${_name}_STYLE}_COMMIT_EMAIL})
     endif()
+
+    # If GIT is used, we do not want to use the default GIT DOWNLOAD command provided by ExternalProject, as it deletes
+    # existing folders (see https://cmake.org/cmake/help/latest/module/ExternalProject.html#directory-options)
+    # and this is not convenient if you create multiple build of the superbuild, as each one would
+    # delete the source directory cloned by the other. Instead, we define our own DOWNLOAD command that do not delete
+    # a git repo folder if it already exists
+
+    # We do not define the custom GIT DOWNLOAD command if the outside call of YCMEPHelper already redefined it
+    if(NOT DEFINED _YH_${_name}_DOWNLOAD_COMMAND)
+      # Coherently with how the gitclone command is created inside ExternalProject, we also define a CMake
+      # script that defines the clone commands, and then we call it
+      # This part is inspired by https://gitlab.kitware.com/cmake/cmake/-/blob/v3.30.2/Modules/ExternalProject/shared_internal_commands.cmake#L945-1034
+      set(method git)
+      # FetchContent gives us these directly, so don't try to recompute them
+      if(NOT GIT_EXECUTABLE OR NOT GIT_VERSION_STRING)
+        unset(CMAKE_MODULE_PATH) # Use CMake builtin find module
+        find_package(Git QUIET)
+        if(NOT GIT_EXECUTABLE)
+          message(FATAL_ERROR "error: could not find git for clone of ${name}")
+        endif()
+      endif()
+
+      set(git_tag "${_YH_${_name}_TAG}")
+      if(NOT git_tag)
+        set(git_tag "master")
+      endif()
+
+      set(git_init_submodules TRUE)
+
+      set(git_remote_name "")
+      if(NOT git_remote_name)
+        set(git_remote_name "origin")
+      endif()
+
+      _ep_get_tls_version(${name} tls_version)
+      _ep_get_tls_verify(${name} tls_verify)
+      set(git_shallow  "${_YH_${_name}_SHALLOW}")
+      set(git_progress "")
+      set(git_config   "")
+
+      # If git supports it, make checkouts quiet when checking out a git hash.
+      # This avoids the very noisy detached head message.
+      if(GIT_VERSION_STRING VERSION_GREATER_EQUAL 1.7.7)
+        list(PREPEND git_config advice.detachedHead=false)
+      endif()
+
+      # The command doesn't expose any details, so we need to record additional
+      # information in the RepositoryInfo.txt file. For the download step, only
+      # the things specifically affecting the clone operation should be recorded.
+      # If the repo changes, the clone script should be run again.
+      # But if only the tag changes, avoid running the clone script again.
+      # Let the 'always' running update step checkout the new tag.
+      #
+      set(extra_repo_info
+        "repository=${git_repository}
+remote=${git_remote_name}
+init_submodules=${git_init_submodules}
+recurse_submodules=${git_submodules_recurse}
+submodules=${git_submodules}
+      ")
+      get_filename_component(src_name "${${_name}_SOURCE_DIR}" NAME)
+      get_filename_component(work_dir "${${_name}_SOURCE_DIR}" PATH)
+
+      set(clone_script ${${_name}_TMP_DIR}/${name}-gitclone.cmake)
+      _ycm_ep_write_gitclone_script(
+        ${clone_script}
+        ${source_dir}
+        ${GIT_EXECUTABLE}
+        ${git_repository}
+        ${git_tag}
+        ${git_remote_name}
+        ${git_init_submodules}
+        "${git_submodules_recurse}"
+        "${git_submodules}"
+        "${git_shallow}"
+        "${git_progress}"
+        "${git_config}"
+        ${src_name}
+        ${work_dir}
+        ${stamp_dir}/${_name}-gitinfo.txt
+        ${stamp_dir}/${_name}-gitclone-lastrun.txt
+        "${tls_version}"
+        "${tls_verify}"
+      )
+      set(comment "Performing download step (YCM's safe git clone) for '${name}'")
+      set(cmd ${CMAKE_COMMAND}
+        -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE
+        -P ${clone_script}
+      )
+
+      list(APPEND ${_name}_COMMAND_ARGS DOWNLOAD_COMMAND "${cmd}")
+    endif()
+
   elseif("${_YH_${_name}_TYPE}" STREQUAL "SVN")
     # Specific setup for SVN
     _ycm_setup_svn()
@@ -1445,9 +1636,9 @@ macro(YCM_BOOTSTRAP)
   file(READ ${YCM_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/YCMTmp/YCM-cfgcmd.txt _cmd)
   string(STRIP "${_cmd}" _cmd)
   string(REGEX REPLACE "^cmd='(.+)'" "\\1" _cmd "${_cmd}")
-  # The -DCMAKE_PREFIX_PATH in YCM-cfgcmd.txt uses | as list separator, so it is not 
-  # usable as it is when invoking CMake from the config line. As YCM during bootstrap 
-  # does not need to find any package via CMAKE_PREFIX_PATH, we just remove it 
+  # The -DCMAKE_PREFIX_PATH in YCM-cfgcmd.txt uses | as list separator, so it is not
+  # usable as it is when invoking CMake from the config line. As YCM during bootstrap
+  # does not need to find any package via CMAKE_PREFIX_PATH, we just remove it
   string(REGEX REPLACE "-DCMAKE_PREFIX_PATH:PATH=.+;-C" "-C" _cmd "${_cmd}")
   # The cache file is generated with 'file(GENERATE)', therefore it is not yet
   # available. Since we cannot use CMAKE_CACHE_ARGS or CMAKE_CACHE_DEFAULT_ARGS,
