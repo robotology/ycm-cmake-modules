@@ -874,8 +874,9 @@ function(_ycm_ep_write_gitclone_script
 
   string (REPLACE ";" " " git_clone_options "${git_clone_options}")
 
+  # Once we can require CMake >= 3.17 this can be substituted with ${CMAKE_CURRENT_FUNCTION_LIST_DIR}
   configure_file(
-    ${CMAKE_CURRENT_LIST_DIR}/YCMEPHelper/gitsafeclone.cmake.in
+    ${YCM_MODULE_DIR}/modules/YCMEPHelper/gitsafeclone.txt.in
     ${script_filename}
     @ONLY
   )
@@ -890,7 +891,7 @@ endfunction()
 function(YCM_EP_HELPER _name)
   # Adding target twice is not allowed
   if(TARGET ${_name})
-    message(WARNING "Failed to add target ${_name}. A target with the same name already exists.")
+    message(WARNING "Failed to add target ${_name}. A target with the same name already exists.!!!")
     return()
   endif()
   # Check arguments
@@ -1130,7 +1131,8 @@ function(YCM_EP_HELPER _name)
     # Specific setup for GIT
     _ycm_setup_git()
 
-    list(APPEND ${_name}_REPOSITORY_ARGS GIT_REPOSITORY ${YCM_GIT_${_YH_${_name}_STYLE}_BASE_ADDRESS}${_YH_${_name}_REPOSITORY})
+    set(git_repository ${YCM_GIT_${_YH_${_name}_STYLE}_BASE_ADDRESS}${_YH_${_name}_REPOSITORY})
+    list(APPEND ${_name}_REPOSITORY_ARGS GIT_REPOSITORY ${git_repository})
 
     if(DEFINED _YH_${_name}_TAG)
       list(APPEND ${_name}_REPOSITORY_ARGS GIT_TAG ${_YH_${_name}_TAG})
@@ -1184,8 +1186,8 @@ function(YCM_EP_HELPER _name)
         set(git_remote_name "origin")
       endif()
 
-      _ep_get_tls_version(${name} tls_version)
-      _ep_get_tls_verify(${name} tls_verify)
+      _ep_get_tls_version(${_name} tls_version)
+      _ep_get_tls_verify(${_name} tls_verify)
       set(git_shallow  "${_YH_${_name}_SHALLOW}")
       set(git_progress "")
       set(git_config   "")
@@ -1213,15 +1215,15 @@ submodules=${git_submodules}
       get_filename_component(src_name "${${_name}_SOURCE_DIR}" NAME)
       get_filename_component(work_dir "${${_name}_SOURCE_DIR}" PATH)
 
-      set(clone_script ${${_name}_TMP_DIR}/${name}-gitclone.cmake)
+      set(clone_script ${${_name}_TMP_DIR}/${_name}-gitsafeclone.cmake)
       _ycm_ep_write_gitclone_script(
         ${clone_script}
-        ${source_dir}
+        ${${_name}_SOURCE_DIR}
         ${GIT_EXECUTABLE}
         ${git_repository}
         ${git_tag}
         ${git_remote_name}
-        ${git_init_submodules}
+        "${git_init_submodules}"
         "${git_submodules_recurse}"
         "${git_submodules}"
         "${git_shallow}"
@@ -1230,7 +1232,7 @@ submodules=${git_submodules}
         ${src_name}
         ${work_dir}
         ${stamp_dir}/${_name}-gitinfo.txt
-        ${stamp_dir}/${_name}-gitclone-lastrun.txt
+        ${stamp_dir}/${_name}-gitsafeclone-lastrun.txt
         "${tls_version}"
         "${tls_verify}"
       )
