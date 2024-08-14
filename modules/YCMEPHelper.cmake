@@ -1186,8 +1186,8 @@ function(YCM_EP_HELPER _name)
         set(git_remote_name "origin")
       endif()
 
-      _ep_get_tls_version(${_name} tls_version)
-      _ep_get_tls_verify(${_name} tls_verify)
+      set(tls_version "")
+      set(tls_verify "")
       set(git_shallow  "${_YH_${_name}_SHALLOW}")
       set(git_progress "")
       set(git_config   "")
@@ -1216,6 +1216,7 @@ submodules=${git_submodules}
       get_filename_component(work_dir "${${_name}_SOURCE_DIR}" PATH)
 
       set(clone_script ${${_name}_TMP_DIR}/${_name}-gitsafeclone.cmake)
+      set(stamp_dir ${${_name}_STAMP_DIR})
       _ycm_ep_write_gitclone_script(
         ${clone_script}
         ${${_name}_SOURCE_DIR}
