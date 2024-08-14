@@ -1243,6 +1243,16 @@ submodules=${git_submodules}
         -P ${clone_script}
       )
 
+      # We use configure_file() to write the repo_info_file for compatibility
+      # with upstreams CMake's gitclone
+
+      set(repo_info_file ${stamp_dir}/${_name}-gitinfo.txt)
+      configure_file(
+        "${YCM_MODULE_DIR}/modules/YCMEPHelper/RepositoryInfo.txt.in"
+        "${repo_info_file}"
+        @ONLY
+      )
+
       list(APPEND ${_name}_COMMAND_ARGS DOWNLOAD_COMMAND "${cmd}")
     endif()
 
