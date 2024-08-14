@@ -1160,7 +1160,10 @@ function(YCM_EP_HELPER _name)
     # a git repo folder if it already exists
 
     # We do not define the custom GIT DOWNLOAD command if the outside call of YCMEPHelper already redefined it
-    if(NOT DEFINED _YH_${_name}_DOWNLOAD_COMMAND)
+    # or if we are using the vendored ExternalProject of YCM, that already redefines DOWNLOAD internally
+    get_property(_yeph_YCM_USE_CMAKE_NEXT GLOBAL PROPERTY YCM_USE_CMAKE_NEXT)
+
+    if(NOT DEFINED _YH_${_name}_DOWNLOAD_COMMAND AND NOT _yeph_YCM_USE_CMAKE_NEXT)
       # Coherently with how the gitclone command is created inside ExternalProject, we also define a CMake
       # script that defines the clone commands, and then we call it
       # This part is inspired by https://gitlab.kitware.com/cmake/cmake/-/blob/v3.30.2/Modules/ExternalProject/shared_internal_commands.cmake#L945-1034
