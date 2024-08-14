@@ -1160,7 +1160,10 @@ function(YCM_EP_HELPER _name)
     # a git repo folder if it already exists
 
     # We do not define the custom GIT DOWNLOAD command if the outside call of YCMEPHelper already redefined it
-    if(NOT DEFINED _YH_${_name}_DOWNLOAD_COMMAND)
+    # or if we are using the vendored ExternalProject of YCM, that already redefines DOWNLOAD internally
+    get_property(_yeph_YCM_USE_CMAKE_NEXT GLOBAL PROPERTY YCM_USE_CMAKE_NEXT)
+
+    if(NOT DEFINED _YH_${_name}_DOWNLOAD_COMMAND AND NOT _yeph_YCM_USE_CMAKE_NEXT)
       # Coherently with how the gitclone command is created inside ExternalProject, we also define a CMake
       # script that defines the clone commands, and then we call it
       # This part is inspired by https://gitlab.kitware.com/cmake/cmake/-/blob/v3.30.2/Modules/ExternalProject/shared_internal_commands.cmake#L945-1034
@@ -1186,8 +1189,8 @@ function(YCM_EP_HELPER _name)
         set(git_remote_name "origin")
       endif()
 
-      _ep_get_tls_version(${_name} tls_version)
-      _ep_get_tls_verify(${_name} tls_verify)
+      set(tls_version "")
+      set(tls_verify "")
       set(git_shallow  "${_YH_${_name}_SHALLOW}")
       set(git_progress "")
       set(git_config   "")
@@ -1216,6 +1219,7 @@ submodules=${git_submodules}
       get_filename_component(work_dir "${${_name}_SOURCE_DIR}" PATH)
 
       set(clone_script ${${_name}_TMP_DIR}/${_name}-gitsafeclone.cmake)
+      set(stamp_dir ${${_name}_STAMP_DIR})
       _ycm_ep_write_gitclone_script(
         ${clone_script}
         ${${_name}_SOURCE_DIR}
@@ -1240,6 +1244,16 @@ submodules=${git_submodules}
       set(cmd ${CMAKE_COMMAND}
         -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE
         -P ${clone_script}
+      )
+
+      # We use configure_file() to write the repo_info_file for compatibility
+      # with upstreams CMake's gitclone
+
+      set(repo_info_file ${stamp_dir}/${_name}-gitinfo.txt)
+      configure_file(
+        "${YCM_MODULE_DIR}/modules/YCMEPHelper/RepositoryInfo.txt.in"
+        "${repo_info_file}"
+        @ONLY
       )
 
       list(APPEND ${_name}_COMMAND_ARGS DOWNLOAD_COMMAND "${cmd}")

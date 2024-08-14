@@ -75,7 +75,7 @@ if(EXISTS "@source_dir@")
       set(number_of_tries 0)
       while(error_code AND number_of_tries LESS 3)
         execute_process(
-          COMMAND "@git_EXECUTABLE@" fetch @git_clone_options@ origin
+          COMMAND "@git_EXECUTABLE@" fetch origin
           WORKING_DIRECTORY "@work_dir@/@src_name@"
           RESULT_VARIABLE error_code
           )
