@@ -25,6 +25,10 @@ A helper for :module:`ExternalProject`::
    [PASSWORD <password>]
    [TRUST_CERT <0|1>]
   #--CMake arguments---------
+   [CMAKE_GENERATOR]
+   [CMAKE_GENERATOR_PLATFORM]
+   [CMAKE_GENERATOR_TOOLSET]
+   [CMAKE_GENERATOR_INSTANCE]
    [CMAKE_ARGS]
    [CMAKE_CACHE_ARGS]
    [CMAKE_CACHE_DEFAULT_ARGS]
@@ -912,7 +916,11 @@ function(YCM_EP_HELPER _name)
                     TEST_AFTER_INSTALL
                     TEST_EXCLUDE_FROM_MAIN
                     CONFIGURE_SOURCE_DIR # DEPRECATED Since YCM 0.10
-                    SOURCE_SUBDIR)
+                    SOURCE_SUBDIR
+                    CMAKE_GENERATOR
+                    CMAKE_GENERATOR_PLATFORM
+                    CMAKE_GENERATOR_TOOLSET
+                    CMAKE_GENERATOR_INSTANCE)
   set(_multiValueArgs CMAKE_ARGS
                       CMAKE_CACHE_ARGS
                       CMAKE_CACHE_DEFAULT_ARGS
@@ -1287,6 +1295,21 @@ submodules=${git_submodules}
     endif()
   endif()
 
+  # CMake generator parameters
+  unset(${_name}_CMAKE_GENERATOR_ARGS)
+  if(_YH_${_name}_CMAKE_GENERATOR)
+    list(APPEND ${_name}_CMAKE_GENERATOR_ARGS CMAKE_GENERATOR ${_YH_${_name}_CMAKE_GENERATOR})
+  endif()
+  if(_YH_${_name}_CMAKE_GENERATOR_PLATFORM)
+    list(APPEND ${_name}_CMAKE_GENERATOR_ARGS CMAKE_GENERATOR_PLATFORM ${_YH_${_name}_CMAKE_GENERATOR_PLATFORM})
+  endif()
+  if(_YH_${_name}_CMAKE_GENERATOR_TOOLSET)
+    list(APPEND ${_name}_CMAKE_GENERATOR_ARGS CMAKE_GENERATOR_TOOLSET ${_YH_${_name}_CMAKE_GENERATOR_TOOLSET})
+  endif()
+  if(_YH_${_name}_CMAKE_GENERATOR_INSTANCE)
+    list(APPEND ${_name}_CMAKE_GENERATOR_ARGS CMAKE_GENERATOR_INSTANCE ${_YH_${_name}_CMAKE_GENERATOR_INSTANCE})
+  endif()
+
   # Test parameters
   unset(${_name}_TEST_ARGS)
   if(_YH_${_name}_TEST_BEFORE_INSTALL)
@@ -1309,6 +1332,7 @@ submodules=${git_submodules}
   unset(${_name}_ARGS)
   foreach(_arg IN LISTS ${_name}_REPOSITORY_ARGS
                         ${_name}_DIR_ARGS
+                        ${_name}_CMAKE_GENERATOR_ARGS
                         ${_name}_ALL_CMAKE_ARGS
                         ${_name}_DEPENDS_ARGS
                         ${_name}_COMMAND_ARGS
