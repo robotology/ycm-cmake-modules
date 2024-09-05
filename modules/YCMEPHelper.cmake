@@ -12,7 +12,7 @@ A helper for :module:`ExternalProject`::
    [TYPE <type>]
    [STYLE <style>]
    [COMPONENT <component>] (default = "external")
-   [FOLDER <folder> (default = "<component>")
+   [FOLDER <folder>] (default = "<component>")
    [REPOSITORY <repo>]
    [EXCLUDE_FROM_ALL <0|1>]
   #--Git only arguments-----------
@@ -38,6 +38,7 @@ A helper for :module:`ExternalProject`::
    [PATCH_COMMAND]
    [CONFIGURE_COMMAND]
    [BUILD_COMMAND]
+   [BUILD_ALWAYS] (default = TRUE, while for ExternalProject the default is FALSE)
    [INSTALL_COMMAND]
    [TEST_COMMAND]
    [CLEAN_COMMAND] (not in ExternalProject)
@@ -920,7 +921,8 @@ function(YCM_EP_HELPER _name)
                     CMAKE_GENERATOR
                     CMAKE_GENERATOR_PLATFORM
                     CMAKE_GENERATOR_TOOLSET
-                    CMAKE_GENERATOR_INSTANCE)
+                    CMAKE_GENERATOR_INSTANCE
+                    BUILD_ALWAYS)
   set(_multiValueArgs CMAKE_ARGS
                       CMAKE_CACHE_ARGS
                       CMAKE_CACHE_DEFAULT_ARGS
@@ -1114,7 +1116,7 @@ function(YCM_EP_HELPER _name)
   endif()
 
 
-  unset(${_name}_EXTRA_ARGS})
+  unset(${_name}_EXTRA_ARGS)
   if(DEFINED _YH_${_name}_EXCLUDE_FROM_ALL)
     list(APPEND ${_name}_EXTRA_ARGS EXCLUDE_FROM_ALL ${_YH_${_name}_EXCLUDE_FROM_ALL})
   endif()
@@ -1129,6 +1131,15 @@ function(YCM_EP_HELPER _name)
   # END DEPRECATED Since YCM 0.10
   if(DEFINED _YH_${_name}_SOURCE_SUBDIR)
     list(APPEND ${_name}_EXTRA_ARGS SOURCE_SUBDIR "${_YH_${_name}_SOURCE_SUBDIR}")
+  endif()
+  if(DEFINED _YH_${_name}_BUILD_ALWAYS)
+    list(APPEND ${_name}_EXTRA_ARGS BUILD_ALWAYS ${_YH_${_name}_BUILD_ALWAYS})
+  else()
+    # By default we set BUILD_ALWAYS to ON as this is how the YCM-superbuild always behaved using the
+    # vendored ExternalProject used in YCM until 0.16.* releases, see:
+    #  * https://github.com/robotology/ycm-cmake-modules/issues/50
+    #  * https://github.com/robotology/robotology-superbuild/issues/1700
+    list(APPEND ${_name}_EXTRA_ARGS BUILD_ALWAYS ON)
   endif()
 
   # Repository dependent variables
