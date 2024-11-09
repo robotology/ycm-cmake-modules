@@ -1,18 +1,30 @@
 # SPDX-FileCopyrightText: 2012-2021 Istituto Italiano di Tecnologia (IIT)
 # SPDX-License-Identifier: BSD-3-Clause
 
+# A macro to print a warning when using deprecated variables, called by
+# variable_watch
+macro(_YCM_DEPRECATED_VARIABLE_WARNING _variable)
+  message(DEPRECATION "The ${_variable} variable is deprecated")
+endmacro()
 
 set(YCM_VERSION @YCM_VERSION@)
 set(YCM_VERSION_MAJOR @YCM_VERSION_MAJOR@)
 set(YCM_VERSION_MINOR @YCM_VERSION_MINOR@)
 set(YCM_VERSION_PATCH @YCM_VERSION_PATCH@)
 set(YCM_VERSION_REVISION @YCM_VERSION_REVISION@)
+variable_watch(YCM_VERSION_REVISION _ycm_deprecated_variable_warning)
 set(YCM_VERSION_DATE @YCM_VERSION_DATE@)
+variable_watch(YCM_VERSION_DATE _ycm_deprecated_variable_warning)
 set(YCM_VERSION_DATE_REVISION @YCM_VERSION_DATE_REVISION@)
+variable_watch(YCM_VERSION_DATE_REVISION _ycm_deprecated_variable_warning)
 set(YCM_VERSION_API @YCM_VERSION_API@)
+variable_watch(YCM_VERSION_API _ycm_deprecated_variable_warning)
 set(YCM_VERSION_SHORT @YCM_VERSION_SHORT@)
+variable_watch(YCM_VERSION_SHORT _ycm_deprecated_variable_warning)
 set(YCM_VERSION_SOURCE @YCM_VERSION_SOURCE@)
+variable_watch(YCM_VERSION_SOURCE _ycm_deprecated_variable_warning)
 set(YCM_VERSION_DIRTY @YCM_VERSION_DIRTY@)
+variable_watch(YCM_VERSION_DIRTY _ycm_deprecated_variable_warning)
 
 @PACKAGE_INIT@
 
