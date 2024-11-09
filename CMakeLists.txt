@@ -3,12 +3,18 @@
 
 
 cmake_minimum_required(VERSION 3.16)
-project(YCM NONE)
+project(YCM VERSION 0.16.10 LANGUAGES NONE)
+
+# Check if the project is the main project or included via FetchContent
+if (NOT CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+    # Project is included via FetchContent
+    include(${CMAKE_CURRENT_SOURCE_DIR}/tools/UseYCMFromSource.cmake)
+    return()
+else()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/internal-modules")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/modules")
 
-include(YCMVersion)
 include(YCMInternal)
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
