@@ -18,7 +18,7 @@ jobs:
       matrix:
         build_type: [Release]
         os: [ubuntu-latest, windows-2019, macos-latest]
-        cmake_version: ["3.16","3.18","3.21","3.23","latest"]
+        cmake_version: ["3.18","3.21","3.23","latest"]
       fail-fast: false
 
     steps:
