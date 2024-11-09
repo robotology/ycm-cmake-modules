@@ -15,6 +15,7 @@ endif()
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/internal-modules")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/modules")
 
+include(YCMVersion)
 include(YCMInternal)
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
