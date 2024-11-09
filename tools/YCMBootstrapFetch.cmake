@@ -97,11 +97,4 @@ FetchContent_Declare(YCM
                      GIT_REPOSITORY https://github.com/${YCM_FETCHCONTENT_REPOSITORY}
                      GIT_TAG ${YCM_FETCHCONTENT_TAG})
 
-FetchContent_GetProperties(YCM)
-if(NOT YCM_POPULATED)
-    message(STATUS "Fetching YCM.")
-    FetchContent_Populate(YCM)
-    # Add YCM modules in CMAKE_MODULE_PATH
-    include(${ycm_SOURCE_DIR}/tools/UseYCMFromSource.cmake)
-endif()
-
+FetchContent_MakeAvailable(YCM)
