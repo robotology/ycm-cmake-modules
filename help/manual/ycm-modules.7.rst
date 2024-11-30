@@ -79,7 +79,6 @@ Find Package Modules
    /module/FindFreenect
    /module/FindFTDI
    /module/FindFuse
-   /module/FindGLFW3
    /module/FindGLM
    /module/FindGooCanvas
    /module/FindGooCanvasMM

@@ -10,7 +10,6 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindFreenect.cmake
                      FindFTDI.cmake
                      FindFuse.cmake
-                     FindGLFW3.cmake
                      FindGLM.cmake
                      FindGooCanvas.cmake
                      FindGooCanvasMM.cmake
