@@ -79,7 +79,6 @@ Find Package Modules
    /module/FindFreenect
    /module/FindFTDI
    /module/FindFuse
-   /module/FindGLFW3
    /module/FindGLM
    /module/FindGooCanvas
    /module/FindGooCanvasMM
@@ -146,17 +145,3 @@ These modules are patched versions of the ones included in CMake.
    /module/ExternalProject
    /module/CMakeParseArguments
 
-
-
-.. _`Deprecated Modules`:
-
-Deprecated Modules
-==================
-
-.. warning:: These modules are deprecated and should not be used in new code.
-
-.. toctree::
-   :maxdepth: 1
-
-   /module/FindGLUT
-   /module/YCMDefaultDirs

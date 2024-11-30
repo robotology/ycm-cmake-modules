@@ -52,7 +52,7 @@ set(conf_copyright "Copyright 2012-2021 Istituto Italiano di Tecnologia (IIT)")
 
 set(conf_docs "${YCM_SOURCE_DIR}/help")
 set(conf_path "${CMAKE_CURRENT_SOURCE_DIR}")
-set(conf_version "${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}.${YCM_VERSION_TWEAK}")
+set(conf_version "${YCM_VERSION_MAJOR}.${YCM_VERSION_MINOR}.${YCM_VERSION_PATCH}")
 set(conf_release "${YCM_VERSION}")
 configure_file(conf.py.in conf.py @ONLY)
 
