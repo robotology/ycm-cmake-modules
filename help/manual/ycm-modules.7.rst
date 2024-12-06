@@ -82,7 +82,6 @@ Find Package Modules
    /module/FindGLM
    /module/FindGooCanvas
    /module/FindGooCanvasMM
-   /module/FindGSL
    /module/FindGtkDatabox
    /module/FindGtkDataboxMM
    /module/FindI2C
@@ -96,8 +95,6 @@ Find Package Modules
    /module/FindLibv4lconvert
    /module/FindNVIDIACg
    /module/FindODE
-   /module/FindOpenCV
-   /module/FindOpenGL
    /module/FindOpenNI
    /module/FindPLXCANAPI
    /module/FindPortAudio
