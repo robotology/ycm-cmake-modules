@@ -26,7 +26,6 @@ set(YCM_FIND_MODULES FindACE.cmake
                      FindLibv4lconvert.cmake
                      FindNVIDIACg.cmake
                      FindODE.cmake
-                     FindOpenCV.cmake
                      FindOpenNI.cmake
                      FindOpenNI2.cmake
                      FindPLXCANAPI.cmake
