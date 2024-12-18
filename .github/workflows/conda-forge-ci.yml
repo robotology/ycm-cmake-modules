@@ -104,7 +104,7 @@ jobs:
       shell: bash -l {0}
       run: |
         cd build
-        ctest --install .
+        cmake --install .
 
     - name: Integration test run a configure of the robotology-superbuild
       shell: bash -l {0}
