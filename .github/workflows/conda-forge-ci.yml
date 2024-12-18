@@ -113,4 +113,6 @@ jobs:
         cd testint
         git clone https://github.com/robotology/robotology-superbuild/
         cd robotology-superbuild/
+        git config --global user.name CI User
+        git config --global user.email ciuser@example.com
         cmake -Bbuild -S.
