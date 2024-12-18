@@ -106,7 +106,7 @@ jobs:
         cd build
         ctest --install .
 
-    - name: Integration test: run a configure of the robotology-superbuild
+    - name: Integration test run a configure of the robotology-superbuild
       shell: bash -l {0}
       run: |
         mkdir testint
