@@ -62,7 +62,7 @@ jobs:
         mkdir -p build
         cd build
         cmake -GNinja -DBUILD_TESTING:BOOL=ON -DFRAMEWORK_COMPILE_IK:BOOL=OFF \
-              -DFRAMEWORK_COMPILE_PYTHON_BINDINGS:BOOL=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} ..
+              -DFRAMEWORK_COMPILE_PYTHON_BINDINGS:BOOL=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX ..
 
     - name: Build [Linux&macOS]
       if: contains(matrix.os, 'macos') || contains(matrix.os, 'ubuntu')
@@ -84,7 +84,7 @@ jobs:
       run: |
         mkdir -p build
         cd build
-        cmake -GNinja -DBUILD_TESTING:BOOL=ON -DFRAMEWORK_COMPILE_PYTHON_BINDINGS:BOOL=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} ..
+        cmake -GNinja -DBUILD_TESTING:BOOL=ON -DFRAMEWORK_COMPILE_PYTHON_BINDINGS:BOOL=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%\Library ..
 
     - name: Build [Windows]
       if: contains(matrix.os, 'windows')
@@ -99,3 +99,20 @@ jobs:
       run: |
         cd build
         ctest --output-on-failure -C ${{ matrix.build_type }} -E "Bootstrap"
+
+    - name: Install
+      shell: bash -l {0}
+      run: |
+        cd build
+        cmake --install .
+
+    - name: Integration test run a configure of the robotology-superbuild
+      shell: bash -l {0}
+      run: |
+        mkdir testint
+        cd testint
+        git clone https://github.com/robotology/robotology-superbuild/
+        cd robotology-superbuild/
+        git config --global user.name CI User
+        git config --global user.email ciuser@example.com
+        cmake -Bbuild -S.

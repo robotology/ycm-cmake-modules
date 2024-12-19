@@ -16,6 +16,12 @@ set(YCM_MODULES AddInstallRPATHSupport.cmake
 _ycm_install(modules FILES ${YCM_MODULES}
                      DESTINATION "${YCM_INSTALL_MODULE_DIR}/modules")
 
+set(YCMEPHELPER_FILES YCMEPHelper/RepositoryInfo.txt.in
+                      YCMEPHelper/gitsafeclone.txt.in)
+
+_ycm_install(modules FILES ${YCMEPHELPER_FILES}
+                     DESTINATION "${YCM_INSTALL_MODULE_DIR}/modules/YCMEPHelper")
+
 # Print a warning if we are overriding some module from CMake
 foreach(_module IN LISTS YCM_MODULES)
   if(EXISTS "${CMAKE_ROOT}/Modules/${_module}")
