@@ -327,8 +327,8 @@ function(_YCM_SETUP_GIT)
                   RESULT_VARIABLE _error_code
                   OUTPUT_VARIABLE _output_name
                   OUTPUT_STRIP_TRAILING_WHITESPACE)
-  if(NOT NON_INTERACTIVE_BUILD AND _error_code)
-    message(FATAL_ERROR "Failed to get git name. Please set it with \"git config --global user.name Firstname Lastname\" or from your favorite git gui.")
+  if(_error_code)
+    set(_output_name "")
   endif()
 
   execute_process(COMMAND ${GIT_EXECUTABLE} config --get user.email
@@ -336,8 +336,8 @@ function(_YCM_SETUP_GIT)
                   RESULT_VARIABLE _error_code
                   OUTPUT_VARIABLE _output_email
                   OUTPUT_STRIP_TRAILING_WHITESPACE)
-  if(NOT NON_INTERACTIVE_BUILD AND _error_code)
-    message(FATAL_ERROR "Failed to get git email. Please set it with \"git config --global user.email name@example.com\" or from your favorite git gui.")
+  if(_error_code)
+    set(_output_email "")
   endif()
 
   set(YCM_GIT_COMMIT_NAME "${_output_name}" CACHE STRING "Name to use for git commits")
