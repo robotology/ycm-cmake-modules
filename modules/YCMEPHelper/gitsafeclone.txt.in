@@ -1,11 +1,11 @@
 # Based on https://gitlab.kitware.com/cmake/cmake/-/blob/v3.30.2/Modules/ExternalProject/gitclone.cmake.in
 # but with the modifications from https://github.com/robotology/ycm-cmake-modules/commit/582b5bca17c31ab511d6cba7b9a8111fc91e0e55
-# Furthermore, other modications were done to keep compatibility with 3.16
+# Furthermore, other modications were done to keep compatibility with 3.16 and avoid warnings in CMake >= 3.31
 
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
 # file Copyright.txt or https://cmake.org/licensing for details.
 
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 
 if(EXISTS "@gitclone_stampfile@" AND EXISTS "@gitclone_infofile@" AND
   "@gitclone_stampfile@" IS_NEWER_THAN "@gitclone_infofile@")
