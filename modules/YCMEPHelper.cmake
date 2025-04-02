@@ -281,6 +281,13 @@ macro(_YCM_SETUP)
     list(APPEND _YCM_EP_CMAKE_ARGS "-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=${CMAKE_EXPORT_COMPILE_COMMANDS}")
   endif()
 
+  # If CMAKE_LINKER_TYPE is defined, pass it along to sub-projects
+  # this is done, as differently from compilers, there is no environment variable that is read
+  # by cmake to specify which compiler to use
+  if(DEFINED CMAKE_LINKER_TYPE)
+    list(APPEND _YCM_EP_CMAKE_ARGS "-DCMAKE_LINKER_TYPE:PATH=${CMAKE_LINKER_TYPE}")
+  endif()
+
   # Default CMAKE_CACHE_ARGS (Initial cache, forced)
   set(_YCM_EP_CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${YCM_EP_INSTALL_DIR}") # Where to do the installation
 
