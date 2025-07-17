@@ -13,6 +13,7 @@ A helper for :module:`ExternalProject`::
    [STYLE <style>]
    [COMPONENT <component>] (default = "external")
    [FOLDER <folder>] (default = "<component>")
+   [PROJECT_FOLDER_NAME <[project_folder_name]>] (default = "<name>")
    [REPOSITORY <repo>]
    [EXCLUDE_FROM_ALL <0|1>]
   #--Git only arguments-----------
@@ -46,6 +47,12 @@ A helper for :module:`ExternalProject`::
    [TEST_BEFORE_INSTALL]
    [TEST_EXCLUDE_FROM_MAIN]
    )
+
+   The location of the source directory by default is ``${CMAKE_SOURCE_DIR}/<component>/<name>``,
+   while the build directory by default is ``${CMAKE_BINARY_DIR}/<component>/<name>``
+   The ``<component>`` folder can be overriden with the ``FOLDER`` parameter, while the name part
+   can be overriden by the ``PROJECT_FOLDER_NAME``.
+
 
  YCM_BOOTSTRAP()
 
@@ -912,6 +919,7 @@ function(YCM_EP_HELPER _name)
                     STYLE
                     COMPONENT
                     FOLDER
+                    PROJECT_FOLDER_NAME
                     EXCLUDE_FROM_ALL
                     SHALLOW     # GIT only
                     REPOSITORY  # GIT, SVN and HG
@@ -1005,14 +1013,18 @@ function(YCM_EP_HELPER _name)
     message(AUTHOR_WARNING "Using \"build\" is dangerous, you should choose another name for the folder.")
   endif()
 
+  if(NOT DEFINED _YH_${_name}_PROJECT_FOLDER_NAME)
+    set(_YH_${_name}_PROJECT_FOLDER_NAME "${_name}")
+  endif()
+
   # Generic variables
   set(${_name}_PREFIX ${CMAKE_BINARY_DIR}/${_YH_${_name}_FOLDER})
-  set(${_name}_SOURCE_DIR ${CMAKE_SOURCE_DIR}/${_YH_${_name}_FOLDER}/${_name})
+  set(${_name}_SOURCE_DIR ${CMAKE_SOURCE_DIR}/${_YH_${_name}_FOLDER}/${_YH_${_name}_PROJECT_FOLDER_NAME})
   set(${_name}_DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/${_YH_${_name}_FOLDER})
-  set(${_name}_BINARY_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_FOLDER}/${_name})
+  set(${_name}_BINARY_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_FOLDER}/${_YH_${_name}_PROJECT_FOLDER_NAME})
   set(${_name}_INSTALL_DIR ${YCM_EP_INSTALL_DIR})
-  set(${_name}_TMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_FOLDER}/${_name}${CMAKE_FILES_DIRECTORY}/YCMTmp)
-  set(${_name}_STAMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_FOLDER}/${_name}${CMAKE_FILES_DIRECTORY}/YCMStamp)
+  set(${_name}_TMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_FOLDER}/${_YH_${_name}_PROJECT_FOLDER_NAME}${CMAKE_FILES_DIRECTORY}/YCMTmp)
+  set(${_name}_STAMP_DIR ${CMAKE_BINARY_DIR}/${_YH_${_name}_FOLDER}/${_YH_${_name}_PROJECT_FOLDER_NAME}${CMAKE_FILES_DIRECTORY}/YCMStamp)
 
   set(${_name}_DIR_ARGS PREFIX ${${_name}_PREFIX}
                         SOURCE_DIR ${${_name}_SOURCE_DIR}
