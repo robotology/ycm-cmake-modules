@@ -81,13 +81,18 @@ function(run_cmake test)
       ${maybe_timeout}
       )
   else()
+    if(CMAKE_VERSION VERSION_LESS "4.0")
+      set(_RunCMake_NO_WARN_UNUSED_CLI_FLAG --no-warn-unused-cli)
+    else()
+      set(_RunCMake_NO_WARN_UNUSED_CLI_FLAG -Wno-unused-cli)
+    endif()
     execute_process(
       COMMAND ${CMAKE_COMMAND} "${RunCMake_TEST_SOURCE_DIR}"
                 -G "${RunCMake_GENERATOR}"
                 -A "${RunCMake_GENERATOR_PLATFORM}"
                 -T "${RunCMake_GENERATOR_TOOLSET}"
                 -DRunCMake_TEST=${test}
-                --no-warn-unused-cli
+                ${_RunCMake_NO_WARN_UNUSED_CLI_FLAG}
                 ${RunCMake_TEST_OPTIONS}
                 -DYCM_SOURCE_DIR=${YCM_SOURCE_DIR}
                 -DYCM_BINARY_DIR=${YCM_BINARY_DIR}

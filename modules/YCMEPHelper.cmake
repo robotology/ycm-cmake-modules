@@ -277,8 +277,14 @@ macro(_YCM_SETUP)
   string(REPLACE ";" "|" _YCM_EP_ADDITIONAL_CMAKE_ARGS "${_YCM_EP_ADDITIONAL_CMAKE_ARGS}")
   string(REPLACE " " ";" _YCM_EP_ADDITIONAL_CMAKE_ARGS "${_YCM_EP_ADDITIONAL_CMAKE_ARGS}")
 
+  if(CMAKE_VERSION VERSION_LESS "4.0")
+    set(_YCM_EP_NO_WARN_UNUSED_CLI_FLAG --no-warn-unused-cli)
+  else()
+    set(_YCM_EP_NO_WARN_UNUSED_CLI_FLAG -Wno-unused-cli)
+  endif()
+
   # Default CMAKE_ARGS (Passed to the command line)
-  set(_YCM_EP_CMAKE_ARGS "--no-warn-unused-cli"
+  set(_YCM_EP_CMAKE_ARGS "${_YCM_EP_NO_WARN_UNUSED_CLI_FLAG}"
                          "-DCMAKE_PREFIX_PATH:PATH=${_CMAKE_PREFIX_PATH}") # Path used by cmake for finding stuff
   list(APPEND _YCM_EP_CMAKE_ARGS ${_YCM_EP_ADDITIONAL_CMAKE_ARGS})
 
