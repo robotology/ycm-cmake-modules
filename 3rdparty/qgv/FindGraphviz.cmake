@@ -6,8 +6,7 @@
 #  Graphviz_INCLUDE_DIRS
 #  Graphviz_DEFINITIONS
 #
-# If pkg-config and .pc files for graphviz are found,
-# it will also define:
+# If pkg-config metadata or graphviz_version.h is available, it will also define:
 #  Graphviz_VERSION
 
 if(EXISTS "$ENV{Graphviz_ROOT}")
@@ -117,8 +116,22 @@ if( (Graphviz_GVC_PKG_VERSION VERSION_EQUAL Graphviz_CGRAPH_PKG_VERSION) AND
   set(Graphviz_VERSION ${Graphviz_GVC_PKG_VERSION})
 endif()
 
+# pkg-config may be unavailable, in particular on Windows. Read the version
+# from the installed headers so consumers can still select the correct API.
+if(NOT Graphviz_VERSION AND EXISTS "${Graphviz_INCLUDE_DIR}/graphviz_version.h")
+  file(STRINGS "${Graphviz_INCLUDE_DIR}/graphviz_version.h" _Graphviz_VERSION_LINE
+       REGEX "^#[ \t]*define[ \t]+PACKAGE_VERSION[ \t]+\"[^\"]+\""
+       LIMIT_COUNT 1)
+  if(_Graphviz_VERSION_LINE)
+    string(REGEX REPLACE "^[^\"]*\"([^\"]+)\".*" "\\1"
+           Graphviz_VERSION "${_Graphviz_VERSION_LINE}")
+  endif()
+  unset(_Graphviz_VERSION_LINE)
+endif()
+
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Graphviz
                                   FOUND_VAR Graphviz_FOUND
                                   REQUIRED_VARS Graphviz_LIBRARIES
-                                                Graphviz_INCLUDE_DIRS)
+                                                Graphviz_INCLUDE_DIRS
+                                  VERSION_VAR Graphviz_VERSION)
